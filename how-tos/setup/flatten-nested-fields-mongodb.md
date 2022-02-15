@@ -12,7 +12,7 @@ By default, Forest Admin will use [JSON widgets](https://docs.forestadmin.com/do
 
 In order to be able to display each field separately, you can flatten the sub-document.‌
 
-![](<../../.gitbook/assets/image (529).png>)
+![](<../../.gitbook/assets/image (529) (1).png>)
 
 ## Configuring the fields to flatten <a href="#configuring-the-fields-to-flatten" id="configuring-the-fields-to-flatten"></a>
 
