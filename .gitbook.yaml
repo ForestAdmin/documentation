@@ -1,0 +1,4 @@
+root: ./
+
+redirects:  
+    previous/page: new-folder/page.md
