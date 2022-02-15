@@ -697,7 +697,7 @@ Here are the list of available options to customize your Smart Field:
 | type        | string           | Type of your field. Can be `Boolean`, `Date`, `Json`,`Dateonly`, `Enum`, `File`, `Number, ['String']` or `String` .            |
 | enums       | array of strings | (optional) Required only for the `Enum` type. This is where you list all the possible values for your input field.             |
 | description | string           | (optional) Add a description to your field.                                                                                    |
-| reference   | string           | (optional) Configure the Smart Field as a [Smart Relationship](../relationships/#what-is-a-smart-relationship).                |
+| reference   | string           | (optional) Configure the Smart Field as a [Smart Relationship](../models/relationships/#what-is-a-smart-relationship).         |
 | isReadOnly  | boolean          | (optional) If `true`, the Smart Field won’t be editable in the browser. Default is `true` if there’s no `set` option declared. |
 | isRequired  | boolean          | (optional) If true, your Smart Field will be set as required in the browser. Default is false.                                 |
 

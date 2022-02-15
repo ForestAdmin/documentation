@@ -8,7 +8,7 @@ Sometimes, you want to create a virtual relationship between two set of data tha
 
 On the Live Demo example, we have an **order** which `belongsTo` a **customer** which `belongsTo` a **delivery address**. We’ve created here a BelongsTo Smart Relationship that acts like a shortcut between the **order** and the **delivery address**.
 
-A BelongsTo Smart Relationship is created like a [Smart Field](../../smart-fields/#what-is-a-smart-field) with the `reference` option to indicate on which collection the Smart Relationship points to. You will also need to code the logic of the search query.
+A BelongsTo Smart Relationship is created like a [Smart Field](../../../smart-fields/#what-is-a-smart-field) with the `reference` option to indicate on which collection the Smart Relationship points to. You will also need to code the logic of the search query.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -135,7 +135,7 @@ Collection.register(OrderForest, Order)
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.00.28.png>)
+![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.00.28.png>)
 
 ### Create a HasMany Smart Relationship <a href="#creating-a-hasmany-smart-relationship" id="creating-a-hasmany-smart-relationship"></a>
 
@@ -535,4 +535,4 @@ Finally, you don’t have to serialize the data yourself. The Forest Liana alrea
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.02.40.png>)
+![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.02.40.png>)

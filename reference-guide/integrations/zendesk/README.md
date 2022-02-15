@@ -2,7 +2,7 @@
 
 For this example we will use the Zendesk API described [here](https://developer.zendesk.com/rest\_api/docs/support/introduction).&#x20;
 
-We are going to use [Smart Collections](../../smart-collections/), [Smart Relationships](../../relationships/create-a-smart-relationship/), and [Smart Fields](../../smart-fields/) to implement such integration.
+We are going to use [Smart Collections](../../smart-collections/), [Smart Relationships](../../models/relationships/create-a-smart-relationship/), and [Smart Fields](../../smart-fields/) to implement such integration.
 
 ![](<../../../.gitbook/assets/image (481).png>)
 

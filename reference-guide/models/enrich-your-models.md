@@ -48,7 +48,7 @@ New **relationships** may be added there:
   };
 ```
 
-You can learn more about relationships on this [dedicated page](../relationships/).
+You can learn more about relationships on this [dedicated page](relationships/).
 {% endtab %}
 
 {% tab title="Mongodb" %}
@@ -77,7 +77,7 @@ New **relationships** are to be added as properties:
   'customer_id': { type: mongoose.Schema.Types.ObjectId, ref: 'customers' },
 ```
 
-You can learn more about relationships on this [dedicated page](../relationships/).
+You can learn more about relationships on this [dedicated page](relationships/).
 {% endtab %}
 {% endtabs %}
 

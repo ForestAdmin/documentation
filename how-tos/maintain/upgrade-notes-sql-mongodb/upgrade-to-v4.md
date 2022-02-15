@@ -197,7 +197,7 @@ For consistency reasons, `contains`, `starts with` and `ends with` operators are
 
 #### Smart relationships reference syntax
 
-If you had a `reference` property in a [Smart relationship](../../../reference-guide/relationships/create-a-smart-relationship/#creating-a-belongsto-smart-relationship) you implemented, the syntax has changed:
+If you had a `reference` property in a [Smart relationship](../../../reference-guide/models/relationships/create-a-smart-relationship/#creating-a-belongsto-smart-relationship) you implemented, the syntax has changed:
 
 {% code title="Before (v3)" %}
 ```javascript
