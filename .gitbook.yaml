@@ -2,3 +2,6 @@ root: ./
 
 redirects:  
     reference-guide/fields/create-and-manage-smart-fields: reference-guide/smart-fields/README.md
+    reference-guide/collections/create-a-smart-collection: reference-guide/smart-collections/README.md
+    reference-guide/views/create-and-manage-smart-views: reference-guide/smart-views/README.md
+    reference-guide/segments/smart-segments: reference-guide/smart-segments/README.md
