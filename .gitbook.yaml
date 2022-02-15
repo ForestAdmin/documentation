@@ -5,3 +5,4 @@ redirects:
     reference-guide/collections/create-a-smart-collection: reference-guide/smart-collections/README.md
     reference-guide/views/create-and-manage-smart-views: reference-guide/smart-views/README.md
     reference-guide/segments/smart-segments: reference-guide/smart-segments/README.md
+    reference-guide/relationships/create-a-smart-relationship: reference-guide/models/relationships/create-a-smart-relationship/README.md
