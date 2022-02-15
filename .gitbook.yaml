@@ -1,4 +1,4 @@
 root: ./
 
 redirects:  
-    previous/page: new-folder/page.md
+    reference-guide/fields/create-and-manage-smart-fields: reference-guide/smart-fields/README.md
