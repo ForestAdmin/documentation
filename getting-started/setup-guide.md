@@ -23,11 +23,18 @@ At the end of your onboarding, you will **out-of-the-box** be able to:
 
 ![](<../.gitbook/assets/image (547).png>)
 
+However, your business logic likely requires more features. What if you need to...
+
+* refund an order
+* upload new documents, accept or reject them, or ask customers to update their documents,
+* contact a customer or ask a team member to perform an action,
+* and much more?
+
+It's possible with **smart actions** :point\_down:
+
 ### Step 2: Create a Smart Action
 
-What if - to operate your business - you need to **refund an order**?
-
-Let's create a _Smart Action_ for that!&#x20;
+Let's say you want to let your customer support team to easily refund orders, you can quickly create a smart action.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -213,6 +220,10 @@ You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md)
 {% endhint %}
 {% endtab %}
 {% endtabs %}
+
+{% hint style="success" %}
+Congrats! Now it's possible to refund an order!
+{% endhint %}
 
 ![](<../.gitbook/assets/image (531).png>)
 
