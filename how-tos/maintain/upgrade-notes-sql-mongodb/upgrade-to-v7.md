@@ -31,7 +31,7 @@ To upgrade to v7, simply run:
 {% tabs %}
 {% tab title="SQL" %}
 ```bash
-npm install forest-express-sequelize@^7.0.0
+npm install forest-express-sequelize@^7.12.3
 ```
 {% endtab %}
 
