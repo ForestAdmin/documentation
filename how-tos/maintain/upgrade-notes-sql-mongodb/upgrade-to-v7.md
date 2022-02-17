@@ -37,7 +37,7 @@ npm install forest-express-sequelize@^7.12.3
 
 {% tab title="Mongodb" %}
 ```bash
-npm install forest-express-mongoose@^7.0.0
+npm install forest-express-mongoose@^7.9.2
 ```
 {% endtab %}
 {% endtabs %}
