@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-* [Quickstart](getting-started/setup-guide.md)
+* [Quick start](getting-started/setup-guide.md)
 * [Development workflow](getting-started/development-workflow.md)
 
 ## Reference Guide
