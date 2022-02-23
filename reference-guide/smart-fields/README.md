@@ -702,7 +702,7 @@ Here are the list of available options to customize your Smart Field:
 | isRequired  | boolean          | (optional) If true, your Smart Field will be set as required in the browser. Default is false.                                 |
 
 {% hint style="info" %}
-You can define a widget for a smart field from the [settings of your collection](https://docs.forestadmin.com/documentation/reference-guide/fields/customize-your-fields#basic-settings).
+You can define a widget for a smart field from the [settings of your collection](https://docs.forestadmin.com/user-guide/collections/customize-your-fields).
 {% endhint %}
 
 ### Optimize Smart Field performance <a href="#createadvancedsmartfield" id="createadvancedsmartfield"></a>
