@@ -1,45 +1,96 @@
 # Install
 
-Start your installation on [forestadmin.com](https://www.forestadmin.com), by clicking "Install Forest Admin":
+Forest Admin is a low-code internal tool solution that scales with your project. With 30+ out-of-the-box tools and pre-built UI components, you can ship an admin panel in a few minutes, and then easily customise it to meet your specific business logic. Thanks to the layout editor, non-technical team members can adjust the UI to their needs.&#x20;
 
-![](<../../.gitbook/assets/Capture d’écran 2021-01-19 à 11.29.50.png>)
+Forest Admin has a unique hybrid architecture - only the frontend is managed on Forest Admin servers, which gives you the flexibility of a SaaS tool without compromising on data security.
 
-You'll be taken to a sign-up form to create your account:
+## Requirements
 
-![](<../../.gitbook/assets/image (394).png>)
+* A local or remote working database (non empty)&#x20;
 
-... and project:
+or&#x20;
 
-![](<../../.gitbook/assets/image (395).png>)
+* An existing app (Django, Rails or Express with Sequelize and Mongoose)
+* NPM or Docker installed
+* Browser Support: we highly recommend Google Chrome or Firefox
 
-You may then choose between several types of datasources:
+Once you start [creating a project](https://app.forestadmin.com/new-project), you will be able to choose a datasource, the source of the data your admin panel will use.
 
-![](<../../.gitbook/assets/image (396).png>)
+Forest Admin can be implemented in two very different ways :&#x20;
 
-* **Rails**, **Express/Sequelize** and **Express/Mongoose** will install Forest Admin directly into your app
-* **PostgreSQL**, **MySQL**, **MicrosoftSQL** and **MongoDB** will generate an independent admin backend
+* Using an existing app: integrate Forest Admin into your Ruby on Rails, Django, Node.js app with Express (and Sequelize ORM or Mongoose ORM).
+* As a dedicated app: create a dedicated app directly linked to your PostgreSQL, MySQL, Microsoft SQL Server or MongoDB database.&#x20;
+
+At Forest Admin, if you have the choice, we recommend integrating in an existing app as it is easier to maintain.
+
+### Install Forest Admin using an existing app
+
+At the moment, we are supporting:&#x20;
+
+* Ruby on Rails app
+* Django project
+* Node.js app with Express and Sequelize ORM
+* Node.js app with Express and Mongoose ORM
+
+#### Install Forest Admin using an existing Ruby on Rails app&#x20;
+
+Requirements: Your Rails app must be version 4 or above.
+
+You are asked to provide the URL of your application that runs locally. When you follow the steps and integrate the gems, you should automatically be redirected to your admin panel!
+
+#### Install Forest Admin using an existing Django app&#x20;
+
+Requirements:&#x20;
+
+* Python version should be between 3.6 and 3.10.
+* Django version must be 3.2 or higher.
+
+You are asked to provide the URL of your project that runs locally. When you follow the steps, add our app to your installed apps, and set up your agent, you should automatically be redirected to your admin panel!
+
+#### Install Forest Admin using an existing Node.js app with Express &#x20;
+
+Requirements:&#x20;
+
+* Using Sequelize or Mongoose ORM
+* Sequelize version must be 5.21 or higher
+* Mongoose version must be 5 or higher
+* Express version must be 4.17.3 or higher
+
+You are asked to provide the URL of your application that runs locally. When you follow the steps, you should automatically be redirected to your admin panel!
+
+### Troubleshooting&#x20;
+
+In case of an error, you can consult the [troubleshooting page](troubleshooting.md) or ask in the Community forum.
 
 ### Install using a database as your datasource
 
-**TLDR**: Check out our video to see how to install Forest Admin using a database as a datasource in under 2 minutes. Otherwise, read on below the video!
+At the moment, we are supporting:&#x20;
 
-{% embed url="https://www.youtube.com/watch?v=8ajGzG8QGn0&feature=youtu.be&ab_channel=ForestAdmin" %}
+* PostgreSQL
+* MySQL
+* Microsoft SQL Server
+* MongoDB&#x20;
 
-Next step asks you for your database credentials to help us generate the installation command you'll run on last step:
+When choosing one of these databases, you will be prompted to enter your database credentials. Your database credentials never leave the browser, they are only used to generate the environment variables in the setup instructions for the next step.
 
-![](<../../.gitbook/assets/image (397).png>)
+It is possible to use a local or remote database, but note that this database will be used with your Development environment.
 
-{% hint style="info" %}
-You can use a local or remote database, but note that this database will be used with your _Development_ environment.&#x20;
-{% endhint %}
+It is possible to skip the authentication in the browser and use directly the CLI to authenticate.&#x20;
 
-Next, choose an installation method (NPM or Docker) and paste the commands in your terminal:
-
-![](<../../.gitbook/assets/Capture d’écran 2021-01-19 à 11.53.59.png>)
-
-#### Available installation options for the above step
+Then, you will be able to create and connect your admin backend, with the following options.
 
 {% tabs %}
+{% tab title="NPM / Yarn" %}
+| Option                   | Description                                      |
+| ------------------------ | ------------------------------------------------ |
+| `-c, --connection-url`   | The database credentials with a connection URL.  |
+| `-S, --ssl`              | Use SSL for database connection (true \| false). |
+| `-s, --schema`           | Your database schema.                            |
+| `-H, --application-host` | Hostname of your admin backend application.      |
+| `-p, --application-port` | Port of your admin backend application.          |
+| `-h, --help`             | Output usage information.                        |
+{% endtab %}
+
 {% tab title="Docker" %}
 | Option             | Description                                                                                                                                                           |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,74 +103,11 @@ Next, choose an installation method (NPM or Docker) and paste the commands in yo
 | `FOREST_TOKEN`     | Your Forest Admin account token.                                                                                                                                      |
 | `FOREST_PASSWORD`  | Your Forest Admin account password. Although not recommended, you can use this instead of `FOREST_TOKEN`. Wrap it in double quotes if it contains special characters. |
 {% endtab %}
-
-{% tab title="NPM" %}
-| Option                   | Description                                      |
-| ------------------------ | ------------------------------------------------ |
-| `-c, --connection-url`   | The database credentials with a connection URL.  |
-| `-S, --ssl`              | Use SSL for database connection (true \| false). |
-| `-s, --schema`           | Your database schema.                            |
-| `-H, --application-host` | Hostname of your admin backend application.      |
-| `-p, --application-port` | Port of your admin backend application.          |
-| `-h, --help`             | Output usage information.                        |
-{% endtab %}
 {% endtabs %}
-
-### Install using a Rails app as your datasource
-
-To install Forest Admin within your existing Rails app, we'll need your local app URL to detect when your app is successfully running with Forest Admin in it:
-
-![](<../../.gitbook/assets/image (400).png>)
-
-Then run the following commands:
-
-![](<../../.gitbook/assets/image (401).png>)
-
-When you're done, we should automatically detect it (thanks to the URL you provided) and redirect you to your admin panel!
-
-### Install using a Express/Sequelize app as your datasource
-
-To install Forest Admin within your existing Express/Sequelize app, we'll need your local app URL to detect when your app is successfully running with Forest Admin in it:
-
-![](<../../.gitbook/assets/image (447).png>)
-
-Then run the following commands:
-
-![](<../../.gitbook/assets/image (448).png>)
-
-When you're done, we should automatically detect it (thanks to the URL you provided) and redirect you to your admin panel!
-
-### Install using a Express/Mongoose app as your datasource
-
-To install Forest Admin within your existing Express/Mongoose app, we'll need your local app URL to detect when your app is successfully running with Forest Admin in it:
-
-![](<../../.gitbook/assets/image (450).png>)
-
-Then run the following commands:
-
-![](<../../.gitbook/assets/image (452).png>)
-
-When you're done, we should automatically detect it (thanks to the URL you provided) and redirect you to your admin panel!
-
-### Install using Django as your datasource
-
-To install Forest Admin within your existing Django project, we'll need your local app URL to detect when your project is successfully running with Forest Admin in it:
-
-![](<../../.gitbook/assets/image (476).png>)
-
-Then install the django-forestadmin app (preferably in a python virtual environment) and add the following given settings.
-
-![](<../../.gitbook/assets/image (542).png>)
-
-When you're done, we should automatically detect it (thanks to the URL you provided) and redirect you to your admin panel!
 
 ### Help us get better!
 
-Finally, when your local server is started, you should be automatically redirected:
-
-![](<../../.gitbook/assets/image (321).png>)
-
-Rate us so we can improve, then **go to your newly created admin panel** 🎉
+Finally, when your local server is started, you should be automatically redirected to a satisfaction form. Rate us so we can improve, then **go to your newly created admin panel** 🎉
 
 {% hint style="info" %}
 If you installed using a local database, your generated admin backend will have[`http://localhost:3310`](http://localhost:3310) as an endpoint (Notice the HTTP protocol).\

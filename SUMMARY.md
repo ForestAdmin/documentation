@@ -124,6 +124,7 @@
 
 * [Setup](how-tos/setup/README.md)
   * [Install](how-tos/setup/install.md)
+  * [Troubleshooting](how-tos/setup/troubleshooting.md)
   * [Prevent permission errors at installation](how-tos/setup/prevent-permission-errors-at-installation.md)
   * [Deploy your admin backend on Heroku](how-tos/setup/deploy-to-production-on-heroku.md)
   * [Deploy your admin backend to Ubuntu server](how-tos/setup/deploy-to-production-to-ubuntu-server.md)
