@@ -40,6 +40,43 @@ Having Relationship fields can decrease your performance, especially if your tab
 
 To optimize your smart field performances, please check out [this section](smart-fields/#createadvancedsmartfield).
 
+### Disable pagination count
+
+{% hint style="warning" %}
+This feature is only available if you're using the `forest-express-sequelize (v8.5.2+)` or `forest-express-mongoose` (v8.6.4+) agent.
+{% endhint %}
+
+To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
+
+In certain conditions, usually when your database reaches a point where it has a lot of records, this request can decrease your loading performance. In this case, you can choose to disable it by adding the `deactivateCountMiddleware` like so:
+
+{% code title="/routes/books.js" %}
+```javascript
+const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('forest-express-sequelize');
+
+...
+
+// Get a number of Books
+router.get('/books/count', deactivateCountMiddleware, (request, response, next) => {
+  next();
+});
+```
+{% endcode %}
+
+To disable the count request in the table of a relationship (Related data section):
+
+{% code title="/routes/books.js" %}
+```javascript
+router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware, (request, response, next) => {
+  next();
+});
+```
+{% endcode %}
+
+{% hint style="info" %}
+Note that the middleware allows you to disable the pagination count request only for specific collections, allowing you to target only slow collections.
+{% endhint %}
+
 ### Database Indexing
 
 **Indexes** are a powerful tool used in the background of a database to speed up querying. It power queries by providing a method to quickly lookup the requested data. As Forest Admin generates SQL queries to fetch your data, creating indexes can improve the query response time.
