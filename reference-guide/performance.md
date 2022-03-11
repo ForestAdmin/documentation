@@ -43,7 +43,7 @@ To optimize your smart field performances, please check out [this section](smart
 ### Disable pagination count
 
 {% hint style="warning" %}
-This feature is only available if you're using the `forest-express-sequelize (v8.5.2+)` or `forest-express-mongoose` (v8.6.4+) agent.
+This feature is only available if you're using the `forest-express-sequelize (v8.5.3+)` or `forest-express-mongoose` (v8.6.5+) agent.
 {% endhint %}
 
 To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
@@ -57,9 +57,7 @@ const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('fore
 ...
 
 // Get a number of Books
-router.get('/books/count', deactivateCountMiddleware, (request, response, next) => {
-  next();
-});
+router.get('/books/count', deactivateCountMiddleware);
 ```
 {% endcode %}
 
@@ -67,8 +65,21 @@ To disable the count request in the table of a relationship (Related data sectio
 
 {% code title="/routes/books.js" %}
 ```javascript
-router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware, (request, response, next) => {
-  next();
+router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
+```
+{% endcode %}
+
+You can also disable the count request in a collection only in certain conditions. For instance, you can disable the count if you're using a filter:
+
+{% code title="/routes/books.js" %}
+```javascript
+// Get a number of Books when you have a filter
+router.get('/books/count', (request, response, next) => {
+  if (request.query.filters) {
+    next(); // count will be done
+  } else {
+    deactivateCountMiddleware(request, response);
+  }
 });
 ```
 {% endcode %}
