@@ -73,10 +73,6 @@ router.get('/books/:recordId/relationships/companies/count', deactivateCountMidd
 ```
 {% endcode %}
 
-{% hint style="info" %}
-Note that the middleware allows you to disable the pagination count request only for specific collections, allowing you to target only slow collections.
-{% endhint %}
-
 ### Database Indexing
 
 **Indexes** are a powerful tool used in the background of a database to speed up querying. It power queries by providing a method to quickly lookup the requested data. As Forest Admin generates SQL queries to fetch your data, creating indexes can improve the query response time.
