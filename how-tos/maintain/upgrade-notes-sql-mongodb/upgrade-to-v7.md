@@ -78,7 +78,7 @@ const { objectMapping, connections } = require('../models');
 
 module.exports = async function forestadmin(app) {
   app.use(await Liana.init({
-    // remove configDir: path.join(__dirname, '../forest'),
+    configDir: path.join(__dirname, '../forest'),
     envSecret: process.env.FOREST_ENV_SECRET,
     authSecret: process.env.FOREST_AUTH_SECRET,
     objectMapping,
