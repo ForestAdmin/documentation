@@ -120,7 +120,7 @@ You can see how that snippet fits into your code in the [model example](enrich-y
 ### Managing nested documents in Mongoose
 
 {% hint style="info" %}
-For a better user experience, you can [Flatten nested fields](../../how-tos/setup/flatten-nested-fields-mongodb.md)
+For a better user experience, you can [Flatten nested fields](../../how-tos/setup/flatten-nested-fields-mongodb.md).
 {% endhint %}
 
 Lumber introspects your data structure recursively, so _**nested fields**_ (object in object) are detected any level deep. Your **sub-documents** (array of nested fields) are detected as well.
