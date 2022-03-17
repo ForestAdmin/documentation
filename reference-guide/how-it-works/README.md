@@ -31,10 +31,6 @@ It includes an API allowing to **translate calls made from the Forest Admin UI i
 
 It also provides the Forest Admin servers with the information needed to build the User Interface (the **Forest Admin Schema**). This information includes table names, column names and types, and relationships. It is sent when you run your Admin Backend [within a file called `forestadmin-schema.json`](../models/#the-forestadmin-schema-json-file).
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
 ## Data Privacy
 
 When logging into the **Forest Admin UI** in your browser, you will connect to:
