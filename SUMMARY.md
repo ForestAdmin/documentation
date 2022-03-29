@@ -132,6 +132,7 @@
   * [Install Forest Admin on a remote machine](how-tos/setup/install-forest-admin-on-a-remote-machine.md)
   * [Use Forest Admin with a read-only database](how-tos/setup/use-forest-admin-with-a-read-only-database.md)
   * [Configuring CORS headers](how-tos/setup/configuring-cors-headers.md)
+  * [Running Forest Admin on multiple servers](how-tos/setup/running-forest-admin-on-multiple-servers.md)
   * [Flatten nested fields (MongoDB)](how-tos/setup/flatten-nested-fields-mongodb.md)
 * [Upgrade](how-tos/maintain/README.md)
   * [Upgrade notes (Rails)](how-tos/maintain/upgrade-notes-rails/README.md)
