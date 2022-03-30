@@ -48,7 +48,11 @@ This feature is only available if you're using the `forest-express-sequelize (v8
 
 To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
 
-In certain conditions, usually when your database reaches a point where it has a lot of records, this request can decrease your loading performance. In this case, you can choose to disable it by adding the `deactivateCountMiddleware` like so:
+In certain conditions, usually when your database reaches a point where it has a lot of records, this request can decrease your loading performance. In this case, you can choose to disable it...
+
+{% tabs %}
+{% tab title="SQL" %}
+* adding the `deactivateCountMiddleware` like so:
 
 {% code title="/routes/books.js" %}
 ```javascript
@@ -60,6 +64,50 @@ const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('fore
 router.get('/books/count', deactivateCountMiddleware);
 ```
 {% endcode %}
+{% endtab %}
+
+{% tab title="Mongodb" %}
+* adding the `deactivateCountMiddleware` like so:
+
+{% code title="/routes/books.js" %}
+```javascript
+const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('forest-express-sequelize');
+
+...
+
+// Get a number of Books
+router.get('/books/count', deactivateCountMiddleware);
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Rails" %}
+* creating a controller in the repository `lib/forest_liana/controllers` for override the count action
+
+```ruby
+class Forest::BooksController < ForestLiana::ResourcesController
+  def count
+    if (params[:filters])
+      params[:collection] = 'Book'
+      super
+    else
+      deactivate_count_response
+    end
+  end
+end
+```
+
+
+
+* adding a route in `app/config/routes.rb` before `mount ForestLiana::Engine => '/forest'`
+
+```ruby
+namespace :forest do
+    get '/Book/count' , to: 'books#count'
+end
+```
+{% endtab %}
+{% endtabs %}
 
 To disable the count request in the table of a relationship (Related data section):
 
@@ -71,6 +119,8 @@ router.get('/books/:recordId/relationships/companies/count', deactivateCountMidd
 
 You can also disable the count request in a collection only in certain conditions. For instance, you can disable the count if you're using a filter:
 
+{% tabs %}
+{% tab title="SQL" %}
 {% code title="/routes/books.js" %}
 ```javascript
 // Get a number of Books when you have a filter
@@ -83,9 +133,38 @@ router.get('/books/count', (request, response, next) => {
 });
 ```
 {% endcode %}
+{% endtab %}
+
+{% tab title="Mongodb" %}
+{% code title="/routes/books.js" %}
+```javascript
+// Get a number of Books when you have a filter
+router.get('/books/count', (request, response, next) => {
+  if (request.query.filters) {
+    next(); // count will be done
+  } else {
+    deactivateCountMiddleware(request, response);
+  }
+});
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Rails" %}
+```ruby
+class Forest::BooksController < ForestLiana::ResourcesController
+  def count
+    TODO
+  end
+end
+```
+{% endtab %}
+{% endtabs %}
 
 One more example: you may want to deactivate the pagination count request for a specific team:
 
+{% tabs %}
+{% tab title="SQL" %}
 ```javascript
 router.get('/books/count', (request, response, next) => {
   // Count is deactivated for the Operations team
@@ -97,6 +176,37 @@ router.get('/books/count', (request, response, next) => {
   }
 });
 ```
+{% endtab %}
+
+{% tab title="Mongodb" %}
+```javascript
+router.get('/books/count', (request, response, next) => {
+  // Count is deactivated for the Operations team
+  if (request.user.team === 'Operations') {
+    deactivateCountMiddleware(request, response);
+  // Count is made for all other teams
+  } else {
+    next();
+  }
+});
+```
+{% endtab %}
+
+{% tab title="Rails" %}
+```ruby
+class Forest::BooksController < ForestLiana::ResourcesController
+  def count
+    if forest_user['team'] == 'Operations'
+      deactivate_count_response
+    else
+      params[:collection] = 'Book'
+      super
+    end
+  end
+end
+```
+{% endtab %}
+{% endtabs %}
 
 ### Database Indexing
 
