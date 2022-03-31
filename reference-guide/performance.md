@@ -106,11 +106,27 @@ end
 
 To disable the count request in the table of a relationship (Related data section):
 
+{% tabs %}
+{% tab title="SQL" %}
 {% code title="/routes/books.js" %}
 ```javascript
 router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
 ```
 {% endcode %}
+{% endtab %}
+
+{% tab title="Mongodb" %}
+{% code title="/routes/books.js" %}
+```javascript
+router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Rails" %}
+?
+{% endtab %}
+{% endtabs %}
 
 You can also disable the count request in a collection only in certain conditions. For instance, you can disable the count if you're using a filter:
 
