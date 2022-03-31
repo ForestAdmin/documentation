@@ -124,7 +124,25 @@ router.get('/books/:recordId/relationships/companies/count', deactivateCountMidd
 {% endtab %}
 
 {% tab title="Rails" %}
-?
+```ruby
+class Forest::BookCompaniesController < ForestLiana::AssociationsController
+  def count
+      if (params[:search])
+        params[:collection] = 'Book'
+        params[:association_name] = 'company'
+        super
+      else
+        deactivate_count_response
+    end
+  end
+end
+```
+
+```ruby
+namespace :forest do
+    get '/Book/:id/relationships/companies/count' , to: 'book_companies#count'
+end
+```
 {% endtab %}
 {% endtabs %}
 
