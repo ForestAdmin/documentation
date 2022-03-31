@@ -63,7 +63,6 @@
   * [Examples](reference-guide/smart-collections/examples/README.md)
     * [Create a Smart Collection with Amazon S3](reference-guide/smart-collections/examples/amazon-s3-integration-example.md)
     * [Smart relationship between model and stripe cards](reference-guide/smart-collections/examples/smart-relationship-between-model-and-stripe-cards.md)
-    * [Display and edit MongoDB array as virtual collection](reference-guide/smart-collections/examples/display-and-edit-mongodb-array-as-virtual-collection.md)
     * [Create records from a Smart collection](reference-guide/smart-collections/examples/create-records-from-a-smart-collection.md)
     * [Searchable smart collection with records fetched from hubspot API](reference-guide/smart-collections/examples/searchable-smart-collection-with-records-fetched-from-hubspot-api.md)
   * [Serializing your records](reference-guide/smart-collections/serializing-your-records.md)
