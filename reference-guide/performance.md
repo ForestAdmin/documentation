@@ -87,12 +87,7 @@ router.get('/books/count', deactivateCountMiddleware);
 ```ruby
 class Forest::BooksController < ForestLiana::ResourcesController
   def count
-    if (params[:filters])
-      params[:collection] = 'Book'
-      super
-    else
-      deactivate_count_response
-    end
+    deactivate_count_response
   end
 end
 ```
@@ -154,7 +149,12 @@ router.get('/books/count', (request, response, next) => {
 ```ruby
 class Forest::BooksController < ForestLiana::ResourcesController
   def count
-    TODO
+    if (params[:filters])
+      params[:collection] = 'Book'
+      super
+    else
+      deactivate_count_response
+    end
   end
 end
 ```
