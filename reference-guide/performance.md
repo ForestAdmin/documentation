@@ -43,7 +43,7 @@ To optimize your smart field performances, please check out [this section](smart
 ### Disable pagination count
 
 {% hint style="warning" %}
-This feature is only available if you're using the `forest-express-sequelize (v8.5.3+)` or `forest-express-mongoose` (v8.6.5+) agent.
+This feature is only available if you're using the `forest-express-sequelize (v8.5.3+),` `forest-express-mongoose` (v8.6.5+), or `forest-rails` (v7.5.0+) agent.
 {% endhint %}
 
 To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
