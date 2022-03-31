@@ -10,8 +10,69 @@ The objective is to implement scopes on all tables, filtering on`companies` to m
 
 ### **Step 1: Create a smart field and the filter for the `users` table**
 
-lib/forest\_liana/collections/user.rb
+{% tabs %}
+{% tab title="SQL" %}
+{% code title="forest/users.js" %}
+```javascript
+const { collection } = require('forest-express-sequelize');
+const { users, departments, companies } = require('../models');                          
+const models = require('../models');
+const { Op } = models.objectMapping;
 
+
+collection('users', {
+  actions: [],
+  fields: [    {
+    field: 'company name',
+    isFilterable: true,
+    type: 'String',
+    get: async user => {
+      //We are looking for the company name of the user (user belongs to a department that belongs to a company)
+      const company = await companies.findOne({
+        attributes: ['name'],
+        include: {
+          required: true,
+          model: departments,
+          where: { id: user.departmentId },
+        }
+      });
+
+      return company.name
+    },
+    filter: async ({ condition: { value, operator } }) => {
+
+      switch (operator) {
+        case 'equal':
+          //We are looking for all the users ids that have a company name equal to the condition value
+          const queryToFindUsers = await users
+            .findAll({
+                attributes: ['id'],
+                include: [{
+                  required: true,
+                  model: departments,
+                  include: [{
+                      required: true,
+                      model: companies,
+                      where: { name: { [Op.eq]: value } },
+                  }]
+                }],
+	        });
+          //We map this array of objects to retrieve the user ids
+          const userIds = queryToFindUsers.map(user => user.id);
+          return { id: { [Op.in]: userIds } };
+        default:
+          return null;
+      }
+    },
+  },],
+  segments: [],
+});
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Rails" %}
+{% code title="lib/forest_liana/collections/user.rb" %}
 ```ruby
 class Forest::Customer
     include ForestLiana::Collection
@@ -36,6 +97,9 @@ class Forest::Customer
     end
 end
 ```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 ### **Step 2: Configure the scope in the UI**
 
