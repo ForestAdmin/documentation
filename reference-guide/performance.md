@@ -43,7 +43,7 @@ To optimize your smart field performances, please check out [this section](smart
 ### Disable pagination count
 
 {% hint style="warning" %}
-This feature is only available if you're using the `forest-express-sequelize (v8.5.3+),` `forest-express-mongoose` (v8.6.5+), or `forest-rails` (v7.5.0+) agent.
+This feature is only available if you're using the `forest-express-sequelize` (v8.5.3+)`,` `forest-express-mongoose` (v8.6.5+),  `forest-rails` (v7.5.0+) or `django-forestadmin` (v1.2.0+) agent.
 {% endhint %}
 
 To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
@@ -102,6 +102,28 @@ namespace :forest do
 end
 ```
 {% endtab %}
+
+{% tab title="Django" %}
+..adding the following middleware in settings.py and set the collection(s) to deactivate.
+
+{% code title="myproject/settings.py" %}
+```python
+MIDDLEWARE = [
+   'django_forest.middleware.DeactivateCountMiddleware',
+   # ...
+]
+
+# To deactivate the count on /apps_books/count
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books', # apps_model
+   ],
+   # ...
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 To disable the count request in the table of a relationship (Related data section):
@@ -142,6 +164,39 @@ end
 namespace :forest do
     get '/Book/:id/relationships/companies/count' , to: 'book_companies#count'
 end
+```
+{% endtab %}
+
+{% tab title="Django" %}
+{% code title="myproject/settings.py" %}
+```python
+MIDDLEWARE = [
+   'django_forest.middleware.DeactivateCountMiddleware',
+   # ...
+]
+
+# To deactivate the count on /apps_books/<pk>/company/count
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books:company', # apps_model:related_field
+   ],
+   # ...
+}
+```
+{% endcode %}
+
+Furthermore, if you want to disable on all relationships at once:
+
+```python
+# To deactivate the count on all the related data of the apps_book model
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books:*', # apps_model:*
+   ],
+   # ...
+}
 ```
 {% endtab %}
 {% endtabs %}
@@ -192,6 +247,36 @@ class Forest::BooksController < ForestLiana::ResourcesController
   end
 end
 ```
+{% endtab %}
+
+{% tab title="Django" %}
+{% code title="myproject/myapp/middlewares.py" %}
+```python
+class CustomDeactivateCountMiddleware(DeactivateCountMiddleware):
+
+    def is_deactivated(self, request, view_func, *args, **kwargs):
+        is_deactivated = super().is_deactivated(request, view_func, *args, **kwargs)
+        return is_deactivated and 'search' not in request.GET
+```
+{% endcode %}
+
+{% code title="myproject/settings.py" %}
+```python
+MIDDLEWARE = [
+   'myproject.myapp.middlewares.CustomDeactivateCountMiddleware',
+   # ...
+]
+
+# To deactivate the count on /apps_books/count if there is no search argument
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books', # apps_model
+   ],
+   # ...
+}
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
