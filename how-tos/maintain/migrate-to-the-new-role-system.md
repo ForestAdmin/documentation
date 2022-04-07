@@ -4,6 +4,10 @@
 The new Role permissions system requires that you use **version 6.6+** of your liana (version **5.4+** for Rails) on **all** your environments. Moreover, if your project was created before February 2021, please contact Forest Admin support to **ask for it to be "ready to migrate"**.
 {% endhint %}
 
+{% hint style="info" %}
+You can read more about **Roles** in our [User Guide](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
+{% endhint %}
+
 The new role system allows you to control all the permissions of your roles from a single details page, which will look like this:‌
 
 ![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNThkOzU\_zJCmNa0X0%2Fimage.png?alt=media\&token=85dfb86d-5bb4-4b55-b866-6429e7111fad)
