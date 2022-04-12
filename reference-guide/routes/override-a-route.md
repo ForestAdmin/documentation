@@ -176,6 +176,51 @@ urlpatterns = [
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+
+class CompaniesController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Company';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function index()
+    {
+        request()->query->add(['searchExtended' => '1']);
+        return parent::index();
+    }
+
+    public function count(): JsonResponse
+    {
+        request()->query->add(['searchExtended' => '1']);
+        return parent::count();
+    }
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CompaniesController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('forest/company', [CompaniesController::class, 'index']);
+Route::get('forest/company/count', [CompaniesController::class, 'count']);
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 With this snippet, only the `companies` collection would use extended search by default.
@@ -264,6 +309,68 @@ class CompaniesDetailView(DetailView):
         return super(CompaniesDetailView, self).delete(request, pk) 
 ```
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+
+class CompaniesController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Company';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function destroy(): JsonResponse
+    {
+        if (request()->route()->parameter('id') === "50") {
+            return response()->json(['error' => 'This record is protected, you cannot remove it.'], Response::HTTP_FORBIDDEN);
+        } else {
+            return parent::destroy();
+        }
+    }
+}
+```
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/company/*',
+    ];
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CompaniesController;
+use Illuminate\Support\Facades\Route;
+
+Route::delete('forest/company/{id}', [CompaniesController::class, 'destroy']);
+```
+{% endcode %}
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ### Replacing Forest Admin's behavior
@@ -330,6 +437,27 @@ class CompaniesListView(ListView):
         body = self.get_body(request.body)
         model = self.Model
         # >> Add your own logic here <<
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/UsersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+
+class UsersController extends ResourcesController
+{
+    public function store(): JsonResponse
+    {
+        // >> Add your own logic here <<
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -454,5 +582,71 @@ class CompaniesListView(ListView):
         return JsonResponse(data, safe=False)
 ```
 {% endcode %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/UsersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
+
+class UsersController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'User';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function store(): JsonResponse
+    {
+        $this->authorize('create', $this->model);
+        $response = Http::post('https://<your-api>/users', request()->all())->json();
+        $user = User::findOrFail($response['id']);
+
+        return response()->json(JsonApi::render($user, $this->name), Response::HTTP_CREATED);
+    }
+}
+```
+{% endcode %}
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/user',
+    ];
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/user', [UsersController::class, 'store']);
+```
+{% endcode %}
+{% endtab %}
 {% endtab %}
 {% endtabs %}
