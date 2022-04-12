@@ -219,6 +219,59 @@ Note that Forest Admin takes care of the authentication thanks to the `ActionVie
 You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md) to enable the domain `app.forestadmin.com` to trigger API call on your Application URL, which is on a different domain name (e.g. _localhost:8000_).
 {% endhint %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+Declare it in your `app/Models/Order.php` file:
+
+{% code title="app/Models/Order.php" %}
+```php
+/**
+ * @return SmartAction
+ */
+public function refundOrder(): SmartAction
+{
+    return $this->smartAction('single', 'refund order');
+}
+```
+{% endcode %}
+
+Then declare the corresponding route:
+
+{% code title="routes/web.php" %}
+```php
+Route::post('forest/smart-actions/order_refund-order', [OrdersController::class, 'refundOrder']);
+```
+{% endcode %}
+
+Lastly, implement the action according to your business logic:
+
+{% code title="app/Http/Controllers/OrdersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * Class OrdersController
+ */
+class OrdersController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function refundOrder(): JsonResponse
+    {
+        return response()->json(
+            ['success' => 'Order refunded!']
+        );
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 {% hint style="success" %}
