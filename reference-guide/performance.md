@@ -124,6 +124,45 @@ FOREST = {
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/BooksController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+
+class BooksController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        return JsonApi::deactivateCountResponse();
+    }
+}
+```
+{% endcode %}
+adding a route in `app/routes/web.php`
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\BooksController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('forest/book/count', [BooksController::class, 'count']);
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 To disable the count request in the table of a relationship (Related data section):
@@ -198,6 +237,49 @@ FOREST = {
    # ...
 }
 ```
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/BookCompaniesController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\RelationshipsController;
+use Illuminate\Http\JsonResponse;
+
+class BookCompaniesController extends RelationshipsController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        $parameters['association_name'] = 'companies';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        if (request()->has('search')) {
+            return JsonApi::deactivateCountResponse();
+        } else {
+            return parent::count();
+        }
+    }
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\BookCompaniesController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('forest/book/{id}/relationships/companies/count', [BookCompaniesController::class, 'count']);
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
@@ -278,6 +360,38 @@ FOREST = {
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/BooksController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+
+class BooksController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        if (request()->has('filters')) {
+            return parent::count();
+        } else {
+            return JsonApi::deactivateCountResponse();
+        }
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 One more example: you may want to deactivate the pagination count request for a specific team:
@@ -324,6 +438,39 @@ class Forest::BooksController < ForestLiana::ResourcesController
   end
 end
 ```
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/BooksController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+
+class BooksController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        if (Auth::guard('forest')->user()->getAttribute('team') === 'Operations') {
+            return JsonApi::deactivateCountResponse();
+        } else {
+            return parent::count();
+        }
+    }
+}
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
