@@ -1791,7 +1791,7 @@ Collection.register(CustomerForest, Customer)
 {% endtab %}
 
 {% tab title="Laravel" %}
-{% code title="app/Models/ComCustomerpany.php" %}
+{% code title="app/Models/Customer.php" %}
 ```php
 <?php
 
