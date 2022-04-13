@@ -273,7 +273,7 @@ You may have to [add CORS headers](../../../how-tos/setup/configuring-cors-heade
 {% tab title="Laravel" %}
 The route declaration takes place in `routes/web.php`.
 
-{% code title="app/Models/Company.php" %}
+{% code title="routes/web.php" %}
 ```php
 <?php
 
@@ -515,9 +515,9 @@ class MarkAsLiveView(ActionView):
 class CompaniesController extends ForestController
 {
     /**
-     * @return JsonResponse|Response
+     * @return JsonResponse
      */
-    public function markAsLive(): JsonResponse|Response
+    public function markAsLive(): JsonResponse
     {
         # ....
         return response()->json(['success' => "Company is now live !"]);
@@ -602,9 +602,9 @@ class MarkAsLiveView(ActionView):
 class CompaniesController extends ForestController
 {
     /**
-     * @return JsonResponse|Response
+     * @return JsonResponse
      */
-    public function markAsLive(): JsonResponse|Response
+    public function markAsLive(): JsonResponse
     {
         # ....
         return response()->json(['error' => "The company was already live!"], 400);
@@ -932,7 +932,7 @@ class ChargeCreditCardView(ActionView):
 {% endtab %}
 
 {% tab title="Laravel" %}
-{% code title="app/Models/Company.php" %}
+{% code title="app/Models/Customer.php" %}
 ```php
 <?php
 
@@ -1115,17 +1115,17 @@ return JsonResponse({
 {% tab title="Laravel" %}
 ```php
 return response()->json(
-            [
-                'webhook' => [
-                    'url'     => 'http://my-company-name', # The url of the company providing the service.
-                    'method'  => 'POST', # The method you would like to use (typically a POST).
-                    'headers' => [], # You can add some headers if needed (you can remove it).
-                    'body'    => [ # A body to send to the url (only JSON supported).
-                        'adminToken' => 'your-admin-token',
-                    ],
-                ],
-            ]
-        );
+  [
+    'webhook' => [
+      'url'     => 'http://my-company-name', # The url of the company providing the service.
+      'method'  => 'POST', # The method you would like to use (typically a POST).
+      'headers' => [], # You can add some headers if needed (you can remove it).
+      'body'    => [ # A body to send to the url (only JSON supported).
+        'adminToken' => 'your-admin-token',
+      ],
+    ],
+  ]
+);
 ```
 {% endtab %}
 {% endtabs %}
@@ -1359,10 +1359,6 @@ class GenerateInvoiceView(ActionView):
 
 {% tab title="Laravel" %}
 On our Live Demo, the collection `Customer` has a Smart Action `Generate invoice`. In this use case, we want to download the generated PDF invoice after clicking on the action. To indicate a Smart Action returns something to download, you have to enable the option `download`.
-
-{% hint style="warning" %}
-Don’t forget to expose the `Content-Disposition` header in the CORS configuration (as shown in the code below) to be able to customize the filename to download.
-{% endhint %}
 
 {% code title="app/Models/Customer.php" %}
 ```php

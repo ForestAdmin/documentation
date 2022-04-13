@@ -418,7 +418,7 @@ class Company extends Model
 
 {% code title="web/routes.php" %}
 ```php
-Route::post('forest/smart-actions/company_upload-legal-docs', [Companies2Controller::class, 'uploadLegalDocs']);
+Route::post('forest/smart-actions/company_upload-legal-docs', [CompaniesController::class, 'uploadLegalDocs']);
 
 ```
 {% endcode %}
@@ -1143,6 +1143,7 @@ Collection.register(CompanyForest, Company)
 {% tab title="Laravel" %}
 {% code title="app/Models/Company.php" %}
 ```php
+<?php
 
 /**
  * Class Company
@@ -1790,6 +1791,7 @@ Collection.register(CustomerForest, Customer)
 {% endtab %}
 
 {% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
 ```php
 <?php
 
@@ -1849,5 +1851,6 @@ class Customer extends Model
     }
 }
 ```
+{% endcode %}
 {% endtab %}
 {% endtabs %}

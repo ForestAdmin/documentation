@@ -135,7 +135,7 @@ Collection.register(OrderForest, Order)
 {% endtab %}
 
 {% tab title="Laravel" %}
-{% code title="app/Models/Company.php" %}
+{% code title="app/Models/Order.php" %}
 ```php
 <?php
 
@@ -614,7 +614,7 @@ Finally, you don’t have to serialize the data yourself. The Forest Liana alrea
 {% endtab %}
 
 
-{% tab title="Rails" %}
+{% tab title="Laravel" %}
 Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/product/{id}/relationships/buyers`.
 
 We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active\_record\_basics.html) to **count** and **find all** customers who bought the current product.
