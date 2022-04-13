@@ -416,7 +416,7 @@ class Company extends Model
 ```
 {% endcode %}
 
-{% code title="web/routes.php" %}
+{% code title="routes/web.php" %}
 ```php
 Route::post('forest/smart-actions/company_upload-legal-docs', [CompaniesController::class, 'uploadLegalDocs']);
 
