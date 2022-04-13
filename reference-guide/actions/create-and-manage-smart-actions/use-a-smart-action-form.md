@@ -256,7 +256,7 @@ end
 {% tab title="Django" %}
 On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `Company`.
 
-{% code title="app/forest/cpmpany.py" %}
+{% code title="app/forest/company.py" %}
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Company
@@ -348,6 +348,118 @@ class UploadLegalDocsView(ActionView):
 
         # Once the upload is finished, send a success message to the admin user in the UI.
         return JsonResponse({'success': 'Legal documents are successfully uploaded.'})
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `Company`.
+
+{% code title="app/Models/Company.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Company
+ */
+class Company extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function UploadLegalDocs(): SmartAction
+    {
+        return $this->smartAction('single', 'Upload Legal Docs')
+            ->addField(
+                [
+                    'field' => 'Certificate of Incorporation',
+                    'type' => 'File',
+                    'is_required' => true,
+                    'description' => 'The legal document relating to the formation of a company or corporation.'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'Proof of address',
+                    'type' => 'File',
+                    'is_required' => false,
+                    'description' => '(Electricity, Gas, Water, Internet, Landline & Mobile Phone Invoice / Payment Schedule) no older than 3 months of the legal representative of your company'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'Company bank statement',
+                    'type' => 'File',
+                    'is_required' => true,
+                    'description' => 'PDF including company name as well as IBAN'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'Valid proof of ID',
+                    'type' => 'File',
+                    'is_required' => true,
+                    'description' => 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company'
+                ]
+            );
+    }
+}
+```
+{% endcode %}
+
+{% code title="web/routes.php" %}
+```php
+Route::post('forest/smart-actions/company_upload-legal-docs', [Companies2Controller::class, 'uploadLegalDocs']);
+
+```
+{% endcode %}
+
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Company;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+
+/**
+ * Class CompaniesController
+ */
+class CompaniesController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function uploadLegalDocs()
+    {
+        $companyId = request()->input('data.attributes.ids')[0];
+        $files = request()->input('data.attributes.values');
+        foreach ($files as $key => $file)
+        {
+            $data = explode(";base64,", $file);
+            Storage::disk('s3')->put($key . '-' . $companyId, base64_decode($data[1]));
+        }
+
+        return response()->json(
+            [
+                'success' => 'Legal documents are successfully uploaded.',
+            ]
+        );
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -582,6 +694,71 @@ class CompanyForest(Collection):
         return fields
 
 Collection.register(CompanyForest, Company)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function chargeCreditCard(): SmartAction
+    {
+        return $this->smartAction('single', 'Charge credit card')
+            ->addField(
+                [
+                    'field' => 'amount',
+                    'type' => 'Number',
+                    'is_required' => true,
+                    'description' => 'The amount (USD) to charge the credit card. Example: 42.50'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'description',
+                    'type' => 'String',
+                    'is_required' => true,
+                    'description' => 'Explain the reason why you want to charge manually the customer here'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'stripe_id',
+                    'type' => 'String',
+                    'is_required' => true,
+                ]
+            )
+            ->load(
+                function () {
+                    $customer = Customer::find(request()->input('data.attributes.ids')[0]);
+                    $fields = $this->getFields();
+                    $fields['amount']['value'] = 4250;
+                    $fields['stripe_id']['value'] = $customer->stripe_id;
+
+                    return $fields;
+                }
+            );
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -962,6 +1139,100 @@ Collection.register(CompanyForest, Company)
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Company.php" %}
+```php
+
+/**
+ * Class Company
+ */
+class Company extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function sendInvoice(): SmartAction
+    {
+        return $this->smartAction('single', 'Send invoice')
+            ->addField(
+                [
+                    'field' => 'country',
+                    'type' => 'Enum',
+                    'enums' => [],
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'city',
+                    'type' => 'String',
+                    'hook' => 'onCityChange',
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'zipCode',
+                    'type' => 'String',
+                    'hook' => 'onZipCodeChange',
+                ]
+            )
+            ->load(
+                function () {
+                    $fields = $this->getFields();
+                    $fields['country']['enums'] = Company::getEnumsFromDatabaseForThisRecord();
+
+                    return $fields;
+                }
+            )
+            ->change(
+                [
+                    'onCityChange' => function () {
+                        $fields = $this->getFields();
+                        $fields['zipCode']['value'] = Company::getZipCodeFromCity($fields['city']['value']);
+
+                        return $fields;
+                    },
+                    'onZipCodeChange' => function () {
+                        $fields = $this->getFields();
+                        $fields['city']['value'] = Company::getCityFromZipCode($fields['zipCode']['value']);
+
+                        return $fields;
+                    },
+                ]
+            );
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getEnumsFromDatabaseForThisRecord(): array
+    {
+        return ['France', 'Germany', 'USA'];
+    }
+
+    /**
+     * @param string $zipCode
+     * @return string
+     */
+    public static function getCityFromZipCode(string $zipCode): string
+    {
+        return "City for $zipCode";
+    }
+
+    /**
+     * @param string $city
+     * @return string
+     */
+    public static function getZipCodeFromCity(string $city): string
+    {
+        return "Zip code for $city";
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 #### How does it work?
@@ -1004,6 +1275,13 @@ city[:description] = "Please enter the name of your favorite city"
 ```python
 city = next((x for x in fields if x['field'] == 'city'), None)
 city['description'] = 'Please enter the name of your favorite city'
+```
+{% endtab %}
+
+{% tab title="Laravel" %}
+```php
+$fields = $this->getFields();
+$fields['city']['description'] = "Please enter the name of your favorite city";
 ```
 {% endtab %}
 {% endtabs %}
@@ -1058,6 +1336,19 @@ def send_invoice_load(fields, request, *args, **kwargs):
     country = next((x for x in fields if x['field'] == 'country'), None)     
     country['value'] = 'France'
     return fields
+```
+{% endtab %}
+
+{% tab title="Laravel" %}
+```php
+ ->load(
+    function () {
+       $fields = $this->getFields();
+       $fields['country']['value'] = "France";
+
+       return $fields;
+   }
+)
 ```
 {% endtab %}
 {% endtabs %}
@@ -1141,6 +1432,26 @@ def on_field_change(self, fields, request, changed_field, *args, **kwargs):
         'type': 'Boolean',
     })
     return fields
+```
+{% endtab %}
+
+{% tab title="Laravel" %}
+```php
+ ->change(
+    [
+        'onFieldChanged' => function () {
+            $fields = $this->getFields();
+            $fields['another field'] = (new SmartActionField(
+                [
+                    'field' => 'another field',
+                    'type'  => 'Boolean',
+                ]
+            ))->serialize();
+
+            return $fields;
+        },
+    ]
+ );
 ```
 {% endtab %}
 {% endtabs %}
@@ -1243,6 +1554,34 @@ def on_field_change(self, fields, request, changed_field, *args, **kwargs):
 def on_another_field_change(self, fields, request, changed_field, *args, **kwargs):
     // Do what you want
     return fields
+```
+{% endtab %}
+
+{% tab title="Laravel" %}
+```php
+->change(
+    [
+        'onFieldChanged' => function () {
+            $fields = $this->getFields();
+            $fields['another field'] = (new SmartActionField(
+                [
+                    'field' => 'another field',
+                    'type'  => 'Boolean',
+                    'hook'  => 'onAnotherFiledChanged'
+                ]
+            ))
+                ->serialize();
+
+            return $fields;
+        },
+        'onAnotherFiledChanged' => function () {
+            $fields = $this->getFields();
+            // Do what you want
+
+            return $fields;
+        },
+    ]
+);
 ```
 {% endtab %}
 {% endtabs %}
@@ -1447,6 +1786,68 @@ class CustomerForest(Collection):
         return fields
 
 Collection.register(CustomerForest, Customer)
+```
+{% endtab %}
+
+{% tab title="Laravel" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function someAction(): SmartAction
+    {
+        return $this->smartAction('bulk', 'Some action')
+            ->addField(
+                [
+                    'field' => 'country',
+                    'type' => 'String',
+                    'is_read_only' => true,
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'city',
+                    'type' => 'String',
+                ]
+            )
+            ->load(
+                function () {
+                    $customerCountries = Customer::select('country')
+                        ->whereIn('id', request()->input('data.attributes.ids'))
+                        ->groupBy('country')
+                        ->get();
+
+                    $fields = $this->getFields();
+                    $fields['country']['value'] = '';
+                    $fields['stripe_id']['is_read_only'] = false;
+
+                    if ($customerCountries->count() === 1) {
+                        $fields['country']['value'] = $customerCountries->first()->country;
+                        $fields['stripe_id']['is_read_only'] = true;
+                    }
+
+                    return $fields;
+                }
+            );
+    }
+}
 ```
 {% endtab %}
 {% endtabs %}
