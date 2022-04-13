@@ -582,6 +582,7 @@ class CompaniesListView(ListView):
         return JsonResponse(data, safe=False)
 ```
 {% endcode %}
+{% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/UsersController.php" %}
@@ -647,6 +648,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/user', [UsersController::class, 'store']);
 ```
 {% endcode %}
-{% endtab %}
 {% endtab %}
 {% endtabs %}

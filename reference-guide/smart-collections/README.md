@@ -191,8 +191,8 @@ class CustomerStat extends SmartCollection
             [
                 new SmartField(
                     [
-                        'field'       => 'id',
-                        'type'        => 'Number',
+                        'field' => 'id',
+                        'type'  => 'Number',
                     ]
                 ),
                 new SmartField(
@@ -455,7 +455,7 @@ class CustomerStatsViewView(PaginationMixin, SearchMixin, generic.ListView):
         queryset = Customer.objects.all()
 
         # annotate
-        queryset = queryset.annotate(total_ammount=Sum('product__prices'))
+        queryset = queryset.annotate(total_amount=Sum('product__prices'))
         queryset = queryset.annotate(orders_count=Count('orders'))
 
         # search

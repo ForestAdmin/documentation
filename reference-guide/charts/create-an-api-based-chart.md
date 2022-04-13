@@ -882,6 +882,7 @@ class ChargesPerDayView(generic.ListView):
 
 namespace App\Http\Controllers;
 
+use Faker\Factory;
 use ForestAdmin\LaravelForestAdmin\Facades\ChartApi;
 use Stripe\StripeClient;
 
