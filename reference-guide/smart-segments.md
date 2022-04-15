@@ -108,16 +108,9 @@ class Forest::Product
   collection :Product
 
   segment 'Bestsellers' do
-    products = ActiveRecord::Base.connection.execute("""
-      SELECT products.id, COUNT(orders.*)
-      FROM products
-      JOIN orders ON orders.product_id = products.id
-      GROUP BY products.id
-      ORDER BY count DESC
-      LIMIT 10;
-    """).to_a
+    productIds = Product.joins(:orders).group('products.id').order('count(orders.id)').limit(10).pluck('products.id')
 
-    { id: products.map { |p| p['id'] } }
+    { id: productIds }
   end
 end
 ```
@@ -154,6 +147,49 @@ class ProductForest(Collection):
         return Q(**{'id__in': [product.id for product in products]})
 
 Collection.register(ProductForest, Product)
+```
+{% endcode %}
+{% endtab %}
+
+
+{% tab title="Laravel" %}
+{% hint style="info" %}
+The 2nd parameter of the `SmartSegment` method is not required. If you don't fill it, the name of your SmartSegment will be the name of your method that wrap it.
+{% endhint %}
+{% code title="app/Models/Product.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartSegment;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory
+    use ForestCollection;
+
+    /**
+     * @return SmartSegment
+     */
+    public function bestSellers(): SmartSegment
+    {
+        return $this->smartSegment(
+            fn(Builder $query) => $query->whereIn('products.id', function($q) {
+                $q->select('products.id')
+                    ->from('products')
+                    ->join('order_product', 'order_product.product_id', '=', 'products.id')
+                    ->groupBy('products.id')
+                    ->orderByRaw('COUNT(order_product.order_id) DESC')
+                    ->limit(10);
+            }),
+            'Best sellers'
+        );
+    }
 ```
 {% endcode %}
 {% endtab %}
