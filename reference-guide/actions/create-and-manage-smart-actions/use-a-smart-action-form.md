@@ -355,6 +355,9 @@ class UploadLegalDocsView(ActionView):
 {% tab title="Laravel" %}
 On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `Company`.
 
+{% hint style="info" %}
+The 2nd parameter of the `SmartAction` method is not required. If you don't fill it, the name of your smartAction will be the name of your method that wrap it.
+{% endhint %}
 {% code title="app/Models/Company.php" %}
 ```php
 <?php

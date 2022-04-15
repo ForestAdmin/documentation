@@ -150,6 +150,49 @@ Collection.register(ProductForest, Product)
 ```
 {% endcode %}
 {% endtab %}
+
+
+{% tab title="Laravel" %}
+{% hint style="info" %}
+The 2nd parameter of the `SmartSegment` method is not required. If you don't fill it, the name of your SmartSegment will be the name of your method that wrap it.
+{% endhint %}
+{% code title="app/Models/Product.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartSegment;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory
+    use ForestCollection;
+
+    /**
+     * @return SmartSegment
+     */
+    public function bestSellers(): SmartSegment
+    {
+        return $this->smartSegment(
+            fn(Builder $query) => $query->whereIn('products.id', function($q) {
+                $q->select('products.id')
+                    ->from('products')
+                    ->join('order_product', 'order_product.product_id', '=', 'products.id')
+                    ->groupBy('products.id')
+                    ->orderByRaw('COUNT(order_product.order_id) DESC')
+                    ->limit(10);
+            }),
+            'Best sellers'
+        );
+    }
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.38.24.png>)
