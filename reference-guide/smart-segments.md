@@ -108,16 +108,9 @@ class Forest::Product
   collection :Product
 
   segment 'Bestsellers' do
-    products = ActiveRecord::Base.connection.execute("""
-      SELECT products.id, COUNT(orders.*)
-      FROM products
-      JOIN orders ON orders.product_id = products.id
-      GROUP BY products.id
-      ORDER BY count DESC
-      LIMIT 10;
-    """).to_a
+    productIds = Product.joins(:orders).group('products.id').order('count(orders.id)').limit(10).pluck('products.id')
 
-    { id: products.map { |p| p['id'] } }
+    { id: productIds }
   end
 end
 ```
