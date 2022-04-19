@@ -12,11 +12,11 @@ If you don't have a Heroku application yet, take a look at [this how-to](../setu
 
 We recommend adding on your Heroku application the free add-on “Heroku Postgres” **(1)(2)**.
 
-![](<../../.gitbook/assets/deploy heroku 4 (1).png>)
+![](<../../.gitbook/assets/deploy heroku 4.png>)
 
 Once installed, your Heroku application will contain an environment variable `DATABASE_URL` with the credentials of your new created database **(1)** in the “Config Vars” section **(2)**. Here you can add more if necessary **(3)**.
 
-![](<../../.gitbook/assets/deploy heroku 5 (1).png>)
+![](<../../.gitbook/assets/deploy heroku 5.png>)
 
 Your new database has no data yet, so you will need to import your local data to this new one.&#x20;
 

@@ -107,17 +107,17 @@ class Company extends Model
 {% endtab %}
 {% endtabs %}
 
-After declaring it, your Smart action will appear in the Smart actions tab within your [collection settings](broken-reference).&#x20;
+After declaring it, your Smart action will appear in the Smart actions tab within your [collection settings](broken-reference/).
 
 {% hint style="warning" %}
 A Smart action is displayed in the UI only if:
 
 * it is set as "visible" (see screenshot below)\
   AND
-* in non-development environments, the user's [role](broken-reference) must grant the "trigger" permission
+* in non-development environments, the user's [role](broken-reference/) must grant the "trigger" permission
 {% endhint %}
 
-You must make the action visible there if you wish users to be able to see it.&#x20;
+You must make the action visible there if you wish users to be able to see it.
 
 ![](<../../../.gitbook/assets/screenshot smart action visibility.png>)
 
@@ -126,7 +126,7 @@ It will then show in the actions dropdown button:
 ![](<../../../.gitbook/assets/Capture d’écran 2019-11-27 à 17.00.24.png>)
 
 {% hint style="info" %}
-At this point, the Smart Action does _nothing_, because no route in your Admin backend handles the API call yet.&#x20;
+At this point, the Smart Action does _nothing_, because no route in your Admin backend handles the API call yet.
 {% endhint %}
 
 The **Smart Action behavior** is implemented separately from the declaration.
@@ -285,7 +285,6 @@ Route::post('forest/smart-actions/company_mark-as-live', [CompaniesController::c
 ```
 {% endcode %}
 
-
 The business logic in this Smart Action is extremely simple. We only update here the attribute `status` of the companies to the value `live`:
 
 {% code title="app/Http/Controllers/CompaniesController.php" %}
@@ -318,19 +317,18 @@ class CompaniesController extends ForestController
 }
 ```
 {% endcode %}
-
 {% endtab %}
 {% endtabs %}
 
 #### What's happening under the hood?
 
-When you trigger the Smart Action from the UI, your browser will make an API call: `POST /forest/actions/mask-as-live`.&#x20;
+When you trigger the Smart Action from the UI, your browser will make an API call: `POST /forest/actions/mask-as-live`.
 
 {% hint style="info" %}
 If you want to customize the API call, check the list of [available options](https://docs.forestadmin.com/documentation/reference-guide/actions/create-and-manage-smart-actions#available-smart-action-options).
 {% endhint %}
 
-The payload of the HTTP request is based on a [JSON API](http://jsonapi.org) document. \
+The payload of the HTTP request is based on a [JSON API](http://jsonapi.org) document.\
 The `data.attributes.ids` key allows you to retrieve easily the selected records from the UI.\
 The `data.attributes.values` key contains all the values of your input fields ([handling input values](./#handling-input-values)).\
 Other properties of `data.attributes` are used to manage the _select all_ behavior.
@@ -397,7 +395,7 @@ req.user content example
 
 #### req.body
 
-You can find important information in the body of the request.&#x20;
+You can find important information in the body of the request.
 
 {% hint style="info" %}
 This is particularly useful to find the context in which an action was performed via a relationship.
@@ -446,7 +444,7 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 We will see a success message in the browser:
 
-&#x20;<img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.34.54.png" alt="" data-size="original">&#x20;
+![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.34.54.png>)
 
 #### Custom success notification <a href="#custom-success-notification" id="custom-success-notification"></a>
 
@@ -530,7 +528,7 @@ class CompaniesController extends ForestController
 
 … the success notification will look like this:
 
-<img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.35.40.png" alt="" data-size="original">&#x20;
+![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.35.40.png>)
 
 #### Custom error notification <a href="#custom-error-notification" id="custom-error-notification"></a>
 
@@ -616,7 +614,7 @@ class CompaniesController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-#### <img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.36.04.png" alt="" data-size="original">  <a href="#custom-html-response" id="custom-html-response"></a>
+#### <img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.36.04.png" alt="" data-size="original"> <a href="#custom-html-response" id="custom-html-response"></a>
 
 #### Custom HTML response <a href="#custom-html-response" id="custom-html-response"></a>
 
@@ -761,8 +759,6 @@ router.post('/actions/charge-credit-card', (req, res) => {
 module.exports = router;
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -977,6 +973,7 @@ class Customer extends Model
     }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -987,6 +984,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/smart-actions/customer_charge-credit-card', [CustomersController::class, 'chargeCreditCard']);
 ```
 {% endcode %}
+
 {% code title="app/Http/Controllers/CustomersController.php" %}
 ```php
 <?php
@@ -1356,7 +1354,6 @@ class GenerateInvoiceView(ActionView):
 {% endcode %}
 {% endtab %}
 
-
 {% tab title="Laravel" %}
 On our Live Demo, the collection `Customer` has a Smart Action `Generate invoice`. In this use case, we want to download the generated PDF invoice after clicking on the action. To indicate a Smart Action returns something to download, you have to enable the option `download`.
 
@@ -1652,7 +1649,7 @@ end
 ```
 {% endcode %}
 
-###
+####
 {% endtab %}
 
 {% tab title="Django" %}
@@ -1746,7 +1743,6 @@ class AddNewTransactionView(ActionView):
 ```
 {% endcode %}
 {% endtab %}
-
 
 {% tab title="Laravel" %}
 Below is the sample code. We use the Faker package to easily generate fake data. Remember to add this package to your `composer.json` and install it if you wish to use it.
@@ -1870,7 +1866,7 @@ Route::post('forest/smart-actions/company_add-new-transaction', [CompaniesContro
 
 To streamline your operation workflow, it could make sense to redirect to another page after a Smart action was successfully executed.\
 \
-It is possible using the `redirectTo` property. \
+It is possible using the `redirectTo` property.\
 \
 The redirection works both for **internal** (`*.forestadmin.com` pages) and **external** links.
 
@@ -2082,7 +2078,6 @@ class ShowSomeActivityView(ActionView):
 {% endcode %}
 {% endtab %}
 
-
 {% tab title="Laravel" %}
 {% code title="app/Models/company.php" %}
 ```php
@@ -2150,7 +2145,6 @@ class Company extends Model
         );
     }
 ...
-
 ```
 {% endcode %}
 
@@ -2183,7 +2177,7 @@ In the collection settings, you can configure the UI options of your Smart Actio
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.03.13.png>)
 
-### &#x20;Restrict a smart action to specific users and roles <a href="#restrict-a-smart-action-to-specific-users" id="restrict-a-smart-action-to-specific-users"></a>
+### Restrict a smart action to specific users and roles <a href="#restrict-a-smart-action-to-specific-users" id="restrict-a-smart-action-to-specific-users"></a>
 
 When using Forest Admin with several teams and when you have clear roles defined it becomes relevant to restrict a smart action only to a few collaborators. This option is accessible through the Edit layout mode in the Smart actions’ section of your collection's settings.\
 \
@@ -2197,7 +2191,7 @@ Critical actions for your business may need approval before being processed.
 
 #### Set up your approval workflow
 
-To add an additional layer of security over a smart action, head over to the _Roles_ tab of your [projects settings](broken-reference). From there, you'll be able to select Trigger with approval for that smart action. Note that this must be set for each role.
+To add an additional layer of security over a smart action, head over to the _Roles_ tab of your [projects settings](broken-reference/). From there, you'll be able to select Trigger with approval for that smart action. Note that this must be set for each role.
 
 #### Review approval requests
 
