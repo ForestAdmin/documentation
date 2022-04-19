@@ -1,8 +1,8 @@
 ---
 description: >-
   ⚠️ This page is relevant only if you installed Forest Admin directly on a
-  database (SQL/Mongodb). If you installed in a Rails/Django/Laravel app, you
-  manage your models like you normally would.
+  database (SQL/Mongodb). If you installed in a Rails/Django app, you manage
+  your models like you normally would.
 ---
 
 # Enrich your models

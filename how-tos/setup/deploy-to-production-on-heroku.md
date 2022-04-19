@@ -4,13 +4,13 @@ This tutorial is designed to assist people who want to have a step-by-step guide
 
 If you don’t have a Heroku account yet, [sign up here](https://signup.heroku.com). Then, create your first Heroku application **(1)** **(2)**.
 
-![](<../../.gitbook/assets/deploy heroku.png>)
+![](<../../.gitbook/assets/deploy heroku (1).png>)
 
-![](<../../.gitbook/assets/deply heroku 2.png>)
+![](<../../.gitbook/assets/deply heroku 2 (1).png>)
 
 After creating your application, simply follow the Heroku guide “Deploy using Heroku Git” to push the lumber-generated admin backend code to the Heroku application.
 
-![](<../../.gitbook/assets/deploy heroku 3.png>)
+![](<../../.gitbook/assets/deploy heroku 3 (1).png>)
 
 Push your code using the following command:&#x20;
 

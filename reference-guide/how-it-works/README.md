@@ -6,7 +6,7 @@ Forest Admin provides you with:
 
 * An API hosted on your server to retrieve your data. We call it the **Admin Backend**
   * if you chose a database as a datasource (PostgreSQLL, MySQL, MSSQL, MongoDB), your Admin Backend will be generated as a **standalone folder**.
-  * if you chose an existing app as a datasource (Rails, Django, Laravel, Express/Sequelize, Express/Mongoose), your Admin Backend will be generated **within your app**.
+  * if you chose an existing app as a datasource (Rails, Django, Express/Sequelize, Express/Mongoose), your Admin Backend will be generated **within your app**.
 * A user interface to access and manage your data from your browser. This **Forest Admin User Interface** is built and managed through ressources hosted on Forest Admin's servers.
 
 {% tabs %}
@@ -14,7 +14,7 @@ Forest Admin provides you with:
 ![The Admin Backend is a Node.JS REST API hosted on your servers](../../.gitbook/assets/Base.png)
 {% endtab %}
 
-{% tab title="Rails/Django/Laravel" %}
+{% tab title="Rails" %}
 ![The Admin Backend is a Rails Engine mounted on your application](../../.gitbook/assets/base-rails.png)
 {% endtab %}
 {% endtabs %}
@@ -47,7 +47,7 @@ As your data transits directly from the Admin Backend hosted on your end and the
 ![](<../../.gitbook/assets/Base-documented (1).png>)
 {% endtab %}
 
-{% tab title="Rails/Django/Laravel" %}
+{% tab title="Rails" %}
 ![](../../.gitbook/assets/base-rails.png)
 {% endtab %}
 {% endtabs %}
@@ -64,7 +64,7 @@ The connection to both servers to the **Admin Backend** and the **Forest Admin S
 ![](../../.gitbook/assets/JWT.png)
 {% endtab %}
 
-{% tab title="Rails/Django/Laravel" %}
+{% tab title="Rails" %}
 ![](../../.gitbook/assets/base-auth.png)
 {% endtab %}
 {% endtabs %}
@@ -107,7 +107,7 @@ The **Forest Admin UI** has an option to completely disable any 3rd-party provid
 ![](../../.gitbook/assets/No3rdPartyTracking.png)
 {% endtab %}
 
-{% tab title="Rails/Django/Laravel" %}
+{% tab title="Rails" %}
 ![](../../.gitbook/assets/base-3rd-party-auth.png)
 {% endtab %}
 {% endtabs %}

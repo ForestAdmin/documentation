@@ -102,7 +102,7 @@ A standard project usually has a production and at least a staging environment, 
 
 To do so, click on the enviroment you wish to set as production and from its details page, click"Set as production".
 
-![](<../../.gitbook/assets/Capture d’écran 2021-12-09 à 11.15.17.png>)
+![](<../../.gitbook/assets/Capture d’écran 2021-12-09 à 11.15.17 (1).png>)
 
 {% hint style="warning" %}
 All your branches will be rebased on your new production. Any layout change that is not applicable will be ignored.

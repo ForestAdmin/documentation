@@ -107,14 +107,14 @@ class Company extends Model
 {% endtab %}
 {% endtabs %}
 
-After declaring it, your Smart action will appear in the Smart actions tab within your [collection settings](broken-reference/).
+After declaring it, your Smart action will appear in the Smart actions tab within your [collection settings](https://docs.forestadmin.com/user-guide/collections/manage-your-collection-settings).
 
 {% hint style="warning" %}
 A Smart action is displayed in the UI only if:
 
 * it is set as "visible" (see screenshot below)\
   AND
-* in non-development environments, the user's [role](broken-reference/) must grant the "trigger" permission
+* in non-development environments, the user's [role ](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles)must grant the "trigger" permission
 {% endhint %}
 
 You must make the action visible there if you wish users to be able to see it.
