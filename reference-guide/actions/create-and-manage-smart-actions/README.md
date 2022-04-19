@@ -73,6 +73,38 @@ Collection.register(CompanyForest, Company)
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Company.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Company
+ */
+class Company extends Model
+{
+    use HasFactory;
+    use ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function markAsLive(): SmartAction
+    {
+        return $this->smartAction('single', 'Mark as Live');
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 After declaring it, your Smart action will appear in the Smart actions tab within your [collection settings](broken-reference).&#x20;
@@ -236,6 +268,57 @@ Note that Forest Admin takes care of the authentication thanks to the `ActionVie
 {% hint style="info" %}
 You may have to [add CORS headers](../../../how-tos/setup/configuring-cors-headers.md) to enable the domain `app.forestadmin.com` to trigger API call on your Application URL, which is on a different domain name (e.g. _localhost:8000_).
 {% endhint %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+The route declaration takes place in `routes/web.php`.
+
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\OrdersController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/smart-actions/company_mark-as-live', [CompaniesController::class, 'markAsLive']);
+```
+{% endcode %}
+
+
+The business logic in this Smart Action is extremely simple. We only update here the attribute `status` of the companies to the value `live`:
+
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Company;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * Class CompaniesController
+ */
+class CompaniesController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function markAsLive(): JsonResponse
+    {
+        $id = request()->input('data.attributes.ids')[0];
+        $company = Company::findOrFail($id);
+        $company->status = 'live';
+        $company->save();
+
+        return response()->noContent();
+    }
+}
+```
+{% endcode %}
+
 {% endtab %}
 {% endtabs %}
 
@@ -425,6 +508,24 @@ class MarkAsLiveView(ActionView):
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+class CompaniesController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function markAsLive(): JsonResponse
+    {
+        # ....
+        return response()->json(['success' => "Company is now live !"]);
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 … the success notification will look like this:
@@ -491,6 +592,25 @@ class MarkAsLiveView(ActionView):
     def post(self, request, *args, **kwargs):
         return JsonResponse({'error': 'The company was already live!'}, status=400)
         
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+class CompaniesController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function markAsLive(): JsonResponse
+    {
+        # ....
+        return response()->json(['error' => "The company was already live!"], 400);
+
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -810,6 +930,117 @@ class ChargeCreditCardView(ActionView):
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function chargeCreditCard(): SmartAction
+    {
+        $this->smartAction('single', 'Charge credit card')
+            ->addField(
+                [
+                    'field' => 'amount',
+                    'type' => 'Number',
+                    'is_required' => true,
+                    'description' => 'The amount (USD) to charge the credit card. Example: 42.50'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'description',
+                    'type' => 'String',
+                    'is_required' => true,
+                    'description' => 'Explain the reason why you want to charge manually the customer here'
+                ]
+            );
+
+    }
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CustomersController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/smart-actions/customer_charge-credit-card', [CustomersController::class, 'chargeCreditCard']);
+```
+{% endcode %}
+{% code title="app/Http/Controllers/CustomersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * Class CustomersController
+ */
+class CustomersController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function chargeCreditCard(): JsonResponse
+    {
+        $customer = Customer::find(request()->input('data.attributes.ids')[0]);
+        $stripe = new  (
+            'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
+        );
+        $response = $stripe->charges->create([
+            'amount'      => request()->input('data.attributes.values.amount'),
+            'currency'    => 'usd',
+            'customer'    => $customer->stripe_id,
+            'description' => 'My First Test Charge (created for API docs)',
+        ]);
+
+
+        return response()->json(
+            ['html' => '
+                <p class="c-clr-1-4 l-mt l-mb">'. $response->amount / 100 .' USD has been successfuly charged.</p>
+
+                <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
+                <p class="c-clr-1-4 l-mb">**** **** **** '. $response->source->last4 .'</p>
+
+                <strong class="c-form__label--read c-clr-1-2">Expire</strong>
+                <p class="c-clr-1-4 l-mb"> '. $response->source->exp_month .'/ '. $response->source->exp_year .'</p>
+
+                <strong class="c-form__label--read c-clr-1-2">Card type</strong>
+                <p class="c-clr-1-4 l-mb">'. $response->source->brand .'</p>
+
+                <strong class="c-form__label--read c-clr-1-2">Country</strong>
+                <p class="c-clr-1-4 l-mb">'. $response->source->country .'</p>
+            ']
+        );
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.44.29.png>)
@@ -878,6 +1109,23 @@ return JsonResponse({
       }
     }
 })
+```
+{% endtab %}
+
+{% tab title="Laravel" %}
+```php
+return response()->json(
+  [
+    'webhook' => [
+      'url'     => 'http://my-company-name', # The url of the company providing the service.
+      'method'  => 'POST', # The method you would like to use (typically a POST).
+      'headers' => [], # You can add some headers if needed (you can remove it).
+      'body'    => [ # A body to send to the url (only JSON supported).
+        'adminToken' => 'your-admin-token',
+      ],
+    ],
+  ]
+);
 ```
 {% endtab %}
 {% endtabs %}
@@ -1104,6 +1352,79 @@ class GenerateInvoiceView(ActionView):
                 'Cache-Control': 'no-cache'
             },
         )
+```
+{% endcode %}
+{% endtab %}
+
+
+{% tab title="Laravel" %}
+On our Live Demo, the collection `Customer` has a Smart Action `Generate invoice`. In this use case, we want to download the generated PDF invoice after clicking on the action. To indicate a Smart Action returns something to download, you have to enable the option `download`.
+
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function generateInvoice(): SmartAction
+    {
+        return $this->smartAction('single', 'Generate invoice')
+            ->download(true);
+    }
+ }
+```
+{% endcode %}
+
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CustomersController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/smart-actions/customer_generate-invoice', [CustomersController::class, 'generateInvoice']);
+```
+{% endcode %}
+
+{% code title="app/Http/Controllers/CustomersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+/**
+ * Class CustomersController
+ */
+class CustomersController extends ForestController
+{
+    /**
+     * @return BinaryFileResponse
+     */
+    public function generateInvoice()
+    {
+        return response()->download(public_path('files/invoice-2342.pdf'));
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -1335,7 +1656,7 @@ end
 {% endtab %}
 
 {% tab title="Django" %}
-Below is the sample code. We use the python Faker package to easily generate fake data. Remember to add this gem to your `requirements.txt` and install it if you wish to use it.
+Below is the sample code. We use the python Faker package to easily generate fake data. Remember to add this package to your `requirements.txt` and install it if you wish to use it.
 
 {% code title="app/forest/company.py" %}
 ```python
@@ -1422,6 +1743,124 @@ class AddNewTransactionView(ActionView):
                 'relationships': ['emitted_transactions']
             }
         })
+```
+{% endcode %}
+{% endtab %}
+
+
+{% tab title="Laravel" %}
+Below is the sample code. We use the Faker package to easily generate fake data. Remember to add this package to your `composer.json` and install it if you wish to use it.
+
+{% code title="app/Models/Company.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartActionField;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Company
+ */
+class Company extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function addNewTransaction(): SmartAction
+    {
+        return $this->smartAction('single', 'Add new transaction')
+            ->addField(
+                [
+                    'field'         => 'Beneficiary company',
+                    'type'          => 'Number',
+                    'reference'     => 'company.id',
+                    'description'   => 'Name of the company who will receive the transaction.',
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'Amount',
+                    'type'  => 'Number',
+                ]
+            );
+    }
+}
+```
+{% endcode %}
+
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Company;
+use App\Models\Transaction;
+use Faker\Factory;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * Class CompaniesController
+ */
+class CompaniesController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function addNewTransaction(): JsonResponse
+    {
+        $faker = Factory::create();
+
+        $emitter_company_id = request()->input('data.attributes.ids')[0];
+        $beneficiary_company_id = request()->input('data.attributes.values.Beneficiary company');
+        $amount = request()->input('data.attributes.values.Amount');
+
+        $transaction = new Transaction();
+        $transaction->beneficiary_iban = $faker->iban();
+        $transaction->emitter_iban = $faker->iban();
+        $transaction->vat_amount = 20;
+        $transaction->amount = $amount;
+        $transaction->fee_amount = $faker->numberBetween(10, 100);
+        $transaction->note = '';
+        $transaction->emitter_bic = $faker->swiftBicNumber();
+        $transaction->beneficiary_bic = $faker->swiftBicNumber();
+        $transaction->reference = $faker->text(16);
+        $transaction->status = 'WAITING';
+        $transaction->beneficiary_company_id = $beneficiary_company_id;
+        $transaction->emitter_company_id = $emitter_company_id;
+        $transaction->save();
+
+        // the code below automatically refresh the related data
+        // 'emitted_transactions' on the Companies' Summary View
+        // after submitting the Smart action form.
+        return response()->json(
+            [
+                'success' => 'New transaction emitted',
+                'refresh' => ['relationships' => ['emittedTransaction']]
+            ]
+        );
+    }
+}
+```
+{% endcode %}
+
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CompaniesController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/smart-actions/company_add-new-transaction', [CompaniesController::class, 'addNewTransaction']);
 ```
 {% endcode %}
 {% endtab %}
@@ -1639,6 +2078,92 @@ class ShowSomeActivityView(ActionView):
              'success': 'Return initiated successfully.',
              'redirectTo': '/MyProject/MyEnvironment/MyTeam/data/20/index/record/20/108/activity',
         })
+```
+{% endcode %}
+{% endtab %}
+
+
+{% tab title="Laravel" %}
+{% code title="app/Models/company.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Company
+ */
+class Company extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function returnAndTrack(): SmartAction
+    {
+        return $this->smartAction('single', 'Return and track');
+    }
+
+    /**
+     * @return SmartAction
+     */
+    public function showSomeActivity(): SmartAction
+    {
+        return $this->smartAction('single', 'Show some activity');
+    }
+}
+```
+{% endcode %}
+
+{% code title="app/Http/Controllers/CompaniesController.php" %}
+```php
+...
+     /**
+     * @return JsonResponse
+     */
+    public function returnAndTrack(): JsonResponse
+    {
+        return response()->json(
+            [
+                'success' => 'Return initiated successfully.',
+                'redirectTo' => 'https://www.royalmail.com/portal/rm/track?trackNumber=ZW924750388GB'
+            ]
+        );
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function showSomeActivity(): JsonResponse
+    {
+        return response()->json(
+            [
+                'success' => 'Return initiated successfully.',
+                'redirectTo' => '/MyProject/MyEnvironment/MyTeam/data/20/index/record/20/108/activity'
+            ]
+        );
+    }
+...
+
+```
+{% endcode %}
+
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CompaniesController;
+use Illuminate\Support\Facades\Route;
+
+
+Route::post('forest/smart-actions/company_return-and-track', [CompaniesController::class, 'returnAndTrack']);
+Route::post('forest/smart-actions/company_show-some-activity', [CompaniesController::class, 'showSomeActivity']);
 ```
 {% endcode %}
 {% endtab %}

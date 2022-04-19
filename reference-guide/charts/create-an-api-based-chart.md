@@ -215,6 +215,63 @@ class ChartsMrrView(generic.ListView):
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/ChartsController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\ChartApi;
+use Stripe\StripeClient;
+
+class ChartsController extends Controller
+{
+    public function mrr()
+    {
+        $mrr = 0;
+        $stripe = new StripeClient('sk_AABBCCDD11223344');
+        $charges = $stripe->charges->all(['limit' => 3]);
+        foreach ($charges as $charge) {
+            $mrr += $charge->amount;
+        }
+        return ChartApi::renderValue($mrr);
+    }
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\ChartsController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/stats/mrr', [ChartsController::class, 'mrr']);
+```
+{% endcode %}
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/stats/mrr',
+    ];
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.09.27.png>)
@@ -469,6 +526,92 @@ class CreditCardCountryRepartitionView(generic.ListView):
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+```
+{
+  value: [{
+    key: <string> ,
+    value: <number>
+  }, {
+    key: <string> ,
+    value: <number>
+  }, …]
+}
+```
+
+{% code title="app/Http/Controllers/ChartsController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\ChartApi;
+use Stripe\StripeClient;
+
+class ChartsController extends Controller
+{
+    public function creditCardCountryRepartition()
+    {
+        $repartition = [];
+        $from = new \DateTime('2022-01-01');
+        $to = new \DateTime('2022-04-04');
+        $stripe = new StripeClient('sk_AABBCCDD11223344');
+        $charges = $stripe->charges->all(
+            [
+                'created' => [
+                    'gte' => $from->getTimestamp(),
+                    'lte' => $to->getTimestamp(),
+                ],
+                'limit'   => 100,
+            ]
+        );
+
+        foreach ($charges as $charge) {
+            $country = $charge->source?->country ?: 'Others';
+            if (!isset($repartition[$country])) {
+                $repartition[$country] = ['key' => $country, 'value' => 1];
+            } else {
+                $repartition[$country]['value']++;
+            }
+        }
+
+        return ChartApi::renderPie(array_values($repartition));
+    }
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\ChartsController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/stats/credit-card-country-repartition', [ChartsController::class, 'creditCardCountryRepartition']);
+```
+{% endcode %}
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/stats/credit-card-country-repartition',
+    ];
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.33.41.png>)
@@ -719,6 +862,110 @@ class ChargesPerDayView(generic.ListView):
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+```
+{
+  value: [{
+    label: <string> ,
+    values: { value: <number> }
+  }, {
+    label: <string> ,
+    values: { value: <number> }
+  }, …]
+}
+```
+
+{% code title="app/Http/Controllers/ChartsController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Faker\Factory;
+use ForestAdmin\LaravelForestAdmin\Facades\ChartApi;
+use Stripe\StripeClient;
+
+class ChartsController extends Controller
+{
+    public function chargesPerDay()
+    {
+        $values = [];
+        $from = new \DateTime('2022-01-01');
+        $to = new \DateTime('2022-02-01');
+
+        $stripe = new StripeClient('sk_AABBCCDD11223344');
+        $charges = $stripe->charges->all(
+            [
+                'created' => [
+                    'gte' => $from->getTimestamp(),
+                    'lte' => $to->getTimestamp(),
+                ],
+                'limit'   => 100,
+            ]
+        );
+
+        foreach ($charges as $charge) {
+            $date = \DateTime::createFromFormat('U', $charge->created)->format('d/m/Y');
+
+            if (!isset($values[$date])) {
+                $values[$date] = ['label' => $date, 'values' => ['value' => 1]];
+            } else {
+                $values[$date]['values']['value']++;
+            }
+        }
+
+        return ChartApi::renderLine(array_values($values));
+    }
+
+    public function createCharges()
+    {
+        $faker = Factory::create();
+        $stripe = new StripeClient('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+        foreach ([2000, 1500, 1000, 500] as $amount) {
+            $stripe->charges->create([
+                'amount'      => $amount,
+                'currency'    => 'eur',
+                'source'      => 'tok_amex',
+                'description' => $faker->name,
+            ]);
+        }
+    }
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\ChartsController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/stats/charges-per-day', [ChartsController::class, 'chargesPerDay']);
+
+```
+{% endcode %}
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/stats/charges-per-day',
+    ];
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.38.29.png>)
@@ -866,6 +1113,69 @@ class SomeObjectiveView(generic.ListView):
                 'id': uuid.uuid4()
             }}
 
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+```
+{
+  value: {
+    value: xxxx,
+    objective: yyyy
+  }
+}
+```
+{% code title="app/Http/Controllers/ChartsController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\ChartApi;
+
+class ChartsController extends Controller
+{
+    public function someObjective()
+    {
+        $data = [
+            'value'     => 10, // the fetched value
+            'objective' => 678, // the fetched objective
+        ];
+
+        return ChartApi::renderObjective($data);
+    }
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\ChartsController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/stats/some-objective', [ChartsController::class, 'someObjective']);
+```
+{% endcode %}
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/stats/some-objective',
+    ];
+}
 ```
 {% endcode %}
 {% endtab %}

@@ -15,3 +15,5 @@ Mongoose: [version 8.x.x](https://github.com/ForestAdmin/forest-express-mongoose
 Rails: [version 7.x.x](https://github.com/ForestAdmin/forest-rails)
 
 Django: [version 1.x.x](https://github.com/ForestAdmin/django-forestadmin)
+
+Laravel: [version 1.x.x](https://github.com/ForestAdmin/laravel-forestadmin)

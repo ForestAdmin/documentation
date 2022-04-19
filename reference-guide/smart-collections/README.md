@@ -150,6 +150,80 @@ Collection.register(CustomerStat)
 The option`is_searchable = True` added to your collection allows to display the search bar. Note that you will have to implement the search yourself by including it into your own `get` logic in your collection controller.
 {% endhint %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+First, we declare the `CustomerStat` collection in the `app/Models/SmartCollections/CustomerStat.php` file.&#x20;
+
+In this Smart Collection, we want to display for each customer its email address, the number of orders made (in a field `orders_count`) and the sum of the price of all those orders (in a field `total_amount`).
+
+You can check out the list of [available field options ](../smart-fields/#available-field-options)if you need it.
+
+{% hint style="warning" %}
+You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.&#x20;
+
+As we are using the _customer id_  in this example, we do not need to declare an `id`&#x20;
+{% endhint %}
+
+{% code title="app/Models/SmartCollections/CustomerStat.php" %}
+```php
+<?php
+
+namespace App\Models\SmartCollections;
+
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartField;
+use Illuminate\Support\Collection;
+
+class CustomerStat extends SmartCollection
+{
+    protected string $name = 'customerStat';
+
+    protected bool $is_searchable = true;
+
+    protected bool $is_read_only = true;
+
+    /**
+     * @return Collection
+     */
+    public function fields(): Collection
+    {
+        return collect(
+            [
+                new SmartField(
+                    [
+                        'field' => 'id',
+                        'type'  => 'Number',
+                    ]
+                ),
+                new SmartField(
+                    [
+                        'field' => 'email',
+                        'type'  => 'String',
+                    ]
+                ),
+                new SmartField(
+                    [
+                        'field' => 'orders_count',
+                        'type'  => 'Number',
+                    ]
+                ),
+                new SmartField(
+                    [
+                        'field' => 'total_count',
+                        'type'  => 'Number',
+                    ]
+                ),
+            ]
+        );
+    }
+}
+```
+{% endcode %}
+
+{% hint style="info" %}
+The option`is_searchable = True` added to your collection allows to display the search bar. Note that you will have to implement the search yourself by including it into your own `get` logic in your collection controller.
+{% endhint %}
+{% endtab %}
 {% endtabs %}
 
 ### Implementing the GET (all records)
@@ -381,7 +455,7 @@ class CustomerStatsViewView(PaginationMixin, SearchMixin, generic.ListView):
         queryset = Customer.objects.all()
 
         # annotate
-        queryset = queryset.annotate(total_ammount=Sum('product__prices'))
+        queryset = queryset.annotate(total_amount=Sum('product__prices'))
         queryset = queryset.annotate(orders_count=Count('orders'))
 
         # search
@@ -395,6 +469,67 @@ class CustomerStatsViewView(PaginationMixin, SearchMixin, generic.ListView):
         data = Schema().dump(queryset, many=True)
 
         return JsonResponse(data, safe=False)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+Create a controller `CustomerStatsController`
+{% code title="app/Http/Controllers/CustomerStatsController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+
+class CustomerStatsController extends Controller
+{
+    /**
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $customerStats = Customer::select(DB::raw('customers.id, customers.email, COUNT(DISTINCT orders.*) AS orders_count, SUM(products.price) AS total_count'))
+            ->join('orders', 'orders.customer_id', '=', 'customers.id')
+            ->join('order_product', 'order_product.order_id', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'order_product.product_id')
+            ->groupBy('customers.id')
+            ->orderBy('customers.id');
+
+        if (request()->has('search')) {
+            $customerStats->whereRaw("LOWER (customers.email) LIKE LOWER(?)", ['%' . request()->input('search') . '%']);
+        }
+
+        $pageParams = request()->query('page') ?? [];
+
+        return response()->json(
+            JsonApi::render(
+                $customerStats->paginate(
+                    $pageParams['size'] ?? null,
+                    '*',
+                    'page',
+                    $pageParams['number'] ?? null
+                ),
+                'customerStat',
+            )
+        );
+    }
+}
+```
+{% endcode %}
+Then add the route.
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CustomerStatsController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('forest/customerStat', [CustomerStatsController::class, 'index']);
 ```
 {% endcode %}
 {% endtab %}

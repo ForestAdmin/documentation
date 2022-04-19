@@ -115,7 +115,7 @@ class CustomerForest(Collection):
         return f'{obj.firstname} {obj.lastname}'
 
 
-Collection.register(CCustomerForest, Customer)
+Collection.register(CustomerForest, Customer)
 
 ```
 {% endcode %}
@@ -144,6 +144,78 @@ class CustomerForest(Collection):
 
 
 Collection.register(CustomerForest, Customer)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+On our Live Demo, the very simple Smart Field `fullname` is available on the `Customer` model.
+
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartField;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartField
+     */
+    public function fullname(): SmartField
+    {
+        return $this->smartField(['type' => 'String'])
+            ->get(fn() => $this->firstname . '-' . $this->lastname);
+    }
+}
+```
+{% endcode %}
+
+Very often, the business logic behind the Smart Field is more complex and must interact with the database. Here’s an example with the Smart Field `full_address` on the `Customer` model.
+
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartField;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartField
+     */
+    public function fullAddress(): SmartField
+    {
+        return $this->smartField(['type' => 'String'])
+            ->get(
+                function () {
+                    $address = Address::firstWhere('customer_id', $this->id);
+
+                    return "$address->address_line1  $address->address_line2 $address->address_city  $address->country";
+                }
+            );
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -339,6 +411,47 @@ Collection.register(CustomerForest, Customer)
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartField;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartField
+     */
+    public function fullname(): SmartField
+    {
+        return $this->smartField(['type' => 'String'])
+            ->get(fn() => $this->firstname . ' ' . $this->lastname)
+            ->set(
+                function ($value) {
+                    [$firstname, $lastname] = explode(' ', $value);
+                    $this->firstname = $firstname;
+                    $this->lastname = $lastname;
+
+                    return $this;
+                }
+            );
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.23.14.png>)
@@ -469,6 +582,59 @@ class CustomerForest(Collection):
 
 
 Collection.register(CustomerForest, Customer)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartField;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartField
+     */
+    public function fullname(): SmartField
+    {
+        return $this->smartField(['type' => 'String'])
+            ->get(fn() => $this->firstname . ' ' . $this->lastname)
+            ->set(
+                function ($value) {
+                    [$firstname, $lastname] = explode(' ', $value);
+                    $this->firstname = $firstname;
+                    $this->lastname = $lastname;
+
+                    return $this;
+                }
+            )
+            ->search(
+                function (Builder $query, $value) {
+                    [$firstname, $lastname] = explode(' ', $value);
+                    return $query->orWhere(
+                        fn($query) => $query->where('firstname', $firstname)
+                            ->where('lastname', $lastname)
+                    );
+                }
+            );
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -665,6 +831,91 @@ class CustomerForest(Collection):
 
 
 Collection.register(CustomerForest, Customer)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartField;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartField
+     */
+    public function fullname(): SmartField
+    {
+        return $this->smartField(['type' => 'String'])
+            ->get(fn() => $this->firstname . ' ' . $this->lastname)
+            ->set(
+                function ($value) {
+                    [$firstname, $lastname] = explode(' ', $value);
+                    $this->firstname = $firstname;
+                    $this->lastname = $lastname;
+
+                    return $this;
+                }
+            )
+            ->filter(
+                function (Builder $query, $value, string $operator, string $aggregator) {
+                    $data = explode(' ', $value);
+                    switch ($operator) {
+                        case 'equal':
+                            $query->where(
+                                fn($query) => $query->where('firstname', $data[0])
+                                    ->where('lastname', $data[1]),
+                                null,
+                                null,
+                                $aggregator
+                            );
+                            break;
+                        case 'ends_with':
+                            if ($data[1] === null) {
+                                $query->where(
+                                    fn($query) => $query->whereRaw("lastname LIKE ?", ['%' . $data[0] . '%']),
+                                    null,
+                                    null,
+                                    $aggregator
+                                );
+                            } else {
+                                $query->where(
+                                    fn($query) => $query->whereRaw("firstname LIKE ?", ['%' . $value . '%'])
+                                        ->whereRaw("lastname LIKE ?", ['%' . $value . '%']),
+                                    null,
+                                    null,
+                                    $aggregator
+                                );
+                            }
+                            break;
+                       //... And so on with the other operators not_equal, starts_with, etc.
+                        default:
+                            throw new ForestException(
+                                "Unsupported operator: $operator"
+                            );
+                    }
+
+                    return $query;
+                }
+            );
+    }
+}
 ```
 {% endcode %}
 {% endtab %}

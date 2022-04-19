@@ -133,6 +133,50 @@ Collection.register(OrderForest, Order)
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Order.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartRelationship;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Order
+ */
+class Order extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartRelationship
+     */
+    public function deliveryAddress(): SmartRelationship
+    {
+        return $this->smartRelationship(
+            [
+                'type' => 'String',
+                'reference' => 'address.id'
+            ]
+        )
+            ->get(
+                function () {
+                    return Order::join('customers', 'customers.id', '=', 'orders.customer_id')
+                        ->join('addresses', 'addresses.customer_id', '=', 'customers.id')
+                        ->where('orders.id', $this->id)
+                        ->first();
+                }
+            );
+    }
+}
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.00.28.png>)
@@ -209,6 +253,41 @@ class ProductForest(Collection):
 
 
 Collection.register(ProductForest, Product)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Product.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+
+/**
+ * Class Product
+ */
+class Product extends Model
+{
+    use HasFactory;
+
+    /**
+     * @return SmartRelationship
+     */
+    public function buyers(): SmartRelationship
+    {
+        return $this->smartRelationship(
+            [
+                'type' => ['String'],
+                'reference' => 'customer.id'
+            ]
+        );
+    }
+}
 ```
 {% endcode %}
 {% endtab %}
@@ -532,6 +611,61 @@ We’ve built the right SQL query using [Django ORM](https://docs.djangoproject.
 Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
 
 Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example, with the table name `app_customer`). You can access to the serializer through the `Schema().dump` function (using [marshmallow-jsonapi](https://marshmallow-jsonapi.readthedocs.io/en/latest/) internally).
+{% endtab %}
+
+
+{% tab title="Laravel" %}
+Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/product/{id}/relationships/buyers`.
+
+We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active\_record\_basics.html) to **count** and **find all** customers who bought the current product.
+
+Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
+
+Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `render()` function of JsonApi facade.
+
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\ProductsController;
+use Illuminate\Support\Facades\Route;
+
+
+Route::get('forest/product/{id}/relationships/buyers', [ProductsController::class, 'buyers']);
+```
+{% endcode %}
+{% code title="app/Http/controllers/ProductsController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * Class ProductsController
+ */
+class ProductsController extends ForestController
+{
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function buyers(int $id): JsonResponse
+    {
+        $query = Customer::whereHas('orders.products', fn ($query) => $query->where('products.id', $id))
+            ->paginate($pageParams['size'] ?? null, '*', 'page', $pageParams['number'] ?? null);
+
+        return response()->json(
+            JsonApi::render($query, 'customers', ['count' => $query->total()])
+        );
+    }
+}
+```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
