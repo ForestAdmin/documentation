@@ -163,7 +163,6 @@
   * [Manage SQL views](how-tos/databases/manage-sql-views.md)
 * [Settings](how-tos/settings/README.md)
   * [Customize your /forest folder](how-tos/settings/customize-your-forest-folder.md)
-  * [Restrict the search on specific fields](how-tos/settings/restrict-the-search-on-specific-fields.md)
   * [Disable automatic Forest Admin schema update](how-tos/settings/disable-automatic-forest-admin-schema-update.md)
   * [Include/exclude models](how-tos/settings/include-exclude-models.md)
   * [Display extensive logs](how-tos/settings/display-extensive-logs.md)

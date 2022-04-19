@@ -1,19 +1,21 @@
 ---
 description: >-
   Loading performance is key to streamlining your operations. Here are a few
-  steps we recommend to take to ensure your Forest is optimized.
+  steps we recommend taking to ensure your Forest is optimized.
 ---
 
 # Performance
 
-You can display bellow performances improvement tricks in [this video](https://www.youtube.com/watch?v=UC5nH8q5YUI). For any further help to improve admin panel performances, if the below guidelines aren't enough or don't fit your case, please ask [the community](https://community.forestadmin.com).
+Please find here all the hands-on best practices to keep your admin panel performant. Depending on your user's needs, you might either hide or optimize some fields to limit the number of components, avoid a large datasets display or rework complex logic.&#x20;
+
+You can display bellow performances improvement tricks in [this video](https://www.youtube.com/watch?v=UC5nH8q5YUI). For any further help to improve admin panel performances, get in touch with [the community](https://community.forestadmin.com).
 
 ### Layout optimization
 
-1\. Show only [Smart fields](https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields) you absolutely need
+1\. Show only [Smart fields](https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields)
 
 {% hint style="danger" %}
-As you can see in the [Loading time benchmark](performance.md#loading-time-benchmark) below, Smart fields can be quite **costly** in terms of loading performance. Limiting them to those you absolutely need is key.
+As you can see in the [Loading time benchmark](performance.md#loading-time-benchmark) below, Smart fields can be quite **costly** in terms of loading performance. Limiting them to those you need is key.
 {% endhint %}
 
 2\. Reduce the number of records per page &#x20;
@@ -28,27 +30,81 @@ As you can see in the [Loading time benchmark](performance.md#loading-time-bench
 You can hide some fields in your table view; this will not prevent you from seeing them in the record details view.
 {% endhint %}
 
-4\. Show only Relationship fields you absolutely need
+
 
 Relationship fields are links to other collection records within your table view:
 
 ![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.49.03.png>)
 
-Having Relationship fields can decrease your performance, especially if your tables have a lot of records. Therefore you should display only those you actually need and use!
+Having Relationship fields can decrease your performance, especially if your tables have a lot of records. Therefore you should display only those you need and use!
 
 ### Optimize smart fields performance
 
 To optimize your smart field performances, please check out [this section](smart-fields/#createadvancedsmartfield).
 
+### Restrict search on specific fields
+
+Sometimes, searching in all fields is not relevant and may even result in big performance issues. You can restrict your search to specific fields only using the `searchFields` option.
+
+{% tabs %}
+{% tab title="SQL" %}
+In this example, we configure Forest Admin to only search on the fields `name` and `industry` of our collection `companies`.
+
+{% code title="/forest/companies.js" %}
+```javascript
+const { collection } = require('forest-express-sequelize');
+​
+collection('companies', {
+  searchFields: ['name', 'industry'],   
+});
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Mongodb" %}
+In this example, we configure Forest to only search on the fields `name` and `industry` of our collection `companies`.
+
+{% code title="/forest/companies.js" %}
+```javascript
+const { collection } = require('forest-express-mongoose');
+​
+collection('companies', {
+  searchFields: ['name', 'industry'],   
+});
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Rails" %}
+In this example, we configure Forest to only search on the fields `name` and `industry` of our collection `Company`.
+
+{% code title="/lib/forest_liana/collections/company.rb" %}
+```ruby
+class Forest::Company
+  include ForestLiana::Collection
+
+  collection :Company
+
+  search_fields ['name', 'industry']
+
+  action 'Mark as Live'
+  
+# ...
+end
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
 ### Disable pagination count
 
-{% hint style="warning" %}
+{% hint style="info" %}
 This feature is only available if you're using the `forest-express-sequelize` (v8.5.3+)`,` `forest-express-mongoose` (v8.6.5+),  `forest-rails` (v7.5.0+) or `django-forestadmin` (v1.2.0+) agent.
 {% endhint %}
 
 To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
 
-In certain conditions, usually when your database reaches a point where it has a lot of records, this request can decrease your loading performance. In this case, you can choose to disable it...
+In certain conditions, usually, when your database reaches a point where it has a lot of records, this request can decrease your loading performance. In this case, you can choose to disable it...
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -207,7 +263,7 @@ You can also disable the count request in a collection only in certain condition
 {% tab title="SQL" %}
 {% code title="/routes/books.js" %}
 ```javascript
-// Get a number of Books when you have a filter
+// Get a number of Books when you have a filtering
 router.get('/books/count', (request, response, next) => {
   if (request.query.filters) {
     next(); // count will be done

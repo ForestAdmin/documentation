@@ -363,7 +363,7 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 We will see a success message in the browser:
 
-&#x20;![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.34.54.png>)&#x20;
+&#x20;<img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.34.54.png" alt="" data-size="original">&#x20;
 
 #### Custom success notification <a href="#custom-success-notification" id="custom-success-notification"></a>
 
@@ -429,7 +429,7 @@ class MarkAsLiveView(ActionView):
 
 … the success notification will look like this:
 
-![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.35.40.png>)&#x20;
+<img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.35.40.png" alt="" data-size="original">&#x20;
 
 #### Custom error notification <a href="#custom-error-notification" id="custom-error-notification"></a>
 
@@ -496,7 +496,7 @@ class MarkAsLiveView(ActionView):
 {% endtab %}
 {% endtabs %}
 
-#### ![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.36.04.png>)  <a href="#custom-html-response" id="custom-html-response"></a>
+#### <img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.36.04.png" alt="" data-size="original">  <a href="#custom-html-response" id="custom-html-response"></a>
 
 #### Custom HTML response <a href="#custom-html-response" id="custom-html-response"></a>
 
