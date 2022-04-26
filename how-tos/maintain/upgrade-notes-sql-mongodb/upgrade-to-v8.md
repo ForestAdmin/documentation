@@ -209,7 +209,7 @@ Before
   }],
   hooks: {
     change: {
-      'a field': ({ fields, record }) => {
+      'a field': ({ fields }) => {
         // Do something ...
         return fields;
       },
@@ -233,7 +233,7 @@ After
   }],
   hooks: {
     change: {
-      onFieldChanged: ({ fields, record, changedField }) => {
+      onFieldChanged: ({ fields, changedField }) => {
         // Do something ...
         return fields;
       },
@@ -253,13 +253,13 @@ Before
 ```javascript
 [...]
 hooks: {
-  load: ({ fields, record }) => {
+  load: ({ fields }) => {
     const field = fields['a field'];
     field.value = 'init your field';
     return fields;
   },
   change: {
-    onFieldChanged: ({ fields, record }) => {
+    onFieldChanged: ({ fields }) => {
       const field = fields['a field'];
       field.value = 'what you want';
       return fields;
@@ -276,13 +276,13 @@ After
 ```javascript
 [...]
 hooks: {
-  load: ({ fields, record }) => {
+  load: ({ fields }) => {
     const field = fields.find(field => field.field === 'a field');
     field.value = 'init your field';
     return fields;
   },
   change: {
-    onFieldChanged: ({ fields, record, changedField }) => {
+    onFieldChanged: ({ fields, changedField }) => {
       const field = fields.find(field => field.field === 'a field');
       field.value = 'what you want';
       return fields;
