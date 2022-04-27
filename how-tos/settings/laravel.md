@@ -17,11 +17,11 @@ php artisan forest:send-apimap
 ```
 This command must be run each time you deploy your application on production.
 
-But you can avoid it and activate the mode "apimap send auto" with the environment variable `FOREST_SEND_APIMAP_AUTO`.
+But you can avoid it and activate the mode "apimap send auto" with the environment variable `FOREST_SEND_APIMAP_AUTOMATIC`.
 
 You have 2 solutions:
-- add `FOREST_SEND_APIMAP_AUTO` to your .env file and set to true
-- publish your configuration and set to true the `send_apimap_auto` into `config/forest.php`
+- add `FOREST_SEND_APIMAP_AUTOMATIC` to your .env file and set to true
+- publish your configuration and set to true the `send_apimap_automatic` into `config/forest.php`
 
 
 However, beware that if you activate this configuration, you must refresh your forest dashboard after you deploy on production.
