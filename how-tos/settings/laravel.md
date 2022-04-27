@@ -1,4 +1,4 @@
-# Laravel
+# Laravel specific settings
 
 ### Publish the configuration
 
