@@ -166,3 +166,4 @@
   * [Disable automatic Forest Admin schema update](how-tos/settings/disable-automatic-forest-admin-schema-update.md)
   * [Include/exclude models](how-tos/settings/include-exclude-models.md)
   * [Display extensive logs](how-tos/settings/display-extensive-logs.md)
+  * [Laravel specific settings](how-tos/settings/laravel-specific-settings.md)

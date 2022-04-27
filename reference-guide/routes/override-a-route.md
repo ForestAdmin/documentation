@@ -649,4 +649,71 @@ Route::post('forest/user', [UsersController::class, 'store']);
 ```
 {% endcode %}
 {% endtab %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Http/Controllers/UsersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
+
+class UsersController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'User';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function store(): JsonResponse
+    {
+        $this->authorize('create', $this->model);
+        $response = Http::post('https://<your-api>/users', request()->all())->json();
+        $user = User::findOrFail($response['id']);
+
+        return response()->json(JsonApi::render($user, $this->name), Response::HTTP_CREATED);
+    }
+}
+```
+{% endcode %}
+{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+
+class VerifyCsrfToken extends Middleware
+{
+    /**
+     * The URIs that should be excluded from CSRF verification.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        'forest/user',
+    ];
+}
+```
+{% endcode %}
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/user', [UsersController::class, 'store']);
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
