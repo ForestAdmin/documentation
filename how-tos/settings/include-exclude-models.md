@@ -101,4 +101,24 @@ ForestLiana.excluded_models = ['Document', 'Transaction'];
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="config/forest.php" %}
+```php
+<?php
+
+use App\Models\Customer;
+use App\Models\Document;
+use App\Models\Transaction;
+
+return [
+    ...
+    // in the [] you may add the precise list of all models you want to see in Forest
+    'included_models' => [Customer::class],
+    // in the [] you may add the precise list of all models you do not want to see in Forest
+    'excluded_models' => [Document::class, Transaction::class],
+];
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
