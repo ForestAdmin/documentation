@@ -29,3 +29,24 @@ However, beware that if you activate this configuration, you must refresh your f
 {% hint style="info" %}
 Depending on your configuration, refreshing the whole application may take a few seconds after your deployment. Using the environment variable is recommended for small projects, whereas the php artisan command is better suited when dealing with bigger projects.
 {% endhint %}
+
+
+### Onboard with Laravel Valet
+
+When using Laravel Valet, you must configure to SSL.
+```
+valet secure YOUR_PROJECT_NAME
+```
+
+Then declare the corresponding url in your .env file into the APP_URL variable.
+{% hint style="info" %}
+Don't forget the S of https
+{% endhint %}
+```
+APP_URL=https://YOUR_PROJECT_NAME.test
+```
+
+{% hint style="warning" %}
+With Laravel Valet the apimap is not updated automatically.
+We recommend that you set your environment variable FOREST_SEND_APIMAP_AUTOMATIC to true. More information in the previous chapter [Send apimap on deploy](#send-apimap-on-deploy)
+{% endhint %}
