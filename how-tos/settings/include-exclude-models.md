@@ -4,11 +4,11 @@ By default, all models declared in your app are analysed by the Forest Liana in 
 
 You can exclude some of them from the analysis to never send their metadata to Forest Admin. By doing this, these models will therefore never be available in your admin panel.
 
-To do so, add the following code to **either** define which models are included **or** excluded.&#x20;
+To do so, add the following code to **either** define which models are included **or** excluded.
 
 {% tabs %}
 {% tab title="SQL" %}
-### Include models
+#### Include models
 
 {% code title="middlewares/forestadmin.js" %}
 ```javascript
@@ -26,7 +26,7 @@ app.use(require('forest-express-sequelize').init({
 ```
 {% endcode %}
 
-### Exclude models
+#### Exclude models
 
 {% code title="middlewares/forestadmin.js" %}
 ```javascript
@@ -46,7 +46,7 @@ app.use(require('forest-express-sequelize').init({
 {% endtab %}
 
 {% tab title="Mongodb" %}
-### Include models
+#### Include models
 
 {% code title="middlewares/forestadmin.js" %}
 ```javascript
@@ -64,7 +64,7 @@ app.use(require('forest-express-mongoose').init({
 ```
 {% endcode %}
 
-### Exclude models
+#### Exclude models
 
 {% code title="middlewares/forestadmin.js" %}
 ```javascript

@@ -10,11 +10,11 @@ You need a **Starter plan** or above to create Smart charts
 
 To create a chart and access the _Smart Chart Editor_, click on the **Edit Smart Chart** button:
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MZlkfgDpqGO7zeIYXj4%2F-MZlmU4mrMJ1N0rGBX9\_%2Fimage.png?alt=media\&token=5d269004-8b26-42bc-9720-bf7f3d5d785b)
+![](<../../.gitbook/assets/image (9).png>)
 
 Next, use the _Template_, _Component,_ and _Style_ tabs to create your customized chart. At any point, you can render your chart by clicking on the **Run code** button.
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MZlcxPrcf9vT9ernMNV%2F-MZlei1DJUpTPRWKpgtA%2Fimage.png?alt=media\&token=4e0aaabb-d676-4ca2-b038-d177c836bd6a)
+![](<../../.gitbook/assets/image (206).png>)
 
 {% hint style="warning" %}
 Don't forget to click on **Create Chart** (or **Save** if the chart is already created) once you're done!
@@ -65,7 +65,7 @@ export default class extends Component {
 ```
 {% endcode %}
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MZlcxPrcf9vT9ernMNV%2F-MZlfjh4XS7ZQIc32yNd%2Fimage.png?alt=media\&token=06de6b9b-bbeb-4af9-be93-5fb5ea1f171d)
+![](<../../.gitbook/assets/image (207).png>)
 
 To query a custom route of your Forest server as your datasource, you may use this syntax instead:
 
@@ -213,7 +213,7 @@ This bar chart is inspired by [this one](https://observablehq.com/@d3/bar-chart)
 
 The resulting chart can be resized to fit your use:
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MZlj4t\_3ZRkMF\_s0vjK%2F-MZljyVpyui77zuDOBGx%2Fimage.png?alt=media\&token=3f5a6400-127c-486c-b7ad-18c989275bd1)
+![](<../../.gitbook/assets/image (8).png>)
 
 ### Creating a density map <a href="#creating-a-density-map" id="creating-a-density-map"></a>
 
@@ -345,7 +345,7 @@ This density map chart is inspired from [this one](https://observablehq.com/@d3/
 
 The resulting chart can be resized to fit your use:
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MZlnG8W0zyohS4OAZnN%2F-MZlntfMEVbnDWAqJPC2%2Fimage.png?alt=media\&token=609f7438-d7ae-4610-87f4-98eee5488e5c)
+![](<../../.gitbook/assets/image (482).png>)
 
 ### Creating a Cohort Chart <a href="#creating-a-cohort-chart" id="creating-a-cohort-chart"></a>
 
@@ -537,4 +537,6 @@ In the above snippet, notice how we import the **D3js** library. Of course, you 
 ```
 {% endcode %}
 
-The resulting chart can be resized to fit your use:![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-McF5Q19wi4K5nGRWsEw%2F-McF5ZgR\_CzOBdpKh9Xe%2FCleanShot%202021-06-15%20at%2016.36.24%402x.png?alt=media\&token=16334b60-fcf8-4e02-8a36-605a4fea4e7c)
+The resulting chart can be resized to fit your use:
+
+![](<../../.gitbook/assets/image (5).png>)

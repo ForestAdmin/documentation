@@ -13,11 +13,11 @@ Relationships are visible and actionable in Forest Admin:
 
 If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association\_basics.html) to create new ones.
 
-If you installed Forest Admin directly on a database (using **Lumber**), the most relationships should have been [automatically generated](./#lumber-relationship-generation-rules). However, dependiinig on your database nature and structure, you may have to add some manually.
+If you installed Forest Admin directly on a database, then most relationships should have been [automatically generated](./#lumber-relationship-generation-rules). However, dependiinig on your database nature and structure, you may have to add some manually.
 
-## Adding relationships (Lumber only)
+## Adding relationships (databases only)
 
-Depending on your database type, Lumber will have generated models in Sequelize (for SQL databases) or Mongoose (for Mongo databases).
+Depending on your database type, your models will have been generated in Sequelize (for SQL databases) or Mongoose (for Mongo databases).
 
 Below are some simple snippets showing you how to add relationships. However, should you want to dig deeper, please refer to the appropriate framework's documentations:
 
