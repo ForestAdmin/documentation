@@ -6,7 +6,7 @@ A field that displays a computed value in your collection.
 
 ![](<../../.gitbook/assets/image (30).png>)
 
-&#x20;A Smart Field is a column that displays processed-on-the-fly data. It can be as simple as concatenating attributes to make them human friendly, or more complex (e.g. total of orders).
+A Smart Field is a column that displays processed-on-the-fly data. It can be as simple as concatenating attributes to make them human friendly, or more complex (e.g. total of orders).
 
 ### Creating a Smart Field <a href="#creating-a-smart-field" id="creating-a-smart-field"></a>
 
@@ -116,7 +116,6 @@ class CustomerForest(Collection):
 
 
 Collection.register(CustomerForest, Customer)
-
 ```
 {% endcode %}
 
@@ -956,9 +955,11 @@ Here are the list of available options to customize your Smart Field:
 You can define a widget for a smart field from the [settings of your collection](https://docs.forestadmin.com/user-guide/collections/customize-your-fields).
 {% endhint %}
 
-### Optimize Smart Field performance <a href="#createadvancedsmartfield" id="createadvancedsmartfield"></a>
+### Building Performant Smart Fields <a href="#createadvancedsmartfield" id="createadvancedsmartfield"></a>
 
-To optimize your smart field performance, we recommend implementing smart fields in the following way:
+To optimize your smart field performance, we recommend using a mechanism of batching and caching data requests.
+
+Implement them using the DataLoader which is a generic utility to be used as part of your application's data fetching layer to provide a simplified and consistent API over various remote data sources.
 
 #### Smart field declaration
 
@@ -966,6 +967,18 @@ To optimize your smart field performance, we recommend implementing smart fields
 {% tab title="SQL" %}
 {% code title="forest/post.js" %}
 ```javascript
+const DataLoader = require('dataloader');
+
+const authorLoader = new DataLoader(async (authorKeys) => {
+  const authors = await users.findAll({
+    where: { id: authorKeys },
+  });
+
+  const authorsById = new Map(authors.map(user => [user.id, user]));
+
+  return authorKeys.map(authorKey => authorsById.get(authorKey));
+})
+
 collection('posts', {
   actions: [],
   fields: [
@@ -973,13 +986,7 @@ collection('posts', {
       field: 'author_name',
       type: 'String',
       get: async (record) => {
-        // This allows to directly use the author that is attached
-        // to the record, and fallback to the async getter if not
-        // present
-        // (for instance if we don't want to change the GET route)
-        const author = record.author
-          ? record.author
-          : await users.findByPk(record.authorKey);
+        const author = await authorLoader.load(record.authorKey);
 
         return author.name;
       }
@@ -994,104 +1001,11 @@ collection('posts', {
 {% tab title="MongoDB" %}
 {% code title="forest/post.js" %}
 ```javascript
-collection('posts', {
-  actions: [],
-  fields: [
-    {
-      field: 'author_name',
-      type: 'String',
-      get: async (record) => {
-        // This allows to directly use the author that is attached
-        // to the record, and fallback to the async getter if not
-        // present
-        // (for instance if we don't want to change the GET route)
-        const author = record.author
-          ? record.author
-          : await users.findByPk(record.authorKey);
+const { collection } = require('forest-express-mongoose');
+const { Address } = require('../models');
+const Dataloader = require('dataloader');
 
-        return author.name;
-      }
-    }
-  ],
-  segments: []
-});
-```
-{% endcode %}
-{% endtab %}
-{% endtabs %}
-
-#### Route Overriding
-
-{% tabs %}
-{% tab title="SQL" %}
-```javascript
-// Get a list of Posts
-router.get('/posts', permissionMiddlewareCreator.list(), async (request, response, next) => {
-  const { query, user } = request;
-  const recordsGetter = new RecordsGetter(posts, user, query);
-
-  try{
-    const records = await recordsGetter.getAll();
-
-    // Only this function differs from the default implementation
-    await addComplementaryDataToPosts(records);
-
-    // Smart fields are actually computed here
-    const recordsSerialized = await recordsGetter.serialize(records);
-    response.send(recordsSerialized);
-  }catch(e){
-    next(e);
-  }
-});
-
-async function addComplementaryDataToPosts(records){
-  const authorKeys = records.map(record => record.authorKey);
-
-  // Only ONE query is made to retrieve all the data needed for
-  // all the returned records
-  const authors = await users.findAll({
-    where: { id: authorKeys }
-  });
-
-  const authorsById = new Map(authors.map(user => [user.id, user]));
-
-  // This adds the corresponding author to each post
-  // for it to be used in the smart field declaration
-  records.forEach(record => {
-    record.author = authorsById.get(record.authorKey);
-  });
-}
-```
-{% endtab %}
-
-{% tab title="MongoDB" %}
-```javascript
-// Get a list of Posts
-router.get('/customers', permissionMiddlewareCreator.list(), async (request, response, next) => {
-  const { query, user } = request;
-  const recordsGetter = new RecordsGetter(models.customers, user, query);
-
-  try{
-    const records = await recordsGetter.getAll();
-
-    // Only this function differs from the default implementation
-    // that is currently presented in the documentation
-    // (I just switched to an async/await syntax)
-    await addComplementaryDataToCustomers(records);
-
-    // Smart fields are actually computed here
-    const recordsSerialized = await recordsGetter.serialize(records);
-    response.send(recordsSerialized);
-  }catch(e){
-    next(e);
-  }
-});
-
-async function addComplementaryDataToCustomers(records){
-  const customerIds = records.map(record => record.id);
-
-  // Only ONE query is made to retrieve all the data needed for
-  // all the returned records
+const addressLoader = new Dataloader((customerIds) => {
   const addresses = await models.addresses.find({
     customer_id: {
       $in: customerIds
@@ -1100,14 +1014,28 @@ async function addComplementaryDataToCustomers(records){
 
   const addressesByCustomerId = new Map(addresses.map(
     address => [address.customer_id, address]
-   ));
+  ));
 
-  // This adds the corresponding author to each post
-  // for it to be used in the smart field declaration
-  records.forEach(record => {
-    record.address = addressesByCustomerId.get(record.id);
-  });
-}java
+  return customerIds.map(customerId => addressesByCustomerId.get(customerId));
+})
+
+collection('customers', {
+  fields: [{
+    field: 'full_address',
+    type: 'String',
+    get: (customer) => {
+      return addressLoader.load(customer.id)
+        .then((address) => {
+          return address.address_line_1 + '\n' +
+            address.address_line_2 + '\n' +
+            address.address_city + ' ' + address.country;
+        });
+    }
+  }]
+});
 ```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
+
+####
