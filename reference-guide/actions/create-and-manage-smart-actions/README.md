@@ -322,7 +322,7 @@ class CompaniesController extends ForestController
 
 #### What's happening under the hood?
 
-When you trigger the Smart Action from the UI, your browser will make an API call: `POST /forest/actions/mask-as-live`.
+When you trigger the Smart Action from the UI, your browser will make an API call: `POST /forest/actions/mark-as-live`.
 
 {% hint style="info" %}
 If you want to customize the API call, check the list of [available options](https://docs.forestadmin.com/documentation/reference-guide/actions/create-and-manage-smart-actions#available-smart-action-options).
