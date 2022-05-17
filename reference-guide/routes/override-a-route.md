@@ -649,7 +649,6 @@ Route::post('forest/user', [UsersController::class, 'store']);
 ```
 {% endcode %}
 {% endtab %}
-{% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/UsersController.php" %}
