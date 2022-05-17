@@ -648,9 +648,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/user', [UsersController::class, 'store']);
 ```
 {% endcode %}
-{% endtab %}
 
-{% tab title="Laravel" %}
 {% code title="app/Http/Controllers/UsersController.php" %}
 ```php
 <?php
