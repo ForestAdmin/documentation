@@ -19,7 +19,7 @@ Once you start [creating a project](https://app.forestadmin.com/new-project), yo
 Forest Admin can be implemented in two very different ways :&#x20;
 
 * Using an existing app: integrate Forest Admin into your Ruby on Rails, Django, Node.js app with Express (and Sequelize ORM or Mongoose ORM).
-* As a dedicated app: create a dedicated app directly linked to your PostgreSQL, MySQL, Microsoft SQL Server or MongoDB database.&#x20;
+* As a dedicated app: create a dedicated app directly linked to your PostgreSQL, MySQL / MariaDB, Microsoft SQL Server or MongoDB database.&#x20;
 
 At Forest Admin, if you have the choice, we recommend integrating in an existing app as it is easier to maintain.
 
@@ -67,7 +67,7 @@ In case of an error, you can consult the [troubleshooting page](troubleshooting.
 At the moment, we are supporting:&#x20;
 
 * PostgreSQL
-* MySQL
+* MySQL / MariaDB
 * Microsoft SQL Server
 * MongoDB&#x20;
 
