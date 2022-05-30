@@ -1,7 +1,7 @@
 # Azure Table Storage
 
 {% hint style="success" %}
-This How to is based on the [Medium article](https://avarnon.medium.com/exposing-azure-table-storage-through-forest-admin-2d601752f9b1) by [Andrew Varnon](https://avarnon.medium.com)
+This How to is based on the [Medium article](https://avarnon.medium.com/exposing-azure-table-storage-through-forest-admin-2d601752f9b1) by [Andrew Varnon](https://avarnon.medium.com/)
 {% endhint %}
 
 The implementation is done using a [Smart Collection](https://docs.forestadmin.com/documentation/reference-guide/collections/create-a-smart-collection) and a CRUD service that will wrap the [Azure Table Storage API](https://docs.microsoft.com/en-us/rest/api/storageservices/table-service-rest-api).

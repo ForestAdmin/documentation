@@ -110,7 +110,7 @@ Then, you will be able to create and connect your admin backend, with the follow
 Finally, when your local server is started, you should be automatically redirected to a satisfaction form. Rate us so we can improve, then **go to your newly created admin panel** 🎉
 
 {% hint style="info" %}
-If you installed using a local database, your generated admin backend will have[`http://localhost:3310`](http://localhost:3310) as an endpoint (Notice the HTTP protocol).\
+If you installed using a local database, your generated admin backend will have[`http://localhost:3310`](http://localhost:3310/) as an endpoint (Notice the HTTP protocol).\
 This explains why, if you try to visit **https://**app.forestadmin.com, you will be _redirected_ to **http://**app.forestadmin.com as this is the only way it can communicate with your local admin backend.
 {% endhint %}
 

@@ -102,7 +102,7 @@ In the file `routes/legal_docs.js`, we’ve created a new route to implement the
 
 The logic here is to list all the files uploaded on a specific S3 Bucket. We use a custom service `services/s3-helper.js` for this example. The implementation code of this service is [available on Github](https://github.com/ForestAdmin/forest-live-demo-lumber/blob/master/services/s3-helper.js).
 
-Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org) document. We use the very simple [JSON API Serializer](https://github.com/SeyZ/jsonapi-serializer) library for this task.
+Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org/) document. We use the very simple [JSON API Serializer](https://github.com/SeyZ/jsonapi-serializer) library for this task.
 
 {% code title="/routes/legal_docs.js" %}
 ```javascript
@@ -151,7 +151,7 @@ In the file `routes/legal_docs.js`, we’ve created a new route to implement the
 
 The logic here is to list all the files uploaded on a specific S3 Bucket. We use a custom service `services/s3-helper.js` for this example. The implementation code of this service is [available on Github](https://github.com/ForestAdmin/forest-live-demo-lumber/blob/master/services/s3-helper.js).
 
-Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org) document. We use the very simple [JSON API Serializer](https://github.com/SeyZ/jsonapi-serializer) library for this task.
+Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org/) document. We use the very simple [JSON API Serializer](https://github.com/SeyZ/jsonapi-serializer) library for this task.
 
 {% code title="/routes/legal_docs.js" %}
 ```javascript

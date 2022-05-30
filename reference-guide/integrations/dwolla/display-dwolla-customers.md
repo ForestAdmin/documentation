@@ -1,6 +1,6 @@
 # Display Dwolla customers
 
-This example shows you how to create a smart collection to list the customers of your [Dwolla](https://www.dwolla.com) account.
+This example shows you how to create a smart collection to list the customers of your [Dwolla](https://www.dwolla.com/) account.
 
 ## 1. Define the smart collection <a href="#requirements" id="requirements"></a>
 

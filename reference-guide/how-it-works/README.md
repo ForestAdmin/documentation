@@ -54,7 +54,7 @@ As your data transits directly from the Admin Backend hosted on your end and the
 
 ## Security
 
-The connection to both servers to the **Admin Backend** and the **Forest Admin Servers** are protected using 2 different [**JWT**](https://jwt.io) signed by 2 different keys:
+The connection to both servers to the **Admin Backend** and the **Forest Admin Servers** are protected using 2 different [**JWT**](https://jwt.io/) signed by 2 different keys:
 
 1. `FOREST_ENV_SECRET` to authenticate all requests made to the **Forest Admin Servers**
 2. `FOREST_AUTH_SECRET` to authenticate all requests made to the **Admin Backend**

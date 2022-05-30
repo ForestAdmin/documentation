@@ -156,7 +156,7 @@ In the file `routes/bank-accounts.js`, we’ve created a new route to implement 
 
 The logic here is to list all the BankAccount records. We use a custom service `service/elasticsearch-helper.js` for this example. The implementation code of this service is available here.
 
-Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org) document. You are lucky `forest-express-sequelize` already does this for you using the RecordSerializer.
+Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org/) document. You are lucky `forest-express-sequelize` already does this for you using the RecordSerializer.
 
 {% code title="/routes/bank-accounts.js" %}
 ```javascript

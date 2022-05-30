@@ -1,6 +1,6 @@
 # Troubleshooting
 
-#### ❓ Don't you see an answer to your problem? Describe it on our [Developer Community Forum](https://community.forestadmin.com) and we will answer quickly.
+#### ❓ Don't you see an answer to your problem? Describe it on our [Developer Community Forum](https://community.forestadmin.com/) and we will answer quickly.
 
 ## Error messages
 
@@ -36,7 +36,7 @@ I suspect a problem on DB, but I cannot find any details or logs about this even
 
 
 
-🙋🏾 I was able to link my data to Forest admin (with docker, on port 5433). When I run [http://localhost:3310](http://localhost:3310) it says my app is running but when I want to log to Forest Admin on [http://app.forestadmin.com/](http://app.forestadmin.com) I first have to log in and it then says _Your server encountered an error_.
+🙋🏾 I was able to link my data to Forest admin (with docker, on port 5433). When I run [http://localhost:3310](http://localhost:3310) it says my app is running but when I want to log to Forest Admin on [http://app.forestadmin.com/](http://app.forestadmin.com/) I first have to log in and it then says _Your server encountered an error_.
 
 ✅ Such an issue has been solved on our community forum. [Check it out](https://community.forestadmin.com/t/new-postgres-db-cant-reach-forest-admin-panel/1378).
 

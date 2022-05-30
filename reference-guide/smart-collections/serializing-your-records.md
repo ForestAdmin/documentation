@@ -2,7 +2,7 @@
 
 To be interpreted correctly by the ForestAdmin UI, the data must be sent from your admin backend using a particular structure.\
 \
-This structure needs to comply to the JSON API standard. The JSON API standard is used to ensure a standardized way to format JSON responses returned to clients. You can find some more information directly from their [website](https://jsonapi.org).\
+This structure needs to comply to the JSON API standard. The JSON API standard is used to ensure a standardized way to format JSON responses returned to clients. You can find some more information directly from their [website](https://jsonapi.org/).\
 \
 Most of the time, your admin backend will handle this for you, and you will not have to play with serialization. However you might encounter specific use cases that will require you to serialize data yourself, such as smart collections for example.‌
 
