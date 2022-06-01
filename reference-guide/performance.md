@@ -6,7 +6,7 @@ description: >-
 
 # Performance
 
-Please find here all the hands-on best practices to keep your admin panel performant. Depending on your user's needs, you might either hide or optimize some fields to limit the number of components, avoid a large datasets display or rework complex logic.&#x20;
+Please find here all the hands-on best practices to keep your admin panel performant. Depending on your user's needs, you might either hide or optimize some fields to limit the number of components, avoid a large datasets display or rework complex logic.
 
 You can display bellow performances improvement tricks in [this video](https://www.youtube.com/watch?v=UC5nH8q5YUI). For any further help to improve admin panel performances, get in touch with [the community](https://community.forestadmin.com).
 
@@ -18,19 +18,17 @@ You can display bellow performances improvement tricks in [this video](https://w
 As you can see in the [Loading time benchmark](performance.md#loading-time-benchmark) below, Smart fields can be quite **costly** in terms of loading performance. Limiting them to those you need is key.
 {% endhint %}
 
-2\. Reduce the number of records per page &#x20;
+2\. Reduce the number of records per page
 
 ![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.06.png>)
 
 3\. Reduce the number of fields displayed
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.55 (1).png>)
+![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.55.png>)
 
 {% hint style="info" %}
 You can hide some fields in your table view; this will not prevent you from seeing them in the record details view.
 {% endhint %}
-
-
 
 Relationship fields are links to other collection records within your table view:
 
@@ -99,10 +97,10 @@ end
 ### Disable pagination count
 
 {% hint style="info" %}
-This feature is only available if you're using the `forest-express-sequelize` (v8.5.3+)`,` `forest-express-mongoose` (v8.6.5+),  `forest-rails` (v7.5.0+) or `django-forestadmin` (v1.2.0+) agent.
+This feature is only available if you're using the `forest-express-sequelize` (v8.5.3+)`,` `forest-express-mongoose` (v8.6.5+), `forest-rails` (v7.5.0+) or `django-forestadmin` (v1.2.0+) agent.
 {% endhint %}
 
-To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.&#x20;
+To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.
 
 In certain conditions, usually, when your database reaches a point where it has a lot of records, this request can decrease your loading performance. In this case, you can choose to disable it...
 
@@ -147,8 +145,6 @@ class Forest::BooksController < ForestLiana::ResourcesController
   end
 end
 ```
-
-
 
 * adding a route in `app/config/routes.rb` before `mount ForestLiana::Engine => '/forest'`
 
@@ -207,7 +203,9 @@ class BooksController extends ResourcesController
 }
 ```
 {% endcode %}
+
 adding a route in `app/routes/web.php`
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -326,6 +324,7 @@ class BookCompaniesController extends RelationshipsController
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php

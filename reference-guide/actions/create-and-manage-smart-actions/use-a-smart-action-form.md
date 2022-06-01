@@ -4,8 +4,8 @@ We've just introduced Smart actions: they're great because you can execute virtu
 
 ## Opening a **Smart Action Form**
 
-Very often, you will need to ask user inputs before triggering the logic behind a Smart Action. \
-For example, you might want to specify a reason if you want to block a user account. Or set the amount to charge a user’s credit card.&#x20;
+Very often, you will need to ask user inputs before triggering the logic behind a Smart Action.\
+For example, you might want to specify a reason if you want to block a user account. Or set the amount to charge a user’s credit card.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -155,8 +155,6 @@ router.post('/actions/upload-legal-docs',
 module.exports = router;
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -358,6 +356,7 @@ On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Up
 {% hint style="info" %}
 The 2nd parameter of the `SmartAction` method is not required. If you don't fill it, the name of your smartAction will be the name of your method that wrap it.
 {% endhint %}
+
 {% code title="app/Models/Company.php" %}
 ```php
 <?php
@@ -422,7 +421,6 @@ class Company extends Model
 {% code title="routes/web.php" %}
 ```php
 Route::post('forest/smart-actions/company_upload-legal-docs', [CompaniesController::class, 'uploadLegalDocs']);
-
 ```
 {% endcode %}
 
@@ -773,9 +771,9 @@ class Customer extends Model
 
 To make a field read only, you can use the `isReadOnly` property:
 
-| Name         | Type    | Description                                                                                     |
-| ------------ | ------- | ----------------------------------------------------------------------------------------------- |
-| `isReadOnly` | boolean | (optional) If `true`, the Smart action field won’t be editable in the form. Default is `false`  |
+| Name         | Type    | Description                                                                                    |
+| ------------ | ------- | ---------------------------------------------------------------------------------------------- |
+| `isReadOnly` | boolean | (optional) If `true`, the Smart action field won’t be editable in the form. Default is `false` |
 
 Combined with the **load** [hook](./#making-a-form-dynamic) feature, this can be used to make a field read-only dynamically:
 
@@ -822,7 +820,7 @@ collection('customers', {
 ### Change your form's data based on previous field values
 
 {% hint style="info" %}
-This feature is only available from **version 6.6.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 5.3.3** (`forest-rails`) and for **single** Smart actions.
+This feature is only available from **version 8.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
 {% endhint %}
 
 Here's a typical example: Selecting a **City** within a list of cities from the **Country** you just selected. Then selecting a **Zipcode** within a list of zipcodes located in the **City** you just selected.
@@ -1589,8 +1587,6 @@ def on_another_field_change(self, fields, request, changed_field, *args, **kwarg
 ```
 {% endtab %}
 {% endtabs %}
-
-
 
 ### Get selected records with bulk action
 
