@@ -1,3 +1,7 @@
+---
+description: In order to give more visibility to our developers community, about agent usability and support in the future, here is the spot for important lifecycle dates per agent stack and versions.
+---
+
 # Releases Support
 
 ## Introduction
