@@ -2,7 +2,7 @@
 
 This example shows you how you can implement a moderations view with a custom Approve/Reject workflow.&#x20;
 
-![](<../../.gitbook/assets/image (541).png>)
+![](<../../.gitbook/assets/image (501).png>)
 
 In our example, we want to Approve or Reject products to moderate content on our website:
 
