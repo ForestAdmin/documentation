@@ -1,19 +1,19 @@
 ---
-description: In order to give more visibility to our developers community, about agent usability and support in the future, here is the spot for important lifecycle dates per agent stack and versions.
+description: In order to give more visibility to our developers community, about agent usability and support in the future, you will find, in this page, the important lifecycle dates per agent stack and versions.
 ---
 
 # Releases Support
 
 ## Introduction
 
-Each project using Forest Admin needs a minimal maintenance of the agent dependency installed since day 1.
-Such maintenance will ensure the best possible experience with the platform: new features, performance improvements, reactive support,...
+Each project using Forest Admin needs a minimal maintenance of the agent dependency installed since day one.
+Such maintenance will ensure the best possible experience with the platform: new features, performance improvements, reactive support, and so on.
 
-In order to give more visibility to our developers community, about agent usability and support in the future, we will share, in this section, the important lifecycle dates per agent stack and versions.
+In order to give more visibility to our developers community, about agent usability and support in the future, you will find, in the section below, the important lifecycle dates per agent stack and versions.
 
 ## Definitions
 
-Before jumping in your favorite stack tab, you’ll find below the detailed definition of the agent lifecycle dates:
+Before jumping into your favorite stack tab, you’ll find below the detailed definition of the agent lifecycle dates:
 
 | Date            | Definition                                                                                                                                                                                                                                                                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
