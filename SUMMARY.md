@@ -168,3 +168,4 @@
   * [Include/exclude models](how-tos/settings/include-exclude-models.md)
   * [Display extensive logs](how-tos/settings/display-extensive-logs.md)
   * [Laravel specific settings](how-tos/settings/laravel-specific-settings.md)
+* [Releases Support](how-tos/releases-support/README.md)
