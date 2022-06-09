@@ -24,7 +24,7 @@ As you can see in the [Loading time benchmark](performance.md#loading-time-bench
 
 3\. Reduce the number of fields displayed
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.55 (1).png>)
+![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.55.png>)
 
 {% hint style="info" %}
 You can hide some fields in your table view; this will not prevent you from seeing them in the record details view.
