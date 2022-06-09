@@ -18,13 +18,13 @@ Before jumping in your favorite stack tab, you’ll find below the detailed defi
 | Date            | Definition                                                                                                                                                                                                                                                                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Initial Release | It marks the date of the official release of a new agent major version, and will, as a consequence, engage Forest Admin on a minimal 18 months period guaranty to keep the agent features 100% compatible with the platform, to provide maintenance, troubleshooting or support, to fix defects, bugs and vulnerabilities. |
-| End-of-Support  | At this date, Forest Admin will will no longer provide maintenance, troubleshooting or support, and will no longer fix defects, bugs or vulnerabilities.                                                                                                                                                                   |
+| End-of-Support  | At this date, Forest Admin will no longer provide maintenance, troubleshooting or support, and will no longer fix defects, bugs or vulnerabilities.                                                                                                                                                                        |
 | End-of-Life     | At this date, Forest Admin will not guaranty the agent be usable. It is very likely that your agent integration will break your admin panel, as we will start removing some legacy features support on our platform.                                                                                                       |
 
 ## Releases information per stack
 
 {% tabs %}
-{% tab title="Express Sequelize Agent" %}
+{% tab title="Express Sequelize" %}
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
@@ -39,7 +39,7 @@ Before jumping in your favorite stack tab, you’ll find below the detailed defi
 
 {% endtab %}
 
-{% tab title="Express Mongoose Agent" %}
+{% tab title="Express Mongoose" %}
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
