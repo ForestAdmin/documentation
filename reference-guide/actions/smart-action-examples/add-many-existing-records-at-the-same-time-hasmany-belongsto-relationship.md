@@ -34,11 +34,14 @@ collection('organizations', {
         field: 'search',
         type: 'String',
         reference: 'companies',
+        isRequired: false,
         hook: 'onSearchChange',
       },
       {
         field: 'selection',
         type: ['String'],
+        isReadOnly: true,
+        isRequired: true,
         hook: 'onSelectionChange',
       },
     ],
@@ -49,19 +52,38 @@ collection('organizations', {
           const selection = fields.find((field) => field.field === 'selection');
           const search = fields.find((field) => field.field === 'search');
 
-          // Retrieve the company name by querying the DB
-          const { name: searchValue } = (await companies.findByPk(search.value)) || {};
 
-          // Creating an array of company names when searching
-          if (searchValue) {
-            selection.value = [...(selection.previousValue || []), searchValue]; // ...() spread the array
-            search.value = '';
+          if(!!search.value){
+            // Retrieve the company name by querying the DB
+            const { name: searchValue } = (await companies.findByPk(search.value)) || {};
+  
+            // Adding company names when searching matches
+            if (searchValue) {
+              const allAddedValues = [...(selection.previousValue || []), searchValue]; // ...() spread the array
+              
+              // Unique array values using a set
+              selection.value = [...new Set(allAddedValues)];
+              // Allow user to interact with selection field
+              selection.isReadOnly = false;
+              
+              // Reset search value
+              search.value = '';
+            }
           }
 
           return fields;
         },
         onSelectionChange: async ({ fields }) => {
-          // Empty hook to allow company removal
+          // This hooks is needed to allow company removal from selection
+          const selectionField = fields.find((field) => field.field === "selection");
+
+          // Enable or disable user interactions
+          if (selectionField.value?.length > 0) {
+            selectionField.isReadOnly = false;
+          } else {
+            selectionField.isReadOnly = true;
+          }
+
           return fields;
         },
       },
