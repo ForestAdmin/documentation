@@ -95,3 +95,7 @@ Once the environment variables are added, you can deploy the code base again to 
 ```
 gcloud app deploy
 ```
+
+{% hint style="info" %}
+Having problems deploying? Check out [troubleshooting common problems](https://community.forestadmin.com/t/deploying-on-google-cloud-platform-forestadmin-schema-json-file-does-not-exist/4406) in our community.
+{% endhint %}
