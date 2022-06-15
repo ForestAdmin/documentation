@@ -12,7 +12,7 @@ You can display bellow performances improvement tricks in [this video](https://w
 
 ### Layout optimization
 
-1\. Show only [Smart fields](https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields)
+1\. Show only [Smart fields](https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields) you absolutely need.
 
 {% hint style="danger" %}
 As you can see in the [Loading time benchmark](performance.md#loading-time-benchmark) below, Smart fields can be quite **costly** in terms of loading performance. Limiting them to those you need is key.
