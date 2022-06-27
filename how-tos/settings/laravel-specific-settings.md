@@ -50,3 +50,21 @@ APP_URL=https://YOUR_PROJECT_NAME.test
 With Laravel Valet the apimap is not updated automatically.
 We recommend that you set your environment variable FOREST_SEND_APIMAP_AUTOMATIC to true. More information in the previous chapter [Send apimap on deploy](#send-apimap-on-deploy)
 {% endhint %}
+
+### Customize models directory structure
+
+The agent fetches the models into the directory specified by the `models_directory` configuration.
+{% hint style="info" %}
+All class files that doesn't extends the Illuminate\Database\Eloquent\Model are ignored.
+{% endhint %}
+By default, the value is the main models directory of Laravel 'app/Models', but you can change this configuration and add one or more models directories.
+
+Example
+```php
+'models_directory'    => ['app/StripeModels', 'app/CustomerModels'],
+```
+
+You don't have to specify all the subdirectories, the agent will retrieve them for you.
+For example, imagine with the directory structure : `app/StripeModels/Billing` & `app/StripeModels/Orders`, you have just to specify the main directory `app/StripeModels`.
+
+You can also include/exclude models. More information [here](https://docs.forestadmin.com/documentation/how-tos/settings/include-exclude-models)
