@@ -121,7 +121,7 @@ This file contains the HTML and CSS needed to build the view.
     </table>
   </div>
     
-  <Table::TableFooter
+  <DataDisplay::Table::TableFooter
     @collection={{@collection}}
     @records={{@records}}
     @selectedRecordsCount={{this.selectedRecords.length}}

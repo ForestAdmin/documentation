@@ -206,7 +206,7 @@ export default class extends React.Component {
     {{/each}}
   </section>
   
-  <Table::TableFooter
+  <DataDisplay::Table::TableFooter
     @collection={{@collection}}
     @viewList={{@viewList}}
     @records={{@records}}
