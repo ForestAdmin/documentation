@@ -36,10 +36,10 @@ For a more in-depth walkthrough of the `init` command, check out [this page](../
 
 ### Step 3: Create a branch
 
-Got a new feature to develop? Create a branch!
+Got a new feature to develop? Create a branch based on the origin you want!
 
 ```
-forest branch my-new-feature
+forest branch my-new-feature --origin the-origin-environment
 ```
 
 Your new branch is now available with a layout you can play with.
@@ -62,8 +62,6 @@ Your feature works as intended on your local branch? You now need to deploy it t
 ```
 forest deploy
 ```
-
-...then select your development environment and hit Enter.
 
 That's it! Your new feature is now available in production 🎉
 

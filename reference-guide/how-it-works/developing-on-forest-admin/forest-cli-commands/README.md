@@ -20,11 +20,13 @@ For further details on the package, check out [this page](https://www.npmjs.com/
 
 In the following pages, we'll cover all available Forest CLI commands in details, from introduction to advanced usage. For now, there are 6 commands:
 
-* [init](init.md)
 * [login](login.md)
+* [init](init.md)
 * [branch](branch.md)
 * [switch](switch.md)
+* [set-origin](set-origin.md)
 * [push](push.md)
+* [environments:reset](environments-reset.md)
 * [deploy](deploy.md)
 
 Some additional commands might be added in the future. In the meantime, those should be largely sufficient to manage your development workflow.
