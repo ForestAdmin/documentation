@@ -55,4 +55,4 @@ To deploy it from there, simply **click on "Deploy to production" in the top ban
 
 Imagine you've pushed your branch onto your remote, but notice a slight change is still required in the layout. Then, simply use the Layout Editor from your remote! It'll play nicely with your branch's layout changes: any changes you make on your remote will also be deployed when you run `forest deploy`.
 
-You can also create a new branche with your remote environment as origin and do the same process explained above.
+You can also create a new branch with your remote environment as origin and do the same process explained above.

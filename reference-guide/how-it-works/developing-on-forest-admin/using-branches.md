@@ -19,7 +19,7 @@ To manipulate your layouts, you will be using [Forest CLI](forest-cli-commands/)
 A branch is a fork (i.e copy) of the layout of the wanted _origin_ environment. It is attached to your development environment.
 
 {% hint style="info" %}
-Your **origin** environment is the environemnt you want based on to do some layout changes.
+Your **origin** environment is the environment you want based on to do some layout changes.
 {% endhint %}
 
 Once you've created a branch, your layout will look exactly like the layout of your origin environment. However,&#x20;

@@ -36,7 +36,7 @@ For a more in-depth walkthrough of the `init` command, check out [this page](../
 
 ### Step 3: Create a branch
 
-Got a new feature to develop? Create a branch based on the origin you want!
+Got a new feature to develop? Create a branch based on the origin environment you want!
 
 ```
 forest branch my-new-feature --origin the-origin-environment
