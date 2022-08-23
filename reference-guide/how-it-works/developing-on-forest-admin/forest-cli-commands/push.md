@@ -46,7 +46,7 @@ To skip that confirmation, use the `--force` option.
 
 ### Push from the UI
 
-This is possible **only from a remote** who `not` have the reference environment as origin:
+This is possible **only from a remote** which `not` have the reference environment as origin:
 
 ![](<../../../../.gitbook/assets/modal-push-layout-changes.png>)
 
