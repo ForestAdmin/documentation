@@ -19,6 +19,7 @@
       * [login](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/login.md)
       * [branch](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/branch.md)
       * [switch](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/switch.md)
+      * [set-origin](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/set-origin.md)
       * [push](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/push.md)
       * [environments:reset](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/environments-reset.md)
       * [deploy](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/deploy.md)

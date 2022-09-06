@@ -7,7 +7,7 @@ This can be used for Q\&A and testing purposes.
 #### Install
 
 ```
-$ npm install -g forest-cli
+$ npm install -g forest-cli@beta
 ```
 
 #### Commands
