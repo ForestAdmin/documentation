@@ -4,7 +4,7 @@ You're building a great feature which requires tweaking your layout (UI), you've
 
 Imagine this is your current situation:
 
-![](<../../../.gitbook/assets/image (421).png>)
+<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 This would be the case if you chose "Staging" as the origin of your branch when you first created it. You have then made **layout changes (Δ)** over it.
 
@@ -65,3 +65,11 @@ To deploy it from there, simply **click on "Deploy to production" in the top ban
 Imagine you've pushed your branch onto your remote, but notice a slight change is still required in the layout. Then, simply use the Layout Editor from your remote! It'll play nicely with your branch's layout changes: any changes you make on your remote will also be deployed when you run `forest deploy`.
 
 You can also create a new branch with your remote environment as origin and do the same process explained above.
+
+### Summary
+
+The below image showcases an example of a development flow with 2 layers of test environments (staging, then pre-production).
+
+Notice how the `deploy` command is used only at the last step, to move the layout changes to the reference environment (i.e "Production" in this case)&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
