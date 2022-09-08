@@ -3,7 +3,7 @@
 The `forest set-origin` command enables you change the origin of a branch.
 
 ```
-$ forest push --help
+$ forest set-origin --help
 Set an environment as your branch's origin. Your branch will build on top of that environment's layout.
 
 USAGE
@@ -18,6 +18,6 @@ OPTIONS
 
 The layout of your branch will be refresh based on the new origin.
 
-{% hint style="inof" %}
+{% hint style="info" %}
 Your current layout changes will be applied - if relevant - on top of your new origin.
 {% endhint %}

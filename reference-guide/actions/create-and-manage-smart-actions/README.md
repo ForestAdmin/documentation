@@ -2183,7 +2183,7 @@ When using Forest Admin with several teams and when you have clear roles defined
 \
 [Learn more about roles](https://docs.forestadmin.com/documentation/reference-guide/teams-and-users/manage-roles#roles).
 
-![](<../../../.gitbook/assets/assign roles and actions.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2020-10-23 à 16.54.58.png>)
 
 ### Require approval for a Smart action <a href="#require-approval-for-a-smart-action" id="require-approval-for-a-smart-action"></a>
 

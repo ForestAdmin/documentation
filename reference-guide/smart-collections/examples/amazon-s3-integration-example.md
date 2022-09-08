@@ -198,7 +198,7 @@ module.exports = new JSONAPISerializer('legal_docs', {
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.40.14.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.40.14 (1).png>)
 
 ### Implementing the GET (specific record) <a href="#implementing-the-get-specific-record" id="implementing-the-get-specific-record"></a>
 
