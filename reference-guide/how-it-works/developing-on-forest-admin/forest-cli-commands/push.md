@@ -33,7 +33,7 @@ To push layout changes to your origin:
 $ forest push
 ```
 
-You will be prompted for confirmation before pushing to a remote:
+You will be prompted for confirmation before pushing:
 
 ```
 $ forest push
@@ -48,7 +48,7 @@ To skip that confirmation, use the `--force` option.
 
 This is possible **only from a remote** which `not` have the reference environment as origin:
 
-![](<../../../../.gitbook/assets/modal-push-layout-changes.png>)
+![](../../../../.gitbook/assets/modal-push-layout-changes.png)
 
 To push your latest layout changes from a remote environment, you may use the **top banner link**: "Push to ...".
 
