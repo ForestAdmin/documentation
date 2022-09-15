@@ -837,10 +837,8 @@ end
 {% endtab %}
 
 {% tab title="Django" %}
-{% code title="app/forest/customer.py" %}
-```python
-from django_forest.utils.collection import Collection
-from app.models import Company
+<pre class="language-python" data-title="app/forest/customer.py"><code class="lang-python"><strong>from django_forest.utils.collection import Collection
+</strong>from app.models import Company
 
 class CompanyForest(Collection):
     def load(self):
@@ -862,9 +860,7 @@ class CompanyForest(Collection):
             ],
         }]
 
-Collection.register(CompanyForest, Company)
-```
-{% endcode %}
+Collection.register(CompanyForest, Company)</code></pre>
 
 {% code title="app/urls.py" %}
 ```python
@@ -1041,7 +1037,396 @@ class CustomersController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.44.29.png>)
+<figure><img src="../../../.gitbook/assets/actions-html-response-success.png" alt=""><figcaption></figcaption></figure>
+
+You can either respond with an HTML page in case of error. The user will be able to go back to his smart action's form by using the cross icon at the top right of the panel.&#x20;
+
+{% tabs %}
+{% tab title="SQL" %}
+{% code title="/forest/companies.js" %}
+```javascript
+const { collection } = require('forest-express-sequelize');
+
+collection('customers', {
+  actions: [{
+    name: 'Charge credit card',
+    type: 'single',
+    fields: [{
+      field: 'amount',
+      isRequired: true,
+      description: 'The amount (USD) to charge the credit card. Example: 42.50',
+      type: 'Number'
+    }, {
+      field: 'description',
+      isRequired: true,
+      description: 'Explain the reason why you want to charge manually the customer here',
+      type: 'String'
+    }]
+  }]
+});
+```
+{% endcode %}
+
+{% code title="/routes/customers.js" %}
+```javascript
+...
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+router.post('/actions/charge-credit-card', permissionMiddlewareCreator.smartAction(), (req, res) => {
+  let customerId = req.body.data.attributes.ids[0];
+  let amount = req.body.data.attributes.values.amount * 100;
+  let description = req.body.data.attributes.values.description;
+
+  return customers
+    .findByPk(customerId)
+    .then((customer) => {
+      return stripe.charges.create({
+        amount: amount,
+        currency: 'usd',
+        customer: customer.stripe_id,
+        description: description
+      });
+    })
+    .then((response) => {
+      res.status(400).send({
+        html: `
+        <p class="c-clr-1-4 l-mt l-mb">$${response.amount / 100} USD has not been charged.</p>
+        <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
+        <p class="c-clr-1-4 l-mb">**** **** **** ${response.source.last4}</p>
+        <strong class="c-form__label--read c-clr-1-2">Reason</strong>
+        <p class="c-clr-1-4 l-mb">You can not charge this credit card. The card is marked as blocked</p>
+        `
+      });
+    });
+});
+
+...
+
+module.exports = router;
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="MongoDB" %}
+{% code title="/forest/companies.js" %}
+```javascript
+const { collection } = require('forest-express-mongoose');
+
+collection('Customer', {
+  actions: [{
+    name: 'Charge credit card',
+    type: 'single',
+    fields: [{
+      field: 'amount',
+      isRequired: true,
+      description: 'The amount (USD) to charge the credit card. Example: 42.50',
+      type: 'Number'
+    }, {
+      field: 'description',
+      isRequired: true,
+      description: 'Explain the reason why you want to charge manually the customer here',
+      type: 'String'
+    }]
+  }]
+});
+```
+{% endcode %}
+
+{% code title="/routes/customers.js" %}
+```javascript
+...
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+router.post('/actions/charge-credit-card', (req, res) => {
+  let customerId = req.body.data.attributes.ids[0];
+  let amount = req.body.data.attributes.values.amount * 100;
+  let description = req.body.data.attributes.values.description;
+
+  return Customer
+    .findById(customerId)
+    .then((customer) => {
+      return stripe.charges.create({
+        amount: amount,
+        currency: 'usd',
+        customer: customer.stripe_id,
+        description: description
+      });
+    })
+    .then((response) => {
+      res.status(400).send({
+        html: `
+        <p class="c-clr-1-4 l-mt l-mb">\$${response.amount / 100} USD has not been charged.</p>
+        <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
+        <p class="c-clr-1-4 l-mb">**** **** **** ${record.source.last4}</p>
+        <strong class="c-form__label--read c-clr-1-2">Reason</strong>
+        <p class="c-clr-1-4 l-mb">You can not charge this credit card. The card is marked as blocked</p>
+        `
+      });
+    });
+});
+
+...
+
+module.exports = router;
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Rails" %}
+{% code title="/lib/forest_liana/collections/customer.rb" %}
+```ruby
+class Forest::Customer
+  include ForestLiana::Collection
+
+  collection :Customer
+
+  action 'Charge credit card', type: 'single', fields: [{
+    field: 'amount',
+    is_required: true,
+    description: 'The amount (USD) to charge the credit card. Example: 42.50',
+    type: 'Number'
+  }, {
+    field: 'description',
+    is_required: true,
+    description: 'Explain the reason why you want to charge manually the customer here',
+    type: 'String'
+  }]
+end
+```
+{% endcode %}
+
+{% code title="/config/routes.rb" %}
+```ruby
+Rails.application.routes.draw do
+  # MUST be declared before the mount ForestLiana::Engine.
+  namespace :forest do
+    post '/actions/charge-credit-card' => 'customers#charge_credit_card'
+  end
+  
+  mount ForestLiana::Engine => '/forest'
+end
+```
+{% endcode %}
+
+<pre class="language-ruby" data-title="/app/controllers/forest/customers_controller.rb"><code class="lang-ruby">class Forest::CustomersController &#x3C; ForestLiana::SmartActionsController
+  def charge_credit_card
+    customer_id = ForestLiana::ResourcesGetter.get_ids_from_request(params).first
+    amount = params.dig('data', 'attributes', 'values', 'amount').to_i
+    description = params.dig('data', 'attributes', 'values', 'description')
+
+    customer = Customer.find(customer_id)
+
+    response = Stripe::Charge.create(
+      amount: amount * 100,
+      currency: 'usd',
+      customer: customer.stripe_id,
+      description: description
+    )
+
+    render status: 400, json: { 
+      html: &#x3C;&#x3C;EOF
+      &#x3C;p class="c-clr-1-4 l-mt l-mb">\$#{record.amount / 100} USD has not been charged.&#x3C;/p>
+      &#x3C;strong class="c-form__label--read c-clr-1-2">Credit card&#x3C;/strong>
+      &#x3C;p class="c-clr-1-4 l-mb">**** **** **** #{record.source.last4}&#x3C;/p>
+      &#x3C;strong class="c-form__label--read c-clr-1-2">Reason&#x3C;/strong>
+      &#x3C;p class="c-clr-1-4 l-mb">You can not charge this credit card. The card is marked as blocked&#x3C;/p>
+<strong>      EOF
+</strong>    }
+  end
+end</code></pre>
+{% endtab %}
+
+{% tab title="Django" %}
+<pre class="language-python" data-title="app/forest/customer.py"><code class="lang-python"><strong>from django_forest.utils.collection import Collection
+</strong>from app.models import Company
+
+class CompanyForest(Collection):
+    def load(self):
+        self.actions = [{
+            'name': 'Charge credit card',
+            'fields': [
+                {
+                    'field': 'amount',
+                    'description': 'The amount (USD) to charge the credit card. Example: 42.50',
+                    'isRequired': True,
+                    'type': 'Number'
+                },
+                {
+                    'field': 'description',
+                    'description': 'Explain the reason why you want to charge manually the customer here',
+                    'isRequired': True,
+                    'type': 'String'
+                },
+            ],
+        }]
+
+Collection.register(CompanyForest, Company)</code></pre>
+
+{% code title="app/urls.py" %}
+```python
+from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
+
+from . import views
+
+app_name = 'app'
+urlpatterns = [
+    path('/actions/charge-credit-card', csrf_exempt(views.ChargeCreditCardView.as_view()), name='charge-credit-card'),
+]
+```
+{% endcode %}
+
+{% code title="app/views.py" %}
+```python
+import stripe
+
+from django.http import JsonResponse
+from django_forest.utils.views.action import ActionView
+
+from .models import Customer
+
+class ChargeCreditCardView(ActionView):
+
+    def post(self, request, *args, **kwargs):
+        params = request.GET.dict()
+        body = self.get_body(request.body)
+        ids = self.get_ids_from_request(request, self.Model)
+
+        amount = body['data']['attributes']['values']['amount'] * 100
+        description = body['data']['attributes']['values']['description']
+
+        customer = Customer.object.get(pk=ids[0])
+
+        stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+
+        response = stripe.Charge.create(
+          amount=amount,
+          currency='usd',
+          customer=customer.stripe_id,
+          description=description,
+        )
+
+        data = f'''
+        <p class="c-clr-1-4 l-mt l-mb">\${response.amount / 100} USD has not been charged.</p>
+        <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
+        <p class="c-clr-1-4 l-mb">**** **** **** {response['source']['last4']}</p>
+        <strong class="c-form__label--read c-clr-1-2">Reason</strong>
+        <p class="c-clr-1-4 l-mb">You can not charge this credit card. The card is marked as blocked</p>
+        '''
+
+        return JsonResponse({'html': data}, safe=False, status=status.HTTP_400_BAD_REQUEST)
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Laravel" %}
+{% code title="app/Models/Customer.php" %}
+```php
+<?php
+
+namespace App\Models;
+
+use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
+use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * Class Customer
+ */
+class Customer extends Model
+{
+    use HasFactory, ForestCollection;
+
+    /**
+     * @return SmartAction
+     */
+    public function chargeCreditCard(): SmartAction
+    {
+        $this->smartAction('single', 'Charge credit card')
+            ->addField(
+                [
+                    'field' => 'amount',
+                    'type' => 'Number',
+                    'is_required' => true,
+                    'description' => 'The amount (USD) to charge the credit card. Example: 42.50'
+                ]
+            )
+            ->addField(
+                [
+                    'field' => 'description',
+                    'type' => 'String',
+                    'is_required' => true,
+                    'description' => 'Explain the reason why you want to charge manually the customer here'
+                ]
+            );
+
+    }
+```
+{% endcode %}
+
+{% code title="routes/web.php" %}
+```php
+<?php
+
+use App\Http\Controllers\CustomersController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('forest/smart-actions/customer_charge-credit-card', [CustomersController::class, 'chargeCreditCard']);
+```
+{% endcode %}
+
+{% code title="app/Http/Controllers/CustomersController.php" %}
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Customer;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ForestController;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * Class CustomersController
+ */
+class CustomersController extends ForestController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function chargeCreditCard(): JsonResponse
+    {
+        $customer = Customer::find(request()->input('data.attributes.ids')[0]);
+        $stripe = new  (
+            'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
+        );
+        $response = $stripe->charges->create([
+            'amount'      => request()->input('data.attributes.values.amount'),
+            'currency'    => 'usd',
+            'customer'    => $customer->stripe_id,
+            'description' => 'My First Test Charge (created for API docs)',
+        ]);
+
+
+        return response()->json(
+            ['html' => '
+                <p class="c-clr-1-4 l-mt l-mb">\$$response->amount / 100} USD has not been charged.</p>
+                <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
+                <p class="c-clr-1-4 l-mb">**** **** **** $response->source->last4}</p>
+                <strong class="c-form__label--read c-clr-1-2">Reason</strong>
+                <p class="c-clr-1-4 l-mb">You can not charge this credit card. The card is marked as blocked</p>
+            '],
+            400,
+        );
+    }
+}
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+<figure><img src="../../../.gitbook/assets/actions-html-response-error.png" alt=""><figcaption></figcaption></figure>
 
 ### Setting up a webhook
 
