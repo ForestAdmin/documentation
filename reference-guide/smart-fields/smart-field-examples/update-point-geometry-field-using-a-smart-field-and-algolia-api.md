@@ -1,5 +1,11 @@
 # Update point geometry field using a smart field and algolia api
 
+{% hint style="warning" %}
+Algolia is sunsetting its Place services. We recommend that you use the Google service instead. [Learn more](https://www.algolia.com/blog/product/sunsetting-our-places-feature/).
+{% endhint %}
+
+****
+
 **Description**: I need to fill in 2 fields in my db for a location: address 1 (a string) and location (a postresql geography point). Although a [widget ](https://docs.forestadmin.com/user-guide/collections/customize-your-fields/edit-widgets)with autocomplete exists to fill an address string in the UI, the location coordinates can only be obtained manually by looking up the address in our search engine which is not optimal.create smart field to edit point field using the address widget and algolia API.
 
 {% embed url="https://recordit.co/2Tj4TDtgeo" %}
