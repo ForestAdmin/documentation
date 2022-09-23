@@ -93,7 +93,7 @@ module.exports = async function (app) {
 {% endcode %}
 {% endtab %}
 
-{% tab title="" %}
+{% tab title="Rails" %}
 {% code title="/config/initializers/forest_liana.rb" %}
 ```ruby
 ForestLiana.integrations = {

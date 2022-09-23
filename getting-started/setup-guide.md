@@ -2,7 +2,7 @@
 description: Let's get you up and running on Forest Admin in minutes!
 ---
 
-# Quick Start
+# Quick start
 
 ### Step 1: Create an account and follow the onboarding
 
@@ -59,7 +59,7 @@ Then implement it according to your business logic:
 
 router.post('/actions/refund-order', permissionMiddlewareCreator.smartAction(), (req, res) => {
   // Add your own logic, like calling a Stripe API for instance
-  res.send({ success: 'Order refunded!' }));
+  res.send({ success: 'Order refunded!' });
 });
 
 ...
@@ -90,7 +90,7 @@ Then implement it according to your business logic:
 
 router.post('/actions/refund-order', permissionMiddlewareCreator.smartAction(), (req, res) => {
   // Add your own logic, like calling a Stripe API for instance
-  res.send({ success: 'Order refunded!' }));
+  res.send({ success: 'Order refunded!' });
 });
 
 ...
