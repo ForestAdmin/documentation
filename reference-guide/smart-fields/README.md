@@ -933,8 +933,8 @@ Make sure you set the option `isFilterable: true` in the field definition of you
 {% hint style="danger" %}
 **Sorting** on a Smart Field is not _natively supported_ in Forest Admin. However you can check out those guides:
 
-* Sort by Smart field
-* Sort by Smart field that includes value from a belongsTo relationship
+* [Sort by Smart field](smart-field-examples/sort-by-smart-field.md)
+* [Sort by Smart field that includes value from a belongsTo relationship](smart-field-examples/sort-by-smart-field-that-includes-value-from-a-belongsto-relationship.md)
 {% endhint %}
 
 ### Available Field Options <a href="#available-field-options" id="available-field-options"></a>
