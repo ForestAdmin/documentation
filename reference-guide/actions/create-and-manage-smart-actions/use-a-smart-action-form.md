@@ -620,7 +620,7 @@ class Forest::Customers
       isRequired: true,
       type: 'String'
     }],
-    :hook => {
+    :hooks => {
       :load => -> (context) {
         amount = context[:fields].find{|field| field[:field] == 'amount'}
         stripeId = context[:fields].find{|field| field[:field] == 'stripe_id'}
