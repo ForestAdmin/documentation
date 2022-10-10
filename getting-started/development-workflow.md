@@ -13,7 +13,7 @@ Here's our **recommended development workflow**:
 We've developed a **CLI tool** to help you seamlessly control your layout (UI) as you develop. You should first install it:
 
 ```
-npm install -g forest-cli@beta
+npm install -g forest-cli
 ```
 
 For further details on the package, check out [this page](https://www.npmjs.com/package/forest-cli).
