@@ -8,7 +8,7 @@ To achieve this, use existing snippets of [default routes](default-routes.md) an
 
 Here are a few examples:
 
-#### Use extended search by default&#x20;
+#### Use extended search by default
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -87,7 +87,6 @@ router.get('/companies/count', permissionMiddlewareCreator.list(), (request, res
 });
 
 //...
-
 ```
 {% endcode %}
 {% endtab %}
@@ -209,6 +208,7 @@ class CompaniesController extends ResourcesController
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -339,36 +339,6 @@ class CompaniesController extends ResourcesController
     }
 }
 ```
-{% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
-```php
-<?php
-
-namespace App\Http\Middleware;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
-
-class VerifyCsrfToken extends Middleware
-{
-    /**
-     * The URIs that should be excluded from CSRF verification.
-     *
-     * @var array<int, string>
-     */
-    protected $except = [
-        'forest/company/*',
-    ];
-}
-```
-{% endcode %}
-{% code title="routes/web.php" %}
-```php
-<?php
-
-use App\Http\Controllers\CompaniesController;
-use Illuminate\Support\Facades\Route;
-
-Route::delete('forest/company/{id}', [CompaniesController::class, 'destroy']);
-```
-{% endcode %}
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -617,6 +587,7 @@ class UsersController extends ResourcesController
 }
 ```
 {% endcode %}
+
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
 ```php
 <?php
@@ -638,6 +609,7 @@ class VerifyCsrfToken extends Middleware
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -681,6 +653,7 @@ class UsersController extends ResourcesController
 }
 ```
 {% endcode %}
+
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
 ```php
 <?php
@@ -702,6 +675,7 @@ class VerifyCsrfToken extends Middleware
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php

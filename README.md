@@ -12,7 +12,7 @@ Sequelize: [version 9.x.x](https://github.com/ForestAdmin/forest-express-sequeli
 
 Mongoose: [version 9.x.x](https://github.com/ForestAdmin/forest-express-mongoose)
 
-Rails: [version 8.x.x](https://github.com/ForestAdmin/forest-rails)
+Rails: [version 7.x.x](https://github.com/ForestAdmin/forest-rails)
 
 Django: [version 1.x.x](https://github.com/ForestAdmin/django-forestadmin)
 

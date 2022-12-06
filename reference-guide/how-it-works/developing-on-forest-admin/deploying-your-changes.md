@@ -4,7 +4,7 @@ You're building a great feature which requires tweaking your layout (UI), you've
 
 Imagine this is your current situation:
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 This would be the case if you chose "Staging" as the origin of your branch when you first created it. You have then made **layout changes (Δ)** over it.
 
@@ -72,4 +72,4 @@ The below image showcases an example of a development flow with 2 layers of test
 
 Notice how the `deploy` command is used only at the last step, to move the layout changes to the reference environment (i.e "Production" in this case)&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>

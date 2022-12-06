@@ -297,7 +297,7 @@ class Product extends Model
 {% tab title="SQL" %}
 Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/products/:product_id/relationships/buyers`.
 
-#### Option 1: using Sequelize ORM
+**Option 1: using Sequelize ORM**
 
 We’ll use the **findAll** and **count** methods provided by [Sequelize](https://sequelize.org/v5/manual/querying.html) to find and count all customers who bought the current product (_buyers_).
 
@@ -345,7 +345,7 @@ router.get('/products/:product_id/relationships/buyers', (request, response, nex
 ```
 {% endcode %}
 
-#### Option2: using raw SQL
+**Option2: using raw SQL**
 
 We’ll use raw SQL query and [Sequelize](http://docs.sequelizejs.com) to **count** and **find all** customers who bought the current product (_buyers_).
 
@@ -398,7 +398,7 @@ module.exports = router;
 {% endcode %}
 
 {% hint style="warning" %}
-If your primary key column name (`customer_id`) is different than the model field name (`customerId`), you must alias the primary key column with the name of the model field in the **dataQuery**. \
+If your primary key column name (`customer_id`) is different than the model field name (`customerId`), you must alias the primary key column with the name of the model field in the **dataQuery**.\
 \
 Ex: `SELECT customers.*, customers.customer_id AS “customerId”`
 {% endhint %}
@@ -539,7 +539,6 @@ Rails.application.routes.draw do
   
   mount ForestLiana::Engine => '/forest'
 end
-
 ```
 
 ```ruby
@@ -613,7 +612,6 @@ Then, you should handle pagination in order to avoid performance issue. The API 
 Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example, with the table name `app_customer`). You can access to the serializer through the `Schema().dump` function (using [marshmallow-jsonapi](https://marshmallow-jsonapi.readthedocs.io/en/latest/) internally).
 {% endtab %}
 
-
 {% tab title="Laravel" %}
 Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/product/{id}/relationships/buyers`.
 
@@ -634,6 +632,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('forest/product/{id}/relationships/buyers', [ProductsController::class, 'buyers']);
 ```
 {% endcode %}
+
 {% code title="app/Http/controllers/ProductsController.php" %}
 ```php
 <?php

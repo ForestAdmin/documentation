@@ -109,8 +109,6 @@ router.post('/stats/mrr', (req, res) => {
 module.exports = router;
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -241,6 +239,7 @@ class ChartsController extends Controller
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -251,6 +250,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/stats/mrr', [ChartsController::class, 'mrr']);
 ```
 {% endcode %}
+
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
 ```php
 <?php
@@ -404,8 +404,6 @@ router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated,
 module.exports = router;
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -581,6 +579,7 @@ class ChartsController extends Controller
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -591,6 +590,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/stats/credit-card-country-repartition', [ChartsController::class, 'creditCardCountryRepartition']);
 ```
 {% endcode %}
+
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
 ```php
 <?php
@@ -934,6 +934,7 @@ class ChartsController extends Controller
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -942,9 +943,9 @@ use App\Http\Controllers\ChartsController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('forest/stats/charges-per-day', [ChartsController::class, 'chargesPerDay']);
-
 ```
 {% endcode %}
+
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
 ```php
 <?php
@@ -1112,7 +1113,6 @@ class SomeObjectiveView(generic.ListView):
                 'type': 'stats',
                 'id': uuid.uuid4()
             }}
-
 ```
 {% endcode %}
 {% endtab %}
@@ -1126,6 +1126,7 @@ class SomeObjectiveView(generic.ListView):
   }
 }
 ```
+
 {% code title="app/Http/Controllers/ChartsController.php" %}
 ```php
 <?php
@@ -1148,6 +1149,7 @@ class ChartsController extends Controller
 }
 ```
 {% endcode %}
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -1158,6 +1160,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/stats/some-objective', [ChartsController::class, 'someObjective']);
 ```
 {% endcode %}
+
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
 ```php
 <?php

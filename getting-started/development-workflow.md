@@ -48,9 +48,9 @@ For a more in-depth walkthrough of the `branch` command, check out [this page](.
 
 ### Step 4: Develop your feature
 
-Your feature may require frontend (layout) and backend changes.&#x20;
+Your feature may require frontend (layout) and backend changes.
 
-For frontend changes, use our [Layout Editor mode](broken-reference) from the branch you've just created.
+For frontend changes, use our [Layout Editor mode](https://docs.forestadmin.com/user-guide/getting-started/master-your-ui/using-the-layout-editor-mode) from the branch you've just created.
 
 ### Step 5: Deploy
 

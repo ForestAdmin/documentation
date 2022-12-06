@@ -18,16 +18,16 @@ In the following example, we have created a **Smart Collection** called `custome
 
 {% tabs %}
 {% tab title="SQL" %}
-First, we declare the `customer_stats` collection in the `forest/` directory.&#x20;
+First, we declare the `customer_stats` collection in the `forest/` directory.
 
 In this Smart Collection, we want to display for each customer its email address, the number of orders made (in a field `orders_count`) and the sum of the price of all those orders (in a field `total_amount`).
 
 You can check out the list of [available field options ](../smart-fields/#available-field-options)if you need it.
 
 {% hint style="warning" %}
-You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.&#x20;
+You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.
 
-As we are using the _customer id_  in this example, we do not need to declare an `id` manually.
+As we are using the _customer id_ in this example, we do not need to declare an `id` manually.
 {% endhint %}
 
 {% code title="forest/customer_stats.js" %}
@@ -62,18 +62,16 @@ _Work in progress - this section will soon be released_
 {% endtab %}
 
 {% tab title="Rails" %}
-
-
-First, we declare the `CustomerStat` collection in the `lib/forest-liana/collections/` directory.&#x20;
+First, we declare the `CustomerStat` collection in the `lib/forest-liana/collections/` directory.
 
 In this Smart Collection, we want to display for each customer its email address, the number of orders made (in a field `orders_count`) and the sum of the price of all those orders (in a field `total_amount`).
 
 You can check out the list of [available field options ](../smart-fields/#available-field-options)if you need it.
 
 {% hint style="warning" %}
-You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.&#x20;
+You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.
 
-As we are using the _customer id_  in this example, we do not need to declare an `id` manually.
+As we are using the _customer id_ in this example, we do not need to declare an `id` manually.
 {% endhint %}
 
 {% code title="lib/forest-liana/collections/customer_stat.rb" %}
@@ -98,16 +96,16 @@ The option`is_searchable: true` added to your collection allows to display the s
 {% endtab %}
 
 {% tab title="Django" %}
-First, we declare the `CustomerStat` collection in the `app/forest/customer_stat.py` file.&#x20;
+First, we declare the `CustomerStat` collection in the `app/forest/customer_stat.py` file.
 
 In this Smart Collection, we want to display for each customer its email address, the number of orders made (in a field `orders_count`) and the sum of the price of all those orders (in a field `total_amount`).
 
 You can check out the list of [available field options ](../smart-fields/#available-field-options)if you need it.
 
 {% hint style="warning" %}
-You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.&#x20;
+You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.
 
-As we are using the _customer id_  in this example, we do not need to declare an `id`&#x20;
+As we are using the _customer id_ in this example, we do not need to declare an `id`
 {% endhint %}
 
 {% code title="app/forest/customer_stats.py" %}
@@ -142,7 +140,6 @@ class CustomerStat(Collection):
 
 
 Collection.register(CustomerStat)
-
 ```
 {% endcode %}
 
@@ -152,16 +149,16 @@ The option`is_searchable = True` added to your collection allows to display the 
 {% endtab %}
 
 {% tab title="Laravel" %}
-First, we declare the `CustomerStat` collection in the `app/Models/SmartCollections/CustomerStat.php` file.&#x20;
+First, we declare the `CustomerStat` collection in the `app/Models/SmartCollections/CustomerStat.php` file.
 
 In this Smart Collection, we want to display for each customer its email address, the number of orders made (in a field `orders_count`) and the sum of the price of all those orders (in a field `total_amount`).
 
 You can check out the list of [available field options ](../smart-fields/#available-field-options)if you need it.
 
 {% hint style="warning" %}
-You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.&#x20;
+You **MUST** declare an `id` field when creating a Smart Collection. The value of this field for each record **MUST** be unique.
 
-As we are using the _customer id_  in this example, we do not need to declare an `id`&#x20;
+As we are using the _customer id_ in this example, we do not need to declare an `id`
 {% endhint %}
 
 {% code title="app/Models/SmartCollections/CustomerStat.php" %}
@@ -228,7 +225,7 @@ The option`is_searchable = True` added to your collection allows to display the 
 
 ### Implementing the GET (all records)
 
-At this time, there’s no Smart Collection Implementation because no route in your app handles the API call yet.&#x20;
+At this time, there’s no Smart Collection Implementation because no route in your app handles the API call yet.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -475,6 +472,7 @@ class CustomerStatsViewView(PaginationMixin, SearchMixin, generic.ListView):
 
 {% tab title="Laravel" %}
 Create a controller `CustomerStatsController`
+
 {% code title="app/Http/Controllers/CustomerStatsController.php" %}
 ```php
 <?php
@@ -521,7 +519,9 @@ class CustomerStatsController extends Controller
 }
 ```
 {% endcode %}
+
 Then add the route.
+
 {% code title="routes/web.php" %}
 ```php
 <?php
@@ -535,7 +535,7 @@ Route::get('forest/customerStat', [CustomerStatsController::class, 'index']);
 {% endtab %}
 {% endtabs %}
 
-Now we are all set, we can access the Smart Collection as any other collection.&#x20;
+Now we are all set, we can access the Smart Collection as any other collection.
 
 ![](<../../.gitbook/assets/image (296).png>)
 
