@@ -26,6 +26,6 @@ For a simple and hands-on **example** of how to develop on Forest Admin accordin
 
 For a more complete view showcasing each possible scenario of the recommended development workflow, we've drawn the following state **diagram**:
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/dev_on_forest.jpg" alt=""><figcaption></figcaption></figure>
 
 In the next pages, we'll cover each step in details.

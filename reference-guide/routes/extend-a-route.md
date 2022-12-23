@@ -67,7 +67,7 @@ The most simple way to trigger your business app's (or any external app's) logic
 
 In the following example, we override the `CREATE` route so that a credit card is created whenever a new customer is created in Forest Admin:
 
-![](../../.gitbook/assets/Forest-Smart-routes.jpg)
+<figure><img src="../../.gitbook/assets/extend_a_route_1.jpg" alt=""><figcaption></figcaption></figure>
 
 {% code title="/routes/customers.js" %}
 ```javascript
@@ -102,7 +102,7 @@ Using a message broker - such as RabbitMQ or Kafka - to broadcast events is curr
 
 Here is how you could be using [RabbitMQ](https://www.rabbitmq.com/tutorials/tutorial-one-javascript.html) to handle `orders` synchronization across multiple channels:
 
-![](../../.gitbook/assets/Forest-Smart-routes-RabbitMq.jpg)
+<figure><img src="../../.gitbook/assets/extend_a_route_2.jpg" alt=""><figcaption></figcaption></figure>
 
 {% code title="/routes/orders.js" %}
 ```javascript

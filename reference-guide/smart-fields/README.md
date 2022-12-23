@@ -4,7 +4,7 @@
 
 A field that displays a computed value in your collection.
 
-![](<../../.gitbook/assets/image (30).png>)
+<figure><img src="../../.gitbook/assets/the_smart_fields.jpg" alt=""><figcaption></figcaption></figure>
 
 A Smart Field is a column that displays processed-on-the-fly data. It can be as simple as concatenating attributes to make them human friendly, or more complex (e.g. total of orders).
 

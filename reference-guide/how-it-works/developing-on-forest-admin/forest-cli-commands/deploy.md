@@ -19,7 +19,7 @@ OPTIONS
 
 It is paramount to understand this command before using it:
 
-![](<../../../../.gitbook/assets/image (425).png>)
+<figure><img src="../../../../.gitbook/assets/the_deploy.jpg" alt=""><figcaption></figcaption></figure>
 
 As you can see in the above figure, the layout changes (Δ) located in your local branch `my-branch` will be **irreversibly applied** to your Production layout. Since your remotes' layout are based on your production's layout, the changes will appear there too.
 
@@ -37,6 +37,6 @@ To be able to deploy the origin of the branch should be the reference environmen
 
 This is possible **only from a remote** which have the reference environment as origin:
 
-![](<../../../../.gitbook/assets/modal-deploy-layout-changes.png>)
+![](../../../../.gitbook/assets/modal-deploy-layout-changes.png)
 
 To deploy your latest layout changes from a remote environment, you may use the **top banner link**: "Deploy to ...".

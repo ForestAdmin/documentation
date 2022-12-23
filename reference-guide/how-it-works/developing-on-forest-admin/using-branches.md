@@ -8,7 +8,7 @@ The notion of branch cannot be explained without first explaining what a _layout
 
 A **layout** is all the settings that **define your user interface (UI)**. In Forest Admin, there is 1 layout per environment and per team:
 
-![](<../../../.gitbook/assets/image (416).png>)
+<figure><img src="../../../.gitbook/assets/using_branches_1 (1).jpg" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 To manipulate your layouts, you will be using [Forest CLI](forest-cli-commands/).
@@ -26,15 +26,15 @@ Once you've created a branch, your layout will look exactly like the layout of i
 
 ### How do branches work?
 
-Any **layout change** you make on your current branch using the [Layout Editor](broken-reference) will be **saved on your current branch** and will not affect its origin environment.
+Any **layout change** you make on your current branch using the [Layout Editor](broken-reference/) will be **saved on your current branch** and will not affect its origin environment.
 
 Imagine the following situation where you have 3 environments:
 
-![](<../../../.gitbook/assets/image (417).png>)
+<figure><img src="../../../.gitbook/assets/using_branches_2.jpg" alt=""><figcaption></figcaption></figure>
 
-The branch `my-branch` is based on the production layout. Any changes made on it are saved in your branch's layout and can later be [applied ](forest-cli-commands/deploy.md) on it.
+The branch `my-branch` is based on the production layout. Any changes made on it are saved in your branch's layout and can later be [applied ](forest-cli-commands/deploy.md)on it.
 
-![](<../../../.gitbook/assets/image (418).png>)
+<figure><img src="../../../.gitbook/assets/using_branches_3.jpg" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 This also means that any changes made to the origin of your branch will instantly reflect on your branch.\
@@ -60,7 +60,7 @@ To learn more about the `branch` command, please visit [this page](forest-cli-co
 
 On your interface, you can check at all times what branch you are on and how many layout changes were made: they appear in the top banner. The `X branches pushed` information is relevant for remote environments only: it shows how many branches were already pushed onto it.
 
-![](<../../../.gitbook/assets/current-branch-layout-changes-count-display.png>)
+![](../../../.gitbook/assets/current-branch-layout-changes-count-display.png)
 
 {% hint style="info" %}
 To switch your _current_ branch to another existing branch, check out the [switch](forest-cli-commands/switch.md) command.

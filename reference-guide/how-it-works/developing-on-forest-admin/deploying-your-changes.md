@@ -4,7 +4,7 @@ You're building a great feature which requires tweaking your layout (UI), you've
 
 Imagine this is your current situation:
 
-<figure><img src="../../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/deploying_your_changes_1.jpg" alt=""><figcaption></figcaption></figure>
 
 This would be the case if you chose "Staging" as the origin of your branch when you first created it. You have then made **layout changes (Δ)** over it.
 
@@ -24,7 +24,7 @@ forest deploy
 
 The end result is the following:
 
-![](<../../../.gitbook/assets/image (422).png>)
+<figure><img src="../../../.gitbook/assets/deploying_your_changes_2.jpg" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 If you want to deploy from an environment whose origin is not your reference environment, you'll need to use the [set-origin](forest-cli-commands/set-origin.md) environment first so you can make it its origin.
@@ -50,7 +50,9 @@ Note that you'll be pushing your **current** branch. To select another branch, u
 As your company grows, so does your development flow: you may want a more complex architecture where you have more than one layer of test environments before production (i.e preprod). This is definitely possible using Forest CLI and the right environment settings, see [here](../environments.md#change-environment-origin).
 {% endhint %}
 
-![](<../../../.gitbook/assets/image (423).png>)
+####
+
+<figure><img src="../../../.gitbook/assets/deploying_your_changes_3.jpg" alt=""><figcaption></figcaption></figure>
 
 #### Deploying from your remote's interface
 
@@ -72,4 +74,4 @@ The below image showcases an example of a development flow with 2 layers of test
 
 Notice how the `deploy` command is used only at the last step, to move the layout changes to the reference environment (i.e "Production" in this case)&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/deploying_your_changes_4.jpg" alt=""><figcaption></figcaption></figure>

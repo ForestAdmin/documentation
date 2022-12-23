@@ -15,7 +15,7 @@ When you install for the first time, Lumber introspects your database and genera
 
 Afterwards, here's how your database changes can be rendered in your Forest UI:
 
-![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-Ls1EQmDxL\_CUA3Np9vM%2F-Ls1EWLDCR-omQ2cNfg5%2FForest-doc-models.jpg?alt=media\&token=f233e868-df07-4071-bcb3-c332304706f8)
+<figure><img src="../../.gitbook/assets/the_models.jpg" alt=""><figcaption></figcaption></figure>
 
 ### Updating your models automatically
 

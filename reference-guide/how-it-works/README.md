@@ -1,6 +1,6 @@
 # How it works
 
-Before you start writing a single line of code, it’s a good idea to get an overview of how Forest Admin works. The magic lies in its architecture.&#x20;
+Before you start writing a single line of code, it’s a good idea to get an overview of how Forest Admin works. The magic lies in its architecture.
 
 Forest Admin provides you with:
 
@@ -11,11 +11,11 @@ Forest Admin provides you with:
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![The Admin Backend is a Node.JS REST API hosted on your servers](../../.gitbook/assets/Base.png)
+![The Admin Backend is a Node.JS REST API hosted on your servers](../../.gitbook/assets/how\_it\_works\_2.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![The Admin Backend is a Rails Engine mounted on your application](../../.gitbook/assets/base-rails.png)
+![The Admin Backend is a Rails Engine mounted on your application](../../.gitbook/assets/how\_it\_works\_3.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -44,11 +44,11 @@ As your data transits directly from the Admin Backend hosted on your end and the
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](<../../.gitbook/assets/Base-documented (1).png>)
+![](../../.gitbook/assets/how\_it\_works\_4.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/base-rails.png)
+![](../../.gitbook/assets/how\_it\_works\_3.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -61,18 +61,18 @@ The connection to both servers to the **Admin Backend** and the **Forest Admin S
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/JWT.png)
+![](../../.gitbook/assets/how\_it\_works\_5.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/base-auth.png)
+![](../../.gitbook/assets/how\_it\_works\_6.jpg)
 {% endtab %}
 {% endtabs %}
 
 {% hint style="warning" %}
-`FOREST_ENV_SECRET` is provided by Forest Admin and ensures your **Admin Backend** interacts with the relevant environment configuration on our end**.**
+`FOREST_ENV_SECRET` is provided by Forest Admin and ensures your **Admin Backend** interacts with the relevant environment configuration on our end\*\*.\*\*
 
-`FOREST_AUTH_SECRET` is chosen freely by you and is never disclosed to anyone**.**
+`FOREST_AUTH_SECRET` is chosen freely by you and is never disclosed to anyone\*\*.\*\*
 {% endhint %}
 
 {% hint style="info" %}
@@ -96,33 +96,31 @@ The JWT Data Token contains all the details of the requesting user. On any authe
 {% endcode %}
 {% endhint %}
 
-
-
 ### **No 3rd-party Tracking**
 
 The **Forest Admin UI** has an option to completely disable any 3rd-party provider that could track data available from your browser to guarantee the respect of data privacy.
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/No3rdPartyTracking.png)
+![](../../.gitbook/assets/how\_it\_works\_7.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/base-3rd-party-auth.png)
+![](../../.gitbook/assets/how\_it\_works\_8.jpg)
 {% endtab %}
 {% endtabs %}
 
 ### IP Whitelisting
 
-The [IP whitelisting](broken-reference) feature allows you to create a list of trusted IP addresses or IP ranges from which your admin users can both access to the **Forest Admin UI** and interact with your **Admin Backend**.
+The [IP whitelisting](broken-reference/) feature allows you to create a list of trusted IP addresses or IP ranges from which your admin users can both access to the **Forest Admin UI** and interact with your **Admin Backend**.
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/IPWhitelist.png)
+![](../../.gitbook/assets/how\_it\_works\_9.jpg)
 {% endtab %}
 
-{% tab title="Rails" %}
-![](../../.gitbook/assets/base-IP-whitelisting.png)
+{% tab title="Rails/Django/Laravel" %}
+![](../../.gitbook/assets/how\_it\_works\_10.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -130,11 +128,10 @@ The [IP whitelisting](broken-reference) feature allows you to create a list of t
 
 You're free to host your **Admin Backend** in the cloud architecture you want to be compliant with your security infrastructure (DMZ, VPN, etc.).﻿
 
-![](<../../.gitbook/assets/image (403).png>)
+![](../../.gitbook/assets/how\_it\_works\_11.jpg)
 
 ## Credentials
 
 We’re already working with companies compliant with the following Industry Standard Certifications.
 
 ![](<../../.gitbook/assets/image (338).png>)
-
