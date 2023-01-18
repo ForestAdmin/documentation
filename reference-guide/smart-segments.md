@@ -95,8 +95,6 @@ collection('Product', {
 });
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -151,11 +149,11 @@ Collection.register(ProductForest, Product)
 {% endcode %}
 {% endtab %}
 
-
 {% tab title="Laravel" %}
 {% hint style="info" %}
 The 2nd parameter of the `SmartSegment` method is not required. If you don't fill it, the name of your SmartSegment will be the name of your method that wrap it.
 {% endhint %}
+
 {% code title="app/Models/Product.php" %}
 ```php
 <?php
@@ -195,12 +193,12 @@ class Product extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.38.24.png>)
+![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.38.24.png>)
 
-### &#x20;Setting up independent columns visibility <a href="#setting-up-independent-columns-visibility" id="setting-up-independent-columns-visibility"></a>
+### Setting up independent columns visibility <a href="#setting-up-independent-columns-visibility" id="setting-up-independent-columns-visibility"></a>
 
 By default, Forest Admin applies the same configuration to all segments of the same collection.
 
 However, the _Independent columns configuration_ option allows you to display different columns on your different segments.
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.40.03.png>)
+![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.40.03.png>)

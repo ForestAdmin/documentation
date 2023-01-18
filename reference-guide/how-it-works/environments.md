@@ -1,6 +1,6 @@
 # Environments
 
-After you install for the first time, a local **development** environment is created for you, with a temporary `pre-deploy-to-production` branch (more on _branches_ later).&#x20;
+After you install for the first time, a local **development** environment is created for you, with a temporary `pre-deploy-to-production` branch (more on _branches_ later).
 
 Your first objective should be to deploy to **production**.
 
@@ -10,7 +10,7 @@ Forest Admin is meant to help you manage your operations: this can only happen i
 
 Click "Deploy to production" on the top banner or in the _Environments_ tab of your Project settings.
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.52.52.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.52.52.png>)
 
 #### Deploy your admin backend
 
@@ -54,7 +54,7 @@ Now that your admin panel is live in production, you might want to add an extra 
 
 To create a new remote environment, go to your Project settings **(1)**:
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.40.58.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.40.58.png>)
 
 Then from the _Environments_ tab, click on "Add a new environment" **(2)**.
 
@@ -98,12 +98,11 @@ Once your node server is successfully detected and running with the indicated en
 
 ### Change environment origin
 
-You can change the origins of your environments to create complexe workflows - for instance dev > staging > preprod > production.
-All the layout of an environment will be generated based on its parent's layout.
+You can change the origins of your environments to create complexe workflows - for instance dev > staging > preprod > production. All the layout of an environment will be generated based on its parent's layout.
 
 To do so, click on the environment you wish to change the origin of and from its details page, select the desired origin in the _Set Origin_ section.
 
-![](<../../.gitbook/assets/environment-settings-details-set-origin.png>)
+![](../../.gitbook/assets/environment-settings-details-set-origin.png)
 
 {% hint style="warning" %}
 All child environment will be refreshed based on the new architectures.
@@ -128,4 +127,3 @@ The actual reference will take the new production as origin. All children layout
 ### Delete an environment
 
 You may also delete an environment. **Be very careful** as there is no going back!
-

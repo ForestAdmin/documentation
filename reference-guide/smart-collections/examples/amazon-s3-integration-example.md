@@ -342,7 +342,7 @@ module.exports = router;
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.42.42.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.42.42.png>)
 
 ### Implementing the DELETE <a href="#implementing-the-delete" id="implementing-the-delete"></a>
 
@@ -394,7 +394,7 @@ module.exports = router;
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.45.48.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.45.48.png>)
 
 ### Implementing the POST <a href="#implementing-the-post" id="implementing-the-post"></a>
 

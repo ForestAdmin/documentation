@@ -4,7 +4,7 @@ A **schema** is an organizational layer to better structure your SQL database.
 
 At installation, you may only choose 1 schema:
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-17 à 16.27.45.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-17 à 16.27.45.png>)
 
 {% hint style="info" %}
 If you're not using specific schemas, you don't have to fill this advanced option.

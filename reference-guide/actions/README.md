@@ -19,13 +19,13 @@ Those actions come out-of-the-box. We've covered them in details _from a route p
 * **Update**: edit a record's data **(3)**
 * **Delete**: remove a record **(4)**
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.31.54.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.31.54.png>)
 
 {% hint style="info" %}
 Some actions are only available when 1+ record(s) are selected. This depends on [their type](./#triggering-different-types-of-actions).
 {% endhint %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.36.29.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.36.29.png>)
 
 {% hint style="warning" %}
 Native actions' **permissions** are set from each of your [collections' settings](broken-reference).

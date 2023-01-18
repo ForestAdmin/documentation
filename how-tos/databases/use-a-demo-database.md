@@ -1,4 +1,4 @@
-# Use a demo database
+# Use a demo SQL database
 
 **Pre-requisite**: Docker
 
@@ -58,4 +58,4 @@ To use this database for a new Forest Admin project, you'll need:
 | Password      | secret |
 | Database name | meals  |
 
-![](<../../.gitbook/assets/Capture d’écran 2020-04-23 à 16.06.16.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-04-23 à 16.06.16.png>)

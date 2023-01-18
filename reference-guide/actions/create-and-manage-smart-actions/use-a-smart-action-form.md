@@ -466,7 +466,7 @@ class CompaniesController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.34.41.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.34.41.png>)
 
 ### Handling input values
 
@@ -765,7 +765,7 @@ class Customer extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.40.08.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.40.08.png>)
 
 ### Making a field read-only
 

@@ -179,7 +179,7 @@ class Order extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.00.28.png>)
+![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.00.28.png>)
 
 ### Create a HasMany Smart Relationship <a href="#creating-a-hasmany-smart-relationship" id="creating-a-hasmany-smart-relationship"></a>
 
@@ -382,14 +382,17 @@ router.get('/products/:product_id/relationships/buyers', (req, res, next) => {
     OFFSET ${offset}
   `;
 
-  const serializer = new RecordsSerializer(customers);
-  return Promise
-    .all([
-      models.sequelize.query(countQuery, { type: queryType }),
-      models.sequelize.query(dataQuery, { type: queryType })
-    ])
-    .then(([count, customers]) => serializer.serialize(customers, { count: count[0].count }))
-    .then((customers) => res.send(customers))
+  const serializer = new RecordSerializer(customers);
+  Promise.all([
+    // Since support to multiple db connections was added you have to use the connection name defined in config/databases.js
+    // here using default
+    models.connections.default.query(countQuery, { type: queryType }),
+    models.connections.default.query(dataQuery, { type: queryType }),
+  ])
+    .then(([count, queryResult]) =>
+      serializer.serialize(queryResult[0], { count: count[0].count })
+    )
+    .then((serializedResult) => res.send(serializedResult))
     .catch((err) => next(err));
 });
 
@@ -668,4 +671,4 @@ class ProductsController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.02.40.png>)
+![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.02.40.png>)
