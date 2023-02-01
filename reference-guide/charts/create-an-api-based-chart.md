@@ -274,7 +274,7 @@ class VerifyCsrfToken extends Middleware
 {% endtab %}
 {% endtabs %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.09.27.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.09.27.png>)
 
 ### Repartition API-based Chart <a href="#repartition-smart-chart" id="repartition-smart-chart"></a>
 
@@ -614,7 +614,7 @@ class VerifyCsrfToken extends Middleware
 {% endtab %}
 {% endtabs %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.33.41.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.33.41.png>)
 
 ### Time-based API-based Chart <a href="#time-based-smart-chart" id="time-based-smart-chart"></a>
 
@@ -969,7 +969,7 @@ class VerifyCsrfToken extends Middleware
 {% endtab %}
 {% endtabs %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.38.29.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.38.29.png>)
 
 ### Objective API-based Chart
 

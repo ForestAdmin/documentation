@@ -9,7 +9,7 @@ Relationships are visible and actionable in Forest Admin:
 * `hasMany` **(1)**
 * `belongsTo` or `hasOne`**(2)**
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.52.25.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.52.25.png>)
 
 If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association\_basics.html) to create new ones.
 
@@ -68,7 +68,7 @@ module.exports = (mongoose, Mongoose) => {
 Note that for orders to be displayed within the related data section of your customer, they have to be populated in your database. For instance:
 {% endhint %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-09-05 à 13.41.02.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-09-05 à 13.41.02.png>)
 {% endtab %}
 {% endtabs %}
 
@@ -175,7 +175,7 @@ For a collection `collectionName`, the foreign key should be `collection_name_id
 If this is not the case, check out the [section below](./#declaring-a-foreign-key-sql-only).
 {% endhint %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2020-06-22 à 11.28.08.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2020-06-22 à 11.28.08.png>)
 
 {% hint style="info" %}
 Don't forget to **restart your server** for your newly added relationships to be taken into account.

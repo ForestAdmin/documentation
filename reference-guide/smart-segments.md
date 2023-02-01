@@ -193,7 +193,7 @@ class Product extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.38.24.png>)
+![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.38.24.png>)
 
 ### Setting up independent columns visibility <a href="#setting-up-independent-columns-visibility" id="setting-up-independent-columns-visibility"></a>
 
@@ -201,4 +201,4 @@ By default, Forest Admin applies the same configuration to all segments of the s
 
 However, the _Independent columns configuration_ option allows you to display different columns on your different segments.
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.40.03.png>)
+![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.40.03.png>)

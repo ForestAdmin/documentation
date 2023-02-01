@@ -224,7 +224,7 @@ class Customer extends Model
 The collection name must be the same as the **model name**.
 {% endhint %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.16.05.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.16.05.png>)
 
 ### Updating a Smart Field <a href="#updating-a-smart-field" id="updating-a-smart-field"></a>
 
@@ -453,7 +453,7 @@ class Customer extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.23.14.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.23.14.png>)
 
 ### Searching, Sorting and Filtering on a Smart Field
 
@@ -639,7 +639,7 @@ class Customer extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.25.58.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.25.58.png>)
 
 #### Filtering
 
@@ -920,7 +920,7 @@ class Customer extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../../.gitbook/assets/Capture d’écran 2021-04-02 à 16.09.16.png>)
+![](<../../.gitbook/assets/Capture d’écran 2021-04-02 à 16.09.16.png>)
 
 {% hint style="info" %}
 Make sure you set the option `isFilterable: true` in the field definition of your code. Then, you will be able to toggle the "Filtering enabled" option in the browser, in your **Fields Settings**.

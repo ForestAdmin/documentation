@@ -8,7 +8,7 @@ This is **not** the recommended way of using Forest Admin.
 
 When you install Forest Admin, on the last step you are asked to run some commands:
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-17 à 14.52.35.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-17 à 14.52.35.png>)
 
 The recommended way of installing Forest Admin is to run those commands **locally**, which will generate files in your current local directory.
 
@@ -30,7 +30,7 @@ Remember that the database credentials provided on the previous should reflect w
 
 When you install Forest Admin, on the last step you are asked to run some commands:
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.08.25.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.08.25.png>)
 
 The recommended way of installing Forest Admin is to run those commands **locally**, which will generate files in your current local directory.
 
