@@ -24,6 +24,7 @@ In the following pages, we'll cover all available Forest CLI commands in details
 * [push](push.md)
 * [environments:reset](environments-reset.md)
 * [deploy](deploy.md)
+* [schema:diff \[beta\]](schema-diff-beta.md) &#x20;
 
 Some additional commands might be added in the future. In the meantime, those should be largely sufficient to manage your development workflow.
 

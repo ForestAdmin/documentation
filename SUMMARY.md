@@ -23,6 +23,7 @@
       * [push](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/push.md)
       * [environments:reset](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/environments-reset.md)
       * [deploy](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/deploy.md)
+      * [schema:diff \[beta\]](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/schema-diff-beta.md)
     * [Express packages](reference-guide/how-it-works/developing-on-forest-admin/express-packages.md)
 * [Models](reference-guide/models/README.md)
   * [Enrich your models](reference-guide/models/enrich-your-models.md)
