@@ -76,10 +76,3 @@ This being a Beta version, we will continue to improve this solution as time goe
 
 In the next iteration, we plan to add a wizard or prompt to the `schema:diff` command. This will make it easier for customers to select the right environment without having to retrieve the environment list first.
 
-### Improved error message
-
-Finally, in the last iteration, we plan to improve the error message that customers receive when they encounter the following error:&#x20;
-
-`Error: Failed to push branch: source and destination environments must have the same schema`.&#x20;
-
-The schema:diff result will be included in the error message to make it easier for customers to understand the issue and resolve it.
