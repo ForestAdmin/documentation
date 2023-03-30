@@ -127,6 +127,7 @@
 * [Setup](how-tos/setup/README.md)
   * [Install](how-tos/setup/install.md)
   * [Connecting Forest Admin to Your Database (Forest Cloud)](how-tos/setup/connecting-forest-admin-to-your-database-forest-cloud.md)
+  * [Why HTTPS is necessary even locally](how-tos/setup/why-https-is-necessary-even-locally.md)
   * [Troubleshooting](how-tos/setup/troubleshooting.md)
   * [Prevent permission errors at installation](how-tos/setup/prevent-permission-errors-at-installation.md)
   * [Deploy your admin backend on Heroku](how-tos/setup/deploy-to-production-on-heroku.md)
