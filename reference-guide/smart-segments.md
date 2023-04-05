@@ -147,6 +147,13 @@ class ProductForest(Collection):
 Collection.register(ProductForest, Product)
 ```
 {% endcode %}
+
+Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
+{% code title="app/forest/__init__.py" %}
+```python
+from app.forest.product import ProductForest
+```
+{% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}

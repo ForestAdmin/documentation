@@ -295,6 +295,13 @@ Collection.register(CompanyForest, Company)
 ```
 {% endcode %}
 
+Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
+{% code title="app/forest/__init__.py" %}
+```python
+from app.forest.companies import CompanyForest
+```
+{% endcode %}
+
 {% code title="app/urls.py" %}
 ```python
 from django.urls import path
@@ -695,6 +702,13 @@ class CompanyForest(Collection):
         return fields
 
 Collection.register(CompanyForest, Company)
+```
+{% endcode %}
+
+Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
+{% code title="app/forest/__init__.py" %}
+```python
+from app.forest.companies import CompanyForest
 ```
 {% endcode %}
 {% endtab %}
@@ -1139,6 +1153,14 @@ class CompanyForest(Collection):
 Collection.register(CompanyForest, Company)
 ```
 {% endcode %}
+
+Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
+{% code title="app/forest/__init__.py" %}
+```python
+from app.forest.companies import CompanyForest
+```
+{% endcode %}
+
 {% endtab %}
 
 {% tab title="Laravel" %}
@@ -1787,6 +1809,14 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
+Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
+{% code title="app/forest/\_\_init\_\_.py" %}
+```python
+from app.forest.customers import CustomerForest
+```
+{% endcode %}
+
 {% endtab %}
 
 {% tab title="Laravel" %}

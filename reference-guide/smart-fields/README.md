@@ -118,6 +118,12 @@ class CustomerForest(Collection):
 Collection.register(CustomerForest, Customer)
 ```
 {% endcode %}
+Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
+{% code title="app/forest/\_\_init\_\_.py" %}
+```python
+from app.forest.customer import CustomerForest
+```
+{% endcode %}
 
 Very often, the business logic behind the Smart Field is more complex and must interact with the database. Here’s an example with the Smart Field `full_address` on the `Customer` collection.
 
