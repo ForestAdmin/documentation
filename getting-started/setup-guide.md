@@ -165,6 +165,13 @@ Collection.register(OrderForest, Order)
 ```
 {% endcode %}
 
+Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
+{% code title="app/forest/\_\_init\_\_.py" %}
+```python
+from app.forest.orders import OrderForest
+```
+{% endcode %}
+
 Make sure your **project** `urls.py` file include you app urls with the `forest` prefix.
 
 {% code title="urls.py" %}
