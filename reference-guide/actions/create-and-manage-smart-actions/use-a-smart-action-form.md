@@ -295,8 +295,8 @@ Collection.register(CompanyForest, Company)
 ```
 {% endcode %}
 
-Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
-{% code title="app/forest/__init__.py" %}
+Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
+{% code title="app/forest/\_\_init\_\_.py" %}
 ```python
 from app.forest.companies import CompanyForest
 ```
@@ -702,13 +702,6 @@ class CompanyForest(Collection):
         return fields
 
 Collection.register(CompanyForest, Company)
-```
-{% endcode %}
-
-Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
-{% code title="app/forest/__init__.py" %}
-```python
-from app.forest.companies import CompanyForest
 ```
 {% endcode %}
 {% endtab %}
@@ -1151,13 +1144,6 @@ class CompanyForest(Collection):
         return fields
 
 Collection.register(CompanyForest, Company)
-```
-{% endcode %}
-
-Ensure the file app/forest/__ini__.py exists and contains the import of the previous defined class :
-{% code title="app/forest/__init__.py" %}
-```python
-from app.forest.companies import CompanyForest
 ```
 {% endcode %}
 
@@ -1809,13 +1795,6 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
-
-Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
-{% code title="app/forest/\_\_init\_\_.py" %}
-```python
-from app.forest.customers import CustomerForest
-```
-{% endcode %}
 
 {% endtab %}
 
