@@ -263,7 +263,6 @@ class ProductForest(Collection):
 Collection.register(ProductForest, Product)
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="Laravel" %}

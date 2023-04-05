@@ -1146,7 +1146,6 @@ class CompanyForest(Collection):
 Collection.register(CompanyForest, Company)
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="Laravel" %}
@@ -1795,7 +1794,6 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
-
 {% endtab %}
 
 {% tab title="Laravel" %}
