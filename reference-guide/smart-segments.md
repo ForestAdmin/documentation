@@ -149,7 +149,8 @@ Collection.register(ProductForest, Product)
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
-{% code title="app/forest/\_\_init\_\_.py" %}
+
+{% code title="app/forest/__init__.py" %}
 ```python
 from app.forest.product import ProductForest
 ```

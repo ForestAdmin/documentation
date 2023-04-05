@@ -604,5 +604,5 @@ exports.FIELD_DEFINITIONS = FIELD_DEFINITIONS;
 {% endtabs %}
 
 {% hint style="warning" %}
-We expose utils to parse filters through **forest-express-sequelize** since **** version **7.6.0**
+We expose utils to parse filters through **forest-express-sequelize** since version **7.6.0**
 {% endhint %}

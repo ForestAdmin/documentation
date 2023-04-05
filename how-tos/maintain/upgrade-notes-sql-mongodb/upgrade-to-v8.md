@@ -51,7 +51,7 @@ This new version (v9) does not support the old role system. If you are in the ca
 
 If you have access to roles (Project settings > Roles) as designed below...\
 \
-![](../../../.gitbook/assets/image.png)\
+![](<../../../.gitbook/assets/image (10).png>)\
 \
 then you are using the new role system and can go ahead with the upgrade to v9.
 {% endhint %}

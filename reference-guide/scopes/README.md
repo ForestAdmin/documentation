@@ -14,7 +14,7 @@ It is useful in that it can be used to control what data is available to users. 
 
 To access the scope management page for a given collection, you'll need to [go to that collection's settings page](broken-reference) using the Layout editor mode.&#x20;
 
-![](<../../.gitbook/assets/Capture d’écran 2019-08-13 à 11.54.36.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-08-13 à 11.54.36.png>)
 
 Once on the Scopes tab **(1)**, you can set up your filter **(2)** and save **(3)**. In the above screenshot, only customers with an email ending with _@forestadmin.com_ will be displayed in the collection **and** all of its segments. All other customers won't be accessible.
 
@@ -26,7 +26,7 @@ Imagine a situation where you have several Operations teams each specialized in 
 * _Germany_ team handles customers from Germany
 * ...
 
-![](<../../.gitbook/assets/Capture d’écran 2019-08-21 à 10.34.44.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-08-21 à 10.34.44.png>)
 
 If you set up the following scope...
 
@@ -66,4 +66,4 @@ User tags are [set from each user's details page](broken-reference) and allow yo
 
 Using the above scope, the above user would see **1**, **2** but not **3**:
 
-![](<../../.gitbook/assets/Capture d’écran 2020-04-15 à 18.58.32 copie.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-04-15 à 18.58.32 copie.png>)

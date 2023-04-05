@@ -34,7 +34,7 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 The information format of the _session token_ have changed in v4.
 
 {% hint style="info" %}
-You could be impacted if you use **** the _user session_ in Smart Action controllers or Smart Routes
+You could be impacted if you use the _user session_ in Smart Action controllers or Smart Routes
 {% endhint %}
 
 **Calling `forest_user` in v3**

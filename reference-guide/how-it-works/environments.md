@@ -10,7 +10,7 @@ Forest Admin is meant to help you manage your operations: this can only happen i
 
 Click "Deploy to production" on the top banner or in the _Environments_ tab of your Project settings.
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.52.52.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.52.52.png>)
 
 #### Deploy your admin backend
 
@@ -54,7 +54,7 @@ Now that your admin panel is live in production, you might want to add an extra 
 
 To create a new remote environment, go to your Project settings **(1)**:
 
-![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.40.58.png>)
+![](<../../.gitbook/assets/Capture d’écran 2020-02-21 à 15.40.58.png>)
 
 Then from the _Environments_ tab, click on "Add a new environment" **(2)**.
 
@@ -118,7 +118,7 @@ To set as production an environment it should have as origin the actual referenc
 
 To do so, click on the enviroment you wish to set as production and from its details page, click "Set as production".
 
-![](<../../.gitbook/assets/Capture d’écran 2021-12-09 à 11.15.17.png>)
+![](<../../.gitbook/assets/Capture d’écran 2021-12-09 à 11.15.17 (1).png>)
 
 {% hint style="warning" %}
 The actual reference will take the new production as origin. All children layout will be refreshed. Any layout change that is not applicable will be ignored.

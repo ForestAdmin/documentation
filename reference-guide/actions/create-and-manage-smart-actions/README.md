@@ -74,12 +74,12 @@ Collection.register(CompanyForest, Company)
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
-{% code title="app/forest/\_\_init\_\_.py" %}
+
+{% code title="app/forest/__init__.py" %}
 ```python
 from app.forest.companies import CompanyForest
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="Laravel" %}
@@ -1048,7 +1048,7 @@ class CustomersController extends ForestController
 
 <figure><img src="../../../.gitbook/assets/actions-html-response-success.png" alt=""><figcaption></figcaption></figure>
 
-You can either respond with an HTML page in case of error. The user will be able to go back to his smart action's form by using the cross icon at the top right of the panel.&#x20;
+You can either respond with an HTML page in case of error. The user will be able to go back to his smart action's form by using the cross icon at the top right of the panel.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -2044,8 +2044,6 @@ Rails.application.routes.draw do
 end
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Django" %}

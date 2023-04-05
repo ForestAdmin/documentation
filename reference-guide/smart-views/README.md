@@ -284,11 +284,11 @@ Forest Admin automatically injects into your Smart View some actions to trigger 
 
 To apply a Smart view you created, turn on the Layout Editor mode **(1)**, click on the table button **(2)** and drag & drop your Smart View's name in first position inside the dropdown **(3)**:
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-09 à 11.51.33.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-09 à 11.51.33.png>)
 
 Your view will refresh automatically. You can now turn off the Layout Editor mode **(4)**.
 
-![](<../../.gitbook/assets/Capture d’écran 2019-07-09 à 11.59.12.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-07-09 à 11.59.12.png>)
 
 ### Impact on related data
 

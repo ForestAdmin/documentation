@@ -379,7 +379,7 @@ module.exports = (sequelize, DataTypes) => {
 
 Every time the order is updated, the updateCount field will be incremented by 1:
 
-![](<../../.gitbook/assets/Capture d’écran 2019-09-27 à 15.10.56.png>)
+![](<../../.gitbook/assets/Capture d’écran 2019-09-27 à 15.10.56.png>)
 
 The exhaustive list of available hooks in Sequelize are available [here](https://sequelize.org/master/manual/hooks.html).
 {% endtab %}

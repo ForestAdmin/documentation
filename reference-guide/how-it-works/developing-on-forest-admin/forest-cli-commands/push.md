@@ -19,7 +19,7 @@ OPTIONS
 
 It is paramount to understand this command before using it:
 
-<figure><img src="../../../../.gitbook/assets/the_push.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/the_push (1).jpg" alt=""><figcaption></figcaption></figure>
 
 Pushing a branch to a remote means applying your latest layout changes to your origin environment. In the above figure, your layout changes (Δ) will be moved from `my-branch` to `Staging`.
 

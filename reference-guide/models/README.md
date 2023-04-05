@@ -69,7 +69,7 @@ This file **must be versioned and deployed** for any remote environment (staging
 {% endhint %}
 
 {% hint style="info" %}
-We use the environment variable _**NODE\_ENV**  _  to detect if an environment is in development. Setting this variable to either nothing or _**development**_ will regenerate a new _.forestadmin-schema.json_ file every time your app restarts. Using another value will not regenerate the file.
+We use the environment variable _**NODE\_ENV**_  to detect if an environment is in development. Setting this variable to either nothing or _**development**_ will regenerate a new _.forestadmin-schema.json_ file every time your app restarts. Using another value will not regenerate the file.
 {% endhint %}
 
 {% hint style="warning" %}
