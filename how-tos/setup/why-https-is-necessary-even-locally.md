@@ -22,10 +22,9 @@ If your app URL is in HTTP, you can use a tunneling software to access it throug
 
 1. Choose a tunneling software: Some popular options include:
 
-*
-  * [Ngrok](https://ngrok.com/)
-  * [Bastion](https://github.com/bastion-rs/bastion)
-  * [Localtunnel](https://localtunnel.github.io/www/)
+* [Ngrok](https://ngrok.com/)
+* [Bastion](https://github.com/bastion-rs/bastion)
+* [Localtunnel](https://localtunnel.github.io/www/)
 
 1. Download and install the tunneling software according to its documentation.
 2. Configure the tunneling software to point to your app's HTTP address. This usually involves specifying the local HTTP address and the desired HTTPS address or port number.
