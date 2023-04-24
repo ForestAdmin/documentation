@@ -49,4 +49,5 @@ then you are using the new role system and can go ahead with the upgrade to v9.
 
 If you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route. 
 You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
+An example can be found [here](../../../reference-guide/routes/override-a-route.md).
 
