@@ -6,7 +6,7 @@ This option is available only on [lianas version ≥ 3+](https://docs.forestadmi
 
 On server start, Forest Admin automatically loads a new Forest Admin schema if changes are detected.
 
-For better control, you can disable the automatic schema synchronisation by adding the following environment variable: `FOREST_DISABLE_AUTO_SCHEMA_APPLY=true`(ex: for QA and testing purposes)
+For better control, you can disable the automatic schema synchronization by adding the following environment variable: `FOREST_DISABLE_AUTO_SCHEMA_APPLY=true`(ex: for QA and testing purposes)
 
 {% hint style="warning" %}
 By doing so, you will need to manually synchronize your Forest Admin schema [using our CLI.](../maintain/manage-your-forest-admin-programmatically.md)

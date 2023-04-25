@@ -76,9 +76,9 @@ collection('user', {
       },
     },
     {
-      field: 'visualisations',
+      field: 'visualizations',
       type: ['String'],
-      reference: 'visualisation._id',
+      reference: 'visualization._id',
     },
   ],
   segments: [],

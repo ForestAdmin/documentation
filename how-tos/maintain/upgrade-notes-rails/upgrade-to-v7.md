@@ -47,7 +47,7 @@ action 'Test action',
   type: 'single',
   fields: [{
     field: 'a field',
-    type: 'Srtring',
+    type: 'String',
   }],
   :hooks => {
     :change => {
@@ -68,7 +68,7 @@ action 'Test action',
   type: 'single',
   fields: [{
     field: 'a field',
-    type: 'Srtring',
+    type: 'String',
     hook: 'onFieldChanged',
   }],
   :hooks => {

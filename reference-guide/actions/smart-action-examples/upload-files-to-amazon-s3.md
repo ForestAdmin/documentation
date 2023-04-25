@@ -30,7 +30,7 @@ collection('companies', {
       isRequired: true
     }, {
       field: 'Valid proof of ID',
-      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
+      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
       type: 'File',
       isRequired: true
     }],

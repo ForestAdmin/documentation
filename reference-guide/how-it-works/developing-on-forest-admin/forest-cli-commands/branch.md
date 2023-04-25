@@ -55,7 +55,7 @@ $ forest branch feature/new-ops-feature --origin production
 ```
 
 {% hint style="warning" %}
-There is no specific constraint on branche names, though kebab-case is generally used.
+There is no specific constraint on branch names, though kebab-case is generally used.
 
 However, keep in mind that your branch _name_ must be **unique** in the project.
 {% endhint %}

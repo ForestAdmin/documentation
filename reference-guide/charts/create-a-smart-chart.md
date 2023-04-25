@@ -265,7 +265,7 @@ export default class extends Component {
     // Ref.: https://github.com/d3/d3-fetch/blob/v2.0.0/README.md#json
     const us = await d3.json("https://static.observableusercontent.com/files/6b1776f5a0a0e76e6428805c0074a8f262e3f34b1b50944da27903e014b409958dc29b03a1c9cc331949d6a2a404c19dfd0d9d36d9c32274e6ffbc07c11350ee?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27counties-albers-10m.json")
     const features = new Map(topojson.feature(us, us.objects.counties).features.map(d => [d.id, d]))
-    // Population should contain data about the dencity
+    // Population should contain data about the density
     const population = await d3.json('https://static.observableusercontent.com/files/beb56a2d9534662123fa352ffff2db8472e481776fcc1608ee4adbd532ea9ccf2f1decc004d57adc76735478ee68c0fd18931ba01fc859ee4901deb1bee2ed1b?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27population.json')
 
     const data = population.slice(1).map(([population, state, county]) => {
@@ -420,7 +420,7 @@ export default class extends Component {
           "June 7, 2021" : [184, 42, 32],
           "June 14, 2021" : [182, 44],
       },
-      title : "Retention rates by weeks after signup"
+      title : "Retention rates by weeks after sign-up"
     };
     var graphTitle = options.title || "Retention Graph";
     var data = options.data || null;

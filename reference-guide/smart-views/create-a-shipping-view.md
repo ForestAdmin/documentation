@@ -204,7 +204,7 @@ export default class extends Component {
        margin: 0;
        height: 50px;
   }
-   .gaugebar--points__informations p {
+   .gaugebar--points__information p {
        max-width: 370px;
        white-space: nowrap;
        overflow: hidden;
@@ -268,7 +268,7 @@ export default class extends Component {
        -moz-border-radius: 50%;
        -webkit-border-radius: 50%;
   }
-   .gaugebar--informations {
+   .gaugebar--information {
        width: 100%;
        display: flex;
        flex-flow: row wrap;
@@ -277,11 +277,11 @@ export default class extends Component {
        justify-content: space-between;
        margin-top: 10px;
   }
-   .gaugebar--informations__start p, .gaugebar--informations__middle p, .gaugebar--informations__end p {
+   .gaugebar--information__start p, .gaugebar--information__middle p, .gaugebar--information__end p {
        text-transform: uppercase;
        font-size: 10px;
   }
-   .gaugebar--informations__end p {
+   .gaugebar--information__end p {
        text-align: right;
   }
    .green {
@@ -347,7 +347,7 @@ export default class extends Component {
       <div class="gaugebar">
         <div class="gaugebar--points">
           <img src={{this.currentRecord.forest-product.forest-picture}} alt="">
-          <div class="gaugebar--points__informations">
+          <div class="gaugebar--points__information">
             <p>Product: {{this.currentRecord.forest-product.forest-label}}</p>
             <p>Customer: {{this.currentRecord.forest-customer.forest-firstname}} {{this.currentRecord.forest-customer.forest-lastname}}</p>
           </div>
@@ -357,24 +357,24 @@ export default class extends Component {
         <!-- use class 'full' to show full bar with order delivered -->
         <div class="gaugebar--bar__active {{this.status}}"></div>
       </div>
-      <div class="gaugebar--informations">
-        <div class="gaugebar--informations__one green">
+      <div class="gaugebar--information">
+        <div class="gaugebar--information__one green">
           <p>Being processed</p>
           <p>{{moment-format this.currentRecord.forest-being_processed_at 'LLL'}}</p>
         </div>
-        <div class="gaugebar--informations__two {{if this.currentRecord.forest-ready_for_shipping_at 'green'}}">
+        <div class="gaugebar--information__two {{if this.currentRecord.forest-ready_for_shipping_at 'green'}}">
           <p>Ready for shipping</p>
           {{#if this.currentRecord.forest-ready_for_shipping_at}}
             <p>{{moment-format this.currentRecord.forest-ready_for_shipping_at 'LLL'}}</p>
           {{/if}}
         </div>
-        <div class="gaugebar--informations__three {{if this.currentRecord.forest-in_transit_at 'green'}}">
+        <div class="gaugebar--information__three {{if this.currentRecord.forest-in_transit_at 'green'}}">
           <p>In transit</p>
           {{#if this.currentRecord.forest-in_transit_at}}
             <p>{{moment-format this.currentRecord.forest-in_transit_at 'LLL'}}</p>
           {{/if}}
         </div>
-        <div class="gaugebar--informations__four {{if this.currentRecord.forest-shipped_at 'green'}}">
+        <div class="gaugebar--information__four {{if this.currentRecord.forest-shipped_at 'green'}}">
           <p>Shipped</p>
           {{#if this.currentRecord.forest-shipped_at}}
             <p>{{moment-format this.currentRecord.forest-shipped_at 'LLL'}}</p>

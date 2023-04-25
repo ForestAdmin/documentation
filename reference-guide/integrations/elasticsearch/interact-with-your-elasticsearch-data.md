@@ -90,7 +90,7 @@ You can add the option `isSearchable: true` to your collection to display the se
 
 ### Implementing the routes <a href="#implementing-the-post" id="implementing-the-post"></a>
 
-It's not an easy job to connect several data sources in the same structure. To accommodate you in this journey we already provide you a simple service [`ElasticsearchHelper`](https://docs.forestadmin.com/woodshop/how-tos/create-a-smart-collection-with-elasticsearch/elasticsearch-service-utils) that handles all the logic to connect with your Elasticseearch data.
+It's not an easy job to connect several data sources in the same structure. To accommodate you in this journey we already provide you a simple service [`ElasticsearchHelper`](https://docs.forestadmin.com/woodshop/how-tos/create-a-smart-collection-with-elasticsearch/elasticsearch-service-utils) that handles all the logic to connect with your Elasticsearch data.
 
 \
 Before getting further, in order to search your data using filters, we need to define the Elasticsearch configuration.

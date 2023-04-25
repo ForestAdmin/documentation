@@ -6,9 +6,9 @@ Your database schema will evolve over time. Any changes can (and probably should
 To upgrade your models definition in your code you need to be at least in the V7 version of `forest-express-sequelize` or `forest-express-mongoose` package. If this is not the case please follow our [migration note](upgrade-notes-sql-mongodb/upgrade-to-v7.md).
 {% endhint %}
 
-Now you can use the `forest schema:update` commande to achieve your goal.
+Now you can use the `forest schema:update` command to achieve your goal.
 
-This command is able to create all the missing file for a newly added table in your database. However it will not automatically modify existing files. So if you just added a new field inside an existing table, please juste remove the corresponding model file inside your models folder and run the command.
+This command is able to create all the missing file for a newly added table in your database. However it will not automatically modify existing files. So if you just added a new field inside an existing table, please just remove the corresponding model file inside your models folder and run the command.
 
 ### Examples
 

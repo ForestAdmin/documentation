@@ -34,7 +34,7 @@ Learn more about how to [authenticate, filter and sort with the Zendesk API](htt
 
 {% code title="services/forest-smart-collection-helpers.js" %}
 ```javascript
-function getFilterConditons(params) {
+function getFilterConditions(params) {
 
   let filters = [];
   if (params.filters) {

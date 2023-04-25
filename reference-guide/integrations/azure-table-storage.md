@@ -113,7 +113,7 @@ const azureTableStorageService = {
     return client.getEntity(entity.partitionKey, entity.rowKey);
   },
 
-  udpateEntityAsync: async (tableName, entity) => {
+  updateEntityAsync: async (tableName, entity) => {
     const client = getClient(tableName);
     await client.updateEntity(entity, "Replace");
     return client.getEntity(entity.partitionKey, entity.rowKey);
@@ -191,7 +191,7 @@ router.put(`/${COLLECTION_NAME}/:recordId`, permissionMiddlewareCreator.update()
   .then( (recordToUpdate) => {
     recordToUpdate.partitionKey = parts[0];
     recordToUpdate.rowKey = parts[1];
-    return azureTableStorageService.udpateEntityAsync(COLLECTION_NAME, recordToUpdate);
+    return azureTableStorageService.updateEntityAsync(COLLECTION_NAME, recordToUpdate);
   })
   .then( (record) => recordSerializer.serialize(record) )
   .then( (recordSerialized) => response.send(recordSerialized) )

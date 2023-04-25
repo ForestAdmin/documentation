@@ -36,7 +36,7 @@ collection('companies', {
       isRequired: true
     }, {
       field: 'Valid proof of ID',
-      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
+      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
       type: 'File',
       isRequired: true
     }]
@@ -111,7 +111,7 @@ collection('companies', {
       isRequired: true
     }, {
       field: 'Valid proof of ID',
-      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
+      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
       type: 'File',
       isRequired: true
     }],
@@ -184,7 +184,7 @@ class Forest::Company
     is_required: true
   }, {
     field: 'Valid proof of ID',
-    description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
+    description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
     type: 'File',
     is_required: true
   }]
@@ -284,7 +284,7 @@ class CompanyForest(Collection):
                 },
                 {
                     'field': 'Valid proof of ID',
-                    'description': 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
+                    'description': 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
                     'isRequired': True,
                     'type': 'File'
                 },
@@ -418,7 +418,7 @@ class Company extends Model
                     'field' => 'Valid proof of ID',
                     'type' => 'File',
                     'is_required' => true,
-                    'description' => 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving licence if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company'
+                    'description' => 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company'
                 ]
             );
     }
@@ -831,7 +831,7 @@ collection('customers', {
 This feature is only available from **version 8.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
 {% endhint %}
 
-Here's a typical example: Selecting a **City** within a list of cities from the **Country** you just selected. Then selecting a **Zipcode** within a list of zipcodes located in the **City** you just selected.
+Here's a typical example: Selecting a **City** within a list of cities from the **Country** you just selected. Then selecting a **Zip code** within a list of zip codes located in the **City** you just selected.
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -1250,7 +1250,7 @@ class Company extends Model
 The `hooks` property receives a _context_ object containing:
 
 * the `fields` array in its current state (containing also the current values)
-* the `request` object containing all the informations related to the records selection. Explained [here](./#available-smart-action-properties).
+* the `request` object containing all the information related to the records selection. Explained [here](./#available-smart-action-properties).
 * the `changedField` is the current field who trigger the hook (only for change hook)
 
 {% hint style="info" %}

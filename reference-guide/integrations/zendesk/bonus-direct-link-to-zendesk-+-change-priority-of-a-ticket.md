@@ -68,7 +68,7 @@ Implement the `updateTicket` service according to the [Zendesk API](https://deve
 
 {% code title="services/zendesk-tickets-service.js" %}
 ```javascript
-async function udpateTicket(ticketId, newValues) {
+async function updateTicket(ticketId, newValues) {
   const body = {
     ticket: newValues
   };
@@ -92,7 +92,7 @@ And now, we need to implement the route to handle this Smart Action:
 
 {% code title="routes/zendesk_tickets.js" %}
 ```java
-const {getTickets, getTicket, udpateTicket} = require('../services/zendesk-tickets-service');
+const {getTickets, getTicket, updateTicket} = require('../services/zendesk-tickets-service');
 
 router.post('/actions/zendesk-ticket-change-priority', permissionMiddlewareCreator.smartAction(), (request, response, next) => {
   const ticketId = request.body.data.attributes.ids[0];
@@ -100,7 +100,7 @@ router.post('/actions/zendesk-ticket-change-priority', permissionMiddlewareCreat
     priority: request.body.data.attributes.values['New Ticket Priority'],
   };
 
-  udpateTicket(ticketId, newValues)
+  updateTicket(ticketId, newValues)
   // eslint-disable-next-line no-unused-vars
   .then(async function (recordUpdated) {
     response.send({
@@ -117,7 +117,7 @@ You now have full integration with Zendesk!\
 \
 To go further, please [check our Github repository and explore how to](https://github.com/existenz31/forest-zendesk):
 
-* Get the Assignee, Submitter & Requester users for a Zendek Ticket
+* Get the Assignee, Submitter & Requester users for a Zendesk Ticket
 * Get the Zendesk User for a User
 * Get the requested tickets for a Zendesk User
 * and more...

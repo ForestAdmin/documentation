@@ -12,7 +12,7 @@ This is an **advanced** notion. If you're just starting with Forest Admin, you s
 
 In the following example, we have created a **Smart Collection** called `customer_stats`allowing us to see all customers who have placed orders, the number of order placed and the total amount of those orders.
 
-**For an example of advanced customisation and featuring an Amazon S3 integration,** you can see [here](examples/amazon-s3-integration-example.md) how we've stored in our live demo the companies' legal documents on Amazon S3 and how we've implemented a **Smart Collection** to access and manipulate them.
+**For an example of advanced customization and featuring an Amazon S3 integration,** you can see [here](examples/amazon-s3-integration-example.md) how we've stored in our live demo the companies' legal documents on Amazon S3 and how we've implemented a **Smart Collection** to access and manipulate them.
 
 ### Creating a Smart Collection <a href="#creating-a-smart-collection" id="creating-a-smart-collection"></a>
 

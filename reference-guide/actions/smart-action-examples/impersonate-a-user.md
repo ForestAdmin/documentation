@@ -163,5 +163,5 @@ module.exports = router;
 {% endtabs %}
 
 {% hint style="info" %}
-This is useful for authentication using cookies. By using this exemple, you're performing the login request directly from the browser. Thus, the cookies will be automatically sent from your own service to the browser (as you'd normally do with your own app).
+This is useful for authentication using cookies. By using this example, you're performing the login request directly from the browser. Thus, the cookies will be automatically sent from your own service to the browser (as you'd normally do with your own app).
 {% endhint %}
