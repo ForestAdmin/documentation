@@ -175,7 +175,7 @@ router.post(
     new RecordCounter(MyModel, user, query).count();
     new RecordsExporter(MyModel, user, query).streamExport(res);
     new RecordsRemover(MyModel, user, query).remove([1, 2, 3])
-    
+
     // Single item helpers
     new RecordCreator(MyModel, user, query).create({title: 'One');
     new RecordGetter(MyModel, user, query).get(37);
@@ -292,9 +292,9 @@ hooks: {
 [...]
 ```
 
-_3nd change:_
+_3rd change:_
 
-The signature of `hooks` functions has changed. In order to support hooks for **global** and **bulk** smart actions, `record` is no longer sent to the hook. You must change the way you get the record informations. This change also prevents unnecessary computation in case you don't need to access the record(s) inside the hooks.
+The signature of `hooks` functions has changed. In order to support hooks for **global** and **bulk** smart actions, `record` is no longer sent to the hook. You must change the way you get the record information. This change also prevents unnecessary computation in case you don't need to access the record(s) inside the hooks.
 
 {% hint style="danger" %}
 Before
@@ -327,7 +327,7 @@ hooks: {
       .getIdsFromRequest(request);
     // or
     const id = request.body.data.attributes.ids[0];
-      
+
     const record = await model.findByPk(id);
 
     const field = fields.find(field => field.field === 'a field');
@@ -350,7 +350,7 @@ hooks: {
       .getIdsFromRequest(request);
     // or
     const id = request.body.data.attributes.ids[0];
-      
+
     const record = await model.findById(id);
 
     const field = fields.find(field => field.field === 'a field');
