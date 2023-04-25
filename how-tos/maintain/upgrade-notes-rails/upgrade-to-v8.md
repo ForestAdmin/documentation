@@ -34,7 +34,7 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 
 ## Breaking changes
 
-This new version (v8) does not support the old role system. If you are in the case, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new role system **before** you attempt to upgrade to version 8.
+This new version (v8) does not support the old role system. If you are still using the old role system, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new role system **before** you attempt to upgrade to version 8.
 
 {% hint style="warning" %}
 **How do I know if I'm using the old or new role system?**
@@ -43,11 +43,11 @@ If you have access to roles (Project settings > Roles) as designed below...\
 \
 ![](<../../../.gitbook/assets/image (10).png>)\
 \
-then you are using the new role system and can go ahead with the upgrade to v9.
+then you are using the new role system and can go ahead with the upgrade to v8.
 {% endhint %}
 
 
-If you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route. 
+In your code, if you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route. 
 You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
 An example can be found [here](../../../reference-guide/routes/override-a-route.md).
-
+te
