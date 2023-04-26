@@ -509,8 +509,7 @@ if ForestLiana::UserSpace.const_defined?('UserController')
 
     # Create a User
     def create
-	  ForestLiana::Ability::forest_authorize!('add', forest_user, @resource)
-
+      forest_authorize!('add', forest_user, @resource)
       begin
         response = Net::HTTP.post URI('https://<your-api>/users'), params.to_json, "Content-Type" => "application/json"
         render serializer: nil, json: render_record_jsonapi(response.body)
