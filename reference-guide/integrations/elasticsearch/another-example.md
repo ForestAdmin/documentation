@@ -115,7 +115,7 @@ collection('activity-logs', {
 
 This is a complex use case: How to handle filters on related data. We want to be able to filter using the  `user.mail` field.\
 \
-To accommodate you we already provide you a simple service [`ElasticsearchHelper`](https://docs.forestadmin.com/woodshop/how-tos/create-a-smart-collection-with-elasticsearch/elasticsearch-service-utils) that handles all the logic to connect with your Elasticseearch data.
+To accommodate you we already provide you a simple service [`ElasticsearchHelper`](https://docs.forestadmin.com/woodshop/how-tos/create-a-smart-collection-with-elasticsearch/elasticsearch-service-utils) that handles all the logic to connect with your Elasticsearch data.
 
 {% code title="routes/activity-logs.js" %}
 ```javascript

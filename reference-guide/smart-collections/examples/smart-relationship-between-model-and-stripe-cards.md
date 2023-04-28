@@ -56,7 +56,7 @@ Final step is to implement the route for the relationship for the cards to be di
 const express = require('express');
 const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { users, usersDatas } = require('../models');
+const { users, usersData } = require('../models');
 var JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 const router = express.Router();
@@ -67,7 +67,7 @@ router.get('/users/:userId/relationships/stripe-cards', async (request, response
     attributes: ['country', 'brand', 'exp_year', 'exp_month', 'last4'],
   });
   const { userId } = request.params;
-  const stripeId = await usersDatas
+  const stripeId = await usersData
     .findOne({
       where: { userId },
     })

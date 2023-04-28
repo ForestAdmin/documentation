@@ -38,7 +38,7 @@ If you don't have a production environment yet, you'll have to choose a default 
 
 Once you're happy with how you've flagged each environment, be sure to check the **Effect of migration** column which should match your expectations.
 
-Then click on "Migrate now" and... tada: the migration is asynchronous but should be quite fast. Take a minute to acknoledge the few tips on the left panel.
+Then click on "Migrate now" and... tada: the migration is asynchronous but should be quite fast. Take a minute to acknowledge the few tips on the left panel.
 
 ![](<../../.gitbook/assets/image (431).png>)
 

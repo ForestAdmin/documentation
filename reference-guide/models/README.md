@@ -37,7 +37,7 @@ Version 2.2+ of [Forest CLI](https://www.npmjs.com/package/forest-cli) allows yo
 Note that `forest schema:update` options are as follows:
 
 * `-c` or `--config` , allowing to specify a path for the config file to user (Default to `./config/databases.js`)
-* `-o` or `--output-directory` : Create a directory named after the config parameter provided. It will also redump all the `models/routes/forest` file in a specific directory, allowing the enduser to pick code modification.
+* `-o` or `--output-directory` : Create a directory named after the config parameter provided. It will also redump all the `models/routes/forest` file in a specific directory, allowing the end-user to pick code modification.
 
 This command need to be launched at the root of the project directory, where the `.env` should be, since it is required by `config/databases.js` file.&#x20;
 
@@ -62,7 +62,7 @@ On the following page, we'll cover how you can enrich your models:
 On server start, a `.forestadmin-schema.json` file will be auto-generated in **local (development) environments only.** It reflects:&#x20;
 
 * the **state of your models** (in `/models`)**.**
-* your **Forest Admin customisation** (in `/forest`).
+* your **Forest Admin customization** (in `/forest`).
 
 {% hint style="info" %}
 This file **must be versioned and deployed** for any remote environment (staging, production, etc.), as it will be used to generate your Forest UI.

@@ -7,7 +7,7 @@ Forest Admin provides you with:
 * An API hosted on your server to retrieve your data. We call it the **Admin Backend**
   * if you chose a database as a datasource (PostgreSQLL, MySQL / MariaDB, MSSQL, MongoDB), your Admin Backend will be generated as a **standalone folder**.
   * if you chose an existing app as a datasource (Rails, Django, Laravel, Express/Sequelize, Express/Mongoose), your Admin Backend will be generated **within your app**.
-* A user interface to access and manage your data from your browser. This **Forest Admin User Interface** is built and managed through ressources hosted on Forest Admin's servers.
+* A user interface to access and manage your data from your browser. This **Forest Admin User Interface** is built and managed through resources hosted on Forest Admin's servers.
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}

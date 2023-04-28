@@ -1,6 +1,6 @@
 # BelongsToMany edition through smart collection
 
-**Context:** _A customer success team has to onboard “experts”, and those “experts” can have multiple “skills”, modelized via a belongsToMany relationship between “experts” and “skills” tables through an “experts\_skills” table; the skills table has \~200 records and experts usually have between 5 to 30 of them._
+**Context:** _A customer success team has to onboard “experts”, and those “experts” can have multiple “skills”, modelled via a belongsToMany relationship between “experts” and “skills” tables through an “experts\_skills” table; the skills table has \~200 records and experts usually have between 5 to 30 of them._
 
 _Unfortunately this is quite painful to edit in forest admin right now since when you want to add a new item in a belongToMany relationship in forest admin you have to:_
 

@@ -679,7 +679,7 @@ router.post('/actions/charge-credit-card', permissionMiddlewareCreator.smartActi
     .then((response) => {
       res.send({
         html: `
-        <p class="c-clr-1-4 l-mt l-mb">\$${response.amount / 100} USD has been successfuly charged.</p>
+        <p class="c-clr-1-4 l-mt l-mb">\$${response.amount / 100} USD has been successfully charged.</p>
         <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
         <p class="c-clr-1-4 l-mb">**** **** **** ${response.source.last4}</p>
         <strong class="c-form__label--read c-clr-1-2">Expire</strong>
@@ -748,7 +748,7 @@ router.post('/actions/charge-credit-card', (req, res) => {
     .then((response) => {
       res.send({
         html: `
-        <p class="c-clr-1-4 l-mt l-mb">\$${response.amount / 100} USD has been successfuly charged.</p>
+        <p class="c-clr-1-4 l-mt l-mb">\$${response.amount / 100} USD has been successfully charged.</p>
         <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
         <p class="c-clr-1-4 l-mb">**** **** **** ${response.source.last4}</p>
         <strong class="c-form__label--read c-clr-1-2">Expire</strong>
@@ -823,7 +823,7 @@ class Forest::CustomersController < ForestLiana::SmartActionsController
     )
 
     render json: { html: <<EOF
-<p class="c-clr-1-4 l-mt l-mb">$#{response.amount / 100.0} USD has been successfuly charged.</p>
+<p class="c-clr-1-4 l-mt l-mb">$#{response.amount / 100.0} USD has been successfully charged.</p>
 
 <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
 <p class="c-clr-1-4 l-mb">**** **** **** #{response.source.last4}</p>
@@ -916,7 +916,7 @@ class ChargeCreditCardView(ActionView):
         )
 
         data = f'''
-        <p class="c-clr-1-4 l-mt l-mb">${response['amount'] / 100} USD has been successfuly charged.</p>
+        <p class="c-clr-1-4 l-mt l-mb">${response['amount'] / 100} USD has been successfully charged.</p>
         <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
         <p class="c-clr-1-4 l-mb">**** **** **** {response['source']['last4']}</p>
         <strong class="c-form__label--read c-clr-1-2">Expire</strong>
@@ -1024,7 +1024,7 @@ class CustomersController extends ForestController
 
         return response()->json(
             ['html' => '
-                <p class="c-clr-1-4 l-mt l-mb">'. $response->amount / 100 .' USD has been successfuly charged.</p>
+                <p class="c-clr-1-4 l-mt l-mb">'. $response->amount / 100 .' USD has been successfully charged.</p>
 
                 <strong class="c-form__label--read c-clr-1-2">Credit card</strong>
                 <p class="c-clr-1-4 l-mb">**** **** **** '. $response->source->last4 .'</p>

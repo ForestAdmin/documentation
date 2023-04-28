@@ -30,7 +30,7 @@ In conjunction with the previous 4 cases, we also need to handle the filters and
 Please find in the following snippet every of the requirement listed above fulfilled to make the Smart Action work with the Select All feature.
 
 ```javascript
-// In this function, we want to mimic the getIdsFromRequest behaviour,
+// In this function, we want to mimic the getIdsFromRequest behavior,
 // Used in conjunction with the "select all record" feature on a smart relationship
 async function customGetIdsFromRequest(request) {
   const {

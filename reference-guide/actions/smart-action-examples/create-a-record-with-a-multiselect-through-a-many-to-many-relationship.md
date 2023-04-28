@@ -64,7 +64,7 @@ const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('cards');
 
 // This file contains the logic of every route in Forest Admin for the collection cards:
-// - Native routes are already generated but can be extended/overriden - Learn how to extend a route here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/extend-a-route>
+// - Native routes are already generated but can be extended/overridden - Learn how to extend a route here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/extend-a-route>
 // - Smart action routes will need to be added as you create new Smart Actions - Learn how to create a Smart Action here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/actions/create-and-manage-smart-actions>
 
 //...

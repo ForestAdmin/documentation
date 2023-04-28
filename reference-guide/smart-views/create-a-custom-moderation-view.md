@@ -1,6 +1,6 @@
 # Create a custom moderation view
 
-This example shows you how you can implement a moderations view with a custom Approve/Reject workflow.&#x20;
+This example shows you how you can implement a moderation view with a custom Approve/Reject workflow.&#x20;
 
 ![](<../../.gitbook/assets/image (501).png>)
 
@@ -80,7 +80,7 @@ This file contains the HTML and CSS needed to build the view.
         </tr>
       </thead>
       <tbody class="l-table-frame-body">
-        {{#each this.formatedRecords as |record|}}
+        {{#each this.formattedRecords as |record|}}
           <tr>
             <td class="align-top first-column" role="">
               <BetaCheckbox

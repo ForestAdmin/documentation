@@ -13,7 +13,7 @@ Relationships are visible and actionable in Forest Admin:
 
 If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association\_basics.html) to create new ones.
 
-If you installed Forest Admin directly on a database, then most relationships should have been [automatically generated](./#lumber-relationship-generation-rules). However, dependiinig on your database nature and structure, you may have to add some manually.
+If you installed Forest Admin directly on a database, then most relationships should have been [automatically generated](./#lumber-relationship-generation-rules). However, depending on your database nature and structure, you may have to add some manually.
 
 ## Adding relationships (databases only)
 
@@ -275,7 +275,7 @@ Detecting `belongsTo` is straight forward, we check if the referenced table of t
 
 #### HasMany
 
-If the foreign key doesn't have a unicity constraint, then we can define a `hasMany` association.
+If the foreign key doesn't have a uniqueness constraint, then we can define a `hasMany` association.
 
 #### HasOne
 
@@ -289,11 +289,11 @@ We detect Many-to-Many relationships when we detect a simple **junction table**.
 {% tab title="Mongodb" %}
 #### BelongsTo
 
-When a document contains an ObjectID refering to another document, we create a `belongsTo` relationship to the corresponding collection.
+When a document contains an ObjectID referring to another document, we create a `belongsTo` relationship to the corresponding collection.
 
 #### HasMany
 
-When a document contains an array of ObjectIDs refering to other documents, we create a `hasMany` relationship to the corresponding collection.
+When a document contains an array of ObjectIDs referring to other documents, we create a `hasMany` relationship to the corresponding collection.
 
 #### HasOne
 

@@ -11,7 +11,7 @@ description: >-
 ### Requirements
 
 * An admin backend running on `forest-express-sequelize`
-* Relationship **One-To-Many** between two collections (in this example an organisation **hasMany** companies <-> a company **belongsTo** an organisation)
+* Relationship **One-To-Many** between two collections (in this example an organization **hasMany** companies <-> a company **belongsTo** an organization)
 
 ## How it works
 
@@ -98,7 +98,7 @@ collection('organizations', {
 
 When the user validates the action, this route is called. We will use the **selection** to retrieve all companies' ids and then updates all companies `organizationId` field to create the associations.\
 \
-_In addition, once the smart action has been successfully runned, it refreshs the relationship to properly display newly added associations._
+_In addition, once the smart action has been successfully run, it refreshes the relationship to properly display newly added associations._
 
 ```javascript
 const express = require('express');

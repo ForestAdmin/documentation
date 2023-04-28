@@ -18,7 +18,7 @@ Forest Admin can render six types of charts:
 Only the 5 biggest categories will be displayed separately. All the others will go into a 6th "Other" category.
 {% endhint %}
 
-* Time-based (Number of signups per month, …)
+* Time-based (Number of sign-ups per month, …)
 
 ![](<../../.gitbook/assets/image (272).png>)
 

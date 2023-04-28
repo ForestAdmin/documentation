@@ -131,7 +131,7 @@ router.post('/actions/get-distance-to-other-place', permissionMiddlewareCreator.
         `,
       });
     })
-    .catch((e) => console.log(e.reponse.error));
+    .catch((e) => console.log(e.response.error));
 });
 
 module.exports = router;

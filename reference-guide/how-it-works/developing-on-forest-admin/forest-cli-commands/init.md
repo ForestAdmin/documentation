@@ -1,6 +1,6 @@
 # init
 
-The `forest init` command provides an all-in-one initialisation command that will:
+The `forest init` command provides an all-in-one initialization command that will:
 
 * allow you to log in if you haven't already done so with [forest login](login.md)
 * set up your own development environment on a given project.
@@ -65,7 +65,7 @@ At this point, your **development environment** will be **created**! 🎉
 {% endhint %}
 
 {% hint style="info" %}
-Note that your new development environnment is identified by the `FOREST_ENV_SECRET` in your `.env` file. If you had no such file, it will have been automatically created.
+Note that your new development environment is identified by the `FOREST_ENV_SECRET` in your `.env` file. If you had no such file, it will have been automatically created.
 {% endhint %}
 
 #### (Optional) Connecting your database
