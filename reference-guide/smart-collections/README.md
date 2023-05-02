@@ -108,7 +108,7 @@ You **MUST** declare an `id` field when creating a Smart Collection. The value o
 As we are using the _customer id_ in this example, we do not need to declare an `id`
 {% endhint %}
 
-{% code title="app/forest/customer_stats.py" %}
+{% code title="app/forest/customer_stat.py" %}
 ```python
 from django_forest.utils.collection import Collection
 
@@ -146,7 +146,7 @@ Collection.register(CustomerStat)
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 {% code title="app/forest/__init__.py" %}
 ```python
-from app.forest.customer_stats import CustomerStat
+from app.forest.customer_stat import CustomerStat
 ```
 {% endcode %}
 
@@ -433,7 +433,7 @@ from . import views
 
 app_name = 'app'
 urlpatterns = [
-    path('/CustomerStats', csrf_exempt(views.CustomerStatsView.as_view()), name='customer-stats'),
+    path('/CustomerStat', csrf_exempt(views.CustomerStatView.as_view()), name='customer-stats'),
 ]
 ```
 {% endcode %}
@@ -450,7 +450,7 @@ from django_forest.utils.schema.json_api_schema import JsonApiSchema
 from django_forest.resources.utils.queryset.pagination import PaginationMixin
 from django_forest.resources.utils.queryset.search import SearchMixin
 
-class CustomerStatsViewView(PaginationMixin, SearchMixin, generic.ListView):
+class CustomerStatView(PaginationMixin, SearchMixin, generic.ListView):
 
     def get(self, request, *args, **kwargs):
         params = request.GET.dict()
@@ -469,7 +469,7 @@ class CustomerStatsViewView(PaginationMixin, SearchMixin, generic.ListView):
         queryset = self.get_pagination(params, queryset)
     
         # use automatically generated Schema or use your own thanks to marshmallow-jsonapi
-        Schema = JsonApiSchema.get('CustomerStats')
+        Schema = JsonApiSchema.get('CustomerStat')
         data = Schema().dump(queryset, many=True)
 
         return JsonResponse(data, safe=False)
