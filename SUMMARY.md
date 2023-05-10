@@ -140,6 +140,7 @@
   * [Flatten nested fields (MongoDB)](how-tos/setup/flatten-nested-fields-mongodb.md)
 * [Upgrade](how-tos/maintain/README.md)
   * [Upgrade notes (Rails)](how-tos/maintain/upgrade-notes-rails/README.md)
+    * [Upgrade to v8](how-tos/maintain/upgrade-notes-rails/upgrade-to-v8.md)
     * [Upgrade to v7](how-tos/maintain/upgrade-notes-rails/upgrade-to-v7.md)
     * [Upgrade to v6](how-tos/maintain/upgrade-notes-rails/upgrade-to-v6.md)
     * [Upgrade to v5](how-tos/maintain/upgrade-notes-rails/untitled.md)
