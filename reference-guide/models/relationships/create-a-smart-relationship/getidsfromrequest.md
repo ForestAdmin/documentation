@@ -6,9 +6,9 @@ Unfortunately, this helper is not compatible with Smart Actions triggered on Sma
 
 Let's take an example to illustrate what we want to achieve:
 
-![](<../../../../.gitbook/assets/image (503).png>)
+![](<../../../../.gitbook/assets/image (486).png>)
 
-In this case, with have a HasMany Smart Relationship between `owners` and `articles` called `Liked articles`.  As you can see, we are about to trigger the `Unlike` Smart Action on every article the owner liked that corresponds to the filter and the search we configured.&#x20;
+In this case, with have a HasMany Smart Relationship between `owners` and `articles` called `Liked articles`. As you can see, we are about to trigger the `Unlike` Smart Action on every article the owner liked that corresponds to the filter and the search we configured.
 
 ### What is the getIdsFromRequest about?
 
@@ -23,7 +23,7 @@ This helper simply takes a query as a parameter (containing your filters, your s
 
 Only the two first cases need to be handled, because the last two cases consist of a simple list of the ids selected by the user directly in the request. So nothing special to do here.
 
-In conjunction with the previous 4 cases, we also need to handle the filters and the search set up before executing the smart action.&#x20;
+In conjunction with the previous 4 cases, we also need to handle the filters and the search set up before executing the smart action.
 
 ### Code Snippet
 

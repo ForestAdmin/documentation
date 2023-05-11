@@ -1,8 +1,8 @@
 # Create a custom moderation view
 
-This example shows you how you can implement a moderation view with a custom Approve/Reject workflow.&#x20;
+This example shows you how you can implement a moderation view with a custom Approve/Reject workflow.
 
-![](<../../.gitbook/assets/image (501).png>)
+![](<../../.gitbook/assets/image (541).png>)
 
 In our example, we want to Approve or Reject products to moderate content on our website:
 

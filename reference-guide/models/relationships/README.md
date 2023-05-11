@@ -9,7 +9,7 @@ Relationships are visible and actionable in Forest Admin:
 * `hasMany` **(1)**
 * `belongsTo` or `hasOne`**(2)**
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.52.25.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.52.25.png>)
 
 If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association\_basics.html) to create new ones.
 
@@ -68,7 +68,7 @@ module.exports = (mongoose, Mongoose) => {
 Note that for orders to be displayed within the related data section of your customer, they have to be populated in your database. For instance:
 {% endhint %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-09-05 à 13.41.02.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-09-05 à 13.41.02.png>)
 {% endtab %}
 {% endtabs %}
 
@@ -175,7 +175,7 @@ For a collection `collectionName`, the foreign key should be `collection_name_id
 If this is not the case, check out the [section below](./#declaring-a-foreign-key-sql-only).
 {% endhint %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2020-06-22 à 11.28.08.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2020-06-22 à 11.28.08.png>)
 
 {% hint style="info" %}
 Don't forget to **restart your server** for your newly added relationships to be taken into account.
@@ -183,7 +183,7 @@ Don't forget to **restart your server** for your newly added relationships to be
 
 #### Declaring a foreign key (SQL only)
 
-It's possible that your tables are linked in an unusual way (using _names_ instead of _ids_ for instance). \
+It's possible that your tables are linked in an unusual way (using _names_ instead of _ids_ for instance).\
 \
 In that case, adding the above code will not suffice to add the `belongsTo` relationship. Even though we recommend you modify your database structure to stay within foreign key conventions (pointing to an id), there is a way to **specify how your tables are linked**.
 
@@ -269,37 +269,37 @@ Forest Admin automatically generates most relationships, according to the below 
 
 {% tabs %}
 {% tab title="SQL" %}
-#### BelongsTo
+**BelongsTo**
 
 Detecting `belongsTo` is straight forward, we check if the referenced table of the foreign key is unique (unique constraint or primary key), then a `belongsTo` association can be set between the two tables.
 
-#### HasMany
+**HasMany**
 
 If the foreign key doesn't have a uniqueness constraint, then we can define a `hasMany` association.
 
-#### HasOne
+**HasOne**
 
 If the foreign key also have a unique constraint or is used as the primary key of its table, then we can define a `hasOne` association.
 
-#### BelongsToMany
+**BelongsToMany**
 
 We detect Many-to-Many relationships when we detect a simple **junction table**. We are able to detect a junction table when it contains 2 foreign keys. It can optionally contain additional fields like a primary key and technical timestamps.
 {% endtab %}
 
 {% tab title="Mongodb" %}
-#### BelongsTo
+**BelongsTo**
 
 When a document contains an ObjectID referring to another document, we create a `belongsTo` relationship to the corresponding collection.
 
-#### HasMany
+**HasMany**
 
 When a document contains an array of ObjectIDs referring to other documents, we create a `hasMany` relationship to the corresponding collection.
 
-#### HasOne
+**HasOne**
 
 Not automatically generated.
 
-#### BelongsToMany
+**BelongsToMany**
 
 Not automatically generated.
 {% endtab %}

@@ -65,7 +65,7 @@ export default class extends Component {
 ```
 {% endcode %}
 
-![](<../../.gitbook/assets/image (207).png>)
+![](<../../.gitbook/assets/image (6).png>)
 
 To query a custom route of your Forest server as your datasource, you may use this syntax instead:
 

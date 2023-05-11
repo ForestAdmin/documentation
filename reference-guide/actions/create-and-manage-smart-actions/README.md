@@ -131,7 +131,7 @@ You must make the action visible there if you wish users to be able to see it.
 
 It will then show in the actions dropdown button:
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-11-27 à 17.00.24.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-11-27 à 17.00.24.png>)
 
 {% hint style="info" %}
 At this point, the Smart Action does _nothing_, because no route in your Admin backend handles the API call yet.
@@ -1823,7 +1823,7 @@ class CustomersController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.52.05 (2).png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.52.05 (2).png>)
 
 {% hint style="info" %}
 Want to upload your files to Amazon S3? Check out this this [Woodshop tutorial](https://docs.forestadmin.com/woodshop/how-tos/upload-files-to-s3).
@@ -1835,7 +1835,7 @@ If you want to create an action accessible from the details or the summary view 
 
 In the example below, the “Add new transaction” action **(1)** is accessible from the summary view. This action creates a new transaction and automatically refresh the “Emitted transactions” related data section **(2)** to see the new transaction.
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.57.58.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 14.57.58.png>)
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -2567,9 +2567,9 @@ Sometimes, your Smart Action only makes sense depending on the state of your rec
 
 In the collection settings, you can configure the UI options of your Smart Actions.
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.33.57.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.33.57.png>)
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.03.13.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.03.13.png>)
 
 ### Restrict a smart action to specific users and roles <a href="#restrict-a-smart-action-to-specific-users" id="restrict-a-smart-action-to-specific-users"></a>
 
@@ -2577,7 +2577,7 @@ When using Forest Admin with several teams and when you have clear roles defined
 \
 [Learn more about roles](https://docs.forestadmin.com/documentation/reference-guide/teams-and-users/manage-roles#roles).
 
-![](<../../../.gitbook/assets/Capture d’écran 2020-10-23 à 16.54.58.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2020-10-23 à 16.54.58.png>)
 
 ### Require approval for a Smart action <a href="#require-approval-for-a-smart-action" id="require-approval-for-a-smart-action"></a>
 
@@ -2597,15 +2597,15 @@ Actions requiring approval will be available in the Collaboration menu **(3)** i
 
 In “To Review”, you will be able to approve or reject the request **(5)** with an optional message **(6)** for more details.
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.52.53.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.52.53.png>)
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 16.00.32.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 16.00.32.png>)
 
 #### Review past approval requests
 
 All past approval requests - made by you or other approvers - in the History tab **(1)**.
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.59.47 (2).png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.59.47 (2).png>)
 
 {% hint style="info" %}
 You can export your approval requests history from this tab using the top right button **(2)**.
@@ -2613,7 +2613,7 @@ You can export your approval requests history from this tab using the top right 
 
 You can get more details on a specific action by clicking on it:
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 16.05.38.png>)
+![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 16.05.38.png>)
 
 {% hint style="success" %}
 Want to go further with Smart Actions? Read the next page to discover how to make your Smart Actions even more powerful with **Forms**!
