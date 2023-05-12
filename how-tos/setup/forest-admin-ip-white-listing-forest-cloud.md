@@ -2,9 +2,11 @@
 description: Authorizing Forest Admin IP Addresses for Enhanced Security
 ---
 
-# Forest Admin IP white-listing
+# Forest Admin IP white-listing (Forest Cloud)
 
-In this documentation article, we will guide you through the process of authorizing Forest Admin IP addresses in your database to enhance security. This will ensure that only approved IP addresses can access your database, safeguarding your data and minimizing potential vulnerabilities.
+In this documentation article, we will guide you through the process of authorizing Forest Admin IP addresses in your database to enhance security, when using our Forest Cloud solution.&#x20;
+
+This will ensure that only approved IP addresses can access your database, safeguarding your data and minimizing potential vulnerabilities.
 
 #### Step 1: Forest Admin IP Addresses to Whitelist
 
