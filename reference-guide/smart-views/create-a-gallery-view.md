@@ -58,7 +58,7 @@ export default class extends React.Component {
         return fetchRecords({ page: currentPage + 1 })
       }
     };
-	const redirectToRecord = (record) => this.transitionTo(
+    const redirectToRecord = (record) => this.transitionTo(
 		'project.rendering.data.collection.list.view-edit.details',
 		collection.id,
 		record.id,
@@ -71,7 +71,7 @@ export default class extends React.Component {
             return (
               <a className="c-gallery__image-container"
                 key={record.id}
-				onClick={() => redirectToRecord(record)}
+		onClick={() => redirectToRecord(record)}
               >
                 <img className="c-gallery__image" src={record['forest-picture']}/>
               </a>
