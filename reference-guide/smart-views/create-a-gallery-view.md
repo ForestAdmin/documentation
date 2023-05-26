@@ -59,10 +59,10 @@ export default class extends React.Component {
       }
     };
     const redirectToRecord = (record) => this.transitionTo(
-	'project.rendering.data.collection.list.view-edit.details',
-	collection.id,
-	record.id,
-	);
+      'project.rendering.data.collection.list.view-edit.details',
+      collection.id,
+      record.id,
+    );
 	  
     return (
       <div className="l-gallery-view-container">
