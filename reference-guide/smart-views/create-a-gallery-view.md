@@ -30,9 +30,12 @@ export default class extends Component {
 ```jsx
 import React from 'react';
 import WithEmberSupport from 'ember-react-components';
+import { inject as service } from '@ember/service';
 ​
 @WithEmberSupport
 export default class extends React.Component {
+  @service router;
+	
   render() {
     const {
       records,
@@ -54,19 +57,21 @@ export default class extends React.Component {
       if (currentPage < numberOfPages) {
         return fetchRecords({ page: currentPage + 1 })
       }
-​
     };
-​
+	const redirectToRecord = (record) => this.transitionTo(
+		'project.rendering.data.collection.list.view-edit.details',
+		collection.id,
+		record.id,
+	);
+	  
     return (
       <div className="l-gallery-view-container">
         <section className="c-gallery">
           {records.map(record => {
-            const models = [collection.id, record.id];
-            const baseUrl = window.location.href.split('/').slice(3, 7);
             return (
-              <a href={`/${baseUrl.join('/')}/${collection.id}/index/record/${collection.id}/${record.id}/details`}
-                className="c-gallery__image-container"
+              <a className="c-gallery__image-container"
                 key={record.id}
+				onClick={() => redirectToRecord(record)}
               >
                 <img className="c-gallery__image" src={record['forest-picture']}/>
               </a>
