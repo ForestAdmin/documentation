@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v5
+  The purpose of this note is to help developers to upgrade their agent from v5
   to v6. Please read carefully and integrate the following breaking changes to
   ensure a smooth upgrade.​
 ---
@@ -34,14 +34,14 @@ npm install forest-express-mongoose@^6.0.0
 {% endtabs %}
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
 
-### Liana initialization
+### Agent initialization
 
-The liana initialization now **returns a promise**. This solves an issue wherein exposed lianas were not yet initialized and thus returning 404s.
+The agent initialization now **returns a promise**. This solves an issue wherein exposed agents were not yet initialized and thus returning 404s.
 
 You must update the following 2 files:
 
@@ -50,7 +50,7 @@ You must update the following 2 files:
 // BEFORE
 module.exports = function (app) {
   app.use(Liana.init({
-  
+
 // AFTER
 module.exports = async function (app) {
   app.use(await Liana.init({

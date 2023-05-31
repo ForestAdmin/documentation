@@ -47,5 +47,5 @@ Manage Forest Admin schema.
 `schema:apply` apply the current schema of your repository to the specified environment (using your `.forestadmin-schema.json` file).
 
 {% hint style="info" %}
-This option is available only on [lianas version >+ 3](https://app.gitbook.com/@forestadmin/s/documentation/\~/drafts/-LcaGvIb-WdMOABgHOTu/primary/reference-guide/upgrade-to-v3).
+This option is available only on [agents version >+ 3](https://app.gitbook.com/@forestadmin/s/documentation/\~/drafts/-LcaGvIb-WdMOABgHOTu/primary/reference-guide/upgrade-to-v3).
 {% endhint %}

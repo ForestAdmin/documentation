@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v6
+  The purpose of this note is to help developers to upgrade their agent from v6
   to v7. Please read carefully and integrate the following breaking changes to
   ensure a smooth update.​
 ---
@@ -25,7 +25,7 @@ bundle install
 ```
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana version 6 is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent version 6 is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking change

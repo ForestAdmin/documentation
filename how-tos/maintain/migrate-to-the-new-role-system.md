@@ -1,7 +1,7 @@
 # Migrate to the new role system
 
 {% hint style="warning" %}
-The new Role permissions system requires that you use **version 6.6+** of your liana (version **5.4+** for Rails) on **all** your environments. Moreover, if your project was created before February 2021, please contact Forest Admin support to **ask for it to be "ready to migrate"**.
+The new Role permissions system requires that you use **version 6.6+** of your agent (version **5.4+** for Rails) on **all** your environments. Moreover, if your project was created before February 2021, please contact Forest Admin support to **ask for it to be "ready to migrate"**.
 {% endhint %}
 
 {% hint style="info" %}

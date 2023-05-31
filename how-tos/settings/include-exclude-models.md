@@ -1,6 +1,6 @@
 # Include/exclude models
 
-By default, all models declared in your app are analyzed by the Forest Liana in order to display them as collections in your admin panel.
+By default, all models declared in your app are analyzed by the Forest Admin agent in order to display them as collections in your admin panel.
 
 You can exclude some of them from the analysis to never send their metadata to Forest Admin. By doing this, these models will therefore never be available in your admin panel.
 

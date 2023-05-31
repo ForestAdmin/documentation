@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v6
+  The purpose of this note is to help developers to upgrade their agent from v6
   to v7. Please read carefully and integrate the following breaking changes to
   ensure a smooth upgrade.​
 ---
@@ -43,12 +43,12 @@ npm install forest-express-mongoose@^7.9.2
 {% endtabs %}
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
 
-### Liana initialization&#x20;
+### Agent initialization&#x20;
 
 In the file `middlewares/forestadmin.js`, the parameters of `Liana.init` have been updated. A few parameters have been deprecated and will either be ignored or throw an error.&#x20;
 

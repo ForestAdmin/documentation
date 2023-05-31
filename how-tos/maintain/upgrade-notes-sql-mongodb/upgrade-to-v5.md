@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v4
+  The purpose of this note is to help developers to upgrade their agent from v4
   to v5. Please read carefully and integrate the following breaking changes to
   ensure a smooth upgrade.​
 ---
@@ -34,7 +34,7 @@ npm install forest-express-mongoose@^5.0.0
 {% endtabs %}
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
