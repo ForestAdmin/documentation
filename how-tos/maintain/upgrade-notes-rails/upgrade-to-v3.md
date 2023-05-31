@@ -38,8 +38,8 @@ module LiveDemoRails
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'app.forestadmin.com'
-        resource '*', 
-          headers: :any, 
+        resource '*',
+          headers: :any,
           methods: :any,
           expose: ['Content-Disposition'],
           credentials: true
@@ -69,7 +69,7 @@ class Forest::Product
 
   collection :Product
 
-  action 'Import data', 
+  action 'Import data',
     global: true
 
   # ...
@@ -86,7 +86,7 @@ class Forest::Product
 
   collection :Product
 
-  action 'Import data', 
+  action 'Import data',
     type: 'global'
 
   # ...
@@ -98,7 +98,7 @@ end
 
 ### Schema versioning
 
-On server start - _only in development environments_ - the liana will generate a `.forestadmin-schema.json` file reflecting your **Forest Admin schema**.
+On server start - _only in development environments_ - the agent will generate a `.forestadmin-schema.json` file reflecting your **Forest Admin schema**.
 
 If you change your models or database, Forest Admin will automatically load a new schema to keep the layout up to date.
 

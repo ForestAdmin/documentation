@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v7
+  The purpose of this note is to help developers to upgrade their agent from v7
   to v8. Please read carefully and integrate the following breaking changes to
   ensure a smooth update.​
 ---
@@ -29,7 +29,7 @@ bundle install
 ```
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana version 7 is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent version 7 is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
@@ -47,7 +47,7 @@ then you are using the new role system and can go ahead with the upgrade to v8.
 {% endhint %}
 
 
-In your code, if you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route. 
+In your code, if you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route.
 You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
 An example can be found [here](../../../reference-guide/routes/override-a-route.md).
 te

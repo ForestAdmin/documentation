@@ -22,7 +22,7 @@ Afterwards, here's how your database changes can be rendered in your Forest UI:
 If you made many changes or even added a new table/collection, we recently reintroduced a programmatic way to help you manage the associated file changes:
 
 {% hint style="danger" %}
-This feature requires that a liana of **version** 7 or higher.
+This feature requires an agent **version** 7 or higher.
 {% endhint %}
 
 Version 2.2+ of [Forest CLI](https://www.npmjs.com/package/forest-cli) allows you via its `schema:update` command to:

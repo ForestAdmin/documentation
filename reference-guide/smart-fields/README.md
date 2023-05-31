@@ -406,7 +406,7 @@ class CustomerForest(Collection):
 
     def get_fullname(self, obj):
         return f'{obj.firstname} {obj.lastname}'
-        
+
     def set_fullname(self, obj, value):
         firstname, lastname = value.split()
         obj.firstname = firstname
@@ -582,7 +582,7 @@ class CustomerForest(Collection):
 
     def get_fullname(self, obj):
         return f'{obj.firstname} {obj.lastname}'
-        
+
     def search_fullname(self, search):
         firstname, lastname = value.split()
         return Q(Q(firstname=firstname) & Q(lastname=lastname))
@@ -652,7 +652,7 @@ class Customer extends Model
 #### Filtering
 
 {% hint style="warning" %}
-This feature is only available for version **6.7+** of the liana (version **6.2+** for Rails).
+This feature is only available on agents version **6.7+** (version **6.2+** for Rails).
 {% endhint %}
 
 To perform a filter on a Smart Field, you need to write the filter query logic, which is specific to your use case.
@@ -753,9 +753,9 @@ collection('customer', {
               { lastname: secondWord },
             ],
           };
-          
+
         // ... And so on with the other operators not_equal, starts_with, etc.
-        
+
         default:
           return null;
       }
@@ -823,14 +823,14 @@ class CustomerForest(Collection):
 
     def get_fullname(self, obj):
         return f'{obj.firstname} {obj.lastname}'
-        
+
     def filter_fullname(self, operator, value):
         firstname, lastname = value.split()
         firstname_kwargs = {f'firstname{OPERATORS[operator]}': firstname}
         firstname_filter = Q(**firstname_kwargs)
         flastname_kwargs = {f'lastname{OPERATORS[operator]}': lastname}
-        lastname_filter = Q(**lastname_kwargs)   
-            
+        lastname_filter = Q(**lastname_kwargs)
+
         is_negated = operator.startswith('not')
         if is_negated:
             return ~Q(firstname_filter & lastname_filter)

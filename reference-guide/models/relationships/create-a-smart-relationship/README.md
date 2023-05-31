@@ -66,7 +66,7 @@ collection('Order', {
               foreignField: 'customer_id',
               as: 'orders_docs'
             }
-          }, 
+          },
           {
             $match:
             {
@@ -128,7 +128,7 @@ class OrderForest(Collection):
         queryset = Address.objects.filter(customer__in=(obj.customer_id,))
         if len(queryset):
             return queryset[0]
-            
+
 Collection.register(OrderForest, Order)
 ```
 {% endcode %}
@@ -311,7 +311,7 @@ We’ll use the **findAll** and **count** methods provided by [Sequelize](https:
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a query string available which gives you all the necessary parameters you need to enable pagination.
 
-Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`customers` in this example). You can access to the serializer through the `recordsGetter.serialize` function.
+Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`customers` in this example). You can access to the serializer through the `recordsGetter.serialize` function.
 
 {% code title="/routes/products.js" %}
 ```javascript
@@ -359,7 +359,7 @@ We’ll use raw SQL query and [Sequelize](http://docs.sequelizejs.com) to **coun
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a query string available which gives you all the necessary parameters you need to enable pagination.
 
-Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`customers` in this example). You can access to the serializer through the `recordsGetter.serialize` function.
+Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`customers` in this example). You can access to the serializer through the `recordsGetter.serialize` function.
 
 {% code title="/routes/products.js" %}
 ```javascript
@@ -420,7 +420,7 @@ Upon browsing, an API call is triggered when accessing the data of the HasMany r
 
 We use the `$lookup` operator of the **aggregate** pipeline. Since there's a many-to-many relationship between `Product` and `Customer`, the `$lookup` operator needs to look into orders which is an array we have to flatten first using `$unwind`.
 
-Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `Liana.ResourceSerializer` object.
+Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `Liana.ResourceSerializer` object.
 
 {% code title="/forest/products.js" %}
 ```javascript
@@ -539,7 +539,7 @@ We’ve built the right SQL query using [Active Record](http://guides.rubyonrail
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
 
-Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `serialize_models()` function.
+Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `serialize_models()` function.
 
 ```ruby
 Rails.application.routes.draw do
@@ -547,7 +547,7 @@ Rails.application.routes.draw do
   namespace :forest do
     get '/Product/:product_id/relationships/buyers' => 'orders#buyers'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -619,7 +619,7 @@ We’ve built the right SQL query using [Django ORM](https://docs.djangoproject.
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
 
-Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example, with the table name `app_customer`). You can access to the serializer through the `Schema().dump` function (using [marshmallow-jsonapi](https://marshmallow-jsonapi.readthedocs.io/en/latest/) internally).
+Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`Customer` in this example, with the table name `app_customer`). You can access to the serializer through the `Schema().dump` function (using [marshmallow-jsonapi](https://marshmallow-jsonapi.readthedocs.io/en/latest/) internally).
 {% endtab %}
 
 {% tab title="Laravel" %}
@@ -629,7 +629,7 @@ We’ve built the right SQL query using [Active Record](http://guides.rubyonrail
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
 
-Finally, you don’t have to serialize the data yourself. The Forest Liana already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `render()` function of JsonApi facade.
+Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `render()` function of JsonApi facade.
 
 {% code title="routes/web.php" %}
 ```php

@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v3
+  The purpose of this note is to help developers to upgrade their agent from v3
   to v4. Please read carefully and integrate the following breaking changes to
   ensure a smooth update.​
 ---
@@ -24,7 +24,7 @@ bundle install
 ```
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana version 3 is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent version 3 is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
@@ -130,12 +130,12 @@ Below are a few example of the new filter conditions format you can access using
 
 ## Important Notice
 
-### Liana logout
+### Agent logout
 
 A consequence of the new session token format is:
 
 {% hint style="warning" %}
-Once a liana v4 deployed, **all users of your project will be automatically logged out** and be forced to re-authenticate to generate a newly formatted token. ​
+Once an agent v4 deployed, **all users of your project will be automatically logged out** and be forced to re-authenticate to generate a newly formatted token. ​
 {% endhint %}
 
 ### Changelogs

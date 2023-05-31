@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v3
+  The purpose of this note is to help developers to upgrade their agent from v3
   to v4. Please read carefully and integrate the following breaking changes to
   ensure a smooth update.​
 ---
@@ -34,7 +34,7 @@ npm install forest-express-mongoose@4.1.2
 {% endtabs %}
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana version 3 is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent version 3 is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
@@ -146,13 +146,13 @@ This section is dedicated to breaking changes on projects using MongoDB connecti
 
 #### MongoDB version support
 
-The minimal version supported by the liana v4 is **MongoDB v3.2** (December 2015).
+The minimal version supported by the agent v4 is **MongoDB v3.2** (December 2015).
 
 {% hint style="danger" %}
 If your project uses an older MongoDB version, **you should not upgrade to v4**.
 {% endhint %}
 
-The way the liana implements the resources filtering changed and this new implementation uses features that does not exist in MongoDB versions older than 3.2.
+The way the agent implements the resources filtering changed and this new implementation uses features that does not exist in MongoDB versions older than 3.2.
 
 #### Smart Field search implementation
 
@@ -213,12 +213,12 @@ reference: 'Address._id'
 
 ## Important Notice
 
-### Liana logout
+### Agent logout
 
 A consequence of the new session token format is:
 
 {% hint style="warning" %}
-Once a liana v4 deployed, **all users of your project will be automatically logged out** and be forced to re-authenticate to generate a newly formatted token. ​
+Once an agent v4 deployed, **all users of your project will be automatically logged out** and be forced to re-authenticate to generate a newly formatted token. ​
 {% endhint %}
 
 ### Changelogs

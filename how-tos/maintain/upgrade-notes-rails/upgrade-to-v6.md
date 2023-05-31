@@ -1,6 +1,6 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their liana from v5
+  The purpose of this note is to help developers to upgrade their agent from v5
   to v6. Please read carefully and integrate the following breaking changes to
   ensure a smooth update.​
 ---
@@ -24,14 +24,14 @@ bundle install
 ```
 
 {% hint style="info" %}
-In case of a regression introduced in Production after the upgrade, a rollback to your previous liana version 5 is the fastest way to restore your admin panel.
+In case of a regression introduced in Production after the upgrade, a rollback to your previous agent version 5 is the fastest way to restore your admin panel.
 {% endhint %}
 
 ## Breaking changes
 
 ### Easier authentication
 
-The liana version introduces an improved authentication mechanism. The following changes are required:
+The agent version introduces an improved authentication mechanism. The following changes are required:
 
 #### New environment variable
 

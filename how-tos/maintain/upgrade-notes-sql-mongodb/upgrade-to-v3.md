@@ -75,7 +75,7 @@ Liana.collection('products', {
 
 ### Schema versioning <a href="#schema-versioning" id="schema-versioning"></a>
 
-On server start - _only in development environments_ - the liana will generate a `.forestadmin-schema.json` file reflecting your **Forest Admin models**.
+On server start - _only in development environments_ - the agent will generate a `.forestadmin-schema.json` file reflecting your **Forest Admin models**.
 
 If you change your models, Forest Admin will automatically load a new schema to keep the layout up to date. However, note that changes in your database will not be reflected in your models nor in your UI, unless you use `lumber update` (for Lumber) or update your models manually otherwise.
 
