@@ -10,7 +10,7 @@ Your branch `my-branch` is based on your [origin ](using-branches.md#what-is-a-b
 
 ### Applying your changes to production: `deploy`
 
-**`deploy` ** means applying your branch's changes to your origin environment definitively. To achieve this, you'll be using Forest CLI's [deploy](forest-cli-commands/deploy.md) command:
+`deploy` means applying your branch's changes to your reference environment definitively. To achieve this, you'll be using Forest CLI's [deploy](forest-cli-commands/deploy.md) command:
 
 ```
 forest deploy my-branch
