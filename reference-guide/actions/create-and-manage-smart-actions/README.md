@@ -338,7 +338,7 @@ If you want to customize the API call, check the list of [available options](htt
 
 The payload of the HTTP request is based on a [JSON API](http://jsonapi.org) document.\
 The `data.attributes.ids` key allows you to retrieve easily the selected records from the UI.\
-The `data.attributes.values` key contains all the values of your input fields ([handling input values](./#handling-input-values)).\
+The `data.attributes.values` key contains all the values of your input fields ([handling input values](use-a-smart-action-form.md#handling-input-values)).\
 Other properties of `data.attributes` are used to manage the _select all_ behavior.
 
 {% code title="payload example" %}
