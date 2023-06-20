@@ -14,7 +14,7 @@ The new role system allows you to control all the permissions of your roles from
 
 To start migrating, since this is still in beta, you will need to **ask someone from the Forest Admin customer success team** to switch your project to a "Ready to migrate" status.‌
 
-Once this is done, go to the _Roles_ tab of your [project settings](broken-reference):‌
+Once this is done, go to the _Roles_ tab of your [project settings](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles):‌
 
 ![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNTPbtZevfRh3GD7Ia%2Fimage.png?alt=media\&token=08276a33-ba62-4ad8-bda5-9c5a81fad437)
 

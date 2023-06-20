@@ -1,6 +1,6 @@
 # Routes
 
-### What is a route? <a href="#what-is-route" id="what-is-route"></a>
+### What is a route?
 
 A route is simply the mapping between an API endpoint and the business logic behind this endpoint.
 

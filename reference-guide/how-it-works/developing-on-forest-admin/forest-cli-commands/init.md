@@ -51,7 +51,11 @@ If you're seeing the above message, please refer to this [migration guide](../..
 
 #### Endpoint selection
 
+<!-- markdown-link-check-disable -->
+
 If you're using `forest init`, it means your admin backend should already be running **locally**. If you used the default values used during installation, your endpoint should be _http://localhost:3310_&#x20;
+
+<!-- markdown-link-check-enable -->
 
 Since we need to know your project's local endpoint in order to create your development environment, we've left the same default values. You can just hit "Enter" to use those; otherwise simply fill the _host_ and _port_ to fit your situation.
 

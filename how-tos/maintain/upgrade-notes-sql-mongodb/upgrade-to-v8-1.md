@@ -12,7 +12,7 @@ This upgrade unlocks the following features:
 * [Add or remove Smart action form fields dynamically](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#add-remove-fields-dynamically)
 * [Use hooks for bulk/global Smart actions](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#get-selected-records-with-bulk-action)
 * [Scopes are now enforced on all pages of the application](../../../reference-guide/scopes/)
-* [Names of uploaded files are persisted and displayed, even when using the default handlers](broken-reference/)
+* Names of uploaded files are persisted and displayed, even when using the default handlers
 
 ## Upgrading to v8
 

@@ -1,6 +1,6 @@
 # Create a Smart Collection with Amazon S3
 
-### Creating the Smart Collection <a href="#creating-a-smart-collection" id="creating-a-smart-collection"></a>
+### Creating the Smart Collection
 
 On our Live Demo, we’ve stored the `Legal Documents` of a `Company` on Amazon S3. In the following example, we show you how to create the Smart Collection to see and manipulate them in your Forest admin.
 
@@ -20,24 +20,24 @@ const { collection } = require('forest-express-sequelize');
 const models = require('../models');
 
 collection('legal_docs', {
-  fields: [{ 
-    field: 'id', 
-    type: 'String' 
-  }, { 
-    field: 'url', 
-    type: 'String', 
+  fields: [{
+    field: 'id',
+    type: 'String'
+  }, {
+    field: 'url',
+    type: 'String',
     widget: 'link',
     isReadOnly: true
-  }, { 
-    field: 'last_modified', 
+  }, {
+    field: 'last_modified',
     type: 'Date',
     isReadOnly: true
-  }, { 
-    field: 'size', 
+  }, {
+    field: 'size',
     type: 'String',
     isReadOnly: true
   }, {
-    field: 'is_verified', 
+    field: 'is_verified',
     type: 'Boolean',
     isReadOnly: false
   }]
@@ -61,24 +61,24 @@ const { collection } = require('forest-express-mongoose');
 const models = require('../models');
 
 collection('legal_docs', {
-  fields: [{ 
-    field: 'id', 
-    type: 'String' 
-  }, { 
-    field: 'url', 
-    type: 'String', 
+  fields: [{
+    field: 'id',
+    type: 'String'
+  }, {
+    field: 'url',
+    type: 'String',
     widget: 'link',
     isReadOnly: true
-  }, { 
-    field: 'last_modified', 
+  }, {
+    field: 'last_modified',
     type: 'Date',
     isReadOnly: true
-  }, { 
-    field: 'size', 
+  }, {
+    field: 'size',
     type: 'String',
     isReadOnly: true
   }, {
-    field: 'is_verified', 
+    field: 'is_verified',
     type: 'Boolean',
     isReadOnly: false
   }]
@@ -92,7 +92,7 @@ collection('legal_docs', {
 You can add the option `isSearchable: true` to your collection to display the search bar. Note that you will have to implement the search yourself by including it into your own `get` logic.
 {% endhint %}
 
-### Implementing the GET (all records) <a href="#implementing-the-get-all-records" id="implementing-the-get-all-records"></a>
+### Implementing the GET (all records)
 
 At this time, there’s no Smart Collection Implementation because no route in your admin backend handles the API call yet.&#x20;
 
@@ -200,7 +200,7 @@ module.exports = new JSONAPISerializer('legal_docs', {
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.40.14 (1).png>)
 
-### Implementing the GET (specific record) <a href="#implementing-the-get-specific-record" id="implementing-the-get-specific-record"></a>
+### Implementing the GET (specific record)
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -268,7 +268,7 @@ module.exports = router;
 
 ![](<../../../.gitbook/assets/image (257).png>)
 
-### Implementing the PUT <a href="#implementing-the-put" id="implementing-the-put"></a>
+### Implementing the PUT
 
 To handle the update of a record we have to catch the PUT API call. In our example, all S3-related fields are set as read-only and only `is_verified` can be updated.
 
@@ -344,7 +344,7 @@ module.exports = router;
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.42.42.png>)
 
-### Implementing the DELETE <a href="#implementing-the-delete" id="implementing-the-delete"></a>
+### Implementing the DELETE
 
 Now we are able to see all the legal documents on Forest Admin, it’s time to implement the DELETE HTTP method in order to remove the documents on S3 when the admin user needs it.
 
@@ -396,7 +396,7 @@ module.exports = router;
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.45.48.png>)
 
-### Implementing the POST <a href="#implementing-the-post" id="implementing-the-post"></a>
+### Implementing the POST
 
 On our Live Demo example, creating a record directly from this Smart Collection does not make any sense because the admin user will upload the legal docs in the company details view. For the documentation purpose, we catch the call and returns an appropriate error message to the admin user.
 

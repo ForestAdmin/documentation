@@ -1,0 +1,13 @@
+{
+    "name": "documentation",
+    "version": "1.0.0",
+    "repository": "git@github.com:ForestAdmin/documentation.git",
+    "license": "GPL-3.0",
+    "private": true,
+    "devDependencies": {
+        "markdown-link-check": "^3.11.2"
+    },
+    "scripts": {
+        "check-links": "find getting-started how-tos reference-guide -type f -name '*.md' | xargs -L1 markdown-link-check -q"
+    }
+}

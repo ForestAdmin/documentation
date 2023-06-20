@@ -84,7 +84,7 @@ ForestLiana.integrations = {
 {% endtab %}
 {% endtabs %}
 
-#### Available options <a href="#available-options" id="available-options"></a>
+#### Available options
 
 Here are the complete list of available options to customize your Stripe integration.
 

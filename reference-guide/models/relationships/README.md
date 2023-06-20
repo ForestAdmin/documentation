@@ -33,7 +33,7 @@ In our [Live demo](https://app.forestadmin.com/Live%20Demo/Production/Operations
 {% code title="/models/customers.js" %}
 ```javascript
 module.exports = (sequelize, DataTypes) => {
-  const Customer = sequelize.define('customers', 
+  const Customer = sequelize.define('customers',
     ...
   );
 
@@ -112,7 +112,7 @@ module.exports = (mongoose, Mongoose) => {
   }, {
     timestamps: true,
   });
-  
+
   return mongoose.model('customers', schema, 'customers');
 };
 ```
@@ -160,7 +160,7 @@ module.exports = (mongoose, Mongoose) => {
   }, {
     timestamps: true,
   });
-  
+
   return mongoose.model('addresses', schema, 'addresses');
 };
 ```
@@ -206,7 +206,7 @@ Address.associate = (models) => {
 This is explained in [Sequelize's documentation](https://sequelize.org/master/manual/associations.html#target-keys).
 {% endhint %}
 
-### Adding a `belongsToMany` relationship (SQL only) <a href="#adding-a-belongstomany-relationship-sql-only" id="adding-a-belongstomany-relationship-sql-only"></a>
+### Adding a `belongsToMany` relationship (SQL only)
 
 `belongsToMany` association is often used to set up a many-to-many relationship with another model. For this example, we will consider the models `Projects` and `Users`. A user can be part of many projects, and one project has many users. The junction table that will keep track of the associations will be called `userProjects`, which will contain the foreign keys projectId and userId.
 

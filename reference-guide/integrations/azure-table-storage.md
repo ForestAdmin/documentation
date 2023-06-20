@@ -99,7 +99,7 @@ const azureTableStorageService = {
       nbNextPage = entitiesNextPage.value.filter(entity => entity.etag).length;
     }
 
-    // Azure Data Tables does not provide a row count. 
+    // Azure Data Tables does not provide a row count.
     // We just inform the user there is a new page with at least x items
     const minimumRowEstimated = (options.pageNumber-1) * options.pageSize + records.length + nbNextPage;
 
@@ -164,12 +164,12 @@ router.get(`/${COLLECTION_NAME}/:recordId`, permissionMiddlewareCreator.details(
   .then( (recordSerialized) => response.send(recordSerialized))
   .catch ( (e) => {
     console.error(e);
-    next(e);  
+    next(e);
   });
 });
 
 // Create a Customer
-router.post(`/${COLLECTION_NAME}`, permissionMiddlewareCreator.create(), async (request, response, next) => {      
+router.post(`/${COLLECTION_NAME}`, permissionMiddlewareCreator.create(), async (request, response, next) => {
   const recordCreator = new RecordCreator({name: COLLECTION_NAME}, request.user, request.query);
   recordCreator.deserialize(request.body)
   .then( (recordToCreate) => {
@@ -218,7 +218,3 @@ router.delete(`/${COLLECTION_NAME}`, permissionMiddlewareCreator.delete(), async
 
 module.exports = router;
 ```
-
-### Result
-
-{% embed url="https://1726799947-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0vHiS-1S9Hw3djvoTw%2F-MRvCFmLIQw8_dg5keQs%2F-MRvCp_F9OP5TfWPhORx%2FpgNHH2xQXL.gif?alt=media&token=d58bba2c-155e-46e7-9a77-8acf43ecc1b9" %}

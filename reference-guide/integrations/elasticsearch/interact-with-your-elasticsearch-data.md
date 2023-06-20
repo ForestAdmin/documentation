@@ -2,7 +2,7 @@
 
 
 
-### Creating the Smart Collection <a href="#creating-a-smart-collection" id="creating-a-smart-collection"></a>
+### Creating the Smart Collection
 
 Let's take a simple example from Kibana, we will use [a set of fictitious accounts with randomly generated data.](https://download.elastic.co/demos/kibana/gettingstarted/accounts.zip) You can easily import the data using Kibana Home page section **Ingest your data**.
 
@@ -88,7 +88,7 @@ collection('bank-accounts', {
 You can add the option `isSearchable: true` to your collection to display the search bar. Note that you will have to implement the search yourself by including it into your own `GET` logic.
 {% endhint %}
 
-### Implementing the routes <a href="#implementing-the-post" id="implementing-the-post"></a>
+### Implementing the routes
 
 It's not an easy job to connect several data sources in the same structure. To accommodate you in this journey we already provide you a simple service [`ElasticsearchHelper`](https://docs.forestadmin.com/woodshop/how-tos/create-a-smart-collection-with-elasticsearch/elasticsearch-service-utils) that handles all the logic to connect with your Elasticsearch data.
 
@@ -150,7 +150,7 @@ module.exports = router;
 Our custom filter translator only support `number`, `keyword`, `text`, `date` data types. Nonetheless, you can implement more filter mapper type in the`utils/filter-translator.js`
 {% endhint %}
 
-### Implementing the GET (all records) <a href="#implementing-the-get-all-records" id="implementing-the-get-all-records"></a>
+### Implementing the GET (all records)
 
 In the file `routes/bank-accounts.js`, we’ve created a new route to implement the API behind the Smart Collection.
 
@@ -201,11 +201,7 @@ module.exports = router;
 ```
 {% endcode %}
 
-![BankAccount Smart collection with Elasticsearch as a datasource](broken-reference)
-
-![Our utils provide a variety of filters integration](broken-reference)
-
-### Implementing the GET (a specific record) <a href="#implementing-the-get-specific-record" id="implementing-the-get-specific-record"></a>
+### Implementing the GET (a specific record)
 
 To access the details view of a Smart Collection record, you have to catch the GET API call on a specific record. One more time, we use a custom service that encapsulates the Elasticsearch business logic for this example.
 
@@ -228,7 +224,7 @@ module.exports = router;
 ```
 {% endcode %}
 
-### Implementing the PUT <a href="#implementing-the-put" id="implementing-the-put"></a>
+### Implementing the PUT
 
 To handle the update of a record we have to catch the PUT API call.&#x20;
 
@@ -238,7 +234,7 @@ To handle the update of a record we have to catch the PUT API call.&#x20;
 
 router.put('/bank-accounts/:id', permissionMiddlewareCreator.update(), (request, response, next) => {
   const updater = new RecordUpdater({ name: 'bank-accounts' }, req.user, req.query)
-  
+
   updater.deserialize(request.body)
     .then(recordToUpdate => elasticsearchHelper.updateRecord(recordToUpdate))
     .then(record => updater.serialize(record))
@@ -250,7 +246,7 @@ module.exports = router;
 ```
 {% endcode %}
 
-### Implementing the DELETE <a href="#implementing-the-delete" id="implementing-the-delete"></a>
+### Implementing the DELETE
 
 Now we are able to see all the bank accounts on Forest Admin, it’s time to implement the DELETE HTTP method in order to remove the documents on Elasticsearch when the authorized user needs it.
 
@@ -288,7 +284,7 @@ module.exports = router;
 router.delete('/bank-accounts', permissionMiddlewareCreator.delete(), async (request, response, next) => {
   const getter = new RecordsGetter({ name: 'bank-accounts' }, request.user, request.query)
   const ids = await getter.getIdsFromRequest(request);
-  
+
   try {
     await elasticsearchHelper.removeRecords(ids);
     response.status(204).send();
@@ -303,7 +299,7 @@ module.exports = router;
 {% endtab %}
 {% endtabs %}
 
-### Implementing the POST <a href="#implementing-the-post" id="implementing-the-post"></a>
+### Implementing the POST
 
 To create a record we have to catch the POST API call.&#x20;
 

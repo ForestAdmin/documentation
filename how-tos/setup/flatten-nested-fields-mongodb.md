@@ -4,17 +4,17 @@
 This feature is available from `forest-express-mongoose@8.1.0`‌
 {% endhint %}
 
-## Why flatten nested fields? <a href="#why-flattening-nested-fields" id="why-flattening-nested-fields"></a>
+## Why flatten nested fields?
 
 Forest Admin introspects your data structure recursively, so _**nested fields**_ (object in object) are detected at any level deep.‌
 
-By default, Forest Admin will use [JSON widgets](https://docs.forestadmin.com/documentation/reference-guide/fields/customize-your-fields/edit-widgets#json-editor) to show and edit this type of data.‌
+By default, Forest Admin will use [JSON widgets](https://docs.forestadmin.com/user-guide/collections/customize-your-fields/edit-widgets#json-editor) to show and edit this type of data.‌
 
 In order to be able to display each field separately, you can flatten the sub-document.‌
 
 ![](<../../.gitbook/assets/image (529) (1).png>)
 
-## Configuring the fields to flatten <a href="#configuring-the-fields-to-flatten" id="configuring-the-fields-to-flatten"></a>
+## Configuring the fields to flatten
 
 {% hint style="info" %}
 Any flattening configuration will not affect your database structure, but only in-app data representation
@@ -37,22 +37,22 @@ Let's imagine a collection...
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
-    // root-level    
-    'id': Number,    
-    'name': String,    
+    // root-level
+    'id': Number,
+    'name': String,
     'contactDetails':{
-      //Level 1      
+      //Level 1
       'phone': {
-        //Level 2        
-        'homePhone': String,        
-        'mobilePhone': String,      
-      },      
-      'email': String,    
-    },  
-  }, {    
-    timestamps: false,  
-  });​  
-  
+        //Level 2
+        'homePhone': String,
+        'mobilePhone': String,
+      },
+      'email': String,
+    },
+  }, {
+    timestamps: false,
+  });​
+
   return mongoose.model('users', schema, 'users');
 };
 ```
@@ -91,35 +91,35 @@ collection('users', {
 {% endtab %}
 {% endtabs %}
 
-### Reference management <a href="#reference-management" id="reference-management"></a>
+### Reference management
 
-#### Belongs to <a href="#belongs-to" id="belongs-to"></a>
+#### Belongs to
 
 If any field of a sub-document contains a reference, it will automatically be transformed into a `belongsTo` relationship.‌
 
-#### Has many <a href="#has-many" id="has-many"></a>
+#### Has many
 
 If any of the fields in the sub-document is an array of references, it will automatically be transformed into a `hasMany` relationship and moved under _Related data_ section.‌
 
-### Filter, search, and sort <a href="#filter-search-and-sort" id="filter-search-and-sort"></a>
+### Filter, search, and sort
 
 As the flattened fields will be considered native fields, the searching, filtering, and sorting are automatically supported. You can disable it in the field's configuration.‌
 
-### Segments <a href="#segments" id="segments"></a>
+### Segments
 
 You can build your segments using flattened fields as you would do with the native field. You can of course mix flattened and native fields in the segment definition.‌
 
-### Scopes <a href="#scopes" id="scopes"></a>
+### Scopes
 
 You can scope your data on flattened fields.‌
 
-## Editing flattened fields <a href="#editing-flattened-fields" id="editing-flattened-fields"></a>
+## Editing flattened fields
 
 You don't need to implement any specific logic for editing, Forest Admin will reconcile the data to the database format.‌
 
 Every flattened field will appear in the application as an independent field, so you can configure the edit widget for it.‌
 
-#### Routes <a href="#routes" id="routes"></a>
+#### Routes
 
 {% hint style="info" %}
 The flattener is intended to work automatically with the default routes (eg. the routes handled by default by Forest Admin which you have not overridden).&#x20;

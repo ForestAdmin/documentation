@@ -241,8 +241,6 @@ module.exports = router;
 ```
 {% endcode %}
 
-![Example of filter on related data](broken-reference)
-
 ## Implementing the GET (all records with the search)
 
 Another way to search through related data is to implement your own search logic.
@@ -309,7 +307,7 @@ router.get('/es-activity-logs', async (request, response, next) => {
       { lastName: searchCondition },
       { email: searchCondition },
     ];
-    
+
     const userIdsFromSearch = await models.users.findAll({
       where,
       attributes: ['id'],
@@ -325,7 +323,7 @@ router.get('/es-activity-logs', async (request, response, next) => {
       }],
       minimum_should_match: 1,
     };
-    
+
     // NOTICE: Use the elasticsearchHelper to query Elasticsearch
     const [results, count] = await Promise.all([
       elasticsearchHelper.esSearch(
@@ -334,7 +332,7 @@ router.get('/es-activity-logs', async (request, response, next) => {
       ),
       elasticsearchHelper.esCount(booleanQuery),
     ]);
-    
+
     response.send({
       ...await serializer.serialize(results),
       meta: {

@@ -38,10 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     schema: process.env.DATABASE_SCHEMA,
   });
-  
+
   Model.removeAttribute('id');
   Model.associate = () => {};
-  
+
   return Model;
 };
 ```
@@ -93,5 +93,5 @@ collection('events', {
 {% endcode %}
 
 {% hint style="info" %}
-The field `Location setter` should use the [address edit widget](https://docs.forestadmin.com/documentation/reference-guide/fields/customize-your-fields/edit-widgets#address) to enable address autocomplete.
+The field `Location setter` should use the [address edit widget](https://docs.forestadmin.com/user-guide/collections/customize-your-fields/edit-widgets#address) to enable address autocomplete.
 {% endhint %}

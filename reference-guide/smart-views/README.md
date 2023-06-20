@@ -18,7 +18,7 @@ The code of a Smart View is an [Ember Component](https://www.emberjs.com/api/emb
 You don’t need to know the **Ember.js** framework to create a Smart View. We will guide you here on all the basic requirements. For more advanced usage, you can still refer to the [Ember Component](https://www.emberjs.com/api/ember/2.15.0/classes/Ember.Component) and the [Handlebars Template](https://guides.emberjs.com/v2.15.0/templates/handlebars-basics) documentations.
 {% endhint %}
 
-### Getting your records <a href="#getting-your-records" id="getting-your-records"></a>
+### Getting your records
 
 The records of your collection are accessible from the records property. Here’s how to iterate over them in the template section:
 
@@ -27,7 +27,7 @@ The records of your collection are accessible from the records property. Here’
 {{/each}}
 ```
 
-### Accessing a specific record <a href="#accessing-a-specific-record" id="accessing-a-specific-record"></a>
+### Accessing a specific record
 
 For each record, you will access its attributes through the `forest-attribute` property. The `forest-` preceding the field name **is required**.
 
@@ -37,7 +37,7 @@ For each record, you will access its attributes through the `forest-attribute` p
 {{/each}}
 ```
 
-### Accessing belongsTo relationships <a href="#accessing-belongsto-relationships" id="accessing-belongsto-relationships"></a>
+### Accessing belongsTo relationships
 
 Accessing a `belongsTo` relationship works in exactly the same way as accessing a simple field. Forest triggers automatically an API call to retrieve the data from your Admin API only if it’s necessary.
 
@@ -49,7 +49,7 @@ On the `Shipping` Smart View (in the collection named `Order`) defined on our Li
 {{/each}}
 ```
 
-### Accessing hasMany relationships <a href="#accessing-hasmany-relationships" id="accessing-hasmany-relationships"></a>
+### Accessing hasMany relationships
 
 Accessing a `hasMany` relationship works in exactly the same way as accessing a simple field.. Forest triggers automatically an API call to retrieve the data from your Admin API only if it’s necessary.
 
@@ -61,8 +61,7 @@ Accessing a `hasMany` relationship works in exactly the same way as accessing a 
 {{/each}}
 ```
 
-### Refreshing data <a href="#refreshing-data" id="refreshing-data"></a>
-
+### Refreshing data
 Trigger the `fetchRecords` action in order to refresh the records on the page.
 
 ```markup
@@ -71,7 +70,7 @@ Trigger the `fetchRecords` action in order to refresh the records on the page.
 </button>
 ```
 
-### Fetching data <a href="#fetching-data" id="fetching-data"></a>
+### Fetching data
 
 Trigger an API call to your Admin API in order to fetch records from any collection and with any filters you want.
 
@@ -87,7 +86,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class extends Component {
   @service store;
-  
+
   @tracked appointments;
 
   async fetchData(startDate, endDate) {
@@ -125,7 +124,7 @@ export default class extends Component {
 ```
 {% endcode %}
 
-#### Available parameters <a href="#available-parameters" id="available-parameters"></a>
+#### Available parameters
 
 | Parameter     | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -134,7 +133,7 @@ export default class extends Component {
 | page\[number] | Number | The page number you want to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | page\[size]   | Number | The number of records per page you want to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
-### Deleting records <a href="#deleting-records" id="deleting-records"></a>
+### Deleting records
 
 The `deleteRecords` action lets you delete one or multiple records. A pop-up will automatically ask for a confirmation when a user triggers the delete action.
 
@@ -151,7 +150,7 @@ The `deleteRecords` action lets you delete one or multiple records. A pop-up wil
 ```
 {% endcode %}
 
-### Triggering a Smart Action <a href="#triggering-a-smart-action" id="triggering-a-smart-action"></a>
+### Triggering a Smart Action
 
 {% hint style="warning" %}
 Please note that the smart action triggering in the context of the smart view editor can be broken as you might not have access to all the required information. We advise you to test the smart action execution from the smart view applied to the collection view.
@@ -243,7 +242,7 @@ export default class extends Component {
       values,
     );
   }
-  
+
   @action
   rescheduleToNewTime(record) {
     this.triggerSmartAction('Reschedule', record, { newTime })
@@ -258,7 +257,7 @@ export default class extends Component {
 {% endtab %}
 {% endtabs %}
 
-### Available properties <a href="#available-properties" id="available-properties"></a>
+### Available properties
 
 Forest Admin automatically injects into your Smart View some properties to help you display your data like you want.
 
@@ -271,7 +270,7 @@ Forest Admin automatically injects into your Smart View some properties to help 
 | `records`       | array   | Your data entries.                                     |
 | `searchValue`   | String  | The current search.                                    |
 
-### Available actions <a href="#available-actions" id="available-actions"></a>
+### Available actions
 
 Forest Admin automatically injects into your Smart View some actions to trigger the logic you want.
 
@@ -280,7 +279,7 @@ Forest Admin automatically injects into your Smart View some actions to trigger 
 | `deleteRecords(records)`                             | Delete one or multiple records.                                         |
 | `triggerSmartAction(collection, actionName, record)` | Trigger a Smart Action defined on the specified collection on a record. |
 
-## Applying a Smart View <a href="#applying-a-smart-view" id="applying-a-smart-view"></a>
+## Applying a Smart View
 
 To apply a Smart view you created, turn on the Layout Editor mode **(1)**, click on the table button **(2)** and drag & drop your Smart View's name in first position inside the dropdown **(3)**:
 
@@ -305,4 +304,3 @@ Once your Smart view is applied, it will also be displayed in your record's rela
 {% hint style="info" %}
 As of today, it's **not** possible to set different views for your table/summary/related data views.
 {% endhint %}
-

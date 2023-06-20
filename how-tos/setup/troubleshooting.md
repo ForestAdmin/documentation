@@ -16,7 +16,7 @@
 
 🙋🏾‍♂️ After installing Forest Admin with Docker, I expect to see my visual data. Instead, I'm getting such error:
 
-![error.png](https://forest.slite.com/api/files/daQo8yzWYQgiyI/error.png)
+![onboarding error](<../../.gitbook/assets/onboarding-error.png>)
 
 ✅ Such an issue has been solved on our community forum. [Check it out](https://community.forestadmin.com/t/your-server-encountered-an-error-getaddrinfo-enotfound-postgres-postgres-5432/1798).
 
@@ -34,9 +34,11 @@ I suspect a problem on DB, but I cannot find any details or logs about this even
 
 ✅ Such an issue has been solved on our community forum. [Check it out](https://community.forestadmin.com/t/getting-error-mongoserverselectionerror-connection-monitor-to-54-71-237-255-27017-closed/3146).
 
-
+<!-- markdown-link-check-disable -->
 
 🙋🏾 I was able to link my data to Forest admin (with docker, on port 5433). When I run [http://localhost:3310](http://localhost:3310) it says my app is running but when I want to log to Forest Admin on [http://app.forestadmin.com/](http://app.forestadmin.com/) I first have to log in and it then says _Your server encountered an error_.
+
+<!-- markdown-link-check-enable -->
 
 ✅ Such an issue has been solved on our community forum. [Check it out](https://community.forestadmin.com/t/new-postgres-db-cant-reach-forest-admin-panel/1378).
 

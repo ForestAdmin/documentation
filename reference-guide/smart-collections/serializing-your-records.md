@@ -8,7 +8,7 @@ Most of the time, your admin backend will handle this for you, and you will not 
 
 In order to help you do so, the helper `RecordSerializer` is made available through the packages built-in your admin panel.‌
 
-### Initializing the record serializer <a href="#initializing-the-record-serializer" id="initializing-the-record-serializer"></a>
+### Initializing the record serializer
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -30,7 +30,7 @@ const recordsSerializer = new RecordSerializer({ modelName: 'customer_stats' });
 
 To make use of the serializer, simply get it from your agent package, and initialize it with a collection of yours. The serializer will retrieve the structure of the collection, and thus, will know which attributes it needs to take in to perform the serialization.1‌
 
-### Example 1 - Smart collection with simple fields <a href="#example-1-smart-collection-with-simple-fields" id="example-1-smart-collection-with-simple-fields"></a>
+### Example 1 - Smart collection with simple fields
 
 Let's take a look at the collection defined in the documentation's [smart collection example](./):
 
@@ -135,7 +135,7 @@ const records = [
 To perform the serialization just use the `.serialize()` method like this:
 
 ```javascript
-const serializedRecords = recordSerializer.serialize(records) 
+const serializedRecords = recordSerializer.serialize(records)
 ```
 
 The serialized records are formatted as follows:
@@ -200,7 +200,7 @@ The serialized records are formatted as follows:
 
 This is the proper format expected by the UI to correctly display the records.‌
 
-### Example 2 - Smart collection example with an added belongsTo relationship <a href="#example-2-smart-collection-example-with-an-added-belongsto-relationship" id="example-2-smart-collection-example-with-an-added-belongsto-relationship"></a>
+### Example 2 - Smart collection example with an added belongsTo relationship
 
 Now let's say we want to reference the customer related to a stat instead of just displaying its `email`. We would then adapt the smart collection definition to include a field `customer` referencing the `customers` collection:
 
@@ -307,7 +307,7 @@ Now if we try to serialize this data, the serializer will automatically detect t
 The included records will then be picked up and wrapped to comply to the JSON API relationships format.
 
 ```javascript
-const serializedRecords = recordsSerializer.serialize(records) 
+const serializedRecords = recordsSerializer.serialize(records)
 ```
 
 The serialized records are formatted as follows:
@@ -327,7 +327,7 @@ The serialized records are formatted as follows:
       relationships: {
         customer: {
           data: {type: "customers", id: "27048"}
-          links: {related: {href: "/forest/customer_stats/67427/relationships/customer"}} 
+          links: {related: {href: "/forest/customer_stats/67427/relationships/customer"}}
         }
       }
     },
@@ -361,7 +361,7 @@ The serialized records are formatted as follows:
       relationships: {
         customer: {
           data: {type: "customers", id: "5eebcb6bb9faba06df0cd7a9"}
-          links: {related: {href: "/forest/customer_stats/5eebcb6bb9faba06df0cd7a9/relationships/customer"}} 
+          links: {related: {href: "/forest/customer_stats/5eebcb6bb9faba06df0cd7a9/relationships/customer"}}
         }
       }
     },

@@ -2,8 +2,6 @@
 
 This example shows you how you can implement a calendar view with a custom workflow involving dynamic API calls.
 
-{% embed url="https://1726799947-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0vHiS-1S9Hw3djvoTw%2F-MKAYvRiEvc2Y181Ejrg%2F-MKB4avHKqFFMff_67_F%2Fsmart%20view%20calendar.gif?alt=media&token=d182fc52-68d8-4631-a61c-5a4849b70d4c" %}
-
 In our example, we want to manage the bookings for a sports court where:
 
 * We have a list of court opening dates. Each date can be subject to a price increase if the period is busy. These dates [come from a collection](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#available-dates-model) called `availableDates`

@@ -4,15 +4,19 @@
 
 This example shows you how to create a Smart Action `"Create company in Hubspot"` that generates a company in Hubspot based on information from your database.
 
+<!-- markdown-link-check-disable -->
+
 {% embed url="https://1726799947-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0vHiS-1S9Hw3djvoTw%2F-MJBsYyaWtLJBqiVmjEn%2F-MJBtr8rE89NYlQUwDG3%2Fhubspot%20company%20create.gif?alt=media&token=4e66aa07-65c4-4a2b-9466-e7bacfb9a7c9" %}
 
-## Requirements <a href="#requirements" id="requirements"></a>
+<!-- markdown-link-check-ensable -->
+
+## Requirements
 
 * An admin backend running on forest-express-sequelize
 * [superagent](https://www.npmjs.com/package/superagent) npm package
 * a Hubspot account
 
-## How it works <a href="#requirements" id="requirements"></a>
+## How it works
 
 ### Directory: /models
 

@@ -62,7 +62,7 @@ module.exports = (mongoose, Mongoose) => {
   }, {
     timestamps: false,
   });
-  
+
   return mongoose.model('companies', schema, 'companies');
 };
 ```
@@ -82,7 +82,7 @@ You can learn more about relationships on this [dedicated page](relationships/).
 {% endtabs %}
 
 {% hint style="info" %}
-When you manually add a new model, you need to configure the permissions for the corresponding collection in the UI (allow record details view, record creation, record edit, etc). By default a new collection is not visible and all permissions are disabled. You can set permissions by going to the [collection settings](broken-reference).
+When you manually add a new model, you need to configure the permissions for the corresponding collection in the UI (allow record details view, record creation, record edit, etc). By default a new collection is not visible and all permissions are disabled. You can set permissions by going to the [Roles settings](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
 {% endhint %}
 
 ### Declaring a new field in a model
@@ -236,7 +236,7 @@ module.exports = (mongoose, Mongoose) => {
     'firstname': String,
     ...
   }
-  
+
   return mongoose.model('customer', schema, 'customer');
 };
 ```
@@ -335,7 +335,7 @@ module.exports = (mongoose, Mongoose) => {
     'firstname': String,
     ...
   }
-  
+
   return mongoose.model('customer', schema, 'customer');
 };
 ```
@@ -371,7 +371,7 @@ module.exports = (sequelize, DataTypes) => {
       order.update_count += 1;
     }
   );
-  
+
   return Order;
 };
 ```
@@ -405,7 +405,7 @@ module.exports = (mongoose, Mongoose) => {
     };
     await incrementCount();
   });
-  
+
   return mongoose.model('order', schema, 'order');
 };
 ```

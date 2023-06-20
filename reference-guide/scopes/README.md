@@ -12,7 +12,7 @@ It is useful in that it can be used to control what data is available to users. 
 
 ### How to set up a scope
 
-To access the scope management page for a given collection, you'll need to [go to that collection's settings page](broken-reference) using the Layout editor mode.&#x20;
+To access the scope management page for a given collection, you'll need to [go to that collection's settings page](https://docs.forestadmin.com/user-guide/collections/scopes) using the Layout editor mode.&#x20;
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-08-13 à 11.54.36.png>)
 
@@ -60,7 +60,7 @@ The above example is only possible if your data matches your users' details (ema
 
 ![](<../../.gitbook/assets/image (357).png>)
 
-User tags are [set from each user's details page](broken-reference) and allow you to freely associate your users to a value which will match against your data using the `$currentUser.tags.your-tag` dynamic variable:
+User tags are [set from each user's details page](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/add-and-manage-users) and allow you to freely associate your users to a value which will match against your data using the `$currentUser.tags.your-tag` dynamic variable:
 
 ![](<../../.gitbook/assets/image (358).png>)
 
