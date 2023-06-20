@@ -1,9 +1,5 @@
 # Disable automatic Forest Admin schema update
 
-{% hint style="info" %}
-This option is available only on [agents version ≥ 3+](https://docs.forestadmin.com/documentation/how-tos/upgrade-to-v3-1).
-{% endhint %}
-
 On server start, Forest Admin automatically loads a new Forest Admin schema if changes are detected.
 
 For better control, you can disable the automatic schema synchronization by adding the following environment variable: `FOREST_DISABLE_AUTO_SCHEMA_APPLY=true`(ex: for QA and testing purposes)

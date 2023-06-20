@@ -4,15 +4,19 @@
 
 This example shows you how to create a smart collection to list the companies of your Hubspot account.
 
+<!-- markdown-link-check-disable -->
+
 {% embed url="https://1726799947-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0vHiS-1S9Hw3djvoTw%2F-MJBsYyaWtLJBqiVmjEn%2F-MJBuFL3UHMbW0EMqiJi%2Fhubspot%20list%20companies.gif?alt=media&token=f19240f1-fbee-49bf-ac60-e76261d165d4" %}
 
-## Requirements <a href="#requirements" id="requirements"></a>
+<!-- markdown-link-check-enable -->
+
+## Requirements
 
 * An admin backend running on forest-express-sequelize
 * [superagent](https://www.npmjs.com/package/superagent) npm package
 * a Hubspot account
 
-## How it works <a href="#requirements" id="requirements"></a>
+## How it works
 
 ### Directory: /forest
 

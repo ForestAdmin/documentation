@@ -6,7 +6,7 @@ description: >-
 
 # Deploy your admin backend to Ubuntu server
 
-### Connect to your Ubuntu server using SSH <a href="#connect-to-your-ubuntu-server-using-ssh" id="connect-to-your-ubuntu-server-using-ssh"></a>
+### Connect to your Ubuntu server using SSH
 
 Before starting anything, you have to make sure you're able to connect to your server using SSH.
 
@@ -22,12 +22,12 @@ ssh -i ~/.ssh/aws.pem ubuntu@ec2-18-204-18-81.compute-1.amazonaws.com
 Warning: Permanently added 'ec2-18-204-18-81.compute-1.amazonaws.com,18.204.18.81' (ECDSA) to the list of known hosts.
 Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-1021-aws x86_64)
 ...
-ubuntu@ip-172-31-83-152:~$ 
+ubuntu@ip-172-31-83-152:~$
 ```
 {% endtab %}
 {% endtabs %}
 
-### Copy the code of your admin backend to your remote server <a href="#copy-the-code-of-your-back-office-to-your-remote-server" id="copy-the-code-of-your-back-office-to-your-remote-server"></a>
+### Copy the code of your admin backend to your remote server
 
 There are many ways to copy the code of your admin backend to a remote server. For example, you can use `rsync` command, or use a versioning system like `git`.
 
@@ -35,7 +35,7 @@ There are many ways to copy the code of your admin backend to a remote server. F
 We **strongly advise** to version the code of your admin backend using **git** and host it to a **private repository** on Github, Bitbucket, Gitlab or other providers.
 {% endhint %}
 
-#### rsync <a href="#rsync" id="rsync"></a>
+#### rsync
 
 > **rsync** is a utility for efficiently transferring and synchronizing files across computer systems, by checking the timestamp and size of files. It is _commonly_ found on Unix-like systems and functions as both a file synchronization and file transfer program.
 >
@@ -90,7 +90,7 @@ ubuntu@ip-172-31-83-152:~/QuickStart$
 {% endtab %}
 {% endtabs %}
 
-#### git <a href="#git" id="git"></a>
+#### git
 
 First, you need to initialize a git repository for the code of your admin backend. From the directory of your admin backend, simply run:
 
@@ -163,7 +163,7 @@ ubuntu@ip-172-31-83-152:~/QuickStart$
 {% endtab %}
 {% endtabs %}
 
-### Install dependencies <a href="#install-dependencies" id="install-dependencies"></a>
+### Install dependencies
 
 First, you have to make sure you have Node.js and NPM correctly installed on your server.
 
@@ -178,9 +178,9 @@ Then, you will be able to install all the dependencies listed on the package.jso
 npm install
 ```
 
-### Create the database <a href="#create-the-database" id="create-the-database"></a>
+### Create the database
 
-#### PostgreSQL <a href="#postgresql" id="postgresql"></a>
+#### PostgreSQL
 
 {% hint style="info" %}
 This step is **optional** if you already have a running database.
@@ -267,7 +267,7 @@ forest_demo=> \d
 {% tab title="Output" %}
 ```sql
                  List of relations
- Schema |        Name         |   Type   |  Owner   
+ Schema |        Name         |   Type   |  Owner
 --------+---------------------+----------+----------
  public | Companies_id_seq    | sequence | postgres
  public | addresses           | table    | postgres
@@ -292,7 +292,7 @@ forest_demo=> \d
 {% endtab %}
 {% endtabs %}
 
-### Export the environment variables <a href="#export-the-environment-variables" id="export-the-environment-variables"></a>
+### Export the environment variables
 
 You must export the environment variables `FOREST_ENV_SECRET` `FOREST_AUTH_SECRET` and `DATABASE_URL`. To do so, open and edit the file `/etc/environment`:
 
@@ -317,7 +317,7 @@ Then, you can restart your server to take these new variables into account or si
 for env in $( cat /etc/environment ); do export $(echo $env | sed -e 's/"//g'); done
 ```
 
-### Run your admin backend <a href="#run-your-back-office" id="run-your-back-office"></a>
+### Run your admin backend
 
 From your admin backend's directory, simply type:
 
@@ -339,27 +339,27 @@ npm start
 {% endtab %}
 {% endtabs %}
 
-Congrats, your admin backend is now running on production. But we strongly advise you to continue following the next steps. If you chose not to do it, you can go back to your Forest interface to create a production environment. [Check out here how to do it](https://docs.forestadmin.com/developer-guide/getting-started/setup-guide#deploy-to-production).
+Congrats, your admin backend is now running on production. But we strongly advise you to continue following the next steps. If you chose not to do it, you can go back to your Forest interface to create a production environment. [Check out here how to do it](https://docs.forestadmin.com/documentation/getting-started/setup-guide#step-3-deploy-to-production).
 
 The admin backend is by default listening on port **3310**. Be sure you authorized the inbound traffic on this port or set up a web server (like NGINX) as a [Reverse Proxy Server](deploy-to-production-to-ubuntu-server.md#set-up-nginx-as-a-reverse-proxy-server) to use the port **80.**
 
-### Manage Application with PM2 <a href="#manage-application-with-pm2" id="manage-application-with-pm2"></a>
+### Manage Application with PM2
 
 > PM2 is a Production Runtime and Process Manager for Node.js applications with a built-in Load Balancer. It allows you to keep applications alive forever, to reload them without downtime and facilitate common Devops tasks. source: [npmjs/pm2](https://www.npmjs.com/package/pm2)​
 
-#### Install PM2 <a href="#install-pm2" id="install-pm2"></a>
+#### Install PM2
 
 ```bash
 sudo npm install pm2 -g
 ```
 
-#### Run your admin backend using PM2 <a href="#run-your-back-office-using-pm2" id="run-your-back-office-using-pm2"></a>
+#### Run your admin backend using PM2
 
 ```bash
 pm2 start bin/www
 ```
 
-### (Optional) Set Up Nginx as a Reverse Proxy Server <a href="#set-up-nginx-as-a-reverse-proxy-server" id="set-up-nginx-as-a-reverse-proxy-server"></a>
+### (Optional) Set Up Nginx as a Reverse Proxy Server
 
 Now that your admin backend is running and listening on localhost:3310, we will set up the Nginx web server as a reserve proxy to allow your admin panel's users access it.
 

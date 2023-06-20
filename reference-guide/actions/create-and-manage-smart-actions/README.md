@@ -21,7 +21,7 @@ In order to create a Smart action, you will first need to **declare it in your c
 const { collection } = require('forest-express-sequelize');
 
 collection('companies', {
-  actions: [{ 
+  actions: [{
     name: 'Mark as Live'
   }],
 });
@@ -35,7 +35,7 @@ collection('companies', {
 const { collection } = require('forest-express-mongoose');
 
 collection('companies', {
-  actions: [{ 
+  actions: [{
     name: 'Mark as Live'
   }],
 });
@@ -50,7 +50,7 @@ class Forest::Company
   include ForestLiana::Collection
 
   collection :Company
-  
+
   action 'Mark as Live'
 end
 ```
@@ -149,7 +149,7 @@ In the following example, we've implemented the _Mark as live_ Smart Action, whi
 
 router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), (req, res) => {
   const recordsGetter = new RecordsGetter(companies, request.user, request.query);
-  
+
   return recordsGetter.getIdsFromRequest(req)
     .then(companyIds => companies.update({ status: 'live' }, { where: { id: companyIds }}))
     .then(() => res.send({ success: 'Company is now live!' }));
@@ -192,7 +192,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/actions/mark-as-live' => 'companies#mark_as_live'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -429,9 +429,9 @@ This is particularly useful to find the context in which an action was performed
 }
 ```
 
-### Customizing response <a href="#customizing-response" id="customizing-response"></a>
+### Customizing response
 
-#### Default success notification <a href="#default-success-notification" id="default-success-notification"></a>
+#### Default success notification
 
 Returning a 204 status code to the HTTP request of the Smart Action shows the default notification message in the browser.
 
@@ -454,7 +454,7 @@ We will see a success message in the browser:
 
 ![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.34.54.png>)
 
-#### Custom success notification <a href="#custom-success-notification" id="custom-success-notification"></a>
+#### Custom success notification
 
 If we return a 200 status code with an object `{ success: '...' }` as the payload like this…
 
@@ -538,7 +538,7 @@ class CompaniesController extends ForestController
 
 ![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.35.40.png>)
 
-#### Custom error notification <a href="#custom-error-notification" id="custom-error-notification"></a>
+#### Custom error notification
 
 Finally, returning a 400 status code allows you to return errors properly.
 
@@ -597,7 +597,7 @@ class MarkAsLiveView(ActionView):
 
     def post(self, request, *args, **kwargs):
         return JsonResponse({'error': 'The company was already live!'}, status=400)
-        
+
 ```
 {% endcode %}
 {% endtab %}
@@ -624,7 +624,7 @@ class CompaniesController extends ForestController
 
 #### <img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.36.04.png" alt="" data-size="original"> <a href="#custom-html-response" id="custom-html-response"></a>
 
-#### Custom HTML response <a href="#custom-html-response" id="custom-html-response"></a>
+#### Custom HTML response
 
 You can also return a HTML page as a response to give more feedback to the admin user who has triggered your Smart Action. To do this, you just need to return a 200 status code with an object `{ html: '...' }`.
 
@@ -799,7 +799,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/actions/charge-credit-card' => 'customers#charge_credit_card'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -1211,7 +1211,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/actions/charge-credit-card' => 'customers#charge_credit_card'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -1232,7 +1232,7 @@ end
       description: description
     )
 
-    render status: 400, json: { 
+    render status: 400, json: {
       html: &#x3C;&#x3C;EOF
       &#x3C;p class="c-clr-1-4 l-mt l-mb">\$#{record.amount / 100} USD has not been charged.&#x3C;/p>
       &#x3C;strong class="c-form__label--read c-clr-1-2">Credit card&#x3C;/strong>
@@ -1532,7 +1532,7 @@ Webhooks are commonly used to perform smaller requests and tasks, like sending e
 Another interesting use of this is automating SSO authentication into your external apps.
 {% endhint %}
 
-### Downloading a file <a href="#downloading-a-file" id="downloading-a-file"></a>
+### Downloading a file
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -1571,7 +1571,7 @@ router.post('/actions/generate-invoice', permissionMiddlewareCreator.smartAction
       if (error) { next(error); }
     });
   });
-  
+
 ...
 
 module.exports = router;
@@ -1649,7 +1649,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/actions/generate-invoice' => 'customers#generate_invoice'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -1666,7 +1666,7 @@ module LiveDemoRails
         # you MUST expose the Content-Disposition header to customize the file to download.
         expose: ['Content-Disposition']
       end
-    end    
+    end
   end
 end
 ```
@@ -1829,7 +1829,7 @@ class CustomersController extends ForestController
 Want to upload your files to Amazon S3? Check out this this [Woodshop tutorial](https://docs.forestadmin.com/woodshop/how-tos/upload-files-to-s3).
 {% endhint %}
 
-### Refreshing your related data <a href="#refreshing-your-related-data" id="refreshing-your-related-data"></a>
+### Refreshing your related data
 
 If you want to create an action accessible from the details or the summary view of a record involving related data, this section may interest you.
 
@@ -1888,9 +1888,9 @@ router.post('/actions/add-new-transaction', permissionMiddlewareCreator.smartAct
         beneficiary_bic: faker.finance.bic()
       })
       .then(() => {
-	    // the code below automatically refresh the related data 
-    	// 'emitted_transactions' on the Companies' Summary View 
-    	// after submitting the Smart action form.	
+	    // the code below automatically refresh the related data
+    	// 'emitted_transactions' on the Companies' Summary View
+    	// after submitting the Smart action form.
         res.send({
           success: 'New transaction emitted',
           refresh: { relationships: ['emitted_transactions'] },
@@ -1955,9 +1955,9 @@ router.post('/actions/add-new-transaction', Liana.ensureAuthenticated,
         beneficiary_bic: faker.finance.bic()
       })
       .then(() => {
-	    // the code below automatically refresh the related data 
-    	// 'emitted_transactions' on the Companies' Summary View 
-    	// after submitting the Smart action form.	
+	    // the code below automatically refresh the related data
+    	// 'emitted_transactions' on the Companies' Summary View
+    	// after submitting the Smart action form.
         res.send({
           success: 'New transaction emitted',
           refresh: { relationships: ['emitted_transactions'] },
@@ -1987,7 +1987,7 @@ class Forest::Company
     field: 'Amount',
     type: 'Number'
   }]
-  
+
   # ...
 end
 ```
@@ -2017,10 +2017,10 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
       beneficiary_bic: Faker::Code.nric
     )
 
-    # the code below automatically refresh the related data 
-    # 'emitted_transactions' on the Companies' Summary View 
+    # the code below automatically refresh the related data
+    # 'emitted_transactions' on the Companies' Summary View
     # after submitting the Smart action form.
-    render json: { 
+    render json: {
       success: 'New transaction emitted',
       refresh: { relationships: ['emitted_transactions'] },
     }
@@ -2110,7 +2110,7 @@ class AddNewTransactionView(ActionView):
         beneficiary_company_id = attrs['Beneficiary company']
         emitter_company_id = ids[0]
         amount = attrs['Amount']
-    
+
         Transaction.objects.create(
           emitter_company_id=emitter_company_id,
           beneficiary_company_id=beneficiary_company_id,
@@ -2125,8 +2125,8 @@ class AddNewTransactionView(ActionView):
           beneficiary_bic=fake.bban()
         )
 
-        # the code below automatically refresh the related data 
-        # 'emitted_transactions' on the Companies' Summary View 
+        # the code below automatically refresh the related data
+        # 'emitted_transactions' on the Companies' Summary View
         # after submitting the Smart action form.
         return JsonResponse({
             'success': 'New transaction emitted',
@@ -2460,7 +2460,7 @@ class ReturnAndTrackView(ActionView):
              'success': 'Return initiated successfully.',
              'redirectTo': 'https://www.royalmail.com/portal/rm/track?trackNumber=ZW924750388GB',
         })
-        
+
 class ShowSomeActivityView(ActionView):
 
     def post(self, request, *args, **kwargs):
@@ -2571,21 +2571,21 @@ In the collection settings, you can configure the UI options of your Smart Actio
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.03.13.png>)
 
-### Restrict a smart action to specific users and roles <a href="#restrict-a-smart-action-to-specific-users" id="restrict-a-smart-action-to-specific-users"></a>
+### Restrict a smart action to specific users and roles
 
 When using Forest Admin with several teams and when you have clear roles defined it becomes relevant to restrict a smart action only to a few collaborators. This option is accessible through the Edit layout mode in the Smart actions’ section of your collection's settings.\
 \
-[Learn more about roles](https://docs.forestadmin.com/documentation/reference-guide/teams-and-users/manage-roles#roles).
+[Learn more about roles](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
 
 ![](<../../../.gitbook/assets/Capture d’écran 2020-10-23 à 16.54.58.png>)
 
-### Require approval for a Smart action <a href="#require-approval-for-a-smart-action" id="require-approval-for-a-smart-action"></a>
+### Require approval for a Smart action
 
 Critical actions for your business may need approval before being processed.
 
 #### Set up your approval workflow
 
-To add an additional layer of security over a smart action, head over to the _Roles_ tab of your [projects settings](broken-reference/). From there, you'll be able to select Trigger with approval for that smart action. Note that this must be set for each role.
+To add an additional layer of security over a smart action, head over to the _Roles_ tab of your [projects settings](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles). From there, you'll be able to select Trigger with approval for that smart action. Note that this must be set for each role.
 
 #### Review approval requests
 

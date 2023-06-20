@@ -122,7 +122,7 @@
   * [Create a Smart Chart](reference-guide/charts/create-a-smart-chart.md)
   * [Create Charts with AWS Redshift](reference-guide/charts/create-charts-with-aws-redshift.md)
 
-## Extra help <a href="#how-tos" id="how-tos"></a>
+## Extra help
 
 * [Setup](how-tos/setup/README.md)
   * [Install](how-tos/setup/install.md)

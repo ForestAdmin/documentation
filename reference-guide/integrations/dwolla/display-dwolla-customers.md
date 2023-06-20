@@ -1,10 +1,14 @@
 # Display Dwolla customers
 
+<!-- markdown-link-check-disable -->
+
 This example shows you how to create a smart collection to list the customers of your [Dwolla](https://www.dwolla.com/) account.
 
-## 1. Define the smart collection <a href="#requirements" id="requirements"></a>
+<!-- markdown-link-check-enable -->
 
-Filterable fields are flagged using `isFilterable: true`. You will need to enable this option using the collection settings in the [Layout Editor](https://docs.forestadmin.com/documentation/reference-guide/views/using-the-layout-editor-mode).&#x20;
+## 1. Define the smart collection
+
+Filterable fields are flagged using `isFilterable: true`. You will need to enable this option using the collection settings in the [Layout Editor](https://docs.forestadmin.com/user-guide/getting-started/master-your-ui/using-the-layout-editor-mode).&#x20;
 
 Customers have `isSearchable` flag enabled: it means the search input field will be activated on the collection UI.
 
@@ -17,7 +21,7 @@ collection('dwollaCustomers', {
   actions: [],
   fields: [
     {
-      field: 'id', 
+      field: 'id',
       type: 'String',
     },
     {
@@ -44,12 +48,12 @@ collection('dwollaCustomers', {
       field: 'email',
       type: 'String',
       isFilterable: true,
-    },    
+    },
     {
       field: 'businessName',
       type: 'String',
       isFilterable: true,
-    },    
+    },
     {
       field: 'created', //created_at
       type: 'Date',
@@ -64,18 +68,18 @@ collection('dwollaCustomers', {
       field: 'fundingSources',
       type: ['String'],
       reference: 'dwollaFundingSources.id',
-    },    
+    },
     {
       field: 'transfers',
       type: ['String'],
       reference: 'dwollaTransfers.id',
-    },    
+    },
   ],
   segments: [],
 });
 ```
 
-## 2. Implement the route <a href="#requirements" id="requirements"></a>
+## 2. Implement the route
 
 The Customers routes implement the Get List and Get One, plus the [smart relationships (HasMany)](https://docs.forestadmin.com/documentation/reference-guide/relationships/create-a-smart-relationship#creating-a-hasmany-smart-relationship):
 
@@ -104,7 +108,7 @@ router.get(`/${MODEL_NAME}`, permissionMiddlewareCreator.list(), (request, respo
   .then(async result => {
     const recordSerializer = new RecordSerializer({ name: MODEL_NAME });
     const recordsSerialized = await recordSerializer.serialize(result.list);
-    response.send({ ...recordsSerialized, meta:{ count: result.count }});  
+    response.send({ ...recordsSerialized, meta:{ count: result.count }});
   })
   .catch(next);
 
@@ -129,7 +133,7 @@ router.get(`/${MODEL_NAME}/:recordId/relationships/fundingSources`, (request, re
   .then(async result => {
     const recordSerializer = new RecordSerializer({ name: 'dwollaFundingSources' });
     const recordsSerialized = await recordSerializer.serialize(result.list);
-    response.send({ ...recordsSerialized, meta:{ count: result.count }});  
+    response.send({ ...recordsSerialized, meta:{ count: result.count }});
   })
   .catch(next);
 });
@@ -140,7 +144,7 @@ router.get(`/${MODEL_NAME}/:recordId/relationships/transfers`, (request, respons
   .then(async result => {
     const recordSerializer = new RecordSerializer({ name: 'dwollaTransfers' });
     const recordsSerialized = await recordSerializer.serialize(result.list);
-    response.send({ ...recordsSerialized, meta:{ count: result.count }});  
+    response.send({ ...recordsSerialized, meta:{ count: result.count }});
   })
   .catch(next);
 });

@@ -6,9 +6,9 @@ description: >-
 
 # Upgrade to v3
 
-## Breaking changes <a href="#breaking-changes" id="breaking-changes"></a>
+## Breaking changes
 
-### Cors configuration <a href="#cors-configuration" id="cors-configuration"></a>
+### Cors configuration
 
 Set CORS `credentials: true` if you're using custom CORS configuration.
 
@@ -33,7 +33,7 @@ module.exports = app;
 ```
 {% endcode %}
 
-### Global smart action <a href="#global-smart-action" id="global-smart-action"></a>
+### Global smart action
 
 Smart actions defined as follows `global: true` will no longer be considered as global.
 
@@ -73,7 +73,7 @@ Liana.collection('products', {
 ```
 {% endcode %}
 
-### Schema versioning <a href="#schema-versioning" id="schema-versioning"></a>
+### Schema versioning
 
 On server start - _only in development environments_ - the agent will generate a `.forestadmin-schema.json` file reflecting your **Forest Admin models**.
 
@@ -92,13 +92,9 @@ In the following example, we have added two fields on the `invoices` table:
 
 Versioning the`.forestadmin-schema.json` file allows you to easily visualize the changes.![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-LcecOC6sl4pvNT7gLKI%2F-LcecRPYz9T0g\_e16FWT%2Fversioning.png?alt=media\&token=ded5a007-ccc7-4dd9-82ee-f939cf667a9f).forestadmin-schema.json versioning example
 
-## Changelogs <a href="#changelogs" id="changelogs"></a>
+## Changelogs
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
-
-* ​[Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md)​
+​
 * ​[Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-300---2019-04-22)​
 * ​[Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-300---2019-04-22)​
-
-[\
-](https://docs.forestadmin.com/documentation/v/v3/reference-guide/collaboration/control-your-activities)

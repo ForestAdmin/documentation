@@ -14,7 +14,7 @@ In the following example, we have created a **Smart Collection** called `custome
 
 **For an example of advanced customization and featuring an Amazon S3 integration,** you can see [here](examples/amazon-s3-integration-example.md) how we've stored in our live demo the companies' legal documents on Amazon S3 and how we've implemented a **Smart Collection** to access and manipulate them.
 
-### Creating a Smart Collection <a href="#creating-a-smart-collection" id="creating-a-smart-collection"></a>
+### Creating a Smart Collection
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -116,7 +116,7 @@ from django_forest.utils.collection import Collection
 class CustomerStat(Collection):
 
     is_searchable = True
-    
+
     def load(self):
         self.name = 'CustomerStat'
         self.fields = [
@@ -410,12 +410,12 @@ You then need to create a route pointing to your collection's index action to ge
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
-  namespace :forest do  
+  namespace :forest do
     get '/CustomerStat' => 'customer_stats#index'
   end
 
   mount ForestLiana::Engine => '/forest'
- 
+
 end
 ```
 {% endcode %}
@@ -467,7 +467,7 @@ class CustomerStatView(PaginationMixin, SearchMixin, generic.ListView):
 
         # pagination
         queryset = self.get_pagination(params, queryset)
-    
+
         # use automatically generated Schema or use your own thanks to marshmallow-jsonapi
         Schema = JsonApiSchema.get('CustomerStat')
         data = Schema().dump(queryset, many=True)

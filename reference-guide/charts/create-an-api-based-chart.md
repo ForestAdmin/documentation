@@ -1,6 +1,6 @@
 # Create an API-based Chart
 
-### Creating an API-based Chart <a href="#creating-a-smart-chart" id="creating-a-smart-chart"></a>
+### Creating an API-based Chart
 
 Sometimes, charts data are complicated and closely tied to your business. Forest Admin allows you to code how the chart is computed. Choose **API** as the data source when configuring your chart.
 
@@ -8,7 +8,7 @@ Sometimes, charts data are complicated and closely tied to your business. Forest
 
 Forest Admin will make the HTTP call to Smart Chart URL when retrieving the chart values for the rendering.
 
-### Value API-based Chart <a href="#value-smart-chart" id="value-smart-chart"></a>
+### Value API-based Chart
 
 On our Live Demo, we have a `MRR` value chart which computes our Monthly Recurring Revenue. This chart queries the Stripe API to get all charges made in the current month (in March for this example).
 
@@ -38,7 +38,7 @@ router.post('/stats/mrr', (req, res) => {
   let to = moment.utc('2018-03-31').unix();
 
   return stripe.charges
-    .list({ 
+    .list({
       created: { gte: from, lte: to }
     })
     .then((response) => {
@@ -47,8 +47,8 @@ router.post('/stats/mrr', (req, res) => {
       });
     })
     .then(() => {
-      let json = new Liana.StatSerializer({ 
-        value: mrr 
+      let json = new Liana.StatSerializer({
+        value: mrr
       }).perform();
 
       res.send(json);
@@ -87,7 +87,7 @@ router.post('/stats/mrr', (req, res) => {
   let to = moment.utc('2018-03-31').unix();
 
   return stripe.charges
-    .list({ 
+    .list({
       created: { gte: from, lte: to }
     })
     .then((response) => {
@@ -96,8 +96,8 @@ router.post('/stats/mrr', (req, res) => {
       });
     })
     .then(() => {
-      let json = new Liana.StatSerializer({ 
-        value: mrr 
+      let json = new Liana.StatSerializer({
+        value: mrr
       }).perform();
 
       res.send(json);
@@ -125,7 +125,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/stats/mrr' => 'charts#mrr'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -140,9 +140,9 @@ class Forest::ChartsController < ForestLiana::ApplicationController
     from = Date.parse('2018-03-01').to_time(:utc).to_i
     to = Date.parse('2018-03-31').to_time(:utc).to_i
 
-    Stripe::Charge.list({ 
-      created: { gte: from, lte: to }, 
-      limit: 100 
+    Stripe::Charge.list({
+      created: { gte: from, lte: to },
+      limit: 100
     }).each do |charge|
       mrr += charge.amount / 100
     end
@@ -197,7 +197,7 @@ class ChartsMrrView(generic.ListView):
 
         for charge in response['data']:
             mrr += charge['amount']
-            
+
         res = {
             'data': {
                 'attributes': {
@@ -276,7 +276,7 @@ class VerifyCsrfToken extends Middleware
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.09.27.png>)
 
-### Repartition API-based Chart <a href="#repartition-smart-chart" id="repartition-smart-chart"></a>
+### Repartition API-based Chart
 
 On our Live Demo, we have a `Charges` repartition chart which shows a repartition chart distributed by credit card country. This chart queries the Stripe API to get all charges made in the current month (in March for this example) and check the credit card country.
 
@@ -314,7 +314,7 @@ router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated,
   let to = moment.utc('2018-03-20').unix();
 
   return stripe.charges
-    .list({ 
+    .list({
       created: { gte: from, lte: to }
     })
     .then((response) => {
@@ -323,15 +323,15 @@ router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated,
 
         let entry = _.find(repartition, { key: country });
         if (!entry) {
-          repartition.push({ key: country, value: 1 }); 
+          repartition.push({ key: country, value: 1 });
         } else {
           entry.value++;
         }
       });
     })
     .then(() => {
-      let json = new Liana.StatSerializer({ 
-        value: repartition 
+      let json = new Liana.StatSerializer({
+        value: repartition
       }).perform();
 
       res.send(json);
@@ -376,7 +376,7 @@ router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated,
   let to = moment.utc('2018-03-20').unix();
 
   return stripe.charges
-    .list({ 
+    .list({
       created: { gte: from, lte: to }
     })
     .then((response) => {
@@ -386,15 +386,15 @@ router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated,
 
         let entry = _.find(repartition, { key: country });
         if (!entry) {
-          repartition.push({ key: country, value: 1 }); 
+          repartition.push({ key: country, value: 1 });
         } else {
           entry.value++;
         }
       });
     })
     .then(() => {
-      let json = new Liana.StatSerializer({ 
-        value: repartition 
+      let json = new Liana.StatSerializer({
+        value: repartition
       }).perform();
 
       res.send(json);
@@ -428,7 +428,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/stats/credit-card-country-repartition' => 'charts#credit_card_country_repartition'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -442,9 +442,9 @@ class Forest::ChartsController < ForestLiana::ApplicationController
     from = Date.parse('2018-03-01').to_time(:utc).to_i
     to = Date.parse('2018-03-20').to_time(:utc).to_i
 
-    Stripe::Charge.list({ 
-      created: { gte: from, lte: to }, 
-      limit: 100 
+    Stripe::Charge.list({
+      created: { gte: from, lte: to },
+      limit: 100
     }).each do |charge|
       country = charge.source.country || 'Others'
 
@@ -510,7 +510,7 @@ class CreditCardCountryRepartitionView(generic.ListView):
                 repartition.append({'key': country, 'value': 1})
             else:
                 entry['value'] += 1
-            
+
         res = {
             'data': {
                 'attributes': {
@@ -616,7 +616,7 @@ class VerifyCsrfToken extends Middleware
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-02 à 15.33.41.png>)
 
-### Time-based API-based Chart <a href="#time-based-smart-chart" id="time-based-smart-chart"></a>
+### Time-based API-based Chart
 
 On our Live Demo, we have a `Charges` time-based chart which shows the number of charges per day. This chart queries the Stripe API to get all charges made in the current month (in March for this example) and group data by day.
 
@@ -653,7 +653,7 @@ router.post('/stats/charges-per-day', (req, res) => {
   let to = moment.utc('2018-03-31').unix();
 
   return stripe.charges
-    .list({ 
+    .list({
       created: { gte: from, lte: to }
     })
     .then((response) => {
@@ -662,15 +662,15 @@ router.post('/stats/charges-per-day', (req, res) => {
 
         let entry = _.find(values, { label: date });
         if (!entry) {
-          values.push({ label: date, values: { value: 1 } }); 
+          values.push({ label: date, values: { value: 1 } });
         } else {
           entry.values.value++;
         }
       });
     })
     .then(() => {
-      let json = new Liana.StatSerializer({ 
-        value: values 
+      let json = new Liana.StatSerializer({
+        value: values
       }).perform();
 
       res.send(json);
@@ -714,7 +714,7 @@ router.post('/stats/charges-per-day', (req, res) => {
   let to = moment.utc('2018-03-31').unix();
 
   return stripe.charges
-    .list({ 
+    .list({
       created: { gte: from, lte: to }
     })
     .then((response) => {
@@ -723,15 +723,15 @@ router.post('/stats/charges-per-day', (req, res) => {
 
         let entry = _.find(values, { label: date });
         if (!entry) {
-          values.push({ label: date, values: { value: 1 } }); 
+          values.push({ label: date, values: { value: 1 } });
         } else {
           entry.values.value++;
         }
       });
     })
     .then(() => {
-      let json = new Liana.StatSerializer({ 
-        value: values 
+      let json = new Liana.StatSerializer({
+        value: values
       }).perform();
 
       res.send(json);
@@ -765,7 +765,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/stats/charges-per-day' => 'charts#charges_per_day'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -780,9 +780,9 @@ class Forest::ChartsController < ForestLiana::ApplicationController
     from = Date.parse('2018-03-01').to_time(:utc).to_i
     to = Date.parse('2018-03-31').to_time(:utc).to_i
 
-    Stripe::Charge.list({ 
-      created: { gte: from, lte: to }, 
-      limit: 100 
+    Stripe::Charge.list({
+      created: { gte: from, lte: to },
+      limit: 100
     }).each do |charge|
       date = Time.at(charge.created).beginning_of_day.strftime("%d/%m/%Y")
       entry = values.find { |e| e[:label] == date }
@@ -848,7 +848,7 @@ class ChargesPerDayView(generic.ListView):
                 values.append({'label': date, 'values': {'value': 1}]})
             else:
                 entry['values']['value'] += 1
-            
+
         res = {
             'data': {
                 'attributes': {
@@ -1008,7 +1008,7 @@ router.post('/stats/some-objective', (req, res) => {
         objective: fetchedObjective
       }
     }).perform();
-    
+
     res.send(json);
   }
 }
@@ -1033,7 +1033,7 @@ router.post('/stats/some-objective', (req, res) => {
         objective: fetchedObjective
       }
     }).perform();
-    
+
     res.send(json);
   }
 }
@@ -1101,7 +1101,7 @@ class SomeObjectiveView(generic.ListView):
 
     def post(self, request, *args, **kwargs):
         # fetch your data here
-            
+
         res = {
             'data': {
                 'attributes': {

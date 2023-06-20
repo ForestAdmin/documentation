@@ -8,7 +8,7 @@ Segments are designed for those who want to _systematically_ visualize data acco
 
 A **Smart Segments** is useful when you want to use a complex filter, which you'll add as code in your backend.
 
-### Creating a Smart Segment <a href="#creating-a-smart-segment" id="creating-a-smart-segment"></a>
+### Creating a Smart Segment
 
 Sometimes, segment filters are complicated and closely tied to your business. Forest Admin allows you to code how the segment is computed.
 
@@ -71,11 +71,11 @@ collection('Product', {
       	.aggregate([
 		    {
 		        $project: { orders_count: {$size: { "$ifNull": [ "$orders", [] ] } } }
-		    }, 
-		    {   
-		        $sort: {"orders_count":-1} 
 		    },
-		    { 
+		    {
+		        $sort: {"orders_count":-1}
+		    },
+		    {
 		    	$limit: 5
 		    }
 		])
@@ -83,7 +83,7 @@ collection('Product', {
           let productIds = [];
           products.filter((product) => {
             if (product._id.length === 0) { return false; }
-            return true; 
+            return true;
           })
           .forEach((product) => {
           	productIds.push(product._id);
@@ -126,7 +126,7 @@ from app.models import Product
 
 class ProductForest(Collection):
     def load(self):
-        
+
         self.segments = [
             {
                 'name': 'Best sellers',
@@ -203,7 +203,7 @@ class Product extends Model
 
 ![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.38.24.png>)
 
-### Setting up independent columns visibility <a href="#setting-up-independent-columns-visibility" id="setting-up-independent-columns-visibility"></a>
+### Setting up independent columns visibility
 
 By default, Forest Admin applies the same configuration to all segments of the same collection.
 

@@ -2,7 +2,7 @@
 
 In SQL, a view is a virtual table based on the result-set of an SQL statement. Views can provide advantages over tables, such as:
 
-* represent a subset of the data contained in a table (see also[ segments](broken-reference)).
+* represent a subset of the data contained in a table (see also[ segments](https://docs.forestadmin.com/user-guide/collections/segments)).
 * join and simplify many tables into a single virtual table.
 * act as aggregated tables, where the database engine aggregates data (sum, average etc.) and presents the calculated results as part of the data.
 
@@ -71,7 +71,7 @@ You must restart your server to see the changes on your interface.
 Once your SQL view is implemented, you'll be able to filter, search, export and change the order of your fields.
 
 {% hint style="warning" %}
-Most of the time SQL views are used as **read-only**. If this is the case, we recommend changing the CRUD options in your [collection's settings](https://docs.forestadmin.com/documentation/reference-guide/collections/manage-your-collection-settings).
+Most of the time SQL views are used as **read-only**. If this is the case, we recommend changing the CRUD permission in your [roles's settings](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
 {% endhint %}
 
 ![](<../../.gitbook/assets/customer\_stats SQL View.png>)

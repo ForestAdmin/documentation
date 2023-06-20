@@ -22,4 +22,8 @@ Let's start with a basic admin panel on top of a SQL database that has a table `
 
 Now, let's build the Admin Panel as usual with Forest Admin. You will get something like this:
 
+<!-- markdown-link-check-disable -->
+
 {% embed url="https://1726799947-files.gitbook.io/~/files/v0/b/gitbook-28427.appspot.com/o/assets%2F-M0vHiS-1S9Hw3djvoTw%2F-MVaK60oomPWAs94oqVp%2F-MVaygeb3eEHo1V0Rlcb%2Fimage.png?alt=media&token=5780912a-5916-4d29-9ef1-f5c3ebb61151" %}
+
+<!-- markdown-link-check-enable -->

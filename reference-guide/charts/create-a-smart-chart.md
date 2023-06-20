@@ -6,7 +6,7 @@ On the previous page, we learned how API-based charts allow you to fetch any dat
 You need a **Starter plan** or above to create Smart charts
 {% endhint %}
 
-### Creating a Smart Chart <a href="#creating-a-smart-chart" id="creating-a-smart-chart"></a>
+### Creating a Smart Chart
 
 To create a chart and access the _Smart Chart Editor_, click on the **Edit Smart Chart** button:
 
@@ -24,7 +24,7 @@ Don't forget to click on **Create Chart** (or **Save** if the chart is already c
 If you are creating a **record-specific** smart chart (in the record Analytics tab), the **`record`** object is directly accessible (either through `this.args.record` in the component or `@record` in the template).
 {% endhint %}
 
-### Creating a Table Chart <a href="#creating-a-table-chart" id="creating-a-table-chart"></a>
+### Creating a Table Chart
 
 Our first Smart Chart example will be a simple table: however you may choose to make it as complex and customized as you wish.
 
@@ -93,7 +93,7 @@ export default class extends Component {
 ```
 {% endcode %}
 
-### Creating a Bar Chart <a href="#creating-a-bar-chart" id="creating-a-bar-chart"></a>
+### Creating a Bar Chart
 
 This second example shows how you can achieve any format of charts, as you can benefit from external libraries like D3js.
 
@@ -140,11 +140,11 @@ export default class extends Component {
     if (!this.loaded) { return; }
 
     const color = 'steelblue';
-    
+
     // Don't comment the lines below if you want to fetch data from your Forest server
     // const usersData = await this.fetchData()
     // const data = Object.assign(usersData.sort((a, b) => d3.descending(a.points, b.points)), {format: "%", y: "↑ Frequency"})
-    
+
     // To remove if you're using data from your Forest server
     const alphabet = await d3.csv('https://static.observableusercontent.com/files/09f63bb9ff086fef80717e2ea8c974f918a996d2bfa3d8773d3ae12753942c002d0dfab833d7bee1e0c9cd358cd3578c1cd0f9435595e76901508adc3964bbdc?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27alphabet.csv', function(d) {
       return {
@@ -215,7 +215,7 @@ The resulting chart can be resized to fit your use:
 
 ![](<../../.gitbook/assets/image (8).png>)
 
-### Creating a density map <a href="#creating-a-density-map" id="creating-a-density-map"></a>
+### Creating a density map
 
 This last example shows how you can achieve virtually anything, since you are basically coding in a sandbox. There's no limit to what you can do with Smart charts.
 
@@ -240,27 +240,27 @@ export default class extends Component {
 
     this.loadPlugin();
   }
-  
+
   @tracked chart;
   @tracked loaded = false;
 
   async loadPlugin() {
     await loadExternalJavascript('https://d3js.org/d3.v6.min.js');
     await loadExternalJavascript('https://unpkg.com/topojson-client@3');
-    
+
     this.loaded = true;
     this.renderChart()
   }
-  
+
   @action
   async renderChart() {
     if (!this.loaded) { return; }
-    
+
     const height = 610;
     const width = 975;
     const format = d3.format(",.0f");
     const path = d3.geoPath();
-    
+
     // This is the JSON for drawing the contours of the map
     // Ref.: https://github.com/d3/d3-fetch/blob/v2.0.0/README.md#json
     const us = await d3.json("https://static.observableusercontent.com/files/6b1776f5a0a0e76e6428805c0074a8f262e3f34b1b50944da27903e014b409958dc29b03a1c9cc331949d6a2a404c19dfd0d9d36d9c32274e6ffbc07c11350ee?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27counties-albers-10m.json")
@@ -278,7 +278,7 @@ export default class extends Component {
         value: +population
       };
     })
-    
+
     const radius = d3.scaleSqrt([0, d3.max(data, d => d.value)], [0, 40])
 
     const svg = d3.create("svg")
@@ -347,7 +347,7 @@ The resulting chart can be resized to fit your use:
 
 ![](<../../.gitbook/assets/image (482).png>)
 
-### Creating a Cohort Chart <a href="#creating-a-cohort-chart" id="creating-a-cohort-chart"></a>
+### Creating a Cohort Chart
 
 This is another example to help you build a Cohort Chart.
 

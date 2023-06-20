@@ -1,10 +1,14 @@
 # Display Dwolla transfers
 
-This example shows you how to create a smart collection to list the transfers of your [Dwolla](https://www.dwolla.com/) account.
+<!-- markdown-link-check-disable -->
 
-## 1. Define the smart collection <a href="#requirements" id="requirements"></a>
+This example shows you how to create a smart collection to list the transfers of your [Dwolla](https://www.dwolla.com) account.
 
-Filterable fields are flagged using `isFilterable: true`. You will need to enable this option using the collection settings in the [Layout Editor](https://docs.forestadmin.com/documentation/reference-guide/views/using-the-layout-editor-mode).&#x20;
+<!-- markdown-link-check-enable -->
+
+## 1. Define the smart collection
+
+Filterable fields are flagged using `isFilterable: true`. You will need to enable this option using the collection settings in the [Layout Editor](https://docs.forestadmin.com/user-guide/getting-started/master-your-ui/using-the-layout-editor-mode).&#x20;
 
 Transfers have the  `onlyForRelationships` enabled: it means that these 2 collections are only accessible via the Dwolla customer relationships.
 
@@ -18,7 +22,7 @@ collection('dwollaTransfers', {
   actions: [],
   fields: [
     {
-      field: 'id', 
+      field: 'id',
       type: 'String',
       isSortable: true,
     },
@@ -30,7 +34,7 @@ collection('dwollaTransfers', {
     },
     {
       field: 'amount',
-      type: 'Json', 
+      type: 'Json',
     },
     {
       field: 'amountReadable',
@@ -39,7 +43,7 @@ collection('dwollaTransfers', {
         if (!transfer.amount) return null;
         var formatter = new Intl.NumberFormat('en-US', {
           style: 'currency',
-          currency: transfer.amount.currency,        
+          currency: transfer.amount.currency,
           // These options are needed to round to whole numbers if that's what you want.
           //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
           //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
@@ -49,15 +53,15 @@ collection('dwollaTransfers', {
     },
     {
       field: 'metadata',
-      type: 'Json',        
-    },    
-    {
-      field: 'clearing',
-      type: 'Json',        
+      type: 'Json',
     },
     {
       field: 'clearing',
-      type: 'Json',        
+      type: 'Json',
+    },
+    {
+      field: 'clearing',
+      type: 'Json',
     },
     {
       field: 'achDetails',
@@ -67,19 +71,19 @@ collection('dwollaTransfers', {
       field: 'correlationId',
       type: 'String',
       isFilterable: true,
-    },    
+    },
     {
       field: 'individualAchId',
       type: 'String',
-    },    
+    },
     {
       field: 'bankName',
       type: 'String',
-    },    
+    },
     {
       field: 'fingerprint',
       type: 'String',
-    },    
+    },
     {
       field: 'created', //created_at
       type: 'Date',
@@ -90,7 +94,7 @@ collection('dwollaTransfers', {
 
 ```
 
-## 2. Implement the route <a href="#requirements" id="requirements"></a>
+## 2. Implement the route
 
 This route use the Dwolla service described in [another section](dwolla-service.md).
 

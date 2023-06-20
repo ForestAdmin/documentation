@@ -1,6 +1,6 @@
 # Smart Fields
 
-### What is a Smart Field? <a href="#what-is-a-smart-field" id="what-is-a-smart-field"></a>
+### What is a Smart Field?
 
 A field that displays a computed value in your collection.
 
@@ -8,7 +8,7 @@ A field that displays a computed value in your collection.
 
 A Smart Field is a column that displays processed-on-the-fly data. It can be as simple as concatenating attributes to make them human friendly, or more complex (e.g. total of orders).
 
-### Creating a Smart Field <a href="#creating-a-smart-field" id="creating-a-smart-field"></a>
+### Creating a Smart Field
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -234,7 +234,7 @@ The collection name must be the same as the **model name**.
 
 ![](<../../.gitbook/assets/Capture d’écran 2019-07-01 à 12.16.05.png>)
 
-### Updating a Smart Field <a href="#updating-a-smart-field" id="updating-a-smart-field"></a>
+### Updating a Smart Field
 
 {% tabs %}
 {% tab title="SQL" %}
@@ -503,7 +503,7 @@ collection('customers', {
 {% endcode %}
 
 {% hint style="info" %}
-For **case insensitive** search using PostgreSQL database use `ilike` operator. See [Sequelize operators documentation](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators).
+For **case insensitive** search using PostgreSQL database use `iLike` operator. See [Sequelize operators documentation](https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#operators).
 {% endhint %}
 {% endtab %}
 
@@ -945,7 +945,7 @@ Make sure you set the option `isFilterable: true` in the field definition of you
 * [Sort by Smart field that includes value from a belongsTo relationship](smart-field-examples/sort-by-smart-field-that-includes-value-from-a-belongsto-relationship.md)
 {% endhint %}
 
-### Available Field Options <a href="#available-field-options" id="available-field-options"></a>
+### Available Field Options
 
 Here are the list of available options to customize your Smart Field:
 
@@ -963,7 +963,7 @@ Here are the list of available options to customize your Smart Field:
 You can define a widget for a smart field from the [settings of your collection](https://docs.forestadmin.com/user-guide/collections/customize-your-fields).
 {% endhint %}
 
-### Building Performant Smart Fields <a href="#createadvancedsmartfield" id="createadvancedsmartfield"></a>
+### Building Performant Smart Fields
 
 To optimize your smart field performance, we recommend using a mechanism of batching and caching data requests.
 
