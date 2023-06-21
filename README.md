@@ -14,12 +14,12 @@ Forest Admin provides a **very simple** API-based framework to handle all parts 
 
 ### Latest versions
 
-Sequelize: [version 9.x.x](https://github.com/ForestAdmin/forest-express-sequelize)
+Sequelize: [version 9](https://github.com/ForestAdmin/forest-express-sequelize)
 
-Mongoose: [version 9.x.x](https://github.com/ForestAdmin/forest-express-mongoose)
+Mongoose: [version 9](https://github.com/ForestAdmin/forest-express-mongoose)
 
-Rails: [version 7.x.x](https://github.com/ForestAdmin/forest-rails)
+Rails: [version 8](https://github.com/ForestAdmin/forest-rails)
 
-Django: [version 1.x.x](https://github.com/ForestAdmin/django-forestadmin)
+Django: [version 1](https://github.com/ForestAdmin/django-forestadmin)
 
-Laravel: [version 1.x.x](https://github.com/ForestAdmin/laravel-forestadmin)
+Laravel: [version 1](https://github.com/ForestAdmin/laravel-forestadmin)
