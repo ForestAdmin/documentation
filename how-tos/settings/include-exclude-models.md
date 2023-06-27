@@ -102,6 +102,22 @@ ForestLiana.excluded_models = ['Document', 'Transaction'];
 {% endcode %}
 {% endtab %}
 
+{% tab title="Django" %}
+{% code title="/project/settings.py" %}
+```python
+# ...
+FOREST = {
+    'FOREST_ENV_SECRET': os.environ.get('FOREST_ENV_SECRET'),
+    'FOREST_AUTH_SECRET': os.environ.get('FOREST_AUTH_SECRET'),
+    # in the [] you may add the precise list of all models you want to see in Forest
+    'INCLUDED_MODELS': ['Customer']
+    # in the [] you may add the precise list of all models you do not want to see in Forest
+    'EXCLUDED_MODELS': ['Customer', 'Transaction'],
+}
+```
+{% endcode %}
+{% endtab %}
+
 {% tab title="Laravel" %}
 {% code title="config/forest.php" %}
 ```php
