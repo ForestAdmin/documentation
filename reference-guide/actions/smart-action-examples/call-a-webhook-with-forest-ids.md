@@ -3,7 +3,7 @@ description: >-
   this example shows how to call a third party webhook like n8n, make or zapier…
 ---
 
-# Add many existing records at the same time (hasMany-belongsTo relationship)
+# Call a n8n webhook
 
 ![](<../../../.gitbook/assets/Bulk add records.gif>)
 
