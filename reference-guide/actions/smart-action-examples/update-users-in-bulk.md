@@ -1,6 +1,6 @@
 ---
 description: >-
-  This example shows how to bulk anonymize users
+  This example shows how to bulk update users
 ---
 # Anonymize users in bulk
 As usual, you must declare the action on your collection.

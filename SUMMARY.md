@@ -51,7 +51,7 @@
     * [Smart action to create several records from the input of a single smart action form](reference-guide/actions/smart-action-examples/smart-action-to-create-several-records-from-the-input-of-a-single-smart-action-form.md)
     * [Add many existing records at the same time (hasMany-belongsTo relationship)](reference-guide/actions/smart-action-examples/add-many-existing-records-at-the-same-time-hasmany-belongsto-relationship.md)
     * [Call a webhook with record ids](reference-guide/actions/smart-action-examples/call-a-webhook-with-record-ids.md)
-    * [Bulk anonymize users](reference-guide/actions/smart-action-examples/anonymize-users-in-bulk.md)
+    * [Bulk update records](reference-guide/actions/smart-action-examples/update-users-in-bulk.md)
 * [Smart Fields](reference-guide/smart-fields/README.md)
   * [Smart Field Examples](reference-guide/smart-fields/smart-field-examples/README.md)
     * [Add an HTML credit card as a smart field in a summary view](reference-guide/smart-fields/smart-field-examples/add-an-html-credit-card-as-a-smart-field-in-a-summary-view.md)
