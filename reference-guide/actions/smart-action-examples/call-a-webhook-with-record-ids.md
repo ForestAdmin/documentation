@@ -1,10 +1,9 @@
 ---
 description: >-
-  this example shows how to call a third party webhook/automation tool like n8n, make or zapier…
+  This example shows how to call a third party webhook/automation tool like n8n, make or zapier…
 ---
 # Call a n8n webhook
-You need to declare the new action with its scope in the `users.js` model, then implement the action as needed in the route route action
-
+You need to declare the new action with its scope in the `users.js` model
 {% code title="forest/users.js" %}
 ```javascript
 // forest/users.js
@@ -17,9 +16,9 @@ Liana.collection('users', {
   }]
 });
 ```
-
-
 {% endcode %}
+
+Then implement the action as needed in the route route action:
 {% code title="routes/users.js" %}
 ```javascript
 // routes/users.js

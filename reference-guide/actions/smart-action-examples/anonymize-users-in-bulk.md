@@ -1,9 +1,9 @@
 ---
 description: >-
-  this example shows how to bulk anonymize users
+  This example shows how to bulk anonymize users
 ---
 # Anonymize users in bulk
-As usual, you must declare the action on your collection. You can then implement the post action as you need. Here the records are simply updated in bulk through the `sequelize` ORM.
+As usual, you must declare the action on your collection.
 
 {% code title="forest/users.js" %}
 ```javascript
@@ -20,6 +20,7 @@ Liana.collection('users', {
 ```
 {% endcode %}
 
+ ou can then implement the post action as you need. Here the records are simply updated in bulk through the `sequelize` ORM.
 {% code title="routes/users.js" %}
 ```javascript
 // routes/users.js
