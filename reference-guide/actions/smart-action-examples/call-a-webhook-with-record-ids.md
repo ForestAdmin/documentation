@@ -1,22 +1,48 @@
 ---
 description: >-
-  this example shows how to call a third party webhook like n8n, make or zapier…
+  this example shows how to call a third party webhook/automation tool like n8n, make or zapier…
 ---
-
 # Call a n8n webhook
+You need to declare the new action with its scope in the `users.js` model, then implement the action as needed in the route route action
 
-### Requirements
-
-* An admin backend running on `forest-express-sequelize`
-
-## How it works
-
-### Directory: **/forest**
-
-Create a new smart action in the forest file of the collection with the **hasMany relationship** (organizations in this example).
-
-This smart action will be usable on a single record (`type: 'single'`). We will create two fields in the smart action form, one will be used for the **search** on the referenced collection and the second will be used to see the **selection** made by the operator.
-
+{% code title="forest/users.js" %}
 ```javascript
-const a = 0;
+// forest/users.js
+const Liana = require('forest-express-sequelize');
+
+Liana.collection('users', {
+  actions: [{
+    name: 'Notify with slack',
+    type: 'single',
+  }]
+});
 ```
+
+
+{% endcode %}
+{% code title="routes/users.js" %}
+```javascript
+// routes/users.js
+const express = require('express');
+const router = express.Router();
+const Liana = require('forest-express-sequelize');
+const models = require('../models');
+
+const Liana = require('forest-express-sequelize');
+const superagent = require('superagent');
+
+router.post('/actions/notify-with-slack', Liana.ensureAuthenticated, async (request, response) => {
+  const { query, user } = request;
+  const [userId] = await new RecordsGetter(models.user, user, query).getIdsFromRequest(request);
+
+  try {
+    await superagent.post('https://user.app.nn.cloud/webhook/123456/abcde/').send({ userId });
+    response.send({ success: 'Called webhook' });
+  } catch (e) {
+    return response.status(400).send({ error: `Failure calling webhook: ${e.message}` });
+  }
+});
+
+module.exports = router;
+```
+{% endcode %}
