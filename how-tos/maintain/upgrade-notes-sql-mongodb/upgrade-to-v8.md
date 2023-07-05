@@ -17,14 +17,14 @@ This upgrade unlocks the following features:
 ## Upgrading to v8
 
 {% hint style="danger" %}
-Before upgrading to v8, consider the below [**breaking changes**](upgrade-to-v8.md#breaking-changes).
+Before upgrading to v8, consider the below [**breaking changes**](#breaking-changes).
 {% endhint %}
 
 {% hint style="warning" %}
 As for any dependency upgrade, it's very important to **test this upgrade** **in your testing environments**. Not doing so could result in your admin panel being unusable.
 {% endhint %}
 
-To upgrade to v8, run the following and then update your project as shown in the [_Breaking Changes_](../upgrade-notes-rails/upgrade-to-v7.md#breaking-change) section below.
+To upgrade to v8, run the following and then update your project as shown in the [_Breaking Changes_](#breaking-changes) section below.
 
 {% tabs %}
 {% tab title="SQL" %}
