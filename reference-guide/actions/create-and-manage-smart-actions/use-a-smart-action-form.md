@@ -1366,7 +1366,7 @@ def send_invoice_load(fields, request, *args, **kwargs):
 ### Add/remove fields dynamically
 
 {% hint style="info" %}
-This feature is only available from [**version 8.0.0**](../../../how-tos/maintain/upgrade-notes-sql-mongodb/upgrade-to-v8-1.md) (`forest-express-sequelize` and `forest-express-mongoose`) / [**version 7.0.0**](../../../how-tos/maintain/upgrade-notes-sql-mongodb/upgrade-to-v7.md) (`forest-rails`).
+This feature is only available from [**version 8.0.0**](../../../how-tos/maintain/upgrade-notes-sql-mongodb/upgrade-to-v8.md) (`forest-express-sequelize` and `forest-express-mongoose`) / [**version 7.0.0**](../../../how-tos/maintain/upgrade-notes-sql-mongodb/upgrade-to-v7.md) (`forest-rails`).
 {% endhint %}
 
 You can add a `field` dynamically inside the `fields` array, like so:
