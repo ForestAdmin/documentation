@@ -17,7 +17,7 @@ Click "Deploy to production" on the top banner or in the _Environments_ tab of y
 On the first step, you need to input your admin backend's URL. This is the URL of the server onto which you have deployed (or will soon deploy) your admin backend's code base:
 
 {% hint style="info" %}
-If you need help deploying your admin backend's codebase, here are 2 step-by-step guides showing how it can be done [on Heroku](../../how-tos/setup/deploy-to-production-on-heroku.md) or [on a standard ubuntu server](../../how-tos/setup/deploy-to-production-to-ubuntu-server.md).
+If you need help deploying your admin backend's codebase, here are 2 step-by-step guides showing how it can be done [on Heroku](../../how-tos/setup/deploy-to-production-on-heroku.md) or [on a standard ubuntu server](broken-reference).
 {% endhint %}
 
 ![](<../../.gitbook/assets/image (323).png>)

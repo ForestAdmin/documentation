@@ -204,7 +204,7 @@ The business logic in this Smart Action is extremely simple. We only update here
 ```ruby
 class Forest::CompaniesController < ForestLiana::SmartActionsController
   def mark_as_live
-    company_id = ForestLiana::ResourcesGetter.get_ids_from_request(params).first
+    company_id = ForestLiana::ResourcesGetter.get_ids_from_request(params, forest_user).first
     Company.update(company_id, status: 'live')
 ​
     head :no_content
@@ -1219,7 +1219,7 @@ end
 
 <pre class="language-ruby" data-title="/app/controllers/forest/customers_controller.rb"><code class="lang-ruby">class Forest::CustomersController &#x3C; ForestLiana::SmartActionsController
   def charge_credit_card
-    customer_id = ForestLiana::ResourcesGetter.get_ids_from_request(params).first
+    customer_id = ForestLiana::ResourcesGetter.get_ids_from_request(params, forest_user).first
     amount = params.dig('data', 'attributes', 'values', 'amount').to_i
     description = params.dig('data', 'attributes', 'values', 'description')
 
@@ -2001,7 +2001,7 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   def add_new_transaction
     attrs = params.dig('data','attributes', 'values')
     beneficiary_company_id = attrs['Beneficiary company']
-    emitter_company_id = ForestLiana::ResourcesGetter.get_ids_from_request(params).first
+    emitter_company_id = ForestLiana::ResourcesGetter.get_ids_from_request(params, forest_user).first
     amount = attrs['Amount']
     Transaction.create!(
       emitter_company_id: emitter_company_id,

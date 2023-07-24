@@ -226,7 +226,7 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
 
   def upload_legal_docs
     # Get the current company id
-    company_id = ForestLiana::ResourcesGetter.get_ids_from_request(params).first
+    company_id = ForestLiana::ResourcesGetter.get_ids_from_request(params, forest_user).first
 
     # Get the values of the input fields entered by the admin user.
     attrs = params.dig('data', 'attributes', 'values')
@@ -1725,8 +1725,8 @@ class Forest::Customers
       :load => -> (context) {
         country = context[:fields].find{|field| field[:field] == 'country'}
         
-        ids = ForestLiana::ResourcesGetter.get_ids_from_request(context[:params]);
-        customers = Customers.find(id);
+        ids = ForestLiana::ResourcesGetter.get_ids_from_request(context[:params], context[:user]);
+        customers = Customers.find(ids);
 
         country[:value] = '';
         country[:is_read_only] = false;
