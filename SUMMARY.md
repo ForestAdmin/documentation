@@ -22,6 +22,7 @@
       * [set-origin](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/set-origin.md)
       * [push](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/push.md)
       * [environments:reset](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/environments-reset.md)
+      * [environments:create](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/environments-create.md)
       * [deploy](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/deploy.md)
       * [schema:diff \[beta\]](reference-guide/how-it-works/developing-on-forest-admin/forest-cli-commands/schema-diff-beta.md)
     * [Express packages](reference-guide/how-it-works/developing-on-forest-admin/express-packages.md)
