@@ -23,6 +23,7 @@ In the following pages, we'll cover all available Forest CLI commands in details
 * [set-origin](set-origin.md)
 * [push](push.md)
 * [environments:reset](environments-reset.md)
+* [environments:create](environments-create.md)
 * [deploy](deploy.md)
 * [schema:diff \[beta\]](schema-diff-beta.md) &#x20;
 
