@@ -1,16 +1,15 @@
 # Create a Calendar view
 
+The example below shows how to display a calendar view:
+
 ![](<../../.gitbook/assets/image (255).png>)
 
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { scheduleOnce } from '@ember/runloop';
 import { action } from '@ember/object';
-import { observes } from '@ember-decorators/object';
 import { tracked } from '@glimmer/tracking';
 import { guidFor } from '@ember/object/internals';
-import $ from 'jquery';
 import { triggerSmartAction, deleteRecords, getCollectionId, loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
 
 export default class extends Component {
@@ -27,27 +26,26 @@ export default class extends Component {
     this.loadPlugin();
   }
 
-  @observes('records.[]')
-  onRecordsChange() {
-    this.setEvent();
-  }
-  
   get calendarId() {
     return `${guidFor(this)}-calendar`;
   }
 
   async loadPlugin() {
-    loadExternalStyle('//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css');
-    await loadExternalJavascript('//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js');
+    loadExternalStyle('https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css');
+    await loadExternalJavascript('https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js');
     this.loaded = true;
+    
+    this.onInsert();
   }
   
   @action
   onInsert() {
-    $(`#${this.calendarId}`).fullCalendar({
+    if (!this.loaded || !document.getElementById(this.calendarId)) return;
+
+    this.calendar = new FullCalendar.Calendar(document.getElementById(this.calendarId), {
       allDaySlot: false,
       minTime: '00:00:00',
-      defaultDate: new Date(2018, 2, 1),
+      initialDate: new Date(2018, 2, 1),
       eventClick: (event, jsEvent, view) => {
         this.router.transitionTo(
           'project.rendering.data.collection.list.view-edit.details',
@@ -55,58 +53,49 @@ export default class extends Component {
           event.id,
         );
       },
-      viewRender: (view) => {
+      events: async (info, successCallback, failureCallback) => {
         const field = this.args.collection.fields.findBy('field', 'start_date');
 
         if (this.conditionAfter) {
-          this.removeCondition(this.conditionAfter, true);
-          this.conditionAfter.destroyRecord();
+          this.args.removeCondition(this.conditionAfter, true);
+          this.conditionAfter.unloadRecord();
         }
         if (this.conditionBefore) {
-          this.removeCondition(this.conditionBefore, true);
-          this.conditionBefore.destroyRecord();
+          this.args.removeCondition(this.conditionBefore, true);
+          this.conditionBefore.unloadRecord();
         }
 
         const conditionAfter = this.store.createFragment('fragment-condition');
         conditionAfter.set('field', field);
         conditionAfter.set('operator', 'is after');
-        conditionAfter.set('value', view.start);
+        conditionAfter.set('value', info.start);
         conditionAfter.set('smartView', this.args.viewList);
-        this.set('conditionAfter', conditionAfter);
+        this.conditionAfter = conditionAfter;
 
         const conditionBefore = this.store.createFragment('fragment-condition');
         conditionBefore.set('field', field);
         conditionBefore.set('operator', 'is before');
-        conditionBefore.set('value', view.end);
+        conditionBefore.set('value', info.end);
         conditionBefore.set('smartView', this.args.viewList);
-        this.set('conditionBefore', conditionBefore);
+        this.conditionBefore = conditionBefore;
 
-        this.addCondition(conditionAfter, true);
-        this.addCondition(conditionBefore, true);
+        this.args.addCondition(conditionAfter, true);
+        this.args.addCondition(conditionBefore, true);
 
-        this.args.fetchRecords({ page: 1 });
+        await this.args.fetchRecords({ page: 1 });
+        
+        successCallback(this.args.records?.map((appointment) => {
+          return {
+            id: appointment.get('id'),
+            title: appointment.get('forest-name'),
+            start: appointment.get('forest-start_date'),
+            end: appointment.get('forest-end_date')
+          };
+        }));
       }
-    });
-    
-    this.setEvent();
-  }
+    })
 
-  setEvent() {
-    if (!this.args.records) { return; }
-
-    const calendar = $(`#${this.calendarId}`);
-    calendar.fullCalendar('removeEvents');
-
-    this.args.records.forEach((appointment) => {
-      const event = {
-          id: appointment.get('id'),
-          title: appointment.get('forest-name'),
-          start: appointment.get('forest-start_date'),
-          end: appointment.get('forest-end_date')
-      };
-
-      calendar.fullCalendar('renderEvent', event, true);
-    });
+    this.calendar.render();
   }
     
   @action
@@ -121,46 +110,68 @@ export default class extends Component {
 }
 ```
 
-```markup
-<style>
-  .calendar {
-    padding: 20px;
-    background: var(--color-beta-surface);
-    height:100%;
-    overflow: scroll;
-  }
-  .calendar .fc-toolbar.fc-header-toolbar .fc-left {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  .calendar .fc-day-header {
-    padding: 10px 0;
-    background-color: var(--color-beta-secondary);
-    color: var(--color-beta-on-secondary_dark)
-  }
-  .calendar .fc-event {
-    background-color: var(--color-beta-secondary);
-    border: 1px solid var(--color-beta-on-secondary_border);
-    color: var(--color-beta-on-secondary_medium);
-    font-size: 14px;
-  }
-  .calendar .fc-day-grid-event {
-    background-color: var(--color-beta-info);
-    color: var(--color-beta-on-info);
-    font-size: 10px;
-    border: none;
-    padding: 2px;
-  }
-  .calendar .fc-day-number {
-    color: var(--color-beta-on-surface_medium);
-  }
-  .calendar .fc-other-month .fc-day-number {
-    color: var(--color-beta-on-surface_disabled);
-  }
-  .fc-left {
-    color: var(--color-beta-on-surface_dark);
-  }
-</style>
+```css
+.calendar {
+  padding: 20px;
+  background: var(--color-beta-surface);
+  height:100%;
+  overflow: scroll;
+}
+.calendar .fc-toolbar.fc-header-toolbar .fc-left {
+  font-size: 14px;
+  font-weight: bold;
+}
+.calendar .fc-day-header {
+  padding: 10px 0;
+  background-color: var(--color-beta-secondary);
+  color: var(--color-beta-on-secondary_dark)
+}
+.calendar .fc-event {
+  background-color: var(--color-beta-secondary);
+  border: 1px solid var(--color-beta-on-secondary_border);
+  color: var(--color-beta-on-secondary_medium);
+  font-size: 14px;
+}
+.calendar .fc-day-grid-event {
+  background-color: var(--color-beta-info);
+  color: var(--color-beta-on-info);
+  font-size: 10px;
+  border: none;
+  padding: 2px;
+}
+.calendar .fc-day-number {
+  color: var(--color-beta-on-surface_medium);
+}
+.calendar .fc-other-month .fc-day-number {
+  color: var(--color-beta-on-surface_disabled);
+}
+.fc-left {
+  color: var(--color-beta-on-surface_dark);
+}
 
+.c-smart-view {
+  display: flex;
+  white-space: normal;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: var(--color-beta-surface);
+}
+
+.c-smart-view__content {
+  margin: auto;
+  text-align: center;
+  color: var(--color-beta-on-surface_medium);
+}
+
+.c-smart-view_icon {
+  margin-bottom: 32px;
+  font-size: 32px;
+}
+```
+
+```html
 <div id={{this.calendarId}} class="calendar" {{did-insert this.onInsert}}></div>
 ```
