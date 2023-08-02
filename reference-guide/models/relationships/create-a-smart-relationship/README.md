@@ -533,7 +533,7 @@ module.exports = router;
 {% endtab %}
 
 {% tab title="Rails" %}
-Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/Product/:product_id/relationships/buyers`.
+Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/Product/:product_id/buyers`.
 
 We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active\_record\_basics.html) to **count** and **find all** customers who bought the current product.
 
@@ -545,7 +545,7 @@ Finally, you don’t have to serialize the data yourself. The Forest Admin agent
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
   namespace :forest do
-    get '/Product/:product_id/relationships/buyers' => 'orders#buyers'
+    get '/Product/:product_id/buyers' => 'orders#buyers'
   end
 
   mount ForestLiana::Engine => '/forest'
