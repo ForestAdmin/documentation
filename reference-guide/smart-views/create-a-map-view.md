@@ -5,6 +5,7 @@ The example below shows how to display a map view:
 ![](<../../.gitbook/assets/image (253).png>)
 
 {% code title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -13,7 +14,13 @@ import { action } from '@ember/object';
 import { observes } from '@ember-decorators/object';
 import { tracked } from '@glimmer/tracking';
 import { guidFor } from '@ember/object/internals';
-import { triggerSmartAction, deleteRecords, getCollectionId, loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
+import {
+  triggerSmartAction,
+  deleteRecords,
+  getCollectionId,
+  loadExternalStyle,
+  loadExternalJavascript,
+} from 'client/utils/smart-view-utils';
 
 export default class extends Component {
   @service router;
@@ -28,21 +35,22 @@ export default class extends Component {
     this.loadPlugin();
   }
 
-  @observes('records.[]')
-  onRecordsChange() {
-    this.displayMap();
-  }
-  
   get mapId() {
     return `map-${guidFor(this)}`;
   }
 
   async loadPlugin() {
-    loadExternalStyle('//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css');
-    loadExternalStyle('//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css');
-    
-    await loadExternalJavascript('//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js');
-    await loadExternalJavascript('//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js');
+    loadExternalStyle('//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css');
+    loadExternalStyle(
+      '//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css',
+    );
+
+    await loadExternalJavascript(
+      '//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.js',
+    );
+    await loadExternalJavascript(
+      '//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js',
+    );
 
     this.loaded = true;
     this.displayMap();
@@ -50,7 +58,9 @@ export default class extends Component {
 
   @action
   displayMap() {
-    if (!this.loaded) { return; }
+    if (!this.loaded) {
+      return;
+    }
 
     if (this.map) {
       this.map.off();
@@ -60,7 +70,7 @@ export default class extends Component {
 
     const markers = [];
 
-    this.args.records.forEach(function (record) {
+    this.args.records?.forEach(function (record) {
       markers.push([
         record.get('forest-lat'),
         record.get('forest-lng'),
@@ -70,8 +80,10 @@ export default class extends Component {
 
     this.map = new L.Map(this.mapId);
 
-    const osmUrl = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png';
-    const osmAttrib = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
+    const osmUrl =
+      'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png';
+    const osmAttrib =
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
     const osm = new L.TileLayer(osmUrl, { attribution: osmAttrib });
     const drawnItems = new L.FeatureGroup();
     this.map.addLayer(drawnItems);
@@ -83,10 +95,10 @@ export default class extends Component {
         rectangle: false,
         circle: false,
         circlemarker: false,
-        marker: true
+        marker: true,
       },
       edit: {
-        featureGroup: drawnItems
+        featureGroup: drawnItems,
       },
     });
 
@@ -94,7 +106,7 @@ export default class extends Component {
     this.map.addLayer(osm);
     this.map.addControl(drawControl);
 
-    this.map.on(L.Draw.Event.CREATED, (event) => {
+    this.map.on(L.Draw.Event.CREATED, event => {
       const { layer, layerType: type } = event;
 
       if (type === 'marker') {
@@ -102,19 +114,18 @@ export default class extends Component {
         const newRecord = this.store.createRecord('forest_delivery', {
           'forest-is_delivered': false,
           'forest-lng': coordinates.lng,
-          'forest-lat': coordinates.lat
+          'forest-lat': coordinates.lat,
         });
 
-        newRecord.save()
-          .then((savedRecord) => {
-            layer.on('click', () => {
-              this.router.transitionTo(
-                'project.rendering.data.collection.list.view-edit.details',
-                this.args.collection.id,
-                savedRecord.id,
-              );
-            });
+        newRecord.save().then(savedRecord => {
+          layer.on('click', () => {
+            this.router.transitionTo(
+              'project.rendering.data.collection.list.view-edit.details',
+              this.args.collection.id,
+              savedRecord.id,
+            );
           });
+        });
       }
 
       this.map.addLayer(layer);
@@ -128,8 +139,7 @@ export default class extends Component {
     const long = Number.parseFloat(marker[1]);
 
     const recordId = marker[2];
-    marker = L.marker([lat, long])
-      .addTo(this.map);
+    marker = L.marker([lat, long]).addTo(this.map);
 
     marker.on('click', () => {
       this.router.transitionTo(
@@ -143,7 +153,7 @@ export default class extends Component {
   addMarkers(markers) {
     markers.forEach(marker => this.addMarker(marker));
   }
-  
+
   @action
   triggerSmartAction(...args) {
     return triggerSmartAction(this, ...args);
@@ -155,18 +165,57 @@ export default class extends Component {
   }
 }
 ```
+
+{% endcode %}
+
+{% code title="style.css" %}
+
+```css
+.c-map {
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+
+#map {
+  width: 100%;
+  z-index: 4;
+}
+
+.c-smart-view {
+  display: flex;
+  white-space: normal;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: var(--color-beta-surface);
+}
+
+.c-smart-view__content {
+  margin: auto;
+  text-align: center;
+  color: var(--color-beta-on-surface_medium);
+}
+
+.c-smart-view_icon {
+  margin-bottom: 32px;
+  font-size: 32px;
+}
+```
+
 {% endcode %}
 
 {% code title="template.hbs" %}
-```markup
-<style>
-  .c-map {
-    width: 100%;
-    height: 100%;
-    z-index: 4;
-  }
-</style>
 
-<div id={{this.mapId}} class="c-map" {{did-insert this.displayMap}}></div>
+```handlebars
+<div
+  id={{this.mapId}}
+  class='c-map'
+  {{did-insert this.displayMap}}
+  {{did-update this.displayMap @records}}
+></div>
 ```
+
 {% endcode %}
