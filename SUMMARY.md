@@ -137,6 +137,7 @@
   * [Deploy your admin backend on Heroku](how-tos/setup/deploy-to-production-on-heroku.md)
   * [Deploy your admin backend to Ubuntu server](how-tos/setup/deploy-to-production-to-ubuntu-server.md)
   * [Deploy your admin backend to Google Cloud Platform](how-tos/setup/deploy-your-admin-backend-with-google-cloud-platform.md)
+  * [Deploy your admin backend to AWS](how-tos/setup/deploy-your-admin-backend-with-aws.md)
   * [Install Forest Admin on a remote machine](how-tos/setup/install-forest-admin-on-a-remote-machine.md)
   * [Use Forest Admin with a read-only database](how-tos/setup/use-forest-admin-with-a-read-only-database.md)
   * [Configuring CORS headers](how-tos/setup/configuring-cors-headers.md)
