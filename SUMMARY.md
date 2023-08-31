@@ -134,6 +134,7 @@
   * [Why HTTPS is necessary even locally](how-tos/setup/why-https-is-necessary-even-locally.md)
   * [Troubleshooting](how-tos/setup/troubleshooting.md)
   * [Prevent permission errors at installation](how-tos/setup/prevent-permission-errors-at-installation.md)
+  * [Deploy your admin backend to AWS](how-tos/setup/deploy-your-admin-backend-with-aws.md)
   * [Deploy your admin backend on Heroku](how-tos/setup/deploy-to-production-on-heroku.md)
   * [Deploy your admin backend to Ubuntu server](how-tos/setup/deploy-to-production-to-ubuntu-server.md)
   * [Deploy your admin backend to Google Cloud Platform](how-tos/setup/deploy-your-admin-backend-with-google-cloud-platform.md)
