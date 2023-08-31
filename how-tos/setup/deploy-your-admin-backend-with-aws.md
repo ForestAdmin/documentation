@@ -3,7 +3,7 @@ description: >-
   This tutorial is designed to assist you with a step-by-step guide to deploy the admin backend to Amazon Web Services, using EC2, ELB, ACM and Route53.
 ---
 
-First, Please ensure you have an AWS account. You can sign up [here](https://aws.amazon.com/).
+First, please ensure you have an AWS account. You can sign up [here](https://aws.amazon.com/).
 
 ### 1. Launch an EC2 Instance:
 
