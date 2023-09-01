@@ -11,12 +11,16 @@ First, please ensure you have an AWS account. You can sign up [here](https://aws
 - Choose an Amazon Machine Image (AMI) such as `Amazon Linux 2023 AMI`.
 - Select `t2.micro` (part of the AWS Free Tier).
 - Select `Proceed without a key pair`
-  ![](<../../.gitbook/assets/deploy-on-aws-key-pair.png>)
+
+![](../../assets/deploy-on-aws-key-pair.png)
+
 - On the `Configure Security Group` step, create a new security group:
-  ![](<../../.gitbook/assets/deploy-on-aws-security-group.png>)
   - allow `ssh traffic`.
   - allow `HTTPS traffic`.
   - allow `HTTP traffic`.
+
+![](../../assets/deploy-on-aws-security-group.png)
+
 - Review and launch the instance.
 
 ### 2. Connect to the EC2 instance:
@@ -77,7 +81,8 @@ npm run start:watch
 - Navigate to your EC2 instance's security group.
 - Click on `Edit inbound rules`.
 - Add a Custom TCP inbound rule to allow on port `3310`.
-  ![](<../../.gitbook/assets/deploy-on-aws-inbound-rules.png>)
+
+![](../../assets/deploy-on-aws-inbound-rules.png)
 
 ### 5. Create a target group:
 
@@ -104,11 +109,17 @@ npm run start:watch
 - Choose `Application Load Balancer` and follow the setup.
 - Ensure the ALB is set to the same VPC as your EC2 instance.
 - Select all regions.
-  ![](<../../.gitbook/assets/deploy-on-aws-alb-regions.png>)
+
+![](../../assets/deploy-on-aws-alb-regions.png)
+
 - Remove default security group and select the group associated to the newly created instance.
-  ![](<../../.gitbook/assets/deploy-on-aws-alb-security.png>)
+
+![](../../assets/deploy-on-aws-alb-security.png)
+
 - Add an HTTPS listener and choose previously created target group and certificate.
-  ![](<../../.gitbook/assets/deploy-on-aws-alb-https-listener.png>)
+
+![](../../assets/deploy-on-aws-alb-https-listener.png)
+
 - After creating the ALB copy the `DNS name`.
 
 ### 8. Add CNAME to Route53:
