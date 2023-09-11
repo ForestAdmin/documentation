@@ -16,6 +16,10 @@ This would be the case if you chose "Staging" as the origin of your branch when 
 The **reference** environment is the one at the very end of your development flow: it is the one with your production data and it is the one that will be updated when you use the `deploy` command.
 {% endhint %}
 
+{% hint style="danger" %}
+As all your environments' layouts depend on your **reference** environment, the `deploy` command will apply the layout changes you want to deploy to all your environments.
+{% endhint %}
+
 To achieve this, you'll be using Forest CLI's [deploy](forest-cli-commands/deploy.md) command from an environment **that has your reference environment as its origin**:
 
 ```
