@@ -17,7 +17,7 @@ The **reference** environment is the one at the very end of your development flo
 {% endhint %}
 
 {% hint style="danger" %}
-As all your environments' layouts depend on your **reference** environment, the `deploy` command will apply the layout changes you want to deploy to all your environments.
+As all your environments' layouts depend on your **reference** environment, the `deploy` command will apply the layout changes to all your project environments.
 {% endhint %}
 
 To achieve this, you'll be using Forest CLI's [deploy](forest-cli-commands/deploy.md) command from an environment **that has your reference environment as its origin**:
