@@ -122,7 +122,7 @@ end
 from django.http import JsonResponse
 
 from django_forest.resources.utils.resource import ResourceView
-from django_forest.resources.utils.resource.views import ListView
+from django_forest.resources.views import ListView
 
 
 class CompaniesListView(ListView):
@@ -295,7 +295,7 @@ end
 ```python
 from django.http import HttpResponse
 
-from django_forest.resources.utils.resource.views import DetailView
+from django_forest.resources.views import DetailView
 
 
 class CompaniesDetailView(DetailView):
@@ -398,7 +398,7 @@ end
 ```python
 from django.http import JsonResponse
 
-from django_forest.resources.utils.resource.views import ListView
+from django_forest.resources.views import ListView
 
 
 class CompaniesListView(ListView):
@@ -531,7 +531,7 @@ import json
 from django.http import JsonResponse
 from django_forest.utils.schema.json_api_schema import JsonApiSchema
 
-from django_forest.resources.utils.resource.views import ListView
+from django_forest.resources.views import ListView
 
 
 class CompaniesListView(ListView):
