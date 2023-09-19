@@ -10,23 +10,23 @@ You can read more about **Roles** in our [User Guide](https://docs.forestadmin.c
 
 The new role system allows you to control all the permissions of your roles from a single details page, which will look like this:‌
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNThkOzU\_zJCmNa0X0%2Fimage.png?alt=media\&token=85dfb86d-5bb4-4b55-b866-6429e7111fad)
+![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-MNNSk_u0UnHADDKehQM%2F-MNNThkOzU_zJCmNa0X0%2Fimage.png?alt=media&token=85dfb86d-5bb4-4b55-b866-6429e7111fad)
 
-To start migrating, since this is still in beta, you will need to **ask someone from the Forest Admin customer success team** to switch your project to a "Ready to migrate" status.‌
+To start migrating, you will need to **ask someone from the Forest Admin customer success team** to switch your project to a "Ready to migrate" status.‌
 
 Once this is done, go to the _Roles_ tab of your [project settings](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles):‌
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNTPbtZevfRh3GD7Ia%2Fimage.png?alt=media\&token=08276a33-ba62-4ad8-bda5-9c5a81fad437)
+![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-MNNSk_u0UnHADDKehQM%2F-MNNTPbtZevfRh3GD7Ia%2Fimage.png?alt=media&token=08276a33-ba62-4ad8-bda5-9c5a81fad437)
 
 Click on _Learn more_. Then, after you've read the instructions, _Start migration process_:‌
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNUH7HsXs-mME-kTHY%2Fimage.png?alt=media\&token=db2b0fc4-7123-4005-86cd-405dfb8e8464)
+![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-MNNSk_u0UnHADDKehQM%2F-MNNUH7HsXs-mME-kTHY%2Fimage.png?alt=media&token=db2b0fc4-7123-4005-86cd-405dfb8e8464)
 
 This is where it gets interesting:‌
 
 All your users will be presented in **groups** **(1)** that have the **exact same permissions** (smart action permissions + collection permissions):‌
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNXNd1bi17vgJLTtCE%2FCapture%20d%E2%80%99e%CC%81cran%202020-11-30%20a%CC%80%2010.39.26.png?alt=media\&token=9b698722-4582-4c81-9bac-19e138be4f00)
+![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-MNNSk_u0UnHADDKehQM%2F-MNNXNd1bi17vgJLTtCE%2FCapture%20d%E2%80%99e%CC%81cran%202020-11-30%20a%CC%80%2010.39.26.png?alt=media&token=9b698722-4582-4c81-9bac-19e138be4f00)
 
 If you had created roles and assigned them to smart actions **before** the migration, they will appear there **(2)**. Additionally, if you had assigned them to users, they will be automatically assigned to those users.‌
 
@@ -44,4 +44,4 @@ You cannot delete roles at this stage, but you can always rearrange roles after 
 
 Lastly, review all assigned roles on the last page and validate to finalize the migration process:
 
-![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-MNNSk\_u0UnHADDKehQM%2F-MNNZTkhuc6vmMGv-dox%2Fimage.png?alt=media\&token=f341149a-665d-445e-8274-e2e0825b5833)
+![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-MNNSk_u0UnHADDKehQM%2F-MNNZTkhuc6vmMGv-dox%2Fimage.png?alt=media&token=f341149a-665d-445e-8274-e2e0825b5833)
