@@ -2,10 +2,6 @@
 
 One of the goals of Forest Admin is empowering technical teams to achieve more in less time: in other words, giving them the means to create and maintain a great admin panel in as little time as possible.
 
-{% hint style="warning" %}
-If you created your project before May 10th, 2021 and want to benefit from this feature, please contact Forest Admin support to ask for it to be **"ready to migrate"**.
-{% endhint %}
-
 ### Development tools
 
 Your Forest Admin panel is composed of 2 parts - [the frontend (UI) and the backend](../) - and for each one you need the right tools:
