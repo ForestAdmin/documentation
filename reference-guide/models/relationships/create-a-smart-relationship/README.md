@@ -120,12 +120,12 @@ class OrderForest(Collection):
                 'field': 'delivery_address',
                 'reference': 'app_addresses.id',
                 'type': 'String',
-                'get': self.get_subject,
+                'get': self.get_delivery_address,
             }
         ]
 
     def get_delivery_address(self, obj):
-        queryset = Address.objects.filter(customer__in=(obj.customer_id,))
+        queryset = Address.objects.filter(customer=obj.customer)
         if len(queryset):
             return queryset[0]
 
