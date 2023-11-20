@@ -18,7 +18,7 @@ To connect a new database on your project, you need to follow the following step
   // by changing this variable value
   modelsDir: path.resolve(__dirname, './models/your_first_database_connection'),
   connection: {
-    url: process.env.ANOTHER_DB_URL,
+    url: process.env.DATABASE_URL,
     options: { /* Database options can be empty, but should match with your requirements */ }
   }
 }, {
