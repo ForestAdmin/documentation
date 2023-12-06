@@ -2571,13 +2571,13 @@ In the collection settings, you can configure the UI options of your Smart Actio
 
 ![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 15.03.13.png>)
 
-### Restrict a smart action to specific users and roles
+### Restrict a smart action to specific roles
 
-When using Forest Admin with several teams and when you have clear roles defined it becomes relevant to restrict a smart action only to a few collaborators. This option is accessible through the Edit layout mode in the Smart actions’ section of your collection's settings.\
+When using Forest Admin collaboratively with clear roles defined it becomes relevant to restrict a smart action only to a select few. This functionality is accessible through Smart Actions Permissions in the Role section of your Project Settings.\
 \
 [Learn more about roles](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
 
-![](<../../../.gitbook/assets/Capture d’écran 2020-10-23 à 16.54.58.png>)
+![](<../../../.gitbook/assets/project-settings-roles-permissions.png>)
 
 ### Require approval for a Smart action
 
