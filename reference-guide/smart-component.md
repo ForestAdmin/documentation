@@ -4,23 +4,22 @@
 
 Custom Components lets you code your view using JS, HTML, and CSS. They are taking data visualization to the next level.
 Display whatever you want:
+
 - a picture
 - a video
 - a radio button
 - a custom chart
 - etc...
 
-![](<../../.gitbook/assets/image (280).png>)
-
 ## Creating a Custom Component
 
 Custom Component are available in the layout editor mode in Workspaces.
-It will only requires you to put a `template url`. That url is targeting your backend so if your environment is `https://test.me/api` and you specified `/smart-views/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-views/radio-buttons/template.hbs`.
+It will only require you to put a `template URL`. That URL is targeting your backend so if your environment is `https://test.me/api` and you specified `/smart-views/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-views/radio-buttons/template.hbs`.
 
 The code of a Custom Component is a [Glimmer Component](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/) and simply consists of a Template and an optional Javascript code.
 
 {% hint style="info" %}
-You don’t need to know the **Ember.js** framework to create a Custom Component. We will guide you here on all the basic requirements. For more advanced usage, you can still refer to the [Glimmer Component](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/) documentations.
+You don’t need to know the **Ember.js** framework to create a Custom Component. We will guide you here on all the basic requirements. For more advanced usage, you can still refer to the [Glimmer Component](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/) documentation.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -29,20 +28,20 @@ Your code must be compatible with Ember 4.12.
 
 ### Updating the context
 
-Through the Custom component you can update the `selectedValue` of that component. Meaning you will be able to access the value selected in that component from other components.
+Through the Custom component you can update the `selectedValue` of that component. This means you will be able to access the value selected in that component from other components.
 To do that you need to simply update `@component.selectedValue`:
 
 ```handlebars
 <BetaRadioButton
   @options={{array
-    (hash value="Jamie" label="Jamie Lannister")
-    (hash value="Tyrion" label="Tyrion Lannister")
-    (hash value="Cirsei" label="Cirsei Lannister")
+    (hash value='Jamie' label='Jamie Lannister')
+    (hash value='Tyrion' label='Tyrion Lannister')
+    (hash value='Cirsei' label='Cirsei Lannister')
   }}
   @value={{@component.selectedValue}}
   @onChange={{fn (mut @component.selectedValue)}}
-  @namePath="label"
-  @valuePath="value"
+  @namePath='label'
+  @valuePath='value'
 />
 ```
 
@@ -51,14 +50,21 @@ To do that you need to simply update `@component.selectedValue`:
 To use it directly inside your template you can use the `templating-injector` helper.
 
 ```handlebars
-<h1>{{templating-injector '{{projectCollection.selectedRecord.forest-name}}' templatingHelper=@component.templatingHelper plainText=true}}</h1>
+<h1>
+  {{templating-injector
+    '{{projectCollection.selectedRecord.forest-name}}'
+    templatingHelper=@component.templatingHelper
+    plainText=true
+  }}
+</h1>
 ```
 
-The `plainText` options is to make sure it always return a string. If you can inject `html` then don't use this options it will give you a better experience.
+The `plainText` option is to make sure it always returns a string. If you can inject `html` then don't use this option it will give you a better experience.
 
-To use context variables inside your javascript file, you can do as follow:
+To use context variables inside your javascript file, you can do as following:
 
 {% code title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -66,15 +72,19 @@ import { tracked } from '@glimmer/tracking';
 
 export default class extends Component {
   get myTitle() {
-    return this.args.component.templatingHelper.getVariableValue('projectCollection.selectedRecord.forest-name');
+    return this.args.component.templatingHelper.getVariableValue(
+      'projectCollection.selectedRecord.forest-name',
+    );
   }
-};
+}
 ```
+
 {% endcode %}
 
 But you might be interested to know if the context is set:
 
 {% code title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -104,8 +114,9 @@ export default class extends Component {
       { expectedType: 'String' },
     );
   }
-};
+}
 ```
+
 {% endcode %}
 
 ### Triggering a Smart Action
@@ -116,11 +127,11 @@ Please follow [this link](reference-guide/smart-views/README.md).
 ### Creating a link to another page
 
 In this section, you will learn how to create a link to the details of a record, to another collection or to another workspace.
-There is multiple way to handle the transition to another page, if you want to do some actions when clicking on a button then redirect to somewhere else,
-then the best options for you is to do it in your component javascript file.
-
+There are multiple ways to handle the transition to another page, if you want to do some actions when clicking on a button and then redirecting to somewhere else,
+then the best option for you is to do it in your component javascript file.
 
 {% code title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -156,6 +167,7 @@ export default class extends Component {
   }
 };
 ```
+
 {% endcode %}
 
 Notice the `@action`, it will allow you to call that function from your template.
@@ -163,18 +175,22 @@ To use it, simply do the following:
 
 ```handlebars
 <Button::BetaButton
-  @type="primary"
-  @text="Create product and redirect to it"
+  @type='primary'
+  @text='Create product and redirect to it'
   @withoutCallback={{true}}
   @action={{this.createProductAndRedirectToIt}}
 />
 
 <!-- If I need to pass argument to my function I can do the following -->
 <Button::BetaButton
-  @type="primary"
-  @text="Create product and redirect to it"
+  @type='primary'
+  @text='Create product and redirect to it'
   @withoutCallback={{true}}
-  @action={{fn this.createProductAndRedirectToIt "first argument" this.secondArgument}}
+  @action={{fn
+    this.createProductAndRedirectToIt
+    'first argument'
+    this.secondArgument
+  }}
 />
 ```
 
@@ -200,6 +216,7 @@ If you want to redirect to another page using only the template you can achieve 
 And finally if you want to redirect to a workspace you can simply find that workspace and redirect to it:
 
 {% code title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -216,16 +233,17 @@ export default class extends Component {
     this.router.transitionTo('project.rendering.workspaces.view', workspace.id, { queryParams: { 'component1.selectedValue': true } });
   };
 ```
+
 {% endcode %}
 
-
-
-### What are the forest components that we can use ?
+### What are the forest components that we can use?
 
 If an argument is not listed here, it is considered as private API.
-Private API may broke from one release to another, meaning at anytime your Custom component might not work. Please do not use them.
+Private API may break from one release to another, meaning at any time your Custom component might not work. Please do not use them.
 
 #### The button component
+
+![Button::BetaButton](../../.gitbook/assets/smart-component-beta-button.png)
 
 ```handlebars
 <Button::BetaButton
@@ -242,7 +260,7 @@ Private API may broke from one release to another, meaning at anytime your Custo
 
 #### The label component
 
-It attach a label to another component.
+It attaches a label to another component.
 
 ```handlebars
 <BetaLabel
@@ -261,6 +279,8 @@ It attach a label to another component.
 ```
 
 #### The input component
+
+![BetaInput](../../.gitbook/assets/smart-component-beta-input.png)
 
 ```handlebars
 <BetaInput
@@ -288,6 +308,8 @@ It attach a label to another component.
 ```
 
 #### The select component
+
+![BetaSelect](../../.gitbook/assets/smart-component-beta-select.png)
 
 ```handlebars
 <BetaSelect
@@ -325,32 +347,33 @@ It attach a label to another component.
 
 ### The badge component
 
+![DataDisplay::BetaBadge](../../.gitbook/assets/smart-component-beta-badge.png)
+
 ```handlebars
-<BetaBadge
+<DataDisplay::BetaBadge
   @value="My Status"
   @color="info" <!-- info | warning | danger | success | secondary | primary -->
 >
 ```
 
 ### Where to store my Custom components?
-``
-We advise to put them in your projects into the `public` folder.
-At forest we structure it this way:
+
+We advise you to put them in your projects into the `public` folder.
+At forest admin, we structure it this way:
 
 ├── public
-│   ├── smart-components
-│   │   ├── select-a-lannister
-│   │   │   ├── template.hbs
-│   │   │   ├── component.js
-│   │   │   ├── style.css
-│   │   ├── picture-of-got
-│   │   │   ├── template.hbs
+│ ├── smart-components
+│ │ ├── select-a-lannister
+│ │ │ ├── template.hbs
+│ │ │ ├── component.js
+│ │ │ ├── style.css
+│ │ ├── picture-of-got
+│ │ │ ├── template.hbs
 
-
-### Available properties
+### Available Properties
 
 Forest Admin automatically injects into your Custom View some properties to help you display your data like you want.
 
-| Property        | Type    | Description                                            |
-| --------------- | ------- | ------------------------------------------------------ |
-| `component`     | Model   | The current component.                                 |
+| Property    | Type  | Description            |
+| ----------- | ----- | ---------------------- |
+| `component` | Model | The current component. |
