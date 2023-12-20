@@ -361,14 +361,18 @@ It attaches a label to another component.
 We advise you to put them in your projects into the `public` folder.
 At forest admin, we structure it this way:
 
-├── public
-│ ├── smart-components
-│ │ ├── select-a-lannister
-│ │ │ ├── template.hbs
-│ │ │ ├── component.js
-│ │ │ ├── style.css
-│ │ ├── picture-of-got
-│ │ │ ├── template.hbs
+```
+.
+└── public/
+    ├── README.md
+    └── smart-components
+        ├── select-a-lannister
+        |   ├── component.js
+        |   ├── style.css
+        |   └── template.hbs
+        └── picture-of-got
+            └── template.hbs
+```
 
 ### Available Properties
 
