@@ -14,7 +14,7 @@ Display whatever you want:
 
 ## Creating a Custom Component
 
-Custom Component are available in in the layout editor mode in Workspaces.
+Custom Component are available in the layout editor mode in Workspaces.
 It will only requires you to put a `template url`. That url is targeting your backend so if your environment is `https://test.me/api` and you specified `/smart-views/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-views/radio-buttons/template.hbs`.
 
 The code of a Custom Component is a [Glimmer Component](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/) and simply consists of a Template and an optional Javascript code.
