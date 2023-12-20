@@ -226,7 +226,7 @@ At forest we structure it this way:
 
 ### Available properties
 
-Forest Admin automatically injects into your Smart View some properties to help you display your data like you want.
+Forest Admin automatically injects into your Custom View some properties to help you display your data like you want.
 
 | Property        | Type    | Description                                            |
 | --------------- | ------- | ------------------------------------------------------ |
