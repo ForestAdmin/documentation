@@ -106,16 +106,139 @@ export default class extends Component {
   }
 };
 ```
+{% endcode %}
 
 ### Triggering a Smart Action
 
 For triggering a smart action it's the exact same code as inside a smart view.
 Please follow [this link](reference-guide/smart-views/README.md).
 
+### Creating a link to another page
+
+In this section, you will learn how to create a link to the details of a record, to another collection or to another workspace.
+There is multiple way to handle the transition to another page, if you want to do some actions when clicking on a button then redirect to somewhere else,
+then the best options for you is to do it in your component javascript file.
+
+
+{% code title="component.js" %}
+```javascript
+import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+
+export default class extends Component {
+  @service errorHandler;
+  @service router;
+  @service store;
+
+  @action
+  createProductAndRedirectToIt() {
+    const newRecord = this.store.createRecord('forest-product', {
+      // Fill it with all the properties we need
+      'forest-name': 'TV'
+    });
+
+    try {
+      await newRecord.save();
+
+      // The name of the collection here is the technical name not the one displayed in the UI
+      const collection = this.store.peekAll('collection').find(collection => collection.name === 'product');
+      this.router.transitionTo(
+        'project.rendering.data.collection.list.view-edit.details',
+        collection.id,
+        // This is not a mistake, you have to specify the collection twice
+        collection.id,
+        newRecord.id,
+      );
+    } catch (error) {
+      this.errorHandler.handleRequestFailure(error, 'Could not create product');
+    }
+  }
+};
+```
+{% endcode %}
+
+Notice the `@action`, it will allow you to call that function from your template.
+To use it, simply do the following:
+
+```handlebars
+<Button::BetaButton
+  @type="primary"
+  @text="Create product and redirect to it"
+  @withoutCallback={{true}}
+  @action={{this.createProductAndRedirectToIt}}
+/>
+
+<!-- If I need to pass argument to my function I can do the following -->
+<Button::BetaButton
+  @type="primary"
+  @text="Create product and redirect to it"
+  @withoutCallback={{true}}
+  @action={{fn this.createProductAndRedirectToIt "first argument" this.secondArgument}}
+/>
+```
+
+If you want to redirect to another page using only the template you can achieve using the forest admin component `BetaLinkTo` or using the native [ember `LinkTo`](https://guides.emberjs.com/v5.5.0/routing/linking-between-routes/).
+
+```handlebars
+<Navigation::BetaLinkTo
+  @type="primary" <!-- danger | warning | info | success | primary -->
+  @target="_blank" <!-- to open in a new window, otherwise omit it -->
+  @text="Navigate to an external link"
+  @underline={{false}}
+  @href="https://google.com/my-external-link"
+>
+
+<Navigation::BetaLinkTo
+  @type="info"
+  @text="Navigate to a record details"
+  @routeName="project.rendering.data.collection.list.view-edit.details"
+  @routeParameters={{array this.collection.id this.collection.id this.currentRecord.id}}
+>
+```
+
+And finally if you want to redirect to a workspace you can simply find that workspace and redirect to it:
+
+{% code title="component.js" %}
+```javascript
+import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+
+export default class extends Component {
+  @service errorHandler;
+  @service router;
+  @service store;
+
+  @action
+  redirectToWorkspace() {
+    const workspace = this.store.peekAll('workspace').find(workspace => workspace.name.includes('The one Im looking for'));
+    this.router.transitionTo('project.rendering.workspaces.view', workspace.id, { queryParams: { 'component1.selectedValue': true } });
+  };
+```
+{% endcode %}
+
+
+
 ### What are the forest components that we can use ?
 
 If an argument is not listed here, it is considered as private API.
 Private API may broke from one release to another, meaning at anytime your Custom component might not work. Please do not use them.
+
+#### The button component
+
+```handlebars
+<Button::BetaButton
+  @type="primary" <!-- danger | warning | info | success | primary | danger-outline | warning-outline | info-outline | success-outline | primary-outline -->
+  @text="Text inside my button"
+  @action={{this.handleButtonAction}}
+  @withoutCallback={{true}} <!-- Always set it to true ! -->
+  <!-- All the arguments below are optional -->
+  @iconName="a material icon name"
+  @size="large" <!-- large | normal | small | tiny -->
+  @iconAfterText={{true}}
+>
+```
 
 #### The label component
 
