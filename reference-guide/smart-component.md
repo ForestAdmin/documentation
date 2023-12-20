@@ -32,7 +32,7 @@ Your code must be compatible with Ember 4.12.
 Through the Custom component you can update the `selectedValue` of that component. Meaning you will be able to access the value selected in that component from other components.
 To do that you need to simply update `@component.selectedValue`:
 
-```markup
+```handlebars
 <BetaRadioButton
   @options={{array
     (hash value="Jamie" label="Jamie Lannister")
@@ -50,7 +50,7 @@ To do that you need to simply update `@component.selectedValue`:
 
 To use it directly inside your template you can use the `templating-injector` helper.
 
-```markup
+```handlebars
 <h1>{{templating-injector '{{projectCollection.selectedRecord.forest-name}}' templatingHelper=@component.templatingHelper plainText=true}}</h1>
 ```
 
@@ -121,7 +121,7 @@ Private API may broke from one release to another, meaning at anytime your Custo
 
 It attach a label to another component.
 
-```markup
+```handlebars
 <BetaLabel
   @label="My Label"
   <!-- All the arguments below are optional -->
@@ -139,7 +139,7 @@ It attach a label to another component.
 
 #### The input component
 
-```markup
+```handlebars
 <BetaInput
   @value={{@component.selectedValue}}
   @onChange={{fn (mut @component.selectedValue)}}
@@ -153,7 +153,7 @@ It attach a label to another component.
 
 #### The textarea component
 
-```markup
+```handlebars
 <BetaTextarea
   @value={{@component.selectedValue}}
   @onChange={{fn (mut @component.selectedValue)}}
@@ -166,7 +166,7 @@ It attach a label to another component.
 
 #### The select component
 
-```markup
+```handlebars
 <BetaSelect
   @value={{@component.selectedValue}}
   @onChange={{fn (mut @component.selectedValue)}}
@@ -185,7 +185,7 @@ It attach a label to another component.
 
 #### The radio component
 
-```markup
+```handlebars
 <BetaRadioButton
   @value={{@component.selectedValue}}
   @onChange={{fn (mut @component.selectedValue)}}
@@ -202,7 +202,7 @@ It attach a label to another component.
 
 ### The badge component
 
-```markup
+```handlebars
 <BetaBadge
   @value="My Status"
   @color="info" <!-- info | warning | danger | success | secondary | primary -->
