@@ -243,7 +243,7 @@ Private API may break from one release to another, meaning at any time your Cust
 
 #### The button component
 
-![Button::BetaButton](../../.gitbook/assets/smart-component-beta-button.png)
+![Button::BetaButton](../.gitbook/assets/smart-component-beta-button.png)
 
 ```handlebars
 <Button::BetaButton
@@ -280,7 +280,7 @@ It attaches a label to another component.
 
 #### The input component
 
-![BetaInput](../../.gitbook/assets/smart-component-beta-input.png)
+![BetaInput](../.gitbook/assets/smart-component-beta-input.png)
 
 ```handlebars
 <BetaInput
@@ -309,7 +309,7 @@ It attaches a label to another component.
 
 #### The select component
 
-![BetaSelect](../../.gitbook/assets/smart-component-beta-select.png)
+![BetaSelect](../.gitbook/assets/smart-component-beta-select.png)
 
 ```handlebars
 <BetaSelect
@@ -347,7 +347,7 @@ It attaches a label to another component.
 
 ### The badge component
 
-![DataDisplay::BetaBadge](../../.gitbook/assets/smart-component-beta-badge.png)
+![DataDisplay::BetaBadge](../.gitbook/assets/smart-component-beta-badge.png)
 
 ```handlebars
 <DataDisplay::BetaBadge
