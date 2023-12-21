@@ -14,7 +14,10 @@ Display whatever you want:
 ## Creating a Custom Component
 
 Custom Component are available in the layout editor mode in Workspaces.
-It will only require you to put a `template URL`. That URL is targeting your backend so if your environment is `https://test.me/api` and you specified `/smart-components/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-components/radio-buttons/template.hbs`.
+
+It will only require you to put a `template URL`. That URL is targeting your backend if it does not start with `https://`, so if your environment api endpoint is `https://test.me/api` and you specified `/smart-components/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-components/radio-buttons/template.hbs`.
+
+Request to your backend are authenticated, so the session token will be send while external url won't.
 
 The code of a Custom Component is a [Glimmer Component](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/) and simply consists of a Template and an optional Javascript code.
 
@@ -44,6 +47,8 @@ To do that you need to simply update `@component.selectedValue`:
   @valuePath='value'
 />
 ```
+
+If you want to try this component, just paste this URL into the template URL of one Smart Component: https://gist.githubusercontent.com/VincentMolinie/345af6a56ba95c6de40da47f58d26394/raw/0976177480f95a57a6323b8f76bc49bb94d7d66d/lannister-radio-buttons-template.hbs
 
 ### Use other components context variables
 
