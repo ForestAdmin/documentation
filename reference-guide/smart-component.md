@@ -29,6 +29,12 @@ You don’t need to know the **Ember.js** framework to create a Custom Component
 Your code must be compatible with Ember 4.12.
 {% endhint %}
 
+{% hint style="info" %}
+You can find simple component ready to be used [here](https://github.com/ForestAdmin/public-components-library/tree/main).
+
+To use them simply select the one you want and copy the link to the `raw` file then paste it in the `template URL` of one Smart Component.
+{% endhint %}
+
 ### Updating the context
 
 Through the Custom component you can update the `selectedValue` of that component. This means you will be able to access the value selected in that component from other components.
@@ -47,8 +53,6 @@ To do that you need to simply update `@component.selectedValue`:
   @valuePath='value'
 />
 ```
-
-If you want to try this component, just paste this URL into the template URL of one Smart Component: https://gist.githubusercontent.com/VincentMolinie/345af6a56ba95c6de40da47f58d26394/raw/0976177480f95a57a6323b8f76bc49bb94d7d66d/lannister-radio-buttons-template.hbs
 
 ### Use other components context variables
 
