@@ -14,7 +14,10 @@ Display whatever you want:
 ## Creating a Custom Component
 
 Custom Component are available in the layout editor mode in Workspaces.
-It will only require you to put a `template URL`. That URL is targeting your backend so if your environment is `https://test.me/api` and you specified `/smart-components/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-components/radio-buttons/template.hbs`.
+
+It will only require you to put a `template URL`. That URL is targeting your backend if it does not start with `https://`, so if your environment api endpoint is `https://test.me/api` and you specified `/smart-components/radio-buttons/template.hbs` then it will fetch the following file `https://test.me/api/smart-components/radio-buttons/template.hbs`.
+
+Request to your backend are authenticated, so the session token will be send while external url won't.
 
 The code of a Custom Component is a [Glimmer Component](https://guides.emberjs.com/release/upgrading/current-edition/glimmer-components/) and simply consists of a Template and an optional Javascript code.
 
@@ -24,6 +27,12 @@ You don’t need to know the **Ember.js** framework to create a Custom Component
 
 {% hint style="warning" %}
 Your code must be compatible with Ember 4.12.
+{% endhint %}
+
+{% hint style="info" %}
+You can find simple component ready to be used [here](https://github.com/ForestAdmin/public-components-library/tree/main).
+
+To use them simply select the one you want and copy the link to the `raw` file then paste it in the `template URL` of one Smart Component.
 {% endhint %}
 
 ### Updating the context
