@@ -8,13 +8,9 @@ In this documentation article, we will guide you through the process of authoriz
 
 This will ensure that only approved IP addresses can access your database, safeguarding your data and minimizing potential vulnerabilities.
 
-#### Step 1: Forest Admin IP Addresses to Whitelist
+#### Step 1: Forest Admin IP Address to Whitelist
 
-For the proper functioning of our services, it's essential to whitelist the following Forest Admin IP addresses:
-
-1. 52.209.179.93
-2. 52.51.139.66
-3. 35.180.175.97
+For the proper functioning of our services, it's essential to whitelist the following Forest Admin IP address: **35.180.175.97**
 
 #### Step 2: Access Your Database Configuration
 
