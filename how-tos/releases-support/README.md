@@ -73,17 +73,17 @@ Before jumping into your favorite stack tab, you’ll find below the detailed de
 
 {% tab title="Django" %}
 
-| Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime |
-| ------- | --------------- | ----- | -------------- | -------------- | ----------- | -------- |
-| v1      | 2021-08-13      | 🟢    | 🟢             | -              | -           | -        |
+| Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
+| ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
+| v1      | 2021-08-13      | 🟢    | 🟠             | 2024-06-30     | 2024-12-31  | ~3.5 years |
 
 {% endtab %}
 
 {% tab title="Laravel" %}
 
-| Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime |
-| ------- | --------------- | ----- | -------------- | -------------- | ----------- | -------- |
-| v1      | 2022-04-15      | 🟢    | 🟢             | -              | -           | -        |
+| Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
+| ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
+| v1      | 2022-04-15      | 🟢    | 🟠             | 2024-06-30     | 2024-12-31  | ~2.5 years |
 
 {% endtab %}
 {% endtabs %}
