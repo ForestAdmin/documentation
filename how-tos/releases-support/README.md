@@ -26,6 +26,10 @@ Before jumping into your favorite stack tab, you’ll find below the detailed de
 {% tabs %}
 {% tab title="Express Sequelize" %}
 
+A new agent generation has been released to integrate with Node.js projects.
+The only way to keep your Forest Admin project running in the future will be to migrate from the [agent v9](https://github.com/ForestAdmin/forest-express-sequelize) to the new [Node.js agent](https://github.com/ForestAdmin/agent-nodejs).
+Please follow the dedicated [migration guide](https://docs.forestadmin.com/developer-guide-agents-nodejs/getting-started/migrating).
+
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
 | v9      | 2022-10-09      | 🟢    | 🟢             | -              | -           | -          |
@@ -41,6 +45,10 @@ Before jumping into your favorite stack tab, you’ll find below the detailed de
 {% endtab %}
 
 {% tab title="Express Mongoose" %}
+
+A new agent generation has been released to integrate with Node.js projects.
+The only way to keep your Forest Admin project running in the future will be to migrate from the [agent v9](https://github.com/ForestAdmin/forest-express-mongoose) to the new [Node.js agent](https://github.com/ForestAdmin/agent-nodejs).
+Please follow the dedicated [migration guide](https://docs.forestadmin.com/developer-guide-agents-nodejs/getting-started/migrating).
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
@@ -73,6 +81,10 @@ Before jumping into your favorite stack tab, you’ll find below the detailed de
 
 {% tab title="Django" %}
 
+A new agent generation has been released to integrate with Django projects.
+The only way to keep your Forest Admin project running in 2025 will be to migrate from the [legacy agent](https://github.com/ForestAdmin/django-forestadmin) to the new [Python agent](https://github.com/ForestAdmin/agent-python).
+Please follow the dedicated [migration guide](https://docs.forestadmin.com/developer-guide-agents-python/getting-started/migrating).
+
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
 | v1      | 2021-08-13      | 🟢    | 🟠             | 2024-06-30     | 2024-12-31  | ~3.5 years |
@@ -80,6 +92,10 @@ Before jumping into your favorite stack tab, you’ll find below the detailed de
 {% endtab %}
 
 {% tab title="Laravel" %}
+
+A new agent generation has been released to integrate with Laravel projects.
+The only way to keep your Forest Admin project running in 2025 will be to migrate from the [legacy agent](https://github.com/ForestAdmin/laravel-forestadmin) to the new [PHP agent](https://github.com/ForestAdmin/agent-php).
+Please follow the dedicated [migration guide](https://docs.forestadmin.com/developer-guide-agents-php/getting-started/migrating).
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
