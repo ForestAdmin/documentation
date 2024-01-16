@@ -57,3 +57,5 @@ In your code, if you were using the ```ForestLiana::PermissionsChecker``` for ch
 You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
 
 An example can be found [here](../../../reference-guide/routes/override-a-route.md).
+
+You must also ensure that the controllers that manage your smart actions extend from the `ForestLiana::SmartActionsController` controller.
