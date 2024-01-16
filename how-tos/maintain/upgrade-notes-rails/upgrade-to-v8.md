@@ -56,6 +56,6 @@ then you are using the new role system and can go ahead with the upgrade to v8.
 In your code, if you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route.
 You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
 
-You must also ensure that the controllers that manage your smart actions extend from the `ForestLiana::SmartActionsController` controller.
-
 An example can be found [here](../../../reference-guide/routes/override-a-route.md).
+
+You must also ensure that the controllers that manage your smart actions extend from the `ForestLiana::SmartActionsController` controller.
