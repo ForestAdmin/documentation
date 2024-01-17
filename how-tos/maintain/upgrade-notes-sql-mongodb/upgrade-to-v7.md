@@ -46,6 +46,10 @@ npm install forest-express-mongoose@^7.9.2
 In case of a regression introduced in Production after the upgrade, a rollback to your previous agent is the fastest way to restore your admin panel.
 {% endhint %}
 
+{% hint style="info" %}
+You must upgrade your agent version in development, then you should commit the code changes (packages.json, source code, .forestadmin-schema.json etc.) to push it on other environments (Production, Staging, Test,...). Pull the code in each server, install, build and restart server
+{% endhint %}
+
 ## Breaking changes
 
 ### Agent initialization&#x20;

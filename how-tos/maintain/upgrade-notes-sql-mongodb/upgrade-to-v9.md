@@ -42,6 +42,10 @@ npm install "forest-express-mongoose@^9.0.0"
 In case of a regression introduced in Production after the upgrade, a rollback to your previous agent is the fastest way to restore your admin panel.
 {% endhint %}
 
+{% hint style="info" %}
+You must upgrade your agent version in development, then you should commit the code changes (packages.json, source code, .forestadmin-schema.json etc.) to push it on other environments (Production, Staging, Test,...). Pull the code in each server, install, build and restart server
+{% endhint %}
+
 ## Breaking changes
 
 This new version (v9) does not support the old role system. If you are in the case, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new role system **before** you attempt to upgrade to version 9.
