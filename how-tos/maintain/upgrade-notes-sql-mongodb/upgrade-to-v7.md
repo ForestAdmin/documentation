@@ -22,6 +22,11 @@ Before upgrading to v7, please take note of the following requirement:
 * `express` must be **version 4.17** or higher
 {% endhint %}
 
+{% hint style="info" %}
+You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
+More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+{% endhint %}
+
 {% hint style="warning" %}
 As for any dependency upgrade, it's very important to **test this upgrade** **in your testing environments**. Not doing so could result in your admin panel being unusable.
 {% endhint %}
@@ -44,10 +49,6 @@ npm install forest-express-mongoose@^7.9.2
 
 {% hint style="info" %}
 In case of a regression introduced in Production after the upgrade, a rollback to your previous agent is the fastest way to restore your admin panel.
-{% endhint %}
-
-{% hint style="info" %}
-You must upgrade your agent version in development, then you should commit the code changes (packages.json, source code, .forestadmin-schema.json etc.) to push it on other environments (Production, Staging, Test,...). Pull the code in each server, install, build and restart server
 {% endhint %}
 
 ## Breaking changes

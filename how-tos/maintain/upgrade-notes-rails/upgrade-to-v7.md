@@ -19,6 +19,11 @@ Please be aware that while Forest Admin make every effort to ensure that our pla
 Before upgrading to v7, consider the below [**breaking changes**](upgrade-to-v7.md#breaking-change).
 {% endhint %}
 
+{% hint style="info" %}
+You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
+More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+{% endhint %}
+
 This upgrade unlocks the following feature:
 
 * [Add/remove Smart action form fields dynamically](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#add-remove-fields-dynamically)

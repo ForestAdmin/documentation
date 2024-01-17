@@ -20,6 +20,11 @@ This upgrade unlocks the following features:
 
 ## Upgrading to v8
 
+{% hint style="info" %}
+You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
+More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+{% endhint %}
+
 {% hint style="warning" %}
 As for any dependency upgrade, it's very important to **test this upgrade** **in your testing environments**. Not doing so could result in your admin panel being unusable.
 {% endhint %}
