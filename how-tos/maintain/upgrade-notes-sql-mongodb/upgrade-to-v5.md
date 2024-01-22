@@ -14,8 +14,8 @@ Before upgrading to v5, consider the below **breaking changes**.
 {% endhint %}
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -26,15 +26,19 @@ To upgrade to v5, simply run:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```bash
 npm install forest-express-sequelize@^5.0.0
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```bash
 npm install forest-express-mongoose@^5.0.0
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -53,33 +57,41 @@ Here is an example of Smart Action to adapt:
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/companies.js" %}
-```javascript
-const Liana = require('forest-express-sequelize');
 
-Liana.collection('companies', {
-  actions: [{
-    name: 'Mark as live',
-    httpMethod: 'POST',
-    endpoint: 'my-custom-route/mark-as-live', // custom route
-  }],
+```javascript
+const Liana = require("forest-express-sequelize");
+
+Liana.collection("companies", {
+  actions: [
+    {
+      name: "Mark as live",
+      httpMethod: "POST",
+      endpoint: "my-custom-route/mark-as-live", // custom route
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/companies.js" %}
-```javascript
-const Liana = require('forest-express-mongoose');
 
-Liana.collection('companies', {
-  actions: [{
-    name: 'Mark as live',
-    httpMethod: 'POST',
-    endpoint: 'my-custom-route/mark-as-live', // custom route
-  }],
+```javascript
+const Liana = require("forest-express-mongoose");
+
+Liana.collection("companies", {
+  actions: [
+    {
+      name: "Mark as live",
+      httpMethod: "POST",
+      endpoint: "my-custom-route/mark-as-live", // custom route
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -87,49 +99,59 @@ Liana.collection('companies', {
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
-```javascript
-const express = require('express');
-const router = express.Router();
-const Liana = require('forest-express-sequelize');
-const models = require('../models');
 
-router.post('/my-custom-route/mark-as-live', Liana.ensureAuthenticated,
+```javascript
+const express = require("express");
+const router = express.Router();
+const Liana = require("forest-express-sequelize");
+const models = require("../models");
+
+router.post(
+  "/my-custom-route/mark-as-live",
+  Liana.ensureAuthenticated,
   (req, res) => {
     let companyId = req.body.data.attributes.ids[0];
 
     return models.companies
-      .update({ status: 'live' }, { where: { id: companyId }})
+      .update({ status: "live" }, { where: { id: companyId } })
       .then(() => {
-        res.send({ success: 'Company is now live!' });
+        res.send({ success: "Company is now live!" });
       });
-});
+  }
+);
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/companies.js" %}
-```javascript
-const express = require('express');
-const router = express.Router();
-const Liana = require('forest-express-mongoose');
-const models = require('../models');
 
-router.post('/my-custom-route/mark-as-live', Liana.ensureAuthenticated,
+```javascript
+const express = require("express");
+const router = express.Router();
+const Liana = require("forest-express-mongoose");
+const models = require("../models");
+
+router.post(
+  "/my-custom-route/mark-as-live",
+  Liana.ensureAuthenticated,
   (req, res) => {
     let companyId = req.body.data.attributes.ids[0];
 
     return models.companies
-      .update({ status: 'live' }, { where: { id: companyId }})
+      .update({ status: "live" }, { where: { id: companyId } })
       .then(() => {
-        res.send({ success: 'Company is now live!' });
+        res.send({ success: "Company is now live!" });
       });
-});
+  }
+);
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -145,51 +167,63 @@ The v5-compatible result would look like this:
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
-```javascript
-const express = require('express');
-const router = express.Router();
-const Liana = require('forest-express-sequelize');
-const models = require('../models');
-const bodyParser = require('body-parser'); // NOTICE: Require the body-parser dependency.
 
-router.post('/my-custom-route/mark-as-live', Liana.ensureAuthenticated, bodyParser.json(),
+```javascript
+const express = require("express");
+const router = express.Router();
+const Liana = require("forest-express-sequelize");
+const models = require("../models");
+const bodyParser = require("body-parser"); // NOTICE: Require the body-parser dependency.
+
+router.post(
+  "/my-custom-route/mark-as-live",
+  Liana.ensureAuthenticated,
+  bodyParser.json(),
   (req, res) => {
     let companyId = req.body.data.attributes.ids[0];
 
     return models.companies
-      .update({ status: 'live' }, { where: { id: companyId }})
+      .update({ status: "live" }, { where: { id: companyId } })
       .then(() => {
-        res.send({ success: 'Company is now live!' });
+        res.send({ success: "Company is now live!" });
       });
-});
+  }
+);
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/companies.js" %}
-```javascript
-const express = require('express');
-const router = express.Router();
-const Liana = require('forest-express-mongoose');
-const models = require('../models');
-const bodyParser = require('body-parser'); // NOTICE: Require the body-parser dependency.
 
-router.post('/my-custom-route/mark-as-live', Liana.ensureAuthenticated, bodyParser.json(),
+```javascript
+const express = require("express");
+const router = express.Router();
+const Liana = require("forest-express-mongoose");
+const models = require("../models");
+const bodyParser = require("body-parser"); // NOTICE: Require the body-parser dependency.
+
+router.post(
+  "/my-custom-route/mark-as-live",
+  Liana.ensureAuthenticated,
+  bodyParser.json(),
   (req, res) => {
     let companyId = req.body.data.attributes.ids[0];
 
     return models.companies
-      .update({ status: 'live' }, { where: { id: companyId }})
+      .update({ status: "live" }, { where: { id: companyId } })
       .then(() => {
-        res.send({ success: 'Company is now live!' });
+        res.send({ success: "Company is now live!" });
       });
-});
+  }
+);
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -200,5 +234,5 @@ module.exports = router;
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 
-* [Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-500---2019-10-31)
-* [Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-500---2019-10-31)
+- [Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-500---2019-10-31)
+- [Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-500---2019-10-31)

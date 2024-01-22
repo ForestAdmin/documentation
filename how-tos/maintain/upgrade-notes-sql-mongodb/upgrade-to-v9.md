@@ -9,14 +9,14 @@ description: >-
 
 This upgrade unlocks the following features:
 
-* Use templating in the filters of Chart components
-* Add conditions to your role permissions
+- Use templating in the filters of Chart components
+- Add conditions to your role permissions
 
 ## Upgrading to v9
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -31,15 +31,19 @@ Once you're done with the above steps, run the following:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```
 npm install "forest-express-sequelize@^9.0.0"
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```
 npm install "forest-express-mongoose@^9.0.0"
 ```
+
 {% endtab %}
 {% endtabs %}
 

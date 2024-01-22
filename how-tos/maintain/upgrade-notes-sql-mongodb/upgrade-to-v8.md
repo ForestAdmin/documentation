@@ -9,10 +9,10 @@ description: >-
 
 This upgrade unlocks the following features:
 
-* [Add or remove Smart action form fields dynamically](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#add-remove-fields-dynamically)
-* [Use hooks for bulk/global Smart actions](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#get-selected-records-with-bulk-action)
-* [Scopes are now enforced on all pages of the application](../../../reference-guide/scopes/)
-* Names of uploaded files are persisted and displayed, even when using the default handlers
+- [Add or remove Smart action form fields dynamically](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#add-remove-fields-dynamically)
+- [Use hooks for bulk/global Smart actions](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#get-selected-records-with-bulk-action)
+- [Scopes are now enforced on all pages of the application](../../../reference-guide/scopes/)
+- Names of uploaded files are persisted and displayed, even when using the default handlers
 
 ## Upgrading to v8
 
@@ -21,8 +21,8 @@ Before upgrading to v8, consider the below [**breaking changes**](#breaking-chan
 {% endhint %}
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -33,15 +33,19 @@ To upgrade to v8, run the following and then update your project as shown in the
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```
 npm install "forest-express-sequelize@^8.0.0"
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```
 npm install "forest-express-mongoose@^8.0.0"
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -323,6 +327,7 @@ After
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 const { model } = require('../models');
 [...]
@@ -343,9 +348,11 @@ hooks: {
 }
 [...]
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
 const { model } = require('../models');
 [...]
@@ -366,5 +373,6 @@ hooks: {
 }
 [...]
 ```
+
 {% endtab %}
 {% endtabs %}

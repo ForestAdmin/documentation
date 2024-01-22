@@ -20,8 +20,8 @@ Before upgrading to v4, consider the below **breaking changes**.
 {% endhint %}
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -51,6 +51,7 @@ You could be impacted if you use the _user session_ in Smart Action controllers 
 **Calling `forest_user` in v3**
 
 {% code title="v3 format" %}
+
 ```javascript
 {
   "id": "172",
@@ -73,11 +74,13 @@ You could be impacted if you use the _user session_ in Smart Action controllers 
   "exp": 1571123309
 }
 ```
+
 {% endcode %}
 
 **Calling `forest_user` in v4**
 
 {% code title="v4 format" %}
+
 ```javascript
 {
   "id": "172",
@@ -90,6 +93,7 @@ You could be impacted if you use the _user session_ in Smart Action controllers 
   "exp": 1571123309
 }
 ```
+
 {% endcode %}
 
 Consequently, the user information is now accessible as described below:
@@ -113,6 +117,7 @@ You could be impacted if you have custom filter implementations.
 Below are a few example of the new filter conditions format you can access using`params[:filters]`:
 
 {% code title="Simple condition example:" %}
+
 ```javascript
 {
   "field": "planLimitationReachedAt",
@@ -120,9 +125,11 @@ Below are a few example of the new filter conditions format you can access using
   "value": null
 }
 ```
+
 {% endcode %}
 
 {% code title="Multiple conditions example:" %}
+
 ```javascript
 {
   "aggregator": "and",
@@ -137,6 +144,7 @@ Below are a few example of the new filter conditions format you can access using
   }]
 }
 ```
+
 {% endcode %}
 
 ## Important Notice
@@ -153,4 +161,4 @@ Once an agent v4 deployed, **all users of your project will be automatically log
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 
-* [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#release-400---2019-10-04)
+- [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#release-400---2019-10-04)

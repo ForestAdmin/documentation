@@ -11,20 +11,20 @@ description: >-
 
 This upgrade unlocks the following feature:
 
-* easier addition of additional databases
-* no need to re-authenticate when switching between projects/environments/team
-* dynamic smart action forms
-* automatic model update
+- easier addition of additional databases
+- no need to re-authenticate when switching between projects/environments/team
+- dynamic smart action forms
+- automatic model update
 
 {% hint style="danger" %}
 Before upgrading to v7, please take note of the following requirement:
 
-* `express` must be **version 4.17** or higher
-{% endhint %}
+- `express` must be **version 4.17** or higher
+  {% endhint %}
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -35,15 +35,19 @@ To upgrade to v7, simply run:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```bash
 npm install forest-express-sequelize@^7.12.3
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```bash
 npm install forest-express-mongoose@^7.9.2
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -78,22 +82,29 @@ The below tables list all these parameters:
 Here is an example of an updated `middlewares/forestadmin.js` file after the migration:
 
 {% code title="middlewares/forestadmin.js" %}
+
 ```javascript
-const { objectMapping, connections } = require('../models');
+const { objectMapping, connections } = require("../models");
 
 module.exports = async function forestadmin(app) {
-  app.use(await Liana.init({
-    configDir: path.join(__dirname, '../forest'),
-    envSecret: process.env.FOREST_ENV_SECRET,
-    authSecret: process.env.FOREST_AUTH_SECRET,
-    objectMapping,
-    connections,
-  }));
+  app.use(
+    await Liana.init({
+      configDir: path.join(__dirname, "../forest"),
+      envSecret: process.env.FOREST_ENV_SECRET,
+      authSecret: process.env.FOREST_AUTH_SECRET,
+      objectMapping,
+      connections,
+    })
+  );
 
-  console.log(chalk.cyan('Your admin panel is available here: https://app.forestadmin.com/projects'));
+  console.log(
+    chalk.cyan(
+      "Your admin panel is available here: https://app.forestadmin.com/projects"
+    )
+  );
 };
-
 ```
+
 {% endcode %}
 
 #### Models index
@@ -103,36 +114,43 @@ The `models/index.js` file should be updated as well, in order to export `object
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="models/index.js" %}
-```javascript
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
 
-const databasesConfiguration = require('../config/databases');
+```javascript
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
+
+const databasesConfiguration = require("../config/databases");
 
 const connections = {};
 const db = {};
 
 databasesConfiguration.forEach((databaseInfo) => {
-  const connection = new Sequelize(databaseInfo.connection.url, databaseInfo.connection.options);
+  const connection = new Sequelize(
+    databaseInfo.connection.url,
+    databaseInfo.connection.options
+  );
   connections[databaseInfo.name] = connection;
 
-  const modelsDir = databaseInfo.modelsDir || path.join(__dirname, databaseInfo.name);
-  fs
-    .readdirSync(modelsDir)
-    .filter((file) => file.indexOf('.') !== 0 && file !== 'index.js')
+  const modelsDir =
+    databaseInfo.modelsDir || path.join(__dirname, databaseInfo.name);
+  fs.readdirSync(modelsDir)
+    .filter((file) => file.indexOf(".") !== 0 && file !== "index.js")
     .forEach((file) => {
       try {
-        const model = connection.import(path.join(modelsDir, file))(connection, Sequelize.DataTypes);
+        const model = connection.import(path.join(modelsDir, file))(
+          connection,
+          Sequelize.DataTypes
+        );
         db[model.name] = model;
       } catch (error) {
-        console.error('Model creation error: ' + error);
+        console.error("Model creation error: " + error);
       }
     });
 });
 
 Object.keys(db).forEach((modelName) => {
-  if ('associate' in db[modelName]) {
+  if ("associate" in db[modelName]) {
     db[modelName].associate(db);
   }
 });
@@ -142,29 +160,34 @@ db.connections = connections;
 
 module.exports = db;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="models/index.js" %}
-```javascript
-const fs = require('fs');
-const path = require('path');
-const Mongoose = require('mongoose');
 
-const databasesConfiguration = require('../config/databases');
+```javascript
+const fs = require("fs");
+const path = require("path");
+const Mongoose = require("mongoose");
+
+const databasesConfiguration = require("../config/databases");
 
 const connections = {};
 const db = {};
 
 databasesConfiguration.forEach((databaseInfo) => {
-  const connection = Mongoose.createConnection(databaseInfo.connection.url, databaseInfo.connection.options);
+  const connection = Mongoose.createConnection(
+    databaseInfo.connection.url,
+    databaseInfo.connection.options
+  );
   connections[databaseInfo.name] = connection;
 
-  const modelsDir = databaseInfo.modelsDir || path.join(__dirname, databaseInfo.name);
-  fs
-    .readdirSync(modelsDir)
-    .filter((file) => file.indexOf('.') !== 0 && file !== 'index.js')
+  const modelsDir =
+    databaseInfo.modelsDir || path.join(__dirname, databaseInfo.name);
+  fs.readdirSync(modelsDir)
+    .filter((file) => file.indexOf(".") !== 0 && file !== "index.js")
     .forEach((file) => {
       try {
         const model = require(path.join(modelsDir, file))(connection, Mongoose);
@@ -180,6 +203,7 @@ db.connections = connections;
 
 module.exports = db;
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -190,50 +214,67 @@ A `config/databases.js` file should be added as follows in order to declare the 
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
-const path = require('path');
+const path = require("path");
 
 const databaseOptions = {
-  logging: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? console.log : false,
+  logging:
+    !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+      ? console.log
+      : false,
   pool: { maxConnections: 10, minConnections: 1 },
   dialectOptions: {},
 };
-if (process.env.DATABASE_SSL && JSON.parse(process.env.DATABASE_SSL.toLowerCase())) {
+if (
+  process.env.DATABASE_SSL &&
+  JSON.parse(process.env.DATABASE_SSL.toLowerCase())
+) {
   const rejectUnauthorized = process.env.DATABASE_REJECT_UNAUTHORIZED;
-  if (rejectUnauthorized && (JSON.parse(rejectUnauthorized.toLowerCase()) === false)) {
+  if (
+    rejectUnauthorized &&
+    JSON.parse(rejectUnauthorized.toLowerCase()) === false
+  ) {
     databaseOptions.dialectOptions.ssl = { rejectUnauthorized: false };
   } else {
     databaseOptions.dialectOptions.ssl = true;
   }
 }
-module.exports = [{
-  name: 'default',
-  modelsDir: path.resolve(__dirname, '../models'),
-  connection: {
-    url: process.env.DATABASE_URL,
-    options: { ...databaseOptions },
+module.exports = [
+  {
+    name: "default",
+    modelsDir: path.resolve(__dirname, "../models"),
+    connection: {
+      url: process.env.DATABASE_URL,
+      options: { ...databaseOptions },
+    },
   },
-}];
+];
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
-const path = require('path');
+const path = require("path");
 
 const databaseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-module.exports = [{
-  name: 'default',
-  modelsDir: path.resolve(__dirname, '../models'),
-  connection: {
-    url: process.env.DATABASE_URL,
-    options: { ...databaseOptions },
+module.exports = [
+  {
+    name: "default",
+    modelsDir: path.resolve(__dirname, "../models"),
+    connection: {
+      url: process.env.DATABASE_URL,
+      options: { ...databaseOptions },
+    },
   },
-}];
+];
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -255,6 +296,7 @@ Instead, you should now use
 If you made the above recommended changes in your `models/index.js` file, your Mongoose model files should now be written this way:
 
 {% code title="/models/companies.js" %}
+
 ```javascript
 // Models are now returned from a function
 module.exports = (mongoose, Mongoose) => {
@@ -265,6 +307,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('companies', schema, 'companies');
 };
 ```
+
 {% endcode %}
 
 ### Authentication
@@ -286,21 +329,24 @@ A change in your `app.js` is required to modify how CORS are handled. The value 
 ```javascript
 let allowedOrigins = [/\.forestadmin\.com$/, /localhost:\d{4}$/];
 if (process.env.CORS_ORIGINS) {
-  allowedOrigins = allowedOrigins.concat(process.env.CORS_ORIGINS.split(','));
+  allowedOrigins = allowedOrigins.concat(process.env.CORS_ORIGINS.split(","));
 }
 const corsConfig = {
   origin: allowedOrigins,
-  allowedHeaders: ['Authorization', 'X-Requested-With', 'Content-Type'],
+  allowedHeaders: ["Authorization", "X-Requested-With", "Content-Type"],
   maxAge: 86400, // NOTICE: 1 day
   credentials: true,
 };
-app.use('/forest/authentication', cors({
-  ...corsConfig,
-  // The null origin is sent by browsers for redirected AJAX calls
-  // we need to support this in authentication routes because OIDC
-  // redirects to the callback route
-  origin: corsConfig.origin.concat('null')
-}));
+app.use(
+  "/forest/authentication",
+  cors({
+    ...corsConfig,
+    // The null origin is sent by browsers for redirected AJAX calls
+    // we need to support this in authentication routes because OIDC
+    // redirects to the callback route
+    origin: corsConfig.origin.concat("null"),
+  })
+);
 app.use(cors(corsConfig));
 ```
 
@@ -330,5 +376,5 @@ Then assign the `client_id` value from the response (it's a JWT) to a `FOREST_CL
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 
-* [Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-600---2020-03-17)
-* [Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-600---2020-03-17)
+- [Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-600---2020-03-17)
+- [Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-600---2020-03-17)

@@ -15,14 +15,14 @@ Please be aware that while Forest Admin make every effort to ensure that our pla
 
 This upgrade unlocks the following features:
 
-* Use templating in the filters of Chart components
-* Add conditions to your role permissions
+- Use templating in the filters of Chart components
+- Add conditions to your role permissions
 
 ## Upgrading to v8
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -57,9 +57,8 @@ If you have access to roles (Project settings > Roles) as designed below...\
 then you are using the new role system and can go ahead with the upgrade to v8.
 {% endhint %}
 
-
-In your code, if you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route.
-You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
+In your code, if you were using the `ForestLiana::PermissionsChecker` for check the permission on overriding route.
+You need to replace `PermissionsChecker.new(...)` by `ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)`.
 
 An example can be found [here](../../../reference-guide/routes/override-a-route.md).
 

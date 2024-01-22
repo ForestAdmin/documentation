@@ -20,8 +20,8 @@ Before upgrading to v5, consider the below **breaking changes**.
 {% endhint %}
 
 {% hint style="info" %}
-You must upgrade your agent version on a development environment, then push it to other environments (Production, Staging, Test,...).
-More information about forest-admin schema can be found [here ↗](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) and [here ↗](./upgrade-to-v3.md#schema-versioning)
+First, you must upgrade your agent version and restart your server on a Development environment, then, commit and push the new configuration to upper environments (Test, Staging, Production...).
+More information about the Forest Admin schema can be found in [the models documentation](../../../reference-guide/models/README.md#the-forestadmin-schemajson-file) or in [the initial upgrade note](./upgrade-to-v3.md#schema-versioning)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -49,9 +49,11 @@ The agent version introduces an improved authentication mechanism. The following
 In your `secrets.yml` file, set a `forest_application_url` variable: it must contain your Rails app URL for that environment. Then add the following:
 
 {% code title="config/initializers/forest_liana.rb" %}
+
 ```ruby
 ForestLiana.application_url = Rails.application.secrets.forest_application_url
 ```
+
 {% endcode %}
 
 #### New CORS condition
@@ -109,9 +111,11 @@ Then assign the `client_id` value from the response (it's a JWT) to a `forest_cl
 Lastly, add the following:
 
 {% code title="config/initializers/forest_liana.rb" %}
+
 ```ruby
 ForestLiana.forest_client_id = Rails.application.secrets.forest_client_id
 ```
+
 {% endcode %}
 
 ## Important Notice
@@ -120,4 +124,4 @@ ForestLiana.forest_client_id = Rails.application.secrets.forest_client_id
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 
-* [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#600-2021-02-22)
+- [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#600-2021-02-22)
