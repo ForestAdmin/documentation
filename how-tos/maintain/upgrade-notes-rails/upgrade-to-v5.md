@@ -40,6 +40,7 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 This version also introduces the new Select all behavior. Once you've updated your **bulk** Smart Actions according to the below changes, you'll be able to choose between selecting **all** the records or only those displayed on the current page.
 
 {% code title="/controllers/forest/companies_controller.rb" %}
+
 ```javascript
 # BEFORE
 class Forest::CompaniesController < ForestLiana::SmartActionsController
@@ -58,6 +59,7 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -70,4 +72,4 @@ If you altered the default DELETE behavior by overriding or extending it, you'll
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 
-* [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#release-500---2020-03-20)
+- [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#release-500---2020-03-20)
