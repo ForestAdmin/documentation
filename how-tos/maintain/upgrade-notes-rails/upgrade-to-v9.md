@@ -45,7 +45,7 @@ It's now easier to create or update polymorphic associations using the polymorph
 \
 ![](<../../../.gitbook/assets/image (550).png>)\
 \
-It's also easier to navigate between related records through the related link.\
+You can now navigate between related records through the related link.\
 \
 ![](<../../../.gitbook/assets/image (551).png>)\
 \
