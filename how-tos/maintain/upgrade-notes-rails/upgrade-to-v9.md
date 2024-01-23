@@ -1,7 +1,7 @@
 ---
 description: >-
-  The purpose of this note is to help developers to upgrade their agent from v7
-  to v8. Please read carefully and integrate the following breaking changes to
+  The purpose of this note is to help developers to upgrade their agent from v8
+  to v9. Please read carefully and integrate the following breaking changes to
   ensure a smooth update.​
 ---
 
