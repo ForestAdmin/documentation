@@ -47,8 +47,7 @@ It's now easier to create or update polymorphic associations using the polymorph
 \
 You can now navigate between related records through the related link.\
 \
-![](<../../../.gitbook/assets/image (551).png>)\
-\
+![](<../../../.gitbook/assets/image (551).png>)
 
 {% hint style="warning" %}
 The <record>_type and <record>_id fields are no longer returned by the API. As a result, if you have configured a segment or scope with filters on these fields, they will no longer work.
