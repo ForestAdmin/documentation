@@ -7,6 +7,10 @@ description: >-
 
 # Upgrade to v7
 
+{% hint style="info" %}
+Upgraded your agent but changes are not reflecting on your UI ? [Follow this note](../push-your-new-version-to-production.md).
+{% endhint %}
+
 ## Upgrading to v7
 
 This upgrade unlocks the following feature:
