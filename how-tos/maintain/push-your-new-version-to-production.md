@@ -12,10 +12,11 @@ When upgrading your agent version, it will only be taken into account if the `.f
 At Forest Admin, we advise you to start your migration in your development environment:
 
 1. Upgrade your agent in development following the upgrade notes
-2. You should notice that your `.forestadmin-schema.json` has been updated
-3. Commit your source code, dependency manager file as well as the `.forestadmin-schema.json` file
-4. Push your commit to Production/Staging/Test
-5. Pull code in your server; install, build and restart 
+2. Start the agent locally
+3. You should notice that your `.forestadmin-schema.json` has been updated
+4. Commit your source code, dependency manager file as well as the `.forestadmin-schema.json` file
+5. Push your commit to Production/Staging/Test
+6. Pull code in your server; install, build and restart 
 
 
 ## Upgrade without development environment (Not recommended)

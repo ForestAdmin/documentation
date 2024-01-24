@@ -8,7 +8,7 @@ description: >-
 # Upgrade to v9
 
 {% hint style="info" %}
-Upgraded your agent but changes are not reflecting on your UI ? [Follow this note](../push-your-new-version-to-production.md).
+Please follow the recommended procedure to upgrade your agent version by following [this note](../push-your-new-version-to-production.md).
 {% endhint %}
 
 This upgrade unlocks the following features:
