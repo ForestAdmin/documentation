@@ -105,7 +105,6 @@ The **query parameters** sent for **filtering** purposes have changed in v4.
 You could be impacted if you have custom filter implementations.
 {% endhint %}
 
-Below are a few example of the new filter conditions format you can access using`params[:filters]`:
 
 {% code title="Simple condition example:" %}
 ```javascript
