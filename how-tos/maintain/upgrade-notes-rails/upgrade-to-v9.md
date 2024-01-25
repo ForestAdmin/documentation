@@ -29,7 +29,7 @@ If you're upgrading from an older version, please make sure you've also read the
 
 To upgrade to v9, **update the version in your Gemfile**, then run the following and update your project as shown in the _Breaking Changes_ section below.
 
-```ruby
+```bash
 bundle install
 ```
 
