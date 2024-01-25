@@ -29,7 +29,7 @@ If you're upgrading from an older version, please make sure you've also read the
 
 To upgrade to v9, **update the version in your Gemfile**, then run the following and update your project as shown in the _Breaking Changes_ section below.
 
-```javascript
+```ruby
 bundle install
 ```
 
@@ -50,6 +50,6 @@ You can now navigate between related records through the related link.\
 ![](<../../../.gitbook/assets/image (551).png>)
 
 {% hint style="warning" %}
-The <record>_type and <record>_id fields are no longer returned by the API. As a result, if you have set up a segment, scope, smart action or any others features that uses these fields, they will no longer work.
+The ```<record>_type``` and ```<record>_id``` fields are no longer returned by the API. As a result, if you have set up a segment, scope, smart action or any others features that uses these fields, they will no longer work.
 {% endhint %}
 
