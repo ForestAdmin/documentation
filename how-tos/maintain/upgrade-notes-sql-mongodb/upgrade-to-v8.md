@@ -7,6 +7,10 @@ description: >-
 
 # Upgrade to v8
 
+{% hint style="info" %}
+Please follow the recommended procedure to upgrade your agent version by following [this note](../push-your-new-version-to-production.md).
+{% endhint %}
+
 This upgrade unlocks the following features:
 
 * [Add or remove Smart action form fields dynamically](../../../reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md#add-remove-fields-dynamically)

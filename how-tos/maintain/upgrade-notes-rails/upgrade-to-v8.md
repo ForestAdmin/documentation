@@ -13,6 +13,10 @@ Please be aware that while Forest Admin make every effort to ensure that our pla
 
 {% endhint %}
 
+{% hint style="info" %}
+Please follow the recommended procedure to upgrade your agent version by following [this note](../push-your-new-version-to-production.md).
+{% endhint %}
+
 This upgrade unlocks the following features:
 
 * Use templating in the filters of Chart components
