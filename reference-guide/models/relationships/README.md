@@ -68,7 +68,7 @@ module.exports = (mongoose, Mongoose) => {
 Note that for orders to be displayed within the related data section of your customer, they have to be populated in your database. For instance:
 {% endhint %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-09-05 à 13.41.02.png>)
+![](<../../../.gitbook/assets/screenshot 2019-09-05 at 13.41.02.png>)
 {% endtab %}
 {% endtabs %}
 
@@ -175,7 +175,7 @@ For a collection `collectionName`, the foreign key should be `collection_name_id
 If this is not the case, check out the [section below](./#declaring-a-foreign-key-sql-only).
 {% endhint %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2020-06-22 à 11.28.08.png>)
+![](<../../../.gitbook/assets/screenshot 2020-06-22 at 11.28.08.png>)
 
 {% hint style="info" %}
 Don't forget to **restart your server** for your newly added relationships to be taken into account.
