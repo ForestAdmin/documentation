@@ -9,7 +9,7 @@ Relationships are visible and actionable in Forest Admin:
 * `hasMany` **(1)**
 * `belongsTo` or `hasOne`**(2)**
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.52.25.png>)
+![](<../../../.gitbook/assets/live-demo-collection-relationship.png>)
 
 If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association\_basics.html) to create new ones.
 

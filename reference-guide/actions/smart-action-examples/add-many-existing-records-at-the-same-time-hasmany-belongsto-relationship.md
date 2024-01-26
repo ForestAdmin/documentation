@@ -6,7 +6,7 @@ description: >-
 
 # Add many existing records at the same time (hasMany-belongsTo relationship)
 
-![](<../../../.gitbook/assets/Bulk add records.gif>)
+![](<../../../.gitbook/assets/bulk-add-records.gif>)
 
 ### Requirements
 
