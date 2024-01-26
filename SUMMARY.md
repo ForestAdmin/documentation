@@ -166,7 +166,7 @@
   * [Manage your Forest Admin environments programmatically](how-tos/maintain/manage-your-forest-admin-programmatically.md)
   * [Changing your domain name](how-tos/maintain/changing-your-domain-name.md)
   * [Migrate to the new role system](how-tos/maintain/migrate-to-the-new-role-system.md)
-  * [Push you new version to production](how-tos/maintain/push-your-new-version-to-production.md)
+  * [Push your new version to production](how-tos/maintain/push-your-new-version-to-production.md)
 * [Databases](how-tos/databases/README.md)
   * [Use a demo SQL database](how-tos/databases/use-a-demo-database.md)
   * [Use a demo MongoDB database](how-tos/databases/use-a-demo-mongodb-database.md)
