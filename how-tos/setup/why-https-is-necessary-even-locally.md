@@ -10,7 +10,7 @@ This article explains why HTTPS is necessary and provides step-by-step guidance 
 
 Forest Admin's architecture relies on secure communication between the front-end and the agent. Modern browsers enforce strict security measures to ensure data privacy and integrity. As a result, HTTPS is required when connecting to the agent.
 
-<figure><img src="../../.gitbook/assets/how_it_works_5_1.jpg" alt=""><figcaption></figcaption></figure>
+![](../../.gitbook/assets/how-it-works-5-1.jpg)
 
 As shown in the architecture schema, the front-end of Forest Admin is in HTTPS. To make calls to the agent, modern browsers require the agent endpoint to be in HTTPS as well.
 
