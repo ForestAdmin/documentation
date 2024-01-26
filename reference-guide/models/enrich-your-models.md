@@ -169,7 +169,7 @@ module.exports = (mongoose, Mongoose) => {
 
 ...will result in the following interface:
 
-![](<../../.gitbook/assets/assets\_-LR7SWfEwsNtj\_ZiSkSA\_-Lq1HOoPtCxjwyNAdmU5\_-Lq1ipL6Hmp8OjDLp1NP\_Screenshot 2019-09-30 at 17.00.10 copie.png>)
+![](<../../.gitbook/assets/nested-documents-field-customization-mongoose.png>)
 
 ### Removing a model
 

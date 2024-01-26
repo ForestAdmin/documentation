@@ -11,11 +11,11 @@ Forest Admin provides you with:
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![The Admin Backend is a Node.JS REST API hosted on your servers](../../.gitbook/assets/how\_it\_works\_2.jpg)
+![The Admin Backend is a Node.JS REST API hosted on your servers](../../.gitbook/assets/how-it-works-2.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![The Admin Backend is a Rails Engine mounted on your application](../../.gitbook/assets/how\_it\_works\_3.jpg)
+![The Admin Backend is a Rails Engine mounted on your application](../../.gitbook/assets/how-it-works-3.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -44,11 +44,11 @@ As your data transits directly from the Admin Backend hosted on your end and the
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/how\_it\_works\_4.jpg)
+![](../../.gitbook/assets/how-it-works-4.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/how\_it\_works\_3.jpg)
+![](../../.gitbook/assets/how-it-works-3.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -61,11 +61,11 @@ The connection to both servers to the **Admin Backend** and the **Forest Admin S
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/how\_it\_works\_5.jpg)
+![](../../.gitbook/assets/how-it-works-5.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/how\_it\_works\_6.jpg)
+![](../../.gitbook/assets/how-it-works-6.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -102,11 +102,11 @@ The **Forest Admin UI** has an option to completely disable any 3rd-party provid
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/how\_it\_works\_7.jpg)
+![](../../.gitbook/assets/how-it-works-7.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/how\_it\_works\_8.jpg)
+![](../../.gitbook/assets/how-it-works-8.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -116,11 +116,11 @@ The [IP whitelisting](../../how-tos/setup/forest-admin-ip-white-listing-forest-c
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
-![](../../.gitbook/assets/how\_it\_works\_9.jpg)
+![](../../.gitbook/assets/how-it-works-9.jpg)
 {% endtab %}
 
 {% tab title="Rails/Django/Laravel" %}
-![](../../.gitbook/assets/how\_it\_works\_10.jpg)
+![](../../.gitbook/assets/how-it-works-10.jpg)
 {% endtab %}
 {% endtabs %}
 
@@ -128,7 +128,7 @@ The [IP whitelisting](../../how-tos/setup/forest-admin-ip-white-listing-forest-c
 
 You're free to host your **Admin Backend** in the cloud architecture you want to be compliant with your security infrastructure (DMZ, VPN, etc.).﻿
 
-![](../../.gitbook/assets/how\_it\_works\_11.jpg)
+![](../../.gitbook/assets/how-it-works-11.jpg)
 
 ## Credentials
 

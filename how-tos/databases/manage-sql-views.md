@@ -74,4 +74,4 @@ Once your SQL view is implemented, you'll be able to filter, search, export and 
 Most of the time SQL views are used as **read-only**. If this is the case, we recommend changing the CRUD permission in your [roles's settings](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
 {% endhint %}
 
-![](<../../.gitbook/assets/customer\_stats SQL View.png>)
+![](<../../.gitbook/assets/customer-stats-sql-view.png>)
