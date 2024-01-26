@@ -5,12 +5,18 @@ The example below shows how to display a calendar view:
 ![](<../../.gitbook/assets/image (255).png>)
 
 ```javascript
-import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
-import { guidFor } from '@ember/object/internals';
-import { triggerSmartAction, deleteRecords, getCollectionId, loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
+import Component from "@glimmer/component";
+import { inject as service } from "@ember/service";
+import { action } from "@ember/object";
+import { tracked } from "@glimmer/tracking";
+import { guidFor } from "@ember/object/internals";
+import {
+  triggerSmartAction,
+  deleteRecords,
+  getCollectionId,
+  loadExternalStyle,
+  loadExternalJavascript,
+} from "client/utils/smart-view-utils";
 
 export default class extends Component {
   @service() router;
@@ -31,73 +37,89 @@ export default class extends Component {
   }
 
   async loadPlugin() {
-    loadExternalStyle('https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css');
-    await loadExternalJavascript('https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js');
+    loadExternalStyle(
+      "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+    );
+    await loadExternalJavascript(
+      "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"
+    );
     this.loaded = true;
-    
+
     this.onInsert();
   }
-  
+
   @action
   onInsert() {
     if (!this.loaded || !document.getElementById(this.calendarId)) return;
 
-    this.calendar = new FullCalendar.Calendar(document.getElementById(this.calendarId), {
-      allDaySlot: false,
-      minTime: '00:00:00',
-      initialDate: new Date(2018, 2, 1),
-      eventClick: (event, jsEvent, view) => {
-        this.router.transitionTo(
-          'project.rendering.data.collection.list.view-edit.details',
-          this.args.collection.id,
-          event.id,
-        );
-      },
-      events: async (info, successCallback, failureCallback) => {
-        const field = this.args.collection.fields.findBy('field', 'start_date');
+    this.calendar = new FullCalendar.Calendar(
+      document.getElementById(this.calendarId),
+      {
+        allDaySlot: false,
+        minTime: "00:00:00",
+        initialDate: new Date(2018, 2, 1),
+        eventClick: ({ event, jsEvent, view }) => {
+          this.router.transitionTo(
+            "project.rendering.data.collection.list.view-edit.details",
+            this.args.collection.id,
+            // This is not a mistake, you have to specify the collection twice
+            this.args.collection.id,
+            event.id
+          );
+        },
+        events: async (info, successCallback, failureCallback) => {
+          const field = this.args.collection.fields.findBy(
+            "fieldName",
+            "start_date"
+          );
 
-        if (this.conditionAfter) {
-          this.args.removeCondition(this.conditionAfter, true);
-          this.conditionAfter.unloadRecord();
-        }
-        if (this.conditionBefore) {
-          this.args.removeCondition(this.conditionBefore, true);
-          this.conditionBefore.unloadRecord();
-        }
+          if (this.conditionAfter) {
+            this.args.removeCondition(this.conditionAfter, true);
+            this.conditionAfter.unloadRecord();
+          }
+          if (this.conditionBefore) {
+            this.args.removeCondition(this.conditionBefore, true);
+            this.conditionBefore.unloadRecord();
+          }
 
-        const conditionAfter = this.store.createFragment('fragment-condition');
-        conditionAfter.set('field', field);
-        conditionAfter.set('operator', 'is after');
-        conditionAfter.set('value', info.start);
-        conditionAfter.set('smartView', this.args.viewList);
-        this.conditionAfter = conditionAfter;
+          const conditionAfter =
+            this.store.createFragment("fragment-condition");
+          conditionAfter.set("field", field);
+          conditionAfter.set("operator", "is after");
+          conditionAfter.set("value", info.start);
+          conditionAfter.set("smartView", this.args.viewList);
+          this.conditionAfter = conditionAfter;
 
-        const conditionBefore = this.store.createFragment('fragment-condition');
-        conditionBefore.set('field', field);
-        conditionBefore.set('operator', 'is before');
-        conditionBefore.set('value', info.end);
-        conditionBefore.set('smartView', this.args.viewList);
-        this.conditionBefore = conditionBefore;
+          const conditionBefore =
+            this.store.createFragment("fragment-condition");
+          conditionBefore.set("field", field);
+          conditionBefore.set("operator", "is before");
+          conditionBefore.set("value", info.end);
+          conditionBefore.set("smartView", this.args.viewList);
+          this.conditionBefore = conditionBefore;
 
-        this.args.addCondition(conditionAfter, true);
-        this.args.addCondition(conditionBefore, true);
+          this.args.addCondition(conditionAfter, true);
+          this.args.addCondition(conditionBefore, true);
 
-        await this.args.fetchRecords({ page: 1 });
-        
-        successCallback(this.args.records?.map((appointment) => {
-          return {
-            id: appointment.get('id'),
-            title: appointment.get('forest-name'),
-            start: appointment.get('forest-start_date'),
-            end: appointment.get('forest-end_date')
-          };
-        }));
+          await this.args.fetchRecords({ page: 1 });
+
+          successCallback(
+            this.args.records?.map((appointment) => {
+              return {
+                id: appointment.get("id"),
+                title: appointment.get("forest-name"),
+                start: appointment.get("forest-start_date"),
+                end: appointment.get("forest-end_date"),
+              };
+            })
+          );
+        },
       }
-    })
+    );
 
     this.calendar.render();
   }
-    
+
   @action
   triggerSmartAction(...args) {
     return triggerSmartAction(this, ...args);
@@ -114,7 +136,7 @@ export default class extends Component {
 .calendar {
   padding: 20px;
   background: var(--color-beta-surface);
-  height:100%;
+  height: 100%;
   overflow: scroll;
 }
 .calendar .fc-toolbar.fc-header-toolbar .fc-left {
@@ -124,7 +146,7 @@ export default class extends Component {
 .calendar .fc-day-header {
   padding: 10px 0;
   background-color: var(--color-beta-secondary);
-  color: var(--color-beta-on-secondary_dark)
+  color: var(--color-beta-on-secondary_dark);
 }
 .calendar .fc-event {
   background-color: var(--color-beta-secondary);
@@ -173,5 +195,10 @@ export default class extends Component {
 ```
 
 ```html
-<div id={{this.calendarId}} class="calendar" {{did-insert this.onInsert}}></div>
+<div
+  id="{{this.calendarId}}"
+  class="calendar"
+  {{did-insert
+  this.onInsert}}
+></div>
 ```
