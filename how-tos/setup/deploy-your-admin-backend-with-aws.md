@@ -12,14 +12,14 @@ First, please ensure you have an AWS account. You can sign up [here](https://aws
 - Select `t2.micro` (part of the AWS Free Tier).
 - Select `Proceed without a key pair`
 
-![](../../assets/deploy-on-aws-key-pair.png)
+![](../../.gitbook/assets/deploy-on-aws-key-pair.png)
 
 - On the `Configure Security Group` step, create a new security group:
   - allow `ssh traffic`.
   - allow `HTTPS traffic`.
   - allow `HTTP traffic`.
 
-![](../../assets/deploy-on-aws-security-group.png)
+![](../../.gitbook/assets/deploy-on-aws-security-group.png)
 
 - Review and launch the instance.
 
@@ -82,7 +82,7 @@ npm run start:watch
 - Click on `Edit inbound rules`.
 - Add a Custom TCP inbound rule to allow on port `3310`.
 
-![](../../assets/deploy-on-aws-inbound-rules.png)
+![](../../.gitbook/assets/deploy-on-aws-inbound-rules.png)
 
 ### 5. Create a target group:
 
@@ -110,15 +110,15 @@ npm run start:watch
 - Ensure the ALB is set to the same VPC as your EC2 instance.
 - Select all regions.
 
-![](../../assets/deploy-on-aws-alb-regions.png)
+![](../../.gitbook/assets/deploy-on-aws-alb-regions.png)
 
 - Remove default security group and select the group associated to the newly created instance.
 
-![](../../assets/deploy-on-aws-alb-security.png)
+![](../../.gitbook/assets/deploy-on-aws-alb-security.png)
 
 - Add an HTTPS listener and choose previously created target group and certificate.
 
-![](../../assets/deploy-on-aws-alb-https-listener.png)
+![](../../.gitbook/assets/deploy-on-aws-alb-https-listener.png)
 
 - After creating the ALB copy the `DNS name`.
 

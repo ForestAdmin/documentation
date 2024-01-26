@@ -187,7 +187,7 @@ class Order extends Model
 {% endtab %}
 {% endtabs %}
 
-![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.00.28.png>)
+![](<../../../../.gitbook/assets/live-demo-collection-smart-relationship.png>)
 
 ### Create a HasMany Smart Relationship
 
@@ -678,4 +678,4 @@ class ProductsController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-![](<../../../../.gitbook/assets/Capture d’écran 2019-07-01 à 11.02.40.png>)
+![](<../../../../.gitbook/assets/screenshot 2019-07-01 at 11.02.40.png>)

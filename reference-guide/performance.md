@@ -20,11 +20,11 @@ As you can see in the [Loading time benchmark](performance.md#loading-time-bench
 
 2\. Reduce the number of records per page
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.06.png>)
+![](<../.gitbook/assets/screenshot 2019-07-01 at 17.47.06.png>)
 
 3\. Reduce the number of fields displayed
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.55 (1).png>)
+![](<../.gitbook/assets/screenshot 2019-07-01 at 17.47.55 (1).png>)
 
 {% hint style="info" %}
 You can hide some fields in your table view; this will not prevent you from seeing them in the record details view.
@@ -32,7 +32,7 @@ You can hide some fields in your table view; this will not prevent you from seei
 
 Relationship fields are links to other collection records within your table view:
 
-![](<../.gitbook/assets/Capture d’écran 2019-07-01 à 17.49.03.png>)
+![](<../.gitbook/assets/screenshot 2019-07-01 at 17.49.03.png>)
 
 Having Relationship fields can decrease your performance, especially if your tables have a lot of records. Therefore you should display only those you need and use!
 

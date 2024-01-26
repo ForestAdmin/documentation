@@ -198,7 +198,7 @@ module.exports = new JSONAPISerializer('legal_docs', {
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.40.14 (1).png>)
+![](<../../../.gitbook/assets/live-demo-s3-integration.png>)
 
 ### Implementing the GET (specific record)
 
@@ -342,7 +342,7 @@ module.exports = router;
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.42.42.png>)
+![](<../../../.gitbook/assets/live-demo-s3-integration-verified.png>)
 
 ### Implementing the DELETE
 
@@ -394,7 +394,7 @@ module.exports = router;
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/Capture d’écran 2019-07-01 à 10.45.48.png>)
+![](<../../../.gitbook/assets/live-demo-s3-integration-delete.png>)
 
 ### Implementing the POST
 
