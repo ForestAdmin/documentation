@@ -41,13 +41,13 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 
 This new version introduces support for polymorphic associations.
 
-It's now easier to create or update polymorphic associations using the polymorphic record selection component.\
-\
-![](<../../../.gitbook/assets/image (550).png>)\
-\
-You can now navigate between related records through the related link.\
-\
-![](<../../../.gitbook/assets/image (551).png>)
+It's now easier to create or update polymorphic associations using the polymorphic record selection component.
+
+![](<../../../.gitbook/assets/polymorphic-association.png>)
+
+You can now navigate between related records through the related link.
+
+![](<../../../.gitbook/assets/polymorphic-association-2.png>)
 
 {% hint style="warning" %}
 The ```<record>_type``` and ```<record>_id``` fields are no longer returned by the API. As a result, if you have set up a segment, scope, smart action or any others features that uses these fields, they will no longer work.
