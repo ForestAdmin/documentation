@@ -452,7 +452,7 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 We will see a success message in the browser:
 
-![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.34.54.png>)
+![](<../../../.gitbook/assets/toastr-success.png>)
 
 #### Custom success notification
 
