@@ -536,7 +536,7 @@ class CompaniesController extends ForestController
 
 … the success notification will look like this:
 
-![](<../../../.gitbook/assets/Screenshot 2020-05-25 at 17.35.40.png>)
+![](<../../../.gitbook/assets/toastr-success-custom.png>)
 
 #### Custom error notification
 
@@ -622,7 +622,7 @@ class CompaniesController extends ForestController
 {% endtab %}
 {% endtabs %}
 
-#### <img src="../../../.gitbook/assets/Screenshot 2020-05-25 at 17.36.04.png" alt="" data-size="original"> <a href="#custom-html-response" id="custom-html-response"></a>
+![](<../../../.gitbook/assets/toastr-error.png>)
 
 #### Custom HTML response
 
