@@ -69,7 +69,7 @@ module.exports = router;
 
 {% hint style="warning" %}
 You must make sure that all your Smart Actions routes are configured with the Smart Action middleware:
-`permissionMiddlewareCreator.smartAction()`. This is mandatory to ensure that all features built on top of Smart Actions work as expected.
+`permissionMiddlewareCreator.smartAction()`. This is mandatory to ensure that all features built on top of Smart Actions work as expected (permissions, approval workflows,...).
 {% endhint %}
 
 {% endtab %}
@@ -106,7 +106,7 @@ module.exports = router;
 
 {% hint style="warning" %}
 You must make sure that all your Smart Actions routes are configured with the Smart Action middleware:
-`permissionMiddlewareCreator.smartAction()`. This is mandatory to ensure that all features built on top of Smart Actions work as expected.
+`permissionMiddlewareCreator.smartAction()`. This is mandatory to ensure that all features built on top of Smart Actions work as expected (permissions, approval workflows,...).
 {% endhint %}
 
 {% endtab %}
