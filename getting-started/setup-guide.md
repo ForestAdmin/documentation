@@ -45,7 +45,7 @@ Declare it in your `/forest/orders.js` file:
 const { collection } = require('forest-express-sequelize');
 
 collection('orders', {
-  actions: [{ 
+  actions: [{
     name: 'Refund order'
   }],
 });
@@ -76,7 +76,7 @@ Declare it in your `/forest/orders.js` file:
 const { collection } = require('forest-express-mongoose');
 
 collection('orders', {
-  actions: [{ 
+  actions: [{
     name: 'Refund order'
   }],
 });
@@ -108,7 +108,7 @@ class Forest::Order
   include ForestLiana::Collection
 
   collection :Order
-  
+
   action 'Refund order'
 end
 ```
@@ -123,7 +123,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/actions/refund-order' => 'orders#refund_order'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -140,7 +140,7 @@ class Forest::OrdersController < ForestLiana::SmartActionsController
 end
 ```
 
-Note that Forest Admin takes care of the authentication thanks to the `ForestLiana::SmartActionsController` parent class controller.
+Note that Forest Admin takes care of permissions control thanks to `ForestLiana::SmartActionsController` class controller. And additionally the authentication thanks to the `ForestLiana::SmartActionsController` parent class controller.
 
 {% hint style="info" %}
 You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md) to enable the domain `app.forestadmin.com` to trigger API call on your Application URL, which is on a different domain name (e.g. _localhost:8000_).
