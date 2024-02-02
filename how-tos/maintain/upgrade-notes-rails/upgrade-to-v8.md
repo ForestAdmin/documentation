@@ -19,8 +19,8 @@ Please follow the recommended procedure to upgrade your agent version by followi
 
 This upgrade unlocks the following features:
 
-* Use templating in the filters of Chart components
-* Add conditions to your role permissions
+- Use templating in the filters of Chart components
+- Add conditions to your role permissions
 
 ## Upgrading to v8
 
@@ -44,22 +44,44 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 
 ## Breaking changes
 
-This new version (v8) does not support the old role system. If you are still using the old role system, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new role system **before** you attempt to upgrade to version 8.
+### Roles v2.0
+
+This new version (v8) drops the support of the legacy Roles system (v1.0). If you are this legacy configuration, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new Roles system (v2.0) **before** you attempt to upgrade to version 8.
 
 {% hint style="warning" %}
-**How do I know if I'm using the old or new role system?**
+**How do I know if I'm using the legacy or new Roles system?**
 
-If you have access to roles (Project settings > Roles) as designed below...\
+If you have access to Roles (Project settings > Roles) as designed below...\
 \
 ![](<../../../.gitbook/assets/image (10).png>)\
 \
-then you are using the new role system and can go ahead with the upgrade to v8.
+then you are using the new Role system.
 {% endhint %}
 
+### Approval Workflow
 
-In your code, if you were using the ```ForestLiana::PermissionsChecker``` for check the permission on overriding route.
-You need to replace ```PermissionsChecker.new(...)``` by ```ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)```.
+{% hint style="danger" %}
+This new major version makes the configuration, described below, mandatory to ensure that actions are not triggered directly and approvals requests are properly created for the reviewers.
+{% endhint %}
+
+**Whether or not** your project currently uses the Approval Workflow feature,
+you must ensure that all your Smart Actions controllers extend from the `ForestLiana::SmartActionsController` controller.
+
+{% code title="controller.rb" %}
+
+```ruby
+# NOW in v9, this configuration is mandatory to make approvals work as expected.
+class Forest::CompaniesController < ForestLiana::SmartActionsController
+  def mark_as_live
+    # ...
+  end
+end
+```
+
+{% endcode %}
+
+### Routes override
+
+If your project overrides routes, using the `ForestLiana::PermissionsChecker` to check the permissions, you must replace `PermissionsChecker.new(...)` by `ForestLiana::Ability::forest_authorize!(action, forest_user, @resource)`.
 
 An example can be found [here](../../../reference-guide/routes/override-a-route.md).
-
-You must also ensure that the controllers that manage your smart actions extend from the `ForestLiana::SmartActionsController` controller.

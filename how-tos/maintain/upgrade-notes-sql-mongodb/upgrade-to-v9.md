@@ -54,7 +54,7 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 
 ### Roles v2.0
 
-This new version (v9) drops the support of the legacy Roles system (v1.0). If you are in this configuration, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new Roles system (v2.0) **before** you attempt to upgrade to version 9.
+This new version (v9) drops the support of the legacy Roles system (v1.0). If you are in this legacy configuration, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new Roles system (v2.0) **before** you attempt to upgrade to version 9.
 
 {% hint style="warning" %}
 **How do I know if I'm using the legacy or new Roles system?**
@@ -72,7 +72,7 @@ then you are using the new Role system.
 This new major version makes the configuration, described below, mandatory to ensure that actions are not triggered directly and approvals requests are properly created for the reviewers.
 {% endhint %}
 
-Whether or not your project currently uses the Approval Workflow feature,
+**Whether or not** your project currently uses the Approval Workflow feature,
 you must ensure that all your Smart Actions routes are configured with the Smart Action middleware:
 `permissionMiddlewareCreator.smartAction()`.
 
