@@ -13,8 +13,8 @@ Please follow the recommended procedure to upgrade your agent version by followi
 
 This upgrade unlocks the following features:
 
-* Use templating in the filters of Chart components
-* Add conditions to your role permissions
+- Use templating in the filters of Chart components
+- Add conditions to your role permissions
 
 ## Upgrading to v9
 
@@ -30,15 +30,19 @@ Once you're done with the above steps, run the following:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```
 npm install "forest-express-sequelize@^9.0.0"
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```
 npm install "forest-express-mongoose@^9.0.0"
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -48,14 +52,46 @@ In case of a regression introduced in Production after the upgrade, a rollback t
 
 ## Breaking changes
 
-This new version (v9) does not support the old role system. If you are in the case, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new role system **before** you attempt to upgrade to version 9.
+### Roles v2.0
+
+This new version (v9) drops the support of the legacy Roles system (v1.0). If you are in this legacy configuration, please follow [this procedure](../migrate-to-the-new-role-system.md) in order to migrate to the new Roles system (v2.0) **before** you attempt to upgrade to version 9.
 
 {% hint style="warning" %}
-**How do I know if I'm using the old or new role system?**
+**How do I know if I'm using the legacy or new Roles system?**
 
-If you have access to roles (Project settings > Roles) as designed below...\
+If you have access to Roles (Project settings > Roles) as designed below...\
 \
 ![](<../../../.gitbook/assets/image (10).png>)\
 \
-then you are using the new role system and can go ahead with the upgrade to v9.
+then you are using the new Role system.
 {% endhint %}
+
+### Approval Workflow
+
+{% hint style="danger" %}
+This new major version makes the configuration, described below, mandatory to ensure that actions are not triggered directly and approvals requests are properly created for the reviewers.
+{% endhint %}
+
+**Whether or not** your project currently uses the Approval Workflow feature,
+you must ensure that all your Smart Actions routes are configured with the Smart Action middleware:
+`permissionMiddlewareCreator.smartAction()`.
+
+{% code %}
+
+```javascript
+// BEFORE v9, this configuration, although unsecured, was working.
+router.post('/actions/mark-as-live', (req, res) => {
+  // ...
+});
+
+// NOW in v9, this configuration is mandatory to make approvals work as expected.
+router.post(
+  '/actions/mark-as-live',
+  permissionMiddlewareCreator.smartAction(),
+  (req, res) => {
+    // ...
+  }
+);
+```
+
+{% endcode %}
