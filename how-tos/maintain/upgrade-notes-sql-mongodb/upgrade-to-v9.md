@@ -85,6 +85,9 @@ router.post('/actions/mark-as-live', (req, res) => {
 });
 
 // NOW in v9, this configuration is mandatory to make approvals work as expected.
+const { PermissionMiddlewareCreator } = require('forest-express-xxx');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
+
 router.post(
   '/actions/mark-as-live',
   permissionMiddlewareCreator.smartAction(),

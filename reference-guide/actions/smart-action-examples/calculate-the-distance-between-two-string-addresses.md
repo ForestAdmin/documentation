@@ -56,7 +56,6 @@ const { places } = require('../models');
 const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('places');
 
-
 router.post('/actions/get-distance-to-other-place', permissionMiddlewareCreator.smartAction(), async (request, response, next) => {
   let origin = {};
   let destination = {};
@@ -103,7 +102,7 @@ router.post('/actions/get-distance-to-other-place', permissionMiddlewareCreator.
 	// retrieve the place_id for the origin and destination
   const googlePlaceIds = await Promise.all([getPlaceId(origin), getPlaceId(destination)]);
   [origin.placeId, destination.placeId] = googlePlaceIds;
-	
+
 	//perform call to the distance matrix api
   return superagent
     .get('https://maps.googleapis.com/maps/api/distancematrix/json?')

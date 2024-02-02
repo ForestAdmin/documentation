@@ -16,10 +16,10 @@ This helper simply takes a query as a parameter (containing your filters, your s
 
 4 cases need to be handled there:
 
-* Select all: each of the related records should be impacted
-* Select all, minus some: each of the related records should be impacted, except specific ones
-* Select current page: each of the listed records should be impacted
-* Select some: only some specific records should be impacted
+- Select all: each of the related records should be impacted
+- Select all, minus some: each of the related records should be impacted, except specific ones
+- Select current page: each of the listed records should be impacted
+- Select some: only some specific records should be impacted
 
 Only the two first cases need to be handled, because the last two cases consist of a simple list of the ids selected by the user directly in the request. So nothing special to do here.
 
@@ -30,6 +30,11 @@ In conjunction with the previous 4 cases, we also need to handle the filters and
 Please find in the following snippet every of the requirement listed above fulfilled to make the Smart Action work with the Select All feature.
 
 ```javascript
+const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('articles');
+
+...
+
 // In this function, we want to mimic the getIdsFromRequest behavior,
 // Used in conjunction with the "select all record" feature on a smart relationship
 async function customGetIdsFromRequest(request) {
@@ -101,7 +106,7 @@ router.post('/actions/Unlike', permissionMiddlewareCreator.smartAction(), async 
 
 Explanation of the code:
 
-* Line 1: If the Select All feature has been used, we need to build a query to concatenate the filter, the search, and the Select All configuration. Otherwise, the ids are already present in the query (see line 58)
-* Line 25: Here is an example to show you how to quickly handle filters, if any
-* Line 36: Here is an example to show you how to handle the search, if any
-* Line 44: Finally, this snippet of code removes any ids that have been unselected by the user after using the Select All feature.
+- Line 1: If the Select All feature has been used, we need to build a query to concatenate the filter, the search, and the Select All configuration. Otherwise, the ids are already present in the query (see line 58)
+- Line 25: Here is an example to show you how to quickly handle filters, if any
+- Line 36: Here is an example to show you how to handle the search, if any
+- Line 44: Finally, this snippet of code removes any ids that have been unselected by the user after using the Select All feature.
