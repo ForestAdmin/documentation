@@ -160,6 +160,12 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 module.exports = router;
 ```
 {% endcode %}
+
+{% hint style="warning" %}
+You must make sure that all your Smart Actions routes are configured with the Smart Action middleware:
+`permissionMiddlewareCreator.smartAction()`. This is mandatory to ensure that all features built on top of Smart Actions work as expected.
+{% endhint %}
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
@@ -180,6 +186,12 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 module.exports = router;
 ```
 {% endcode %}
+
+{% hint style="warning" %}
+You must make sure that all your Smart Actions routes are configured with the Smart Action middleware:
+`permissionMiddlewareCreator.smartAction()`. This is mandatory to ensure that all features built on top of Smart Actions work as expected.
+{% endhint %}
+
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -213,7 +225,9 @@ end
 ```
 {% endcode %}
 
-Note that Forest Admin takes care of the authentication thanks to the `ForestLiana::SmartActionsController` parent class controller.
+{% hint style="warning" %}
+You must make sure that all your Smart Actions controllers extend from the `ForestLiana::SmartActionsController`. This is mandatory to ensure that all features built on top of Smart Actions work as expected (authentication, permissions, approval workflows,...)
+{% endhint %}
 
 {% hint style="info" %}
 You may have to [add CORS headers](../../../how-tos/setup/configuring-cors-headers.md) to enable the domain `app.forestadmin.com` to trigger API call on your Application URL, which is on a different domain name (e.g. _localhost:3000_).
