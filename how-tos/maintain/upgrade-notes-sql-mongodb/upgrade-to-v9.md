@@ -68,7 +68,12 @@ then you are using the new Role system.
 
 ### Approval Workflow
 
-If your project is using the Approval Workflow feature, then you must ensure that all your Smart Actions routes are configured with the Smart Action middleware:
+{% hint style="danger" %}
+This new major version makes the configuration, described below, mandatory to ensure that actions are not triggered directly and approvals requests are properly created for the reviewers.
+{% endhint %}
+
+Whether or not your project currently uses the Approval Workflow feature,
+you must ensure that all your Smart Actions routes are configured with the Smart Action middleware:
 `permissionMiddlewareCreator.smartAction()`.
 
 {% code %}
@@ -79,7 +84,7 @@ router.post('/actions/mark-as-live', (req, res) => {
   // ...
 });
 
-// AFTER v9, this configuration is mandatory to make approvals work as expected.
+// NOW in v9, this configuration is mandatory to make approvals work as expected.
 router.post(
   '/actions/mark-as-live',
   permissionMiddlewareCreator.smartAction(),
@@ -90,7 +95,3 @@ router.post(
 ```
 
 {% endcode %}
-
-{% hint style="danger" %}
-This new major version makes this configuration mandatory to ensure that actions are not triggered directly and approvals requests are properly created for the reviewers.
-{% endhint %}
