@@ -16,7 +16,7 @@ On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Up
 const { collection } = require('forest-express-sequelize');
 
 collection('companies', {
-  actions: [{ 
+  actions: [{
     name: 'Upload Legal Docs',
     type: 'single',
     fields: [{
@@ -47,6 +47,9 @@ collection('companies', {
 
 {% code title="/routes/companies.js" %}
 ```javascript
+const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
+
 ...
 
 router.post('/actions/upload-legal-docs', permissionMiddlewareCreator.smartAction(),
@@ -60,7 +63,7 @@ router.post('/actions/upload-legal-docs', permissionMiddlewareCreator.smartActio
     let proof_of_address = attrs['Proof of address'];
     let company_bank_statement = attrs['Company bank statement'];
     let passport_id = attrs['Valid proof of id'];
-    
+
     // The business logic of the Smart Action. We use the function
     // UploadLegalDoc to upload them to our S3 repository. You can see the full
     // implementation on our Forest Live Demo repository on Github.
@@ -75,7 +78,7 @@ router.post('/actions/upload-legal-docs', permissionMiddlewareCreator.smartActio
       res.send({ success: 'Legal documents are successfully uploaded.' });
     });
   });
-  
+
   ...
 
 module.exports = router;
@@ -91,7 +94,7 @@ On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Up
 const { collection } = require('forest-express-mongoose');
 
 collection('companies', {
-  actions: [{ 
+  actions: [{
     name: 'Upload Legal Docs',
     type: 'single',
     fields: [{
@@ -134,7 +137,7 @@ router.post('/actions/upload-legal-docs',
     let proof_of_address = attrs['Proof of address'];
     let company_bank_statement = attrs['Company bank statement'];
     let passport_id = attrs['Valid proof of id'];
-    
+
     // The business logic of the Smart Action. We use the function
     // UploadLegalDoc to upload them to our S3 repository. You can see the full
     // implementation on our Forest Live Demo repository on Github.
@@ -149,7 +152,7 @@ router.post('/actions/upload-legal-docs',
       res.send({ success: 'Legal documents are successfully uploaded.' });
     });
   });
-  
+
 ...
 
 module.exports = router;
@@ -199,7 +202,7 @@ Rails.application.routes.draw do
   namespace :forest do
     post '/actions/upload-legal-docs' => 'companies#upload_legal_docs'
   end
-  
+
   mount ForestLiana::Engine => '/forest'
 end
 ```
@@ -527,10 +530,10 @@ collection('Customers', {
       description: 'Explain the reason why you want to charge manually the customer here',
       type: 'String'
       }, {
-      // we added a field to show the full potential of prefilled values in this example 
+      // we added a field to show the full potential of prefilled values in this example
       field: 'stripe_id',
       isRequired: true,
-      type: 'String'  
+      type: 'String'
     }],
     hooks: {
       load: async ({ fields, request }) => {
@@ -541,14 +544,14 @@ collection('Customers', {
 
         const id = request.body.data.attributes.ids[0];
         const customer = await customers.findByPk(id);
-        
+
         stripeId.value = customer.stripe_id;
 
         return fields;
       },
     },
   }],
-  ...  
+  ...
 });
 ```
 {% endcode %}
@@ -575,10 +578,10 @@ collection('Customers', {
       description: 'Explain the reason why you want to charge manually the customer here',
       type: 'String'
       }, {
-      // we added a field to show the full potential of prefilled values in this example 
+      // we added a field to show the full potential of prefilled values in this example
       field: 'stripe_id',
       isRequired: true,
-      type: 'String'  
+      type: 'String'
     }],
     hooks: {
       load: async ({ fields, request }) => {
@@ -589,14 +592,14 @@ collection('Customers', {
 
         const id = request.body.data.attributes.ids[0];
         const customer = await customers.findByPk(id);
-        
+
         stripeId.value = customer.stripe_id;
 
         return fields;
       },
     },
   }],
-  ...  
+  ...
 });
 ```
 {% endcode %}
@@ -623,7 +626,7 @@ class Forest::Customers
       description: 'Explain the reason why you want to charge manually the customer here',
       type: 'String'
       }, {
-      # we added a field to show the full potential of prefilled values in this example 
+      # we added a field to show the full potential of prefilled values in this example
       field: 'stripe_id',
       isRequired: true,
       type: 'String'
@@ -632,14 +635,14 @@ class Forest::Customers
       :load => -> (context) {
         amount = context[:fields].find{|field| field[:field] == 'amount'}
         stripeId = context[:fields].find{|field| field[:field] == 'stripe_id'}
-        
+
         amount[:value] = 4520;
-        
+
         id = context[:params][:data][:attributes][:ids][0];
         customer = Customers.find(id);
-        
+
         stripeId[:value] = customer['stripe_id'];
-        
+
         return context[:fields];
       }
     }
@@ -674,7 +677,7 @@ class CompanyForest(Collection):
                     'isRequired': True,
                     'type': 'String'
                 },
-                # we added a field to show the full potential of prefilled values in this example 
+                # we added a field to show the full potential of prefilled values in this example
                 {
                     'field': 'stripe_id',
                     'isRequired': True,
@@ -685,21 +688,21 @@ class CompanyForest(Collection):
                 'load': self.charge_credit_card_load,
             },
         }]
-    
+
     def charge_credit_card_load(fields, request, *args, **kwargs):
-        
+
         amount = next((x for x in fields if x['field'] == 'amount'), None)
         stripeId = next((x for x in fields if x['field'] == 'stripe_id'), None)
-        
+
         amount['value'] = 4520;
-        
+
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         id = body['data']['attributes']['ids'][0]
         customer = Customers.objects.get(pk=id)
-        
+
         stripeId['value'] = customer['stripe_id']
-        
+
         return fields
 
 Collection.register(CompanyForest, Company)
@@ -807,7 +810,7 @@ collection('customers', {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
         country.value = 'France';
-        
+
         const id = request.body.data.attributes.ids[0];
         const customer = await customers.findById(id);
 
@@ -866,7 +869,7 @@ collection('customers', {
     hooks: {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
-        
+
         const id = request.body.data.attributes.ids[0];
         const customer = await customers.findByPk(id);
 
@@ -877,12 +880,12 @@ collection('customers', {
       change: {
         onCityChange: async ({ fields, request, changedField }) => {
           const zipCode = fields.find(field => field.field === 'zip code');
-          
+
           const id = request.body.data.attributes.ids[0];
           const customer = await customers.findByPk(id);
 
           zipCode.value = getZipCodeFromCity(
-            customer, 
+            customer,
             changedField.value
           );
 
@@ -943,23 +946,23 @@ collection('customers', {
     hooks: {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
-        
+
         const id = request.body.data.attributes.ids[0];
         const customer = await customers.findById(id);
-        
+
         country.enums = getEnumsFromDatabaseForThisRecord(customer);
-        
+
         return fields;
       },
       change: {
         onCityChange: async ({ fields, request, changedField }) => {
           const zipCode = fields.find(field => field.field === 'zip code');
-          
+
           const id = request.body.data.attributes.ids[0];
           const customer = await customers.findById(id);
 
           zipCode.value = getZipCodeFromCity(
-            customer, 
+            customer,
             changedField.value
           );
 
@@ -967,7 +970,7 @@ collection('customers', {
         },
         onZipCodeChange: async ({ fields, request, changedField }) => {
           const city = fields.find(field => field.field === 'city');
-          
+
           const id = request.body.data.attributes.ids[0];
           const customer = await customers.findById(id);
 
@@ -1013,10 +1016,10 @@ actions 'Send invoice',
   hooks: {
       :load => -> (context){
         country = context[:fields].find{|field| field[:field] == 'country'}
-        
+
         id = context[:params][:data][:attributes][:ids][0];
         customer = Customers.find(id);
-        
+
         country[:enums] = getEnumsFromDatabaseForThisRecord(customer)
 
         return context[:fields]
@@ -1024,28 +1027,28 @@ actions 'Send invoice',
       :change => {
         'oncityChange'=> -> (context){
           zipCode = context[:fields].find{|field| field[:field] == 'zip code'}
-          
+
           id = context[:params][:data][:attributes][:ids][0];
           customer = Customers.find(id);
-        
+
           zipCode[:value] = getZipCodeFromCity(
             context[:record],
             context[:context][:changed_field][:value]
           )
-          
+
           return context[:fields]
         },
         'onZipCodeChange'=> -> (context) {
           city = context[:fields].find{|field| field[:field] == 'city'}
-          
+
           id = context[:params][:data][:attributes][:ids][0];
           customer = Customers.find(id);
-          
+
           city[:value] = getCityFromZipCode(
             context[:record],
             context[:context][:changed_field][:value]
           )
-          
+
           return context[:fields]
         },
       },
@@ -1091,39 +1094,39 @@ class CompanyForest(Collection):
                 },
             },
         }]
-    
+
     def get_enums_from_database_for_this_record(customer):
         # TODO
         pass
-        
+
     def get_zip_code_from_city(customer, value):
         # TODO
         pass
-        
+
     def get_city_from_zip_code(customer, value):
         # TODO
         pass
-    
+
     def send_invoice_load(fields, request, *args, **kwargs):
         country = next((x for x in fields if x['field'] == 'country'), None)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         id = body['data']['attributes']['ids'][0]
         customer = Customers.objects.get(pk=id);
-        
+
         country['enums'] = self.get_enums_from_database_for_this_record(customer)
         return fields
-        
+
     def send_invoice_change_city(self, fields, request, changed_field, *args, **kwargs):
         zip_code = next((x for x in fields if x['field'] == 'zip code'), None)
-        
+
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         id = body['data']['attributes']['ids'][0]
         customer = Customers.objects.get(pk=id);
-        
+
         zip_code['value'] = self.get_zip_code_from_city(
-            customer, 
+            customer,
             changed_field['value']
         )
 
@@ -1131,14 +1134,14 @@ class CompanyForest(Collection):
 
     def send_invoice_change_zip_code(self, fields, request, changed_field, *args, **kwargs):
         city = next((x for x in fields if x['field'] == 'city'), None)
-        
+
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         id = body['data']['attributes']['ids'][0]
         customer = Customers.objects.get(pk=id);
-        
+
         city['value'] = self.get_city_from_zip_code(
-            customer, 
+            customer,
             changed_field['value']
         )
 
@@ -1343,7 +1346,7 @@ As a result, the correct way to set a **default value** is using the `value` pro
 ...
 
 def send_invoice_load(fields, request, *args, **kwargs):
-    country = next((x for x in fields if x['field'] == 'country'), None)     
+    country = next((x for x in fields if x['field'] == 'country'), None)
     country['value'] = 'France'
     return fields
 ```
@@ -1560,7 +1563,7 @@ def on_field_change(self, fields, request, changed_field, *args, **kwargs):
         'hook': 'onAnotherFieldChanged',
     })
     return fields
-    
+
 def on_another_field_change(self, fields, request, changed_field, *args, **kwargs):
     // Do what you want
     return fields
@@ -1626,20 +1629,20 @@ collection('customers', {
     hooks: {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
-        
+
         const ids = await new RecordsGetter(forest, request.user, request.query)
           .getIdsFromRequest(request);
         const customers = await customers.findAll({ where: { id }});
 
         country.value = '';
         country.isReadOnly = false;
-        
+
         // If customers have the same country, set field to this country and make it not editable
         if (customersHaveSameCountry(customers)) {
           country.value = customers.country;
           country.isReadOnly = true;
         }
-        
+
         return fields;
       },
     },
@@ -1676,20 +1679,20 @@ collection('customers', {
     hooks: {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
-        
+
         const ids = await new RecordsGetter(forest, request.user, request.query)
           .getIdsFromRequest(request);
         const customers = await customers.findAll({ _id: { $in: ids } });
 
         country.value = '';
         country.isReadOnly = false;
-        
+
         // If customers have the same country, set field to this country and make it not editable
         if (customersHaveSameCountry(customers)) {
           country.value = customers.country;
           country.isReadOnly = true;
         }
-        
+
         return fields;
       },
     },
@@ -1724,7 +1727,7 @@ class Forest::Customers
     :hooks => {
       :load => -> (context) {
         country = context[:fields].find{|field| field[:field] == 'country'}
-        
+
         ids = ForestLiana::ResourcesGetter.get_ids_from_request(context[:params], context[:user]);
         customers = Customers.find(ids);
 
@@ -1772,25 +1775,25 @@ class CustomerForest(Collection):
                 'load': self.some_action_load,
             },
         }]
-    
-    
+
+
     def send_invoice_load(fields, request, *args, **kwargs):
         country = next((x for x in fields if x['field'] == 'country'), None)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        
-        ids = BaseView().get_ids_from_request(request, Question)        
+
+        ids = BaseView().get_ids_from_request(request, Question)
         customers = Customer.objects.filter(pk__in=ids);
         country['value'] = '';
         country['isReadOnly'] = False;
-        
+
         # If customers have the same country, set field to this country and make it not editable
         if (self.customersHaveSameCountry(customers)) {
           country['value'] = customers[0]['country'];
           country['isReadOnly'] = True;
         }
 
-        
+
         return fields
 
 Collection.register(CustomerForest, Customer)

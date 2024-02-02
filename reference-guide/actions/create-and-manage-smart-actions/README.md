@@ -145,6 +145,9 @@ In the following example, we've implemented the _Mark as live_ Smart Action, whi
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
 ```javascript
+const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
+
 ...
 
 router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), (req, res) => {
@@ -171,6 +174,8 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 {% tab title="Mongodb" %}
 {% code title="/routes/companies.js" %}
 ```javascript
+const { PermissionMiddlewareCreator } = require('forest-express-mongoose');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
 ...
 
 router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), (req, res) => {

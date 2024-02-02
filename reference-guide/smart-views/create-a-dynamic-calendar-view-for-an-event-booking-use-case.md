@@ -471,6 +471,7 @@ const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('availableSlots');
 
 ...
+
 router.post('/actions/book', permissionMiddlewareCreator.smartAction(), (request, response) => {
   const attr = request.body.data.attributes.values;
   const startDate = attr['start date'];

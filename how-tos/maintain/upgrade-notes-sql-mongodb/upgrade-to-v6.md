@@ -73,7 +73,7 @@ This version also introduces the new Select all behavior. Once you've updated yo
 
 {% code title="/routes/companies.js" %}
 ```javascript
-//BEFORE
+// BEFORE
 router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), (req, res) => {
   let companyId = req.body.data.attributes.ids[0];
 

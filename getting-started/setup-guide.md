@@ -55,6 +55,9 @@ collection('orders', {
 Then implement it according to your business logic:
 
 ```javascript
+const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('orders');
+
 ...
 
 router.post('/actions/refund-order', permissionMiddlewareCreator.smartAction(), (req, res) => {
@@ -92,6 +95,9 @@ collection('orders', {
 Then implement it according to your business logic:
 
 ```javascript
+const { PermissionMiddlewareCreator } = require('forest-express-mongoose');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('orders');
+
 ...
 
 router.post('/actions/refund-order', permissionMiddlewareCreator.smartAction(), (req, res) => {

@@ -15,7 +15,7 @@ collection('zendesk_tickets', {
     type: 'String',
     get: (ticket) => {
       return `${ZENDESK_URL_PREFIX}/agent/tickets/${ticket.id}`;
-    },    
+    },
   },
   ...
   ],
@@ -60,7 +60,7 @@ collection('zendesk_tickets', {
     ...
   ],
   segments:[]
-}  
+}
 ```
 {% endcode %}
 
@@ -72,11 +72,11 @@ async function updateTicket(ticketId, newValues) {
   const body = {
     ticket: newValues
   };
-  return axios.put(`${ZENDESK_URL_PREFIX}/api/v2/tickets/${ticketId}`, 
+  return axios.put(`${ZENDESK_URL_PREFIX}/api/v2/tickets/${ticketId}`,
     body,
     {
       headers: {
-        'Authorization': `Basic ${getToken()}` 
+        'Authorization': `Basic ${getToken()}`
       },
     }
   )
@@ -91,8 +91,11 @@ async function updateTicket(ticketId, newValues) {
 And now, we need to implement the route to handle this Smart Action:
 
 {% code title="routes/zendesk_tickets.js" %}
-```java
-const {getTickets, getTicket, updateTicket} = require('../services/zendesk-tickets-service');
+```javascript
+
+const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
+const { getTickets, getTicket, updateTicket } = require('../services/zendesk-tickets-service');
 
 router.post('/actions/zendesk-ticket-change-priority', permissionMiddlewareCreator.smartAction(), (request, response, next) => {
   const ticketId = request.body.data.attributes.ids[0];
