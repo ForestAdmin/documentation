@@ -124,7 +124,6 @@
   * [Create an API-based Chart](reference-guide/charts/create-an-api-based-chart.md)
   * [Create a Smart Chart](reference-guide/charts/create-a-smart-chart.md)
   * [Create Charts with AWS Redshift](reference-guide/charts/create-charts-with-aws-redshift.md)
-* [Workspace Custom Component](reference-guide/smart-component.md)
 
 ## Extra help
 
