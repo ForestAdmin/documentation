@@ -1630,7 +1630,7 @@ collection('customers', {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
 
-        const ids = await new RecordsGetter(forest, request.user, request.query)
+        const ids = await new RecordsGetter(customers, request.user, request.query)
           .getIdsFromRequest(request);
         const customers = await customers.findAll({ where: { id }});
 
@@ -1680,7 +1680,7 @@ collection('customers', {
       load: async ({ fields, request }) => {
         const country = fields.find(field => field.field === 'country');
 
-        const ids = await new RecordsGetter(forest, request.user, request.query)
+        const ids = await new RecordsGetter(customers, request.user, request.query)
           .getIdsFromRequest(request);
         const customers = await customers.findAll({ _id: { $in: ids } });
 
