@@ -5,6 +5,10 @@ description: >-
   are managed within your Rails app.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Default routes
 
 Forest Admin's default routes are generated in the `routes` folder at installation.
@@ -160,7 +164,7 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies')
 router.get('/companies/count', permissionMiddlewareCreator.list(), (request, response, next) => {
   const { query, user } = request;
   const recordsCounter = new RecordsCounter(companies, user, query);
-  
+
   recordsCounter.count(request.query)
     .then(count => response.send({ count }))
     .catch(next);
@@ -247,7 +251,7 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies')
 // Delete a list of Companies - Check out our documentation for more details: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-record
 router.delete('/companies', permissionMiddlewareCreator.delete(), (request, response, next) => {
   const { query, user } = request;
-  
+
   const recordsGetter = new RecordsGetter(companies, user, query);
   const recordsRemover = new RecordsRemover(companies, user, query);
 

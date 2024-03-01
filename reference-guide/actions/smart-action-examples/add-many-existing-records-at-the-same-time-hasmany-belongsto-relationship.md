@@ -4,6 +4,10 @@ description: >-
   record using a simple smart action.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Add many existing records at the same time (hasMany-belongsTo relationship)
 
 ![](<../../../.gitbook/assets/bulk-add-records.gif>)
@@ -56,16 +60,16 @@ collection('organizations', {
           if(!!search.value){
             // Retrieve the company name by querying the DB
             const { name: searchValue } = (await companies.findByPk(search.value)) || {};
-  
+
             // Adding company names when searching matches
             if (searchValue) {
               const allAddedValues = [...(selection.previousValue || []), searchValue]; // ...() spread the array
-              
+
               // Unique array values using a set
               selection.value = [...new Set(allAddedValues)];
               // Allow user to interact with selection field
               selection.isReadOnly = false;
-              
+
               // Reset search value
               search.value = '';
             }

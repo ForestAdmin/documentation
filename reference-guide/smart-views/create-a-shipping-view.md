@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a Shipping view
 
 ![](<../../.gitbook/assets/image (254).png>)
@@ -27,19 +31,19 @@ export default class extends Component {
         return null;
     }
   }
-  
+
   @action
   setDefaultCurrentRecord() {
     if (!this.currentRecord) {
       this.currentRecord = this.args.records.firstObject;
     }
   }
-  
+
   @action
   selectRecord(record) {
     this.currentRecord = record;
   }
-  
+
   @action
   triggerSmartAction(...args) {
     return triggerSmartAction(this, ...args);
@@ -69,7 +73,7 @@ export default class extends Component {
        height: 100vh;
        background:#F2F6FA;
        border-right: 1px solid #D9DDE1;
-       overflow: scroll 
+       overflow: scroll
   }
    .wrapper-card {
        width: 100%;

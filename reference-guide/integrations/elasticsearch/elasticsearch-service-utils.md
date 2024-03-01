@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Elasticsearch service/utils
 
 ## Connecting to Elasticsearch with a Custom Service
@@ -25,7 +29,7 @@ class ElasticsearchHelper {
     filterDefinition,
     mappingFunction,
     sort,
-  }); 
+  });
 
   // Get a List of Records based on the query (page, filter, search, sort)
   functionSearch ({
@@ -43,7 +47,7 @@ class ElasticsearchHelper {
 
   // Remove a by Id
   removeRecord(recordId);
-  
+
   // Remove multiple Ids
   removeRecords(recordsIdsToDelete);
 }
@@ -210,7 +214,7 @@ class ElasticsearchHelper {
       op_type: 'create',
       refresh: true,
     });
-  
+
     return this.getRecord(response.body._id);
   }
 
@@ -246,7 +250,7 @@ class ElasticsearchHelper {
       refresh: true,
     });
   }
-  
+
  /**
    * @param {Array<any>} idsToDelete
    * @returns {Promise}

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Upload files to amazon s3
 
 In this example we want to upload files (legal docs) for the companies collection that will be stored in Amazon S3 through a smart action. To do so we need to perform the following steps:
@@ -10,7 +14,7 @@ In the companies.js file of the Forest folder, add the following to enable the u
 const { collection } = require('forest-express-sequelize');
 
 collection('companies', {
-  actions: [{ 
+  actions: [{
     name: 'Upload Legal Docs',
     type: 'single',
     fields: [{
@@ -72,7 +76,7 @@ router.post('/actions/upload-legal-docs',
     let proof_of_address = attrs['Proof of address'];
     let company_bank_statement = attrs['Company bank statement'];
     let passport_id = attrs['Valid proof of id'];
-    
+
     // The business logic of the Smart Action. We use the function
     // UploadLegalDoc to upload them to our S3 repository. You can see the full
     // implementation on our Forest Live Demo repository on Github.
@@ -87,7 +91,7 @@ router.post('/actions/upload-legal-docs',
       res.send({ success: 'Legal documents are successfully uploaded.' });
     });
   });
-  
+
   ...
 
 module.exports = router;
@@ -151,9 +155,9 @@ function S3Helper() {
     let files = [];
 
     return new P((resolve, reject) => {
-      return s3.listObjects({ 
-        Bucket: process.env.S3_BUCKET, 
-        Prefix: prefix 
+      return s3.listObjects({
+        Bucket: process.env.S3_BUCKET,
+        Prefix: prefix
       }).on('success', function handlePage(r) {
         files.push(...r.data.Contents);
 
@@ -174,8 +178,8 @@ function S3Helper() {
     let files = [];
 
     return new P((resolve, reject) => {
-      return s3.listObjects({ 
-        Bucket: process.env.S3_BUCKET, 
+      return s3.listObjects({
+        Bucket: process.env.S3_BUCKET,
         Prefix: key,
       }).on('success', (file) => {
         return resolve(mapAttrs(file.data.Contents[0]));
@@ -189,7 +193,7 @@ function S3Helper() {
     const s3 = new AWS.S3();
 
     return new P((resolve, reject) => {
-      return s3.deleteObjects({ 
+      return s3.deleteObjects({
         Bucket: process.env.S3_BUCKET,
         Delete: {
           Objects: [{ Key: key }]
@@ -204,7 +208,7 @@ function S3Helper() {
     const s3 = new AWS.S3();
 
     return new P((resolve, reject) => {
-      return s3.copyObject({ 
+      return s3.copyObject({
         Bucket: process.env.S3_BUCKET,
         CopySource: process.env.S3_BUCKET + '/' + key,
         Key: newKey,

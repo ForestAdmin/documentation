@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Retrieve smart field info in a smart action
 
 Example of retrieving a Smart field into a Smart action

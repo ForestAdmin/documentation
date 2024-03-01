@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # login
 
 The `forest login` command allows you to authenticate using:

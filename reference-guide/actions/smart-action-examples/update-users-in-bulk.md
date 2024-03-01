@@ -2,6 +2,11 @@
 description: >-
   This example shows how to bulk update users
 ---
+
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Anonymize users in bulk
 As usual, you must declare the action on your collection.
 

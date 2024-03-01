@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Stripe
 
 Configuring the Stripe integration for Forest allows you to have your **customer’s payments, invoices, cards and subscriptions** **(1)** alongside the corresponding customer from your application. A `Refund` Smart Action **(2,3)** is also implemented out-of-the-box.

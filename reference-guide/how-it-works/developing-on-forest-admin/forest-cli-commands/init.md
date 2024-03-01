@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # init
 
 The `forest init` command provides an all-in-one initialization command that will:

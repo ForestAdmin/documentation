@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Configuring CORS headers
 
 Depending on how you've setup your app, you may encounter a [CORS](https://en.wikipedia.org/wiki/Cross-origin\_resource\_sharing) error. It will look like this in your browser console:

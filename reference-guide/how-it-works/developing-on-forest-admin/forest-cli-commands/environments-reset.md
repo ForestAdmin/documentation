@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # environments:reset
 
 The `forest environments` command is very useful as it allows you to manage your environments. But the sub command that we're more specifically interested in when it comes to developing on Forest Admin is:

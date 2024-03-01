@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display Zendesk tickets
 
 This section shows you how to create a smart collection to list the tickets of your Zendesk account.
@@ -115,7 +119,7 @@ This is going to be very similar. We just need to implement a new endpoint to ge
 async function getTicket(request, response, next) {
   return axios.get(`${ZENDESK_URL_PREFIX}/api/v2/tickets/${request.params.ticketId}?include=comment_count`, {
     headers: {
-      'Authorization': `Basic ${getToken()}` 
+      'Authorization': `Basic ${getToken()}`
     },
   })
   .then( async (resp) => {
@@ -123,10 +127,10 @@ async function getTicket(request, response, next) {
     // Serialize the result using the Forest Admin format
     const recordSerializer = new RecordSerializer({ name: 'zendesk_tickets' });
     const recordSerialized = await recordSerializer.serialize(record);
-    response.send(recordSerialized);      
+    response.send(recordSerialized);
   })
-  .catch(next);  
-  
+  .catch(next);
+
 }
 ```
 {% endcode %}
@@ -141,4 +145,3 @@ router.get('/zendesk_tickets/:ticketId', permissionMiddlewareCreator.details(), 
 });
 ```
 {% endcode %}
-

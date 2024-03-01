@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Install Forest Admin on a remote machine
 
 In this short tutorial, we'll cover how to install Forest Admin on a remote environment instead of locally.

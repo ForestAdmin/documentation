@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Scope on a smart field extracting a json's column attribute
 
 **Context**: As a user, I want to scope a table's records based on the value of an attribute nested within a json column.

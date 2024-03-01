@@ -5,6 +5,10 @@ description: >-
   manage your models like you normally would.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Enrich your models
 
 ### Declaring a new model

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Update point geometry field using a smart field and algolia api
 
 {% hint style="warning" %}

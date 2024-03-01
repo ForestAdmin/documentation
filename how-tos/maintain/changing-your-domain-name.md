@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Changing your domain name
 
 To change your domain name, you'll have to change your application URL in 2 places:

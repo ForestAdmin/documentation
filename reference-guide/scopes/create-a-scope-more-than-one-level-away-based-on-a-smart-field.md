@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a scope more than one level away based on a Smart field
 
 **Context:** As a user I want to create a scope on a table that does not have the tag column in the table.
@@ -15,7 +19,7 @@ The objective is to implement scopes on all tables, filtering on`companies` to m
 {% code title="forest/users.js" %}
 ```javascript
 const { collection } = require('forest-express-sequelize');
-const { users, departments, companies } = require('../models');                          
+const { users, departments, companies } = require('../models');
 const models = require('../models');
 const { Op } = models.objectMapping;
 
@@ -76,7 +80,7 @@ collection('users', {
 ```ruby
 class Forest::Customer
     include ForestLiana::Collection
-  
+
     collection :User
 
     filter_company = lambda do |condition, where|
@@ -90,7 +94,7 @@ class Forest::Customer
             WHERE companies.name = '#{company_value}')"
         end
     end
-  
+
     field :company, type: 'String', is_filterable: true, filter: filter_company do
       company = User.find(object.id).department.company
       "#{company.name}"

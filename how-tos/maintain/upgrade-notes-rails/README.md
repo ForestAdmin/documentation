@@ -1,2 +1,5 @@
-# Upgrade notes (Rails)
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 
+# Upgrade notes (Rails)

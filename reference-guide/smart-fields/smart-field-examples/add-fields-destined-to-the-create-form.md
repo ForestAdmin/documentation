@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Add fields destined to the create form
 
 **Context**: As a user I want to be able to pass information to a create form that concerns other collections than the current one.

@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Calculate the distance between two string addresses
 
 **Context**: As a user I want to be able to obtain the distance between two objects that have address information as a string.

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display Zendesk users
 
 This section shows you how to create a smart collection to list the users of your Zendesk account.
@@ -156,7 +160,7 @@ We just need to implement a new endpoint to get an individual user from the Zend
 async function getUser(request, response, next) {
   return axios.get(`${ZENDESK_URL_PREFIX}/api/v2/users/${request.params.userId}?include=comment_count`, {
     headers: {
-      'Authorization': `Basic ${getToken()}` 
+      'Authorization': `Basic ${getToken()}`
     },
   })
   .then( async (resp) => {
@@ -164,10 +168,10 @@ async function getUser(request, response, next) {
     // Serialize the result using the Forest Admin format
     const recordSerializer = new RecordSerializer({ name: 'zendesk_users' });
     const recordSerialized = await recordSerializer.serialize(record);
-    response.send(recordSerialized);      
+    response.send(recordSerialized);
   })
-  .catch(next);  
-  
+  .catch(next);
+
 }
 ```
 {% endcode %}

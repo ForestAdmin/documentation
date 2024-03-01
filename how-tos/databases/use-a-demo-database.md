@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Use a demo SQL database
 
 **Pre-requisite**: Docker
@@ -23,7 +27,7 @@ You should get a prompt where you can type SQL queries or PostgreSQL command lin
 ```sql
 meals=# \d
                     List of relations
- Schema |            Name            |   Type   | Owner  
+ Schema |            Name            |   Type   | Owner
 --------+----------------------------+----------+--------
  public | ar_internal_metadata       | table    | lumber
  public | chef_availabilities        | table    | lumber

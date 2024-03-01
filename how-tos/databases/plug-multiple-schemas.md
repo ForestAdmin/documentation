@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Plug multiple schemas
 
 A **schema** is an organizational layer to better structure your SQL database.
@@ -74,4 +78,3 @@ For each of your other schemas' models, you'll need to create a file in `models`
 {% hint style="info" %}
 If your other schemas have a lot of models, a quick way to generate the models is to create a another project using those other schemas (1 project for each schema).
 {% endhint %}
-

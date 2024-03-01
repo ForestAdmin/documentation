@@ -1,6 +1,8 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Interact with your Elasticsearch data
-
-
 
 ### Creating the Smart Collection
 

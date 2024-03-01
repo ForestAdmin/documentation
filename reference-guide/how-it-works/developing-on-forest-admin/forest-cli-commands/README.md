@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Forest CLI commands
 
 You've seen in the previous section how [developing on Forest Admin](../) leverages our powerful **Forest CLI** to manage your UI changes.

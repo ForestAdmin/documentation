@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Manage your Forest Admin environments programmatically
 
 For continuous integration and automatization, we have developed a [CLI](https://github.com/ForestAdmin/toolbelt) which makes it easy to manage your Forest Admin environments.

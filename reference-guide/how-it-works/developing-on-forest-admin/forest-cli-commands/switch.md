@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # switch
 
 The `forest switch` command allows you to **set your current branch** to the selected branch:
@@ -25,5 +29,5 @@ $ forest switch
 [? Select the branch you want to set-current:
 feature/add-new-smart-view-with-information
 hotfix/fix-dropdown-issue
-feature/implement-refund-smart-action 
+feature/implement-refund-smart-action
 ```

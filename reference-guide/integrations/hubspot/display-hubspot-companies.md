@@ -1,6 +1,8 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display Hubspot companies
-
-
 
 This example shows you how to create a smart collection to list the companies of your Hubspot account.
 

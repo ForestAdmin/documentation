@@ -5,6 +5,10 @@ description: >-
   ensure a smooth update.​
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Upgrade to v5
 
 {% hint style="warning" %}

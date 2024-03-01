@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a Smart relationship
 
 ### What is a Smart Relationship?

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Sort by smart field
 
 Context: as a user, I want to be able to sort a collection based on a smart field. This example is based on [the one provided in the documentation](https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields#creating-a-smart-field) with a simple concatenation of 2 fields existing in the collection.

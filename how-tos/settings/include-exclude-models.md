@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Include/exclude models
 
 By default, all models declared in your app are analyzed by the Forest Admin agent in order to display them as collections in your admin panel.

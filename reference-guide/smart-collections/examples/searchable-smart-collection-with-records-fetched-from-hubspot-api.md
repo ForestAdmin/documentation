@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Searchable smart collection with records fetched from hubspot API
 
 **Context:** Create a smart collection fetching the 10 first companies records from hubspot or the ones matching a search criteria
@@ -46,11 +50,11 @@ router.get('/hubspot_companies', Liana.ensureAuthenticated, (req, res, next) => 
 	let offset = 0
 	req.query.page ? limit = parseInt(req.query.page.size) : limit
 	req.query.page ? offset = (parseInt(req.query.page.number) - 1) * limit : offset
-	
+
 	// set search terms when exist
 	let search = null
 	req.query.search ? search = req.query.search : search
-	
+
 	// define the serializer used to format the payload
 	const hubspotCompaniesSerializer = new JSONAPISerializer('hubspotCompanies', {
 		attributes: ['name'],
@@ -61,7 +65,7 @@ router.get('/hubspot_companies', Liana.ensureAuthenticated, (req, res, next) => 
 		return record;
 		}
 	});
-	
+
 	// implement function to call hubspot API and return companies
 	async function getCompanies() {
 		return hubspot_companies = await superagent
@@ -82,15 +86,15 @@ router.get('/hubspot_companies', Liana.ensureAuthenticated, (req, res, next) => 
 				}
 			})
 	}
-	
-	
+
+
 	async function sendCompaniesPayload() {
 		let hubspotCompanies = await getCompanies()
 		// defining the count of companies fetched
 		let count = hubspotCompanies.data.length
 		return res.send({...hubspotCompanies, meta:{ count: count }})
 	}
-	
+
 	sendCompaniesPayload()
 
 });

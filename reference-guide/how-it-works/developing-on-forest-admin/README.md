@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Developing on Forest Admin
 
 One of the goals of Forest Admin is empowering technical teams to achieve more in less time: in other words, giving them the means to create and maintain a great admin panel in as little time as possible.

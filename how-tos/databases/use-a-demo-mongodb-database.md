@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Use a demo MongoDB database
 
 Want to try out Forest Admin with MongoDB but don't have a database to try it with?&#x20;

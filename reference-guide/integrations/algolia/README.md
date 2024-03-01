@@ -1,2 +1,5 @@
-# Algolia
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 
+# Algolia

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create and manage Smart Actions
 
 ### What is a Smart Action?

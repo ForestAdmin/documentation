@@ -1,6 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Impersonate a user
-
-
 
 This example shows you how to create a Smart Action `"Impersonate"` to login as one of your customers.
 

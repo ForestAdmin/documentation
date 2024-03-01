@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Add validation to a smart field edition
 
 **Context**: I want to make sure that my users can only enter a value satisfying a certain set of conditions when editing a smart field.

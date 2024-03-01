@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display Dwolla funding sources
 
 ## 1. Define the smart collection

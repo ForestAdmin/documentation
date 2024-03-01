@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a dynamic calendar view for an event-booking use case
 
 This example shows you how you can implement a calendar view with a custom workflow involving dynamic API calls.

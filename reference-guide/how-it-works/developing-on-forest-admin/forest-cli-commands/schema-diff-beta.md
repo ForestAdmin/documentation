@@ -4,6 +4,10 @@ description: >-
   layout changes.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # schema:diff \[beta]
 
 ## What is this about?
@@ -75,4 +79,3 @@ This being a Beta version, we will continue to improve this solution as time goe
 ### Wizard/Prompt
 
 In the next iteration, we plan to add a wizard or prompt to the `schema:diff` command. This will make it easier for customers to select the right environment without having to retrieve the environment list first.
-

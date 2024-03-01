@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Override a route
 
 Overriding a route allows you to change or completely replace a Forest Admin's route behavior.
@@ -27,7 +31,7 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies')
 router.get('/companies', permissionMiddlewareCreator.list(), (request, response, next) => {
   const { query, user } = request;
   query.searchExtended = '1';
-  
+
   const recordsGetter = new RecordsGetter(companies, user, query);
   recordsGetter.getAll()
     .then(records => recordsGetter.serialize(records))
@@ -67,7 +71,7 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies')
 router.get('/companies', permissionMiddlewareCreator.list(), (request, response, next) => {
   const { query, user } = request;
   query.searchExtended = '1';
-  
+
   const recordsGetter = new RecordsGetter(companies, user, query);
   recordsGetter.getAll()
     .then(records => recordsGetter.serialize(records))
@@ -150,7 +154,7 @@ class CompaniesListView(ListView):
             return self.error_response(e)
         else:
             return JsonResponse(data, safe=False)
-            
+
 class CompaniesCountView(ResourceView):
     def get(self, request):
         queryset = self.Model.objects.all()
@@ -237,7 +241,7 @@ Using extended search is less performant than default search. Use this wisely.
 ```javascript
 router.delete('/companies/:recordId', permissionMiddlewareCreator.delete(), (request, response, next) => {
   const { params, query, user } = request;
-  
+
   if (Number(params.recordId) === 82) {
     response.status(403).send('This record is protected, you cannot remove it.');
     return;
@@ -257,7 +261,7 @@ router.delete('/companies/:recordId', permissionMiddlewareCreator.delete(), (req
 ```javascript
 router.delete('/companies/:recordId', permissionMiddlewareCreator.delete(), (request, response, next) => {
   const { params, query, user } = request;
-  
+
   if (Number(params.recordId) === 82) {
     response.status(403).send('This record is protected, you cannot remove it.');
     return;
@@ -306,7 +310,7 @@ class CompaniesDetailView(DetailView):
             'This record is protected, you cannot remove it.',
              status=403);
 
-        return super(CompaniesDetailView, self).delete(request, pk) 
+        return super(CompaniesDetailView, self).delete(request, pk)
 ```
 {% endtab %}
 
@@ -538,12 +542,12 @@ class CompaniesListView(ListView):
     # Create a Company
     def post(self, request):
         body = self.get_body(request.body)
-        
+
         r = requests.post('https://<your-api>/users', json.dumps(body), headers={'Content-Type': 'application/json'})
         result = r.json()
-        
+
         instance = self.Model.objects.create(**result['data'])
-        
+
         # json api serializer
         Schema = JsonApiSchema.get(self.Model._meta.db_table)
         data = Schema().dump(instance)

@@ -1,6 +1,8 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a Hubspot company
-
-
 
 This example shows you how to create a Smart Action `"Create company in Hubspot"` that generates a company in Hubspot based on information from your database.
 

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Add new databases
 
 It's becoming quite common to have multiple databases when building a web application. Especially when designing your app with micro services. Here you'll learn how to add new databases.

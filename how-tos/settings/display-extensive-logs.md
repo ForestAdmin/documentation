@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display extensive logs
 
 For debugging purposes your might want to display extensive logs from your Admin Backend API.\
@@ -29,4 +33,3 @@ mongoose.set('debug', true);
 {% hint style="info" %}
 This can be useful to understand how queries are executed to display your collections or relationships.
 {% endhint %}
-

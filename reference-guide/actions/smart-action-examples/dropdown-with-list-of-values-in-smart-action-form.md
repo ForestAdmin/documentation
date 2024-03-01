@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Dropdown with list of values in smart action form
 
 **Context**: Within a smart action form, I want to enable my users to choose the value of an input field within a set of predefined values.

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Charts
 
 As an admin user, KPIs are paramount to follow day by day. Your customers’ growth, Monthly Recurring Revenue (MRR), Paid VS Free accounts are some common examples.

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Flatten nested fields (MongoDB)
 
 {% hint style="danger" %}

@@ -4,6 +4,10 @@ description: >-
   following breaking changes to ensure a smooth update.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Upgrade to v3
 
 ## Breaking changes

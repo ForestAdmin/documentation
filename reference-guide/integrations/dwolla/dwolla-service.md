@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Dwolla Service
 
 This service wraps the [Dwolla SDK ](https://developers.dwolla.com/sdks-tools#sdks--tools)and provides the following implementation:
@@ -17,7 +21,7 @@ var _ = require('lodash');
 
 class DwollaService {
   // Allow to create a Dwolla Client based on the App Key a Secret
-  constructor(appKey, appSecret, environment); 
+  constructor(appKey, appSecret, environment);
 
   // Get a List of Customers based on the query (page, filter, search, sort)
   getCustomers (query);

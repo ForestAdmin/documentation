@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # BelongsToMany edition through smart collection
 
 **Context:** _A customer success team has to onboard “experts”, and those “experts” can have multiple “skills”, modelled via a belongsToMany relationship between “experts” and “skills” tables through an “experts\_skills” table; the skills table has \~200 records and experts usually have between 5 to 30 of them._

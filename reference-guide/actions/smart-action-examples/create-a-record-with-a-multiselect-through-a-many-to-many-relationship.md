@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Create a record with a multiselect through a many-to-many relationship
 
 **Context:** In this case, a card has many expense categories through a many to many relationships, using a join table (card expense categories). We want to be able to create a card, selecting the categories, and creating the card expense categories at the same time.
@@ -49,7 +52,7 @@ collection('cards', {
   }],
   fields: [],
   segments: [],
-  
+
 });
 ```
 
@@ -74,13 +77,13 @@ router.post('/actions/create-card', permissionMiddlewareCreator.smartAction(), (
   let attrs = req.body.data.attributes.values;
   categories_attrs = attrs['categories'];
   attrs = { name: attrs['name'], userId: attrs['user'] };
- 
+
   return cards
     .create(attrs)
     .then((card) => {
       categories_attrs.forEach((category) => {
         return expenseCategories.findOne({ where: { title: category } })
-        .then(expenseCategory => cardExpenseCategories.create({cardId: card.id, expenseCategoryId: expenseCategory.id})) 
+        .then(expenseCategory => cardExpenseCategories.create({cardId: card.id, expenseCategoryId: expenseCategory.id}))
       })
     })
     .then(() => {
@@ -97,9 +100,9 @@ router.post('/actions/create-card', permissionMiddlewareCreator.smartAction(), (
 class Forest::Card
     include ForestLiana::Collection
     collection :Card
-    
-    action 'Create Card', 
-        type: 'global', 
+
+    action 'Create Card',
+        type: 'global',
         fields: [{
             field: "name",
             type: "String",
@@ -160,7 +163,7 @@ class Forest::CardsController < ForestLiana::SmartActionsController
         attrs = { name: attrs['name'], user_id: attrs['user'], company_id: attrs['company'], vendor_id: attrs['vendor'] };
 
         card = Card.create(attrs)
-        categories_attrs.each do|category| 
+        categories_attrs.each do|category|
             expense_category = ExpenseCategory.find_by(title: category)
             card_expense_category = CardExpenseCategory.create(card_id: card.id, expense_category_id: expense_category.id)
         end

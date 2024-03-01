@@ -4,6 +4,10 @@ description: >-
   steps we recommend taking to ensure your Forest is optimized.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Performance
 
 Please find here all the hands-on best practices to keep your admin panel performant. Depending on your user's needs, you might either hide or optimize some fields to limit the number of components, avoid a large datasets display or rework complex logic.
@@ -53,7 +57,7 @@ In this example, we configure Forest Admin to only search on the fields `name` a
 const { collection } = require('forest-express-sequelize');
 ​
 collection('companies', {
-  searchFields: ['name', 'industry'],   
+  searchFields: ['name', 'industry'],
 });
 ```
 {% endcode %}
@@ -67,7 +71,7 @@ In this example, we configure Forest to only search on the fields `name` and `in
 const { collection } = require('forest-express-mongoose');
 ​
 collection('companies', {
-  searchFields: ['name', 'industry'],   
+  searchFields: ['name', 'industry'],
 });
 ```
 {% endcode %}
@@ -86,7 +90,7 @@ class Forest::Company
   search_fields ['name', 'industry']
 
   action 'Mark as Live'
-  
+
 # ...
 end
 ```

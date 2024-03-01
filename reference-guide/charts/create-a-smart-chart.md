@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a Smart Chart
 
 On the previous page, we learned how API-based charts allow you to fetch any dataset from a custom endpoint. But using the finite list of predefined charts (Single, Distribution, Time-based, etc.), you are still constrained by how that data is displayed. With **Smart Charts**, you can code exactly what data you want and how you want it displayed!

@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Create Charts with AWS Redshift
 
 This example shows you how to create a graph based on AWS Redshift.&#x20;
@@ -33,7 +36,7 @@ var clientCredentials = {
   user: process.env.REDSHIFT_DB_USER,
   password: process.env.REDSHIFT_DB_PASSWORD,
 };
- 
+
 const redshiftClient = new Redshift(clientCredentials);
 ```
 
@@ -64,12 +67,12 @@ router.post('/stats/nb-users', Liana.ensureAuthenticated, async (request, respon
   const query = `
     SELECT count(*) as nb
     FROM users
-  `; 
+  `;
 
   const data = await redshiftClient.query(query);
 
-  let json = new Liana.StatSerializer({ 
-    value: data.rows[0].nb 
+  let json = new Liana.StatSerializer({
+    value: data.rows[0].nb
   }).perform();
 
   response.send(json);
@@ -108,13 +111,13 @@ router.post('/stats/top-5-buyers', Liana.ensureAuthenticated, async (request, re
             ORDER BY total_quantity desc limit 5) Q, users
     WHERE Q.buyerid = userid
     ORDER BY Q.total_quantity desc
-  `; 
+  `;
 
   const data = await redshiftClient.query(query);
 
   let leaderboard = data.rows;
-  let json = new Liana.StatSerializer({ 
-    value: leaderboard 
+  let json = new Liana.StatSerializer({
+    value: leaderboard
   }).perform();
 
   response.send(json);
@@ -126,4 +129,3 @@ router.post('/stats/top-5-buyers', Liana.ensureAuthenticated, async (request, re
 ## Result
 
 ![](<../../.gitbook/assets/image (544).png>)
-

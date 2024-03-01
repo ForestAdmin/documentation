@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display field with complex info in html format (rich text editor)
 
 {% embed url="https://recordit.co/nPSUe2ogXu" %}

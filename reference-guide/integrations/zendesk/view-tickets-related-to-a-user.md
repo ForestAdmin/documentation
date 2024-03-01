@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # View tickets related to a user
 
 Now, let's say we want to access the tickets for a user of my database. We are going to use the email address as the foreign key between the database model (`Users` table) and Zendesk tickets.

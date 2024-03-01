@@ -2,6 +2,10 @@
 description: Let's get you up and running on Forest Admin in minutes!
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Quick start
 
 ### Step 1: Create an account and follow the onboarding

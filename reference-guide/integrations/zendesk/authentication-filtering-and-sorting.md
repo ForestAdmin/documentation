@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Authentication, Filtering & Sorting
 
 ## Get authenticated to the Zendesk API
@@ -45,7 +49,7 @@ function getFilterConditions(params) {
     else {
       filters = [filtersJson];
     }
-  }  
+  }
 
   let filterConditions = [];
   if (params.search) {
@@ -91,7 +95,7 @@ function getSort(params, options) {
       asc = false;
       sort = sort.substring(1);
     }
-    
+
     const collectionName = options.collection_name;
     const authorized_fields = Liana.Schemas.schemas[collectionName].fields
                                   .filter(field=>field.isSortable)

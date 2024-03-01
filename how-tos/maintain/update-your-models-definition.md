@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Update your models' definition
 
 Your database schema will evolve over time. Any changes can (and probably should) be applied to your admin backend's models.&#x20;

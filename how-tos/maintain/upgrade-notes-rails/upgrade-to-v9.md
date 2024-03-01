@@ -5,6 +5,10 @@ description: >-
   ensure a smooth update.​
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Upgrade to v9
 
 {% hint style="warning" %}
@@ -52,4 +56,3 @@ You can now navigate between related records through the related link.
 {% hint style="warning" %}
 The ```<record>_type``` and ```<record>_id``` fields are no longer returned by the API. As a result, if you have set up a segment, scope, smart action or any others features that uses these fields, they will no longer work.
 {% endhint %}
-

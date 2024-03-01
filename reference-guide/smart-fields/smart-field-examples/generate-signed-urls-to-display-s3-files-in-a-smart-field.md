@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Generate signed urls to display S3 files in a smart field
 
 **Context**: As a user I want to be able to preview files from an S3 bucket thanks to secure signed urls.

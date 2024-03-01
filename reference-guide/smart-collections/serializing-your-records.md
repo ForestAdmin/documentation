@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Serializing your records
 
 To be interpreted correctly by the ForestAdmin UI, the data must be sent from your admin backend using a particular structure.\

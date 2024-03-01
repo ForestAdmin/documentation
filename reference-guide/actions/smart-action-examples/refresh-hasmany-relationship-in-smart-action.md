@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Refresh hasMany relationship in smart action
 
 **Context**: In this example I have a model `tenants` that hasMany records from a model `ssoProviders`. I want to create a new ssoProvider from a smart action accessible at the level of a tenant and refresh the list of ssoProviders shown in the summary view.

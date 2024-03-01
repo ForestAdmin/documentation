@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Print a status object in a single line field
 
 **Context**: as a user I want to display in a single field all the lines from a status object from a user's record.
@@ -57,7 +61,7 @@ collection('user', {
             'complete'];
           // create empty string which will be filled with a div per field listed above - this string will be the value returned
           let fieldValueList = '';
-          // 
+          //
           // iterate over the list of fields and add style that will be used to display the subdocument fields
           for (index = 0; index < fieldsNameList.length; index++) {
             const fieldName = fieldsNameList[index];

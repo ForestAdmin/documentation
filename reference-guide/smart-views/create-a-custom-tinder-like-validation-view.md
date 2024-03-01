@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a custom tinder-like validation view
 
 This example shows you how you can implement a time-saving profile validation view using keyboard keys to trigger approve/reject actions.&#x20;

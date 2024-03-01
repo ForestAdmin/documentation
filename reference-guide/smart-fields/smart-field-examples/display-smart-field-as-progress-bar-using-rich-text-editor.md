@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Display smart field as progress bar using rich text editor
 
 {% embed url="https://recordit.co/C86PbaN8Uy" %}
@@ -9,7 +13,7 @@ const express = require('express');
 const router = express.Router();
 
 Liana.collection('orders', {
-  
+
   fields: [{
     field: "progressBar",
     type: "String",

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Add an HTML credit card as a smart field in a summary view
 
 ![](<../../../.gitbook/assets/image (520).png>)
@@ -42,12 +46,12 @@ collection('companies', {
               </div>
             </div>`
       }
-      
+
     },
   },
  ],
   segments: [],
-  
+
 });
 ```
 

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a Smart Collection with Amazon S3
 
 ### Creating the Smart Collection

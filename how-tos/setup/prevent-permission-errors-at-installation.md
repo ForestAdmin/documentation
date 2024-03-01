@@ -4,6 +4,10 @@ description: >-
   follow this tutorial.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Prevent permission errors at installation
 
 Depending on how you've installed Node.js on your system, you could encounter a permissions error **EACCES** similar to the following output.
@@ -13,25 +17,25 @@ Depending on how you've installed Node.js on your system, you could encounter a 
 {% endhint %}
 
 ```bash
-npm ERR! Linux 4.15.0-1021-aws                                                                                                                                                                                                              
-npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "install" "-g" "lumber-cli" "--save"                                                                                                                                                           
-npm ERR! node v8.10.0                                                                                                                                                                                                                       
-npm ERR! npm  v3.5.2                                                                                                                                                                                                                        
-npm ERR! path /usr/local/lib                                                                                                                                                                                                                
-npm ERR! code EACCES                                                                                                                                                                                                       
-npm ERR! errno -13                                                                                                                                                                             
-npm ERR! syscall access                                                                                                                                                
-                                                                                                                            
-npm ERR! Error: EACCES: permission denied, access '/usr/local/lib'                                                            
-npm ERR!  { Error: EACCES: permission denied, access '/usr/local/lib'                                                        
-npm ERR!   errno: -13,                                                                                                         
-npm ERR!   code: 'EACCES',                                                                                                  
-npm ERR!   syscall: 'access',                                                                                                 
-npm ERR!   path: '/usr/local/lib' }                                                                                              
-npm ERR!                                                                                                                                                                                                                                 
-npm ERR! Please try running this command again as root/Administrator.                                                                                                                                                                 
-                                                                                                                                                                                                                             
-npm ERR! Please include the following file with any support request:                                                                                                                                                                     
+npm ERR! Linux 4.15.0-1021-aws
+npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "install" "-g" "lumber-cli" "--save"
+npm ERR! node v8.10.0
+npm ERR! npm  v3.5.2
+npm ERR! path /usr/local/lib
+npm ERR! code EACCES
+npm ERR! errno -13
+npm ERR! syscall access
+
+npm ERR! Error: EACCES: permission denied, access '/usr/local/lib'
+npm ERR!  { Error: EACCES: permission denied, access '/usr/local/lib'
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'access',
+npm ERR!   path: '/usr/local/lib' }
+npm ERR!
+npm ERR! Please try running this command again as root/Administrator.
+
+npm ERR! Please include the following file with any support request:
 npm ERR!     /home/ubuntu/npm-debug.log
 ```
 

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Smart segment to restrict access to an action on a record details view
 
 **Context**: As a user, I want to enable or not a smart action for a record depending on the value of a smart field.

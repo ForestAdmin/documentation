@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a custom moderation view
 
 This example shows you how you can implement a moderation view with a custom Approve/Reject workflow.
@@ -42,7 +46,7 @@ This file contains the HTML and CSS needed to build the view.
           <th scope="col" class="c-table-frame__header c-table-column-header">
             <span class="c-table-column-header__content">
               <span class="c-table-column-header__display-name
-                c-table-column-header__display-name--sortable 
+                c-table-column-header__display-name--sortable
                 c-table-column-header__display-name--first" role="button">
                 Product details
               </span>
@@ -65,7 +69,7 @@ This file contains the HTML and CSS needed to build the view.
                   @action={{fn this.triggerSmartAction @collection 'Approve' this.selectedRecords}}
                   @disabled={{this.disableButtons}}
                   @class="no-margin"
-                />            
+                />
                 <Button::BetaButton
                   @type="danger"
                   @text="Reject"
@@ -120,7 +124,7 @@ This file contains the HTML and CSS needed to build the view.
       </tbody>
     </table>
   </div>
-    
+
   <DataDisplay::Table::TableFooter
     @collection={{@collection}}
     @records={{@records}}

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # GetIdsFromRequest
 
 In recent versions of our agents, you may have noticed a new helper, which is `getIdsFromRequest`. This helper comes alongside the ['Select All' feature](https://docs.forestadmin.com/documentation/how-tos/maintain/upgrade-notes-sql-mongodb/upgrade-to-v6#select-all-feature), allowing you to trigger a Smart Action on more records than those displayed in the UI.

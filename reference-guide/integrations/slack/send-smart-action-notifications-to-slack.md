@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Send Smart Action notifications to Slack
 
 This example shows you how to integrate [Slack incoming webhooks](https://api.slack.com/messaging/webhooks) to receive notifications in your workspace when a Smart Action e.g `"Reject application"` is triggered.

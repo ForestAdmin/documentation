@@ -1,6 +1,8 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Another example
-
-
 
 For the purpose of this example let's say we have an `activity-logs` index in Elasticsearch with the following mapping.
 

@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Push your new version to production
 
 {% hint style="info" %}
@@ -16,7 +20,7 @@ At Forest Admin, we advise you to start your migration in your development envir
 3. You should notice that your `.forestadmin-schema.json` has been updated
 4. Commit your source code, dependency manager file as well as the `.forestadmin-schema.json` file
 5. Push your commit to Production/Staging/Test
-6. Pull code in your server; install, build and restart 
+6. Pull code in your server; install, build and restart
 
 
 ## Upgrade without development environment (Not recommended)

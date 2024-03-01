@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Use Forest Admin with a read-only database
 
 Although you'd be denying yourself some native features of Forest Admin (CRUD), this may be mandatory for you because of your project's architecture or security requirements.

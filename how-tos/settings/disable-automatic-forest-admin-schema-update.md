@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Disable automatic Forest Admin schema update
 
 On server start, Forest Admin automatically loads a new Forest Admin schema if changes are detected.

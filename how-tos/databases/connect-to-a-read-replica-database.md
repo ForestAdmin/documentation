@@ -2,6 +2,10 @@
 description: ⚠️ This tutorial is for SQL databases only.
 ---
 
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Connect to a read replica database
 
 A read replica is a copy of the master that reflects changes to the master instance in almost real time.\

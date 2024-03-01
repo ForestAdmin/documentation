@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Smart hasMany relationship in mongoDB
 
 **Context**: As a user I want to display records that have a belongsTo relationship to another record as related data of this record.

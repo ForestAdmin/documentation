@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Use a Smart Action Form
 
 We've just introduced Smart actions: they're great because you can execute virtually any business logic. However, there is one big part missing: how do you let your users provide more information or have interaction when they trigger the Smart action? In short, you need to open a **Smart Action Form**.

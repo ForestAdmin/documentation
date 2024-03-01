@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Intercom
 
 Configuring the Intercom integration allows you to display your user’s session data (location, browser type, …) and conversations.

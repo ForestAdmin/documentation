@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Manage SQL views
 
 In SQL, a view is a virtual table based on the result-set of an SQL statement. Views can provide advantages over tables, such as:

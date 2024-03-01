@@ -1,3 +1,6 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
 # Handle enums with alias labels in a smart action
 
 **Context**: As a user to choose the input for a smart action field from a list of labels and I want a label to be pre-selected depending on the record's information. The labels do not correspond to the value to be updated in the database.

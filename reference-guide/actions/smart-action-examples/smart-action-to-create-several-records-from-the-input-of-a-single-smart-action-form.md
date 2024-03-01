@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Smart action to create several records from the input of a single smart action form
 
 **Description**: From a smart action form which asks input for 3 new products at a time (picture + description), catch the posted payload and create 3 products
@@ -24,7 +28,7 @@ class Forest::ProductsController < ForestLiana::ApplicationController
         created_items += 1 if Product.save
       end
     end
-    
+
     success_message = 'Successfully created ' + created_items.to_s + ' item(s)'
     puts success_message
     render json: { success: success_message }

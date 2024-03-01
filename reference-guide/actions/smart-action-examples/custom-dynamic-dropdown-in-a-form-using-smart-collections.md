@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Custom dynamic dropdown in a form using smart collections
 
 **Context**: I want my users to be able to select an input within a list computed dynamically depending on the current record.

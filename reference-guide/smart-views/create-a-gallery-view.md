@@ -1,3 +1,7 @@
+{% hint style="warning" %}
+VERSION WARNING TEST
+{% endhint %}
+
 # Create a Gallery view
 
 ![](<../../.gitbook/assets/image (256).png>)
@@ -35,7 +39,7 @@ import { inject as service } from '@ember/service';
 @WithEmberSupport
 export default class extends React.Component {
   @service router;
-	
+
   render() {
     const {
       records,
@@ -63,7 +67,7 @@ export default class extends React.Component {
       collection.id,
       record.id,
     );
-	  
+
     return (
       <div className="l-gallery-view-container">
         <section className="c-gallery">
@@ -79,19 +83,19 @@ export default class extends React.Component {
           })
           }
         </section>
-        
+
         <div className="c-gallery-footer">
           <div className="c-beta-paginator">
             <div className="c-beta-paginator__left" onClick={goBack} role="button">
               <i className="material-icons c-beta-paginator__chevron c-beta-paginator__chevron--left">keyboard_arrow_left</i>
             </div>
-            
+
             <span className="c-beta-paginator__separator"/>
-            
+
             <div data-test-input-for="count" className="c-beta-paginator__count">{currentPage} of {numberOfPages}</div>
-            
+
             <span className="c-beta-paginator__separator"/>
-            
+
             <div className="c-beta-paginator__right" onClick={goNext} role="button">
               <i className="material-icons c-beta-paginator__chevron c-beta-paginator__chevron--right">keyboard_arrow_right</i>
             </div>
@@ -205,12 +209,12 @@ export default class extends React.Component {
         @route="project.rendering.data.collection.list.view-edit.details"
         @models={{array @collection.id record.id}}
         class="c-gallery__image-container"
-      > 
+      >
         <img class="c-gallery__image" src={{record.forest-picture}}>
       </LinkTo>
     {{/each}}
   </section>
-  
+
   <DataDisplay::Table::TableFooter
     @collection={{@collection}}
     @viewList={{@viewList}}
