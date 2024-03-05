@@ -3,9 +3,21 @@ description: >-
   Forest Admin is an all-in-one internal tool builder to efficiently manage your
   operations.
 ---
+{% hint style="error" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% hint style="success" %}
+For Ruby-on-Rails projects, this is still the latest documentation of agents `forest_liana`, so read on.
+{% endhint %}
 
 {% hint style="warning" %}
-VERSION WARNING TEST
+But this is also the documentation of agents that will soon reach end-of-support.
+Check your agent version and read on or switch to the right documentation:
+- `forest-express-sequelize` v9 is replaced by `@forestadmin/agent` v1 -> [new documentation](https://docs.forestadmin.com/developer-guide-agents-nodejs/)
+- `forest-express-mongoose` v9 is replaced by `@forestadmin/agent` v1 -> [new documentation](https://docs.forestadmin.com/developer-guide-agents-nodejs/)
+- `django-forestadmin` v1 is replaced by `forestadmin-agent-django` v1 -> [new documentation](https://docs.forestadmin.com/developer-guide-agents-python)
+- `forestadmin/laravel-forestadmin` v1 is replaced by `forestadmin/laravel-forestadmin` v3 -> [new documentation](https://docs.forestadmin.com/developer-guide-agents-php)
 {% endhint %}
 
 # Forest Admin
