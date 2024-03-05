@@ -12,7 +12,7 @@ Please be sure of your agent type and version and pick the right documentation a
 For Ruby-on-Rails projects, this is still the latest documentation of agents `forest_liana`, so read on.
 {% endhint %}
 
-{% hint style="alert" %}
+{% hint style="danger" %}
 But this is also the documentation of agents that will soon reach end-of-support.
 Check your agent type and version and read on or switch to the right documentation:
 - `forest-express-sequelize` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1
