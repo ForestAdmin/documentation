@@ -6,16 +6,18 @@ Please be sure of your agent type and version and pick the right documentation a
 {% tab title="Express Sequelize" %}
 {% hint style="danger" %}
 This is the documentation of the `forest-express-sequelize` agent that will soon reach end-of-support.
-`forest-express-sequelize` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1
-Check your agent type and version and read on or switch to the right documentation.
+`forest-express-sequelize` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
 {% endhint %}
 {% endtab %}
 
 {% tab title="Express Mongoose" %}
 {% hint style="danger" %}
 This is the documentation of the `forest-express-mongoose` agent that will soon reach end-of-support.
-`forest-express-mongoose` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1
-Check your agent type and version and read on or switch to the right documentation.
+`forest-express-mongoose` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
 {% endhint %}
 {% endtab %}
 
@@ -28,15 +30,18 @@ For Ruby on Rails projects, this is still the latest documentation of agents `fo
 {% tab title="Django" %}
 {% hint style="danger" %}
 This is the documentation of the `django-forestadmin` agent that will soon reach end-of-support.
-`django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1
-Check your agent type and version and read on or switch to the right documentation.
+`django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
 {% endhint %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% hint style="danger" %}
-This is the documentation of the `forestadmin/laravel-forestadmin` agent that will soon reach end-of-support.`forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3
-Check your agent type and version and read on or switch to the right documentation.
+This is the documentation of the `forestadmin/laravel-forestadmin` agent that will soon reach end-of-support.
+`forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+Please check your agent type and version and read on or switch to the right documentation.
 {% endhint %}
 {% endtab %}
 {% endtabs %}
