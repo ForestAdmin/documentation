@@ -6,6 +6,7 @@ description: Let's get you up and running on Forest Admin in minutes!
 Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
 
+{% tabs %}
 {% tab title="Node.js" %}
 {% hint style="danger" %}
 This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
@@ -45,7 +46,6 @@ Please check your agent type and version and read on or switch to the right docu
 {% endtab %}
 {% endtabs %}
 
-
 # Quick start
 
 ### Step 1: Create an account and follow the onboarding
@@ -58,23 +58,23 @@ For the purpose of this tutorial, we have used [this database](../how-tos/databa
 
 At the end of your onboarding, you will **out-of-the-box** be able to:
 
-* Access all your data **(1)**
-* Export your data **(2)**
-* Add a record **(3)**
-* View and edit a record **(4)**
-* Edit your UI **(5)**
-* Search and filter **(6)**
+- Access all your data **(1)**
+- Export your data **(2)**
+- Add a record **(3)**
+- View and edit a record **(4)**
+- Edit your UI **(5)**
+- Search and filter **(6)**
 
 ![](<../.gitbook/assets/image (547).png>)
 
 However, your business logic likely requires more features. What if you need to...
 
-* refund an order
-* upload new documents, accept or reject them, or ask customers to update their documents,
-* contact a customer or ask a team member to perform an action,
-* and much more?
+- refund an order
+- upload new documents, accept or reject them, or ask customers to update their documents,
+- contact a customer or ask a team member to perform an action,
+- and much more?
 
-It's possible with **smart actions** :point\_down:
+It's possible with **smart actions** :point_down:
 
 ### Step 2: Create a Smart Action
 
@@ -85,15 +85,19 @@ Let's say you want to let your customer support team to easily refund orders, yo
 Declare it in your `/forest/orders.js` file:
 
 {% code title="/forest/orders.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('orders', {
-  actions: [{
-    name: 'Refund order'
-  }],
+  actions: [
+    {
+      name: 'Refund order',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 Then implement it according to your business logic:
@@ -125,15 +129,19 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 Declare it in your `/forest/orders.js` file:
 
 {% code title="/forest/orders.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('orders', {
-  actions: [{
-    name: 'Refund order'
-  }],
+  actions: [
+    {
+      name: 'Refund order',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 Then implement it according to your business logic:
@@ -165,6 +173,7 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 Declare it in your `/lib/forest_liana/collections/order.rb` file:
 
 {% code title="/lib/forest_liana/collections/order.rb" %}
+
 ```ruby
 class Forest::Order
   include ForestLiana::Collection
@@ -174,11 +183,13 @@ class Forest::Order
   action 'Refund order'
 end
 ```
+
 {% endcode %}
 
 Then declare the corresponding route:
 
 {% code title="/app/controllers/forest/orders_controller.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -189,6 +200,7 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 Lastly, implement the action according to your business logic:
@@ -215,6 +227,7 @@ You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md)
 Declare it in your `app/forest/orders.py` file:
 
 {% code title="app/forest/orders.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Order
@@ -227,19 +240,23 @@ class OrderForest(Collection):
 
 Collection.register(OrderForest, Order)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.orders import OrderForest
 ```
+
 {% endcode %}
 
 Make sure your **project** `urls.py` file include you app urls with the `forest` prefix.
 
 {% code title="urls.py" %}
+
 ```javascript
 from django.contrib import admin
 from django.urls import path, include
@@ -250,11 +267,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 ```
+
 {% endcode %}
 
 Then declare the corresponding route:
 
 {% code title="app/urls.py" %}
+
 ```javascript
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -266,11 +285,13 @@ urlpatterns = [
     path('/actions/refund-order', csrf_exempt(views.RefundOrderView.as_view()), name='refund-order'),
 ]
 ```
+
 {% endcode %}
 
 Lastly, implement the action according to your business logic:
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -283,6 +304,7 @@ class RefundOrderView(ActionView):
 
         return JsonResponse({'success': 'Order refunded!'})
 ```
+
 {% endcode %}
 
 Note that Forest Admin takes care of the authentication thanks to the `ActionView` parent class view.
@@ -296,6 +318,7 @@ You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md)
 Declare it in your `app/Models/Order.php` file:
 
 {% code title="app/Models/Order.php" %}
+
 ```php
 /**
  * @return SmartAction
@@ -305,19 +328,23 @@ public function refundOrder(): SmartAction
     return $this->smartAction('single', 'refund order');
 }
 ```
+
 {% endcode %}
 
 Then declare the corresponding route:
 
 {% code title="routes/web.php" %}
+
 ```php
 Route::post('forest/smart-actions/order_refund-order', [OrdersController::class, 'refundOrder']);
 ```
+
 {% endcode %}
 
 Lastly, implement the action according to your business logic:
 
 {% code title="app/Http/Controllers/OrdersController.php" %}
+
 ```php
 <?php
 
@@ -342,6 +369,7 @@ class OrdersController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
