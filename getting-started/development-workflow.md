@@ -23,7 +23,7 @@ Please check your agent type and version and read on or switch to the right docu
 
 {% tab title="Ruby on Rails" %}
 {% hint style="success" %}
-For Ruby on Rails projects, this is still the latest documentation of agents `forest_liana`, so read on.
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
 {% endhint %}
 {% endtab %}
 
