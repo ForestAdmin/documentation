@@ -1,6 +1,49 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Create a record with a multiselect through a many-to-many relationship
 
 **Context:** In this case, a card has many expense categories through a many to many relationships, using a join table (card expense categories). We want to be able to create a card, selecting the categories, and creating the card expense categories at the same time.
@@ -23,36 +66,42 @@ const { expenseCategories } = require('../models');
 // - Smart relationships: <https://docs.forestadmin.com/documentation/reference-guide/relationships/create-a-smart-relationship>
 // - Smart segments: <https://docs.forestadmin.com/documentation/reference-guide/segments/smart-segments>
 collection('cards', {
-  actions: [{
-    name: "Create card",
-    type: 'global',
-    fields: [{
-      field: "name",
-      type: "String",
-      isRequired: true,
-    },
+  actions: [
     {
-      field: "user",
-      type: "Number",
-      reference: "users.id",
-      isRequired: true,
-    },
-    {
-      field: "categories",
-      type: ['Enum'],
-    }
-  ],
-    hooks: {
-      load: async ({ fields, request }) => {
-        const categories = fields.find(field => field.field === 'categories');
-        categories.enums = await expenseCategories.findAll({raw: true}).map(category => category.title);
-        return fields;
+      name: 'Create card',
+      type: 'global',
+      fields: [
+        {
+          field: 'name',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'user',
+          type: 'Number',
+          reference: 'users.id',
+          isRequired: true,
+        },
+        {
+          field: 'categories',
+          type: ['Enum'],
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const categories = fields.find(
+            (field) => field.field === 'categories'
+          );
+          categories.enums = await expenseCategories
+            .findAll({ raw: true })
+            .map((category) => category.title);
+          return fields;
+        },
       },
-    }
-  }],
+    },
+  ],
   fields: [],
   segments: [],
-
 });
 ```
 
@@ -61,7 +110,11 @@ collection('cards', {
 ```jsx
 const express = require('express');
 const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
-const { cards, cardExpenseCategories, expenseCategories } = require('../models');
+const {
+  cards,
+  cardExpenseCategories,
+  expenseCategories,
+} = require('../models');
 
 const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('cards');
@@ -73,23 +126,36 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator('cards');
 //...
 
 //Smart action - Create a card
-router.post('/actions/create-card', permissionMiddlewareCreator.smartAction(), (req, res) => {
-  let attrs = req.body.data.attributes.values;
-  categories_attrs = attrs['categories'];
-  attrs = { name: attrs['name'], userId: attrs['user'] };
+router.post(
+  '/actions/create-card',
+  permissionMiddlewareCreator.smartAction(),
+  (req, res) => {
+    let attrs = req.body.data.attributes.values;
+    categories_attrs = attrs['categories'];
+    attrs = { name: attrs['name'], userId: attrs['user'] };
 
-  return cards
-    .create(attrs)
-    .then((card) => {
-      categories_attrs.forEach((category) => {
-        return expenseCategories.findOne({ where: { title: category } })
-        .then(expenseCategory => cardExpenseCategories.create({cardId: card.id, expenseCategoryId: expenseCategory.id}))
+    return cards
+      .create(attrs)
+      .then((card) => {
+        categories_attrs.forEach((category) => {
+          return expenseCategories
+            .findOne({ where: { title: category } })
+            .then((expenseCategory) =>
+              cardExpenseCategories.create({
+                cardId: card.id,
+                expenseCategoryId: expenseCategory.id,
+              })
+            );
+        });
       })
-    })
-    .then(() => {
-      res.send({ success: 'Your card is created!', refresh: { relationships: ['cardExpensesCategories'] },});
-  });
-});
+      .then(() => {
+        res.send({
+          success: 'Your card is created!',
+          refresh: { relationships: ['cardExpensesCategories'] },
+        });
+      });
+  }
+);
 ```
 
 ### Rails version:

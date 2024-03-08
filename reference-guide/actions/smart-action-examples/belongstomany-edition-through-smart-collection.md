@@ -1,15 +1,58 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # BelongsToMany edition through smart collection
 
-**Context:** _A customer success team has to onboard “experts”, and those “experts” can have multiple “skills”, modelled via a belongsToMany relationship between “experts” and “skills” tables through an “experts\_skills” table; the skills table has \~200 records and experts usually have between 5 to 30 of them._
+**Context:** _A customer success team has to onboard “experts”, and those “experts” can have multiple “skills”, modelled via a belongsToMany relationship between “experts” and “skills” tables through an “experts_skills” table; the skills table has \~200 records and experts usually have between 5 to 30 of them._
 
 _Unfortunately this is quite painful to edit in forest admin right now since when you want to add a new item in a belongToMany relationship in forest admin you have to:_
 
-* _click on “add an existing …”_
-* _Remember and search for the item using a single search bar_
-* _select the desired item_
+- _click on “add an existing …”_
+- _Remember and search for the item using a single search bar_
+- _select the desired item_
 
 ### Intro
 
@@ -28,15 +71,19 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model>
-  const Experts = sequelize.define('experts', {
-    username: {
-      type: DataTypes.STRING,
+  const Experts = sequelize.define(
+    'experts',
+    {
+      username: {
+        type: DataTypes.STRING,
+      },
     },
-  }, {
-    tableName: 'experts',
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+    {
+      tableName: 'experts',
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   // This section contains the relationships for this model. See: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships>.
   Experts.associate = (models) => {
@@ -59,15 +106,19 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model>
-  const Skills = sequelize.define('skills', {
-    description: {
-      type: DataTypes.STRING,
+  const Skills = sequelize.define(
+    'skills',
+    {
+      description: {
+        type: DataTypes.STRING,
+      },
     },
-  }, {
-    tableName: 'skills',
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+    {
+      tableName: 'skills',
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   // This section contains the relationships for this model. See: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships>.
   Skills.associate = (models) => {
@@ -93,10 +144,12 @@ For this we need to create a smart collection called `otherSkills`. This smart c
 const { collection } = require('forest-express-sequelize');
 
 collection('otherSkills', {
-  fields: [{
-    field: 'description',
-    type: 'String',
-  }],
+  fields: [
+    {
+      field: 'description',
+      type: 'String',
+    },
+  ],
 });
 ```
 
@@ -109,11 +162,13 @@ const { collection } = require('forest-express-sequelize');
 
 collection('experts', {
   actions: [],
-  fields: [{
-    field: 'otherSkills',
-    type: ['String'],
-    reference: 'otherSkills.id',
-  }],
+  fields: [
+    {
+      field: 'otherSkills',
+      type: ['String'],
+      reference: 'otherSkills.id',
+    },
+  ],
   segments: [],
 });
 ```
@@ -128,7 +183,10 @@ We want to display as related data the `skills` that are not already assigned to
 
 ```jsx
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordSerializer } = require('forest-express-sequelize');
+const {
+  PermissionMiddlewareCreator,
+  RecordSerializer,
+} = require('forest-express-sequelize');
 const { Op } = require('sequelize');
 const { otherSkills, experts, skills } = require('../models');
 
@@ -136,49 +194,58 @@ const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('experts');
 const recordSerializer = new RecordSerializer({ name: 'otherSkills' });
 
-router.get('/experts/:id/relationships/otherSkills', permissionMiddlewareCreator.list(), (request, response, next) => {
-  const expert = experts.findByPk(request.params.id, {
-    include: [
-      {
-        model: skills,
-        as: 'expertSkills',
-      },
-    ],
-  });
-  let queryParams = {};
-  if (request.query.search) {
-    queryParams = {
-      where: {
-        description: {
-          [Op.iLike]: `%${request.query.search}%`,
+router.get(
+  '/experts/:id/relationships/otherSkills',
+  permissionMiddlewareCreator.list(),
+  (request, response, next) => {
+    const expert = experts.findByPk(request.params.id, {
+      include: [
+        {
+          model: skills,
+          as: 'expertSkills',
         },
-      },
-    };
+      ],
+    });
+    let queryParams = {};
+    if (request.query.search) {
+      queryParams = {
+        where: {
+          description: {
+            [Op.iLike]: `%${request.query.search}%`,
+          },
+        },
+      };
+    }
+    const skillsList = skills.findAll(queryParams);
+    Promise.all([expert, skillsList])
+      .then((results) => {
+        const { expertSkills } = results[0];
+        const allSkills = results[1];
+        const expertSkillsIds = expertSkills.map((record) => record.id);
+        const records = [];
+        allSkills.forEach((skillListed) => {
+          if (
+            !expertSkillsIds.includes(skillListed.id) &&
+            skillListed.description
+          ) {
+            const skill = {
+              id: skillListed.id,
+              description: skillListed.description,
+            };
+            records.push(skill);
+          }
+        });
+        return records;
+      })
+      .then((records) => recordSerializer.serialize(records))
+      .then((recordsSerialized) =>
+        response.send({
+          ...recordsSerialized,
+          meta: { count: recordsSerialized.data.length },
+        })
+      );
   }
-  const skillsList = skills.findAll(queryParams);
-  Promise.all([expert, skillsList])
-    .then((results) => {
-      const { expertSkills } = results[0];
-      const allSkills = results[1];
-      const expertSkillsIds = expertSkills.map((record) => record.id);
-      const records = [];
-      allSkills.forEach((skillListed) => {
-        if (!expertSkillsIds.includes(skillListed.id) && skillListed.description) {
-          const skill = {
-            id: skillListed.id,
-            description: skillListed.description,
-          };
-          records.push(skill);
-        }
-      });
-      return records;
-    })
-    .then((records) => recordSerializer.serialize(records))
-    .then((recordsSerialized) => response.send({
-      ...recordsSerialized,
-      meta: { count: recordsSerialized.data.length },
-    }));
-});
+);
 
 module.exports = router;
 ```
@@ -207,21 +274,30 @@ const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
 const { experts } = require('../models');
 
 const router = express.Router();
-const permissionMiddlewareCreator = new PermissionMiddlewareCreator('otherSkills');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator(
+  'otherSkills'
+);
 
-
-router.post('/actions/add', permissionMiddlewareCreator.smartAction(), (request, response) => {
-  const expertId = request.body.data.attributes.parent_collection_id;
-  const selectedIds = request.body.data.attributes.ids;
-  experts.findByPk(expertId)
-    .then((user) => {
-      selectedIds.forEach((skillId) => {
-        user.addExpertSkills(skillId);
-      });
-    })
-    .then(() => response.send({ success: `${selectedIds.length} new skills have been added` }));
-});
-
+router.post(
+  '/actions/add',
+  permissionMiddlewareCreator.smartAction(),
+  (request, response) => {
+    const expertId = request.body.data.attributes.parent_collection_id;
+    const selectedIds = request.body.data.attributes.ids;
+    experts
+      .findByPk(expertId)
+      .then((user) => {
+        selectedIds.forEach((skillId) => {
+          user.addExpertSkills(skillId);
+        });
+      })
+      .then(() =>
+        response.send({
+          success: `${selectedIds.length} new skills have been added`,
+        })
+      );
+  }
+);
 
 module.exports = router;
 ```

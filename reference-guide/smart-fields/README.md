@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Smart Fields
 
@@ -19,19 +61,23 @@ A Smart Field is a column that displays processed-on-the-fly data. It can be as 
 On our Live Demo, the very simple Smart Field `fullname` is available on the `customers` collection.
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    }
-  }]
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 \
@@ -42,19 +88,23 @@ Very often, the business logic behind the Smart Field is more complex and must b
 On our Live Demo, the very simple Smart Field `fullname` is available on the `customers` collection.
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    }
-  }]
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 \
@@ -65,6 +115,7 @@ Very often, the business logic behind the Smart Field is more complex and must b
 On our Live Demo, the very simple Smart Field `fullname` is available on the `Customer` collection.
 
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -76,11 +127,13 @@ class Forest::Customer
   end
 end
 ```
+
 {% endcode %}
 
 Very often, the business logic behind the Smart Field is more complex and must interact with the database. Here’s an example with the Smart Field `full_address` on the `Customer` collection.
 
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -93,6 +146,7 @@ class Forest::Customer
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -100,6 +154,7 @@ end
 On our Live Demo, the very simple Smart Field `fullname` is available on the `Customer` collection.
 
 {% code title="app/forest/customer.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Customer
@@ -121,19 +176,23 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.customer import CustomerForest
 ```
+
 {% endcode %}
 
 Very often, the business logic behind the Smart Field is more complex and must interact with the database. Here’s an example with the Smart Field `full_address` on the `Customer` collection.
 
 {% code title="app/forest/customer.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Customer, Address
@@ -156,6 +215,7 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -163,6 +223,7 @@ Collection.register(CustomerForest, Customer)
 On our Live Demo, the very simple Smart Field `fullname` is available on the `Customer` model.
 
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -190,11 +251,13 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 
 Very often, the business logic behind the Smart Field is more complex and must interact with the database. Here’s an example with the Smart Field `full_address` on the `Customer` model.
 
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -228,6 +291,7 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -245,53 +309,63 @@ The collection name must be the same as the **model name**.
 By default, your Smart Field is considered as read-only. If you want to update a Smart Field, you just need to write the logic to “unzip” the data. **Note that the `set` method should always return the object it’s working on**. In the example hereunder, the `customer` object is returned including only the modified data.
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    },
-    set: (customer, fullname) => {
-      let names = fullname.split(' ');
-      customer.firstname = names[0];
-      customer.lastname = names[1];
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      set: (customer, fullname) => {
+        let names = fullname.split(' ');
+        customer.firstname = names[0];
+        customer.lastname = names[1];
 
-      // Don't forget to return the customer.
-      return customer;
-    }
-  }]
+        // Don't forget to return the customer.
+        return customer;
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 Working with the actual record can be done this way:
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection, ResourceGetter } = require('forest-express-sequelize');
 const { customers } = require('../models');
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    },
-    set: async (customer, fullname) => {
-      const customerBeforeUpdate = await customers.findOne({ where: { id: customer.id }});
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      set: async (customer, fullname) => {
+        const customerBeforeUpdate = await customers.findOne({
+          where: { id: customer.id },
+        });
 
-      const names = fullname.split(' ');
-      customer.firstname = `${names[0]} ${customerBeforeUpdate.pseudo}`;
-      return customer;
-    }
-  }]
+        const names = fullname.split(' ');
+        customer.firstname = `${names[0]} ${customerBeforeUpdate.pseudo}`;
+        return customer;
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -303,53 +377,61 @@ For security reasons, the `fullname` Smart field will remain **read-only**, even
 By default, your Smart Field is considered as read-only. If you want to update a Smart Field, you just need to write the logic to “unzip” the data. **Note that the `set` method should always return the object it’s working on**. In the example hereunder, the `customer` record is returned.
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    },
-    set: (customer, fullname) => {
-      let names = fullname.split(' ');
-      customer.firstname = names[0];
-      customer.lastname = names[1];
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      set: (customer, fullname) => {
+        let names = fullname.split(' ');
+        customer.firstname = names[0];
+        customer.lastname = names[1];
 
-      // Don't forget to return the customer.
-      return customer;
-    }
-  }]
+        // Don't forget to return the customer.
+        return customer;
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 Working with the actual record can be done this way:
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection, ResourceGetter } = require('forest-express-mongoose');
 const { customers } = require('../models');
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    },
-    set: async (customer, fullname) => {
-      const customerBeforeUpdate = await customers.findById(customer.id);
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      set: async (customer, fullname) => {
+        const customerBeforeUpdate = await customers.findById(customer.id);
 
-      const names = fullname.split(' ');
-      customer.firstname = `${names[0]} ${customerBeforeUpdate.pseudo}`;
-      return customer;
-    }
-  }]
+        const names = fullname.split(' ');
+        customer.firstname = `${names[0]} ${customerBeforeUpdate.pseudo}`;
+        return customer;
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -361,6 +443,7 @@ For security reasons, the `fullname` Smart field will remain **read-only**, even
 By default, your Smart Field is considered as read-only. If you want to update a Smart Field, you just need to write the logic to “unzip” the data. **Note that the set method should always return the object it’s working on**. In the example hereunder, the `user_params` is returned is returned including only the modified data.
 
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -381,6 +464,7 @@ class Forest::Customer
   end
 end
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -392,6 +476,7 @@ For security reasons, the `fullname` Smart field will remain **read-only**, even
 By default, your Smart Field is considered as read-only. If you want to update a Smart Field, you just need to write the logic to “unzip” the data. **Note that the `set` method should always return the object it’s working on**. In the example hereunder, the `customer` object is returned including only the modified data.
 
 {% code title="app/forest/customer.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Customer
@@ -420,11 +505,13 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -461,6 +548,7 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -474,6 +562,7 @@ To perform a search on a Smart Field, you also need to write the logic to “unz
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models/');
@@ -481,29 +570,32 @@ const _ = require('lodash');
 const Op = models.objectMapping.Op;
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
+  fields: [
+    {
+      field: 'fullname',
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      search: function (query, search) {
+        let split = search.split(' ');
+
+        var searchCondition = {
+          [Op.and]: [
+            { firstname: { [Op.like]: `%${split[0]}%` } },
+            { lastname: { [Op.like]: `%${split[1]}%` } },
+          ],
+        };
+
+        query.where[Op.and][0][Op.or].push(searchCondition);
+
+        return query;
+      },
     },
-    search: function (query, search) {
-      let split = search.split(' ');
-
-      var searchCondition = {
-        [Op.and]: [
-          { firstname: { [Op.like]: `%${split[0]}%` } },
-          { lastname: { [Op.like]: `%${split[1]}%` } },
-        ]
-      };
-
-      query.where[Op.and][0][Op.or].push(searchCondition);
-
-      return query;
-    }
-  }]
+  ],
 });
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -513,6 +605,7 @@ For **case insensitive** search using PostgreSQL database use `iLike` operator. 
 
 {% tab title="Mongodb" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const models = require('../models/');
@@ -536,11 +629,13 @@ collection('customers', {
   }]
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -561,11 +656,13 @@ class Forest::Customer
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/customer.py" %}
+
 ```python
 from django.db.models import Q
 
@@ -594,11 +691,13 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -647,6 +746,7 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -666,6 +766,7 @@ In the example hereunder, the `fullname` is filtered by checking conditions on t
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models/');
@@ -673,106 +774,111 @@ const models = require('../models/');
 const { Op } = models.Sequelize;
 
 collection('customers', {
-  fields: [{
-    field: 'fullname',
-    isFilterable: true,
-    type: 'String',
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    },
-    filter({ condition, where }) {
-      const firstWord = !!condition.value && condition.value.split(' ')[0];
-      const secondWord = !!condition.value && condition.value.split(' ')[1];
+  fields: [
+    {
+      field: 'fullname',
+      isFilterable: true,
+      type: 'String',
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      filter({ condition, where }) {
+        const firstWord = !!condition.value && condition.value.split(' ')[0];
+        const secondWord = !!condition.value && condition.value.split(' ')[1];
 
-      switch (condition.operator) {
-        case 'equal':
-          return {
-            [Op.and]: [
-              { firstname: firstWord },
-              { lastname: secondWord || '' },
-            ],
-          };
-        case 'ends_with':
-          if (!secondWord) {
+        switch (condition.operator) {
+          case 'equal':
             return {
-              lastName: { [Op.like]: `%${firstWord}` },
+              [Op.and]: [
+                { firstname: firstWord },
+                { lastname: secondWord || '' },
+              ],
             };
-          }
-          return {
-            [Op.and]: [
-              { firstName: { [Op.like]: `%${firstWord}` } },
-              { lastName: secondWord },
-            ],
-          };
+          case 'ends_with':
+            if (!secondWord) {
+              return {
+                lastName: { [Op.like]: `%${firstWord}` },
+              };
+            }
+            return {
+              [Op.and]: [
+                { firstName: { [Op.like]: `%${firstWord}` } },
+                { lastName: secondWord },
+              ],
+            };
 
-        // ... And so on with the other operators not_equal, starts_with, etc.
+          // ... And so on with the other operators not_equal, starts_with, etc.
 
-        default:
-          return null;
-      }
+          default:
+            return null;
+        }
+      },
     },
-  }],
+  ],
   segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const models = require('../models');
 
 collection('customer', {
   actions: [],
-  fields: [{
-    field: 'fullName',
-    type: 'String',
-    isFilterable: true,
-    get: (customer) => {
-      return customer.firstname + ' ' + customer.lastname;
-    },
-    filter({ condition, where }) {
-      const firstWord = !!condition.value && condition.value.split(' ')[0];
-      const secondWord = !!condition.value && condition.value.split(' ')[1];
+  fields: [
+    {
+      field: 'fullName',
+      type: 'String',
+      isFilterable: true,
+      get: (customer) => {
+        return customer.firstname + ' ' + customer.lastname;
+      },
+      filter({ condition, where }) {
+        const firstWord = !!condition.value && condition.value.split(' ')[0];
+        const secondWord = !!condition.value && condition.value.split(' ')[1];
 
-      switch (condition.operator) {
-        case 'equal':
-          return {
-            $and: [
-              { firstname: firstWord },
-              { lastname: secondWord || '' },
-            ],
-          };
-        case 'ends_with':
-          if (!secondWord) {
+        switch (condition.operator) {
+          case 'equal':
             return {
-              lastname: { $regex: `.*${firstWord}` },
+              $and: [{ firstname: firstWord }, { lastname: secondWord || '' }],
             };
-          }
-          return {
-            $and: [
-              { firstname: { $regex: `.*${firstWord}` } },
-              { lastname: secondWord },
-            ],
-          };
+          case 'ends_with':
+            if (!secondWord) {
+              return {
+                lastname: { $regex: `.*${firstWord}` },
+              };
+            }
+            return {
+              $and: [
+                { firstname: { $regex: `.*${firstWord}` } },
+                { lastname: secondWord },
+              ],
+            };
 
-        // ... And so on with the other operators not_equal, starts_with, etc.
+          // ... And so on with the other operators not_equal, starts_with, etc.
 
-        default:
-          return null;
-      }
+          default:
+            return null;
+        }
+      },
     },
-  }],
+  ],
   segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -801,11 +907,13 @@ class Forest::Customer
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/customer.py" %}
+
 ```python
 from django.db.models import Q
 
@@ -843,11 +951,13 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -928,6 +1038,7 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -945,9 +1056,9 @@ Make sure you set the option `isFilterable: true` in the field definition of you
 {% hint style="danger" %}
 **Sorting** on a Smart Field is not _natively supported_ in Forest Admin. However you can check out those guides:
 
-* [Sort by Smart field](smart-field-examples/sort-by-smart-field.md)
-* [Sort by Smart field that includes value from a belongsTo relationship](smart-field-examples/sort-by-smart-field-that-includes-value-from-a-belongsto-relationship.md)
-{% endhint %}
+- [Sort by Smart field](smart-field-examples/sort-by-smart-field.md)
+- [Sort by Smart field that includes value from a belongsTo relationship](smart-field-examples/sort-by-smart-field-that-includes-value-from-a-belongsto-relationship.md)
+  {% endhint %}
 
 ### Available Field Options
 
@@ -978,6 +1089,7 @@ Implement them using the DataLoader which is a generic utility to be used as par
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="forest/post.js" %}
+
 ```javascript
 const DataLoader = require('dataloader');
 
@@ -986,10 +1098,10 @@ const authorLoader = new DataLoader(async (authorKeys) => {
     where: { id: authorKeys },
   });
 
-  const authorsById = new Map(authors.map(user => [user.id, user]));
+  const authorsById = new Map(authors.map((user) => [user.id, user]));
 
-  return authorKeys.map(authorKey => authorsById.get(authorKey));
-})
+  return authorKeys.map((authorKey) => authorsById.get(authorKey));
+});
 
 collection('posts', {
   actions: [],
@@ -1001,17 +1113,19 @@ collection('posts', {
         const author = await authorLoader.load(record.authorKey);
 
         return author.name;
-      }
-    }
+      },
+    },
   ],
-  segments: []
+  segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="forest/post.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const { Address } = require('../models');
@@ -1046,6 +1160,7 @@ collection('customers', {
   }]
 });
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Smart Views
 
@@ -70,6 +112,7 @@ Accessing a `hasMany` relationship works in exactly the same way as accessing a 
 ```
 
 ### Refreshing data
+
 Trigger the `fetchRecords` action in order to refresh the records on the page.
 
 ```markup
@@ -87,6 +130,7 @@ We will use the `store` service for that purpose. Check out the list of all avai
 In our Live Demo example, the collection `appointments` has a `Calendar` Smart View. When you click on the previous or next month, the Smart View fetches the new events in the selected month. The result here is set to the property`appointments`. You can access it directly from your template.
 
 {% code title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -121,31 +165,35 @@ export default class extends Component {
   // ...
 };
 ```
+
 {% endcode %}
 
 {% code title="template.hbs" %}
+
 ```markup
 {{#each this.appointments as |appointment|}}
   <p>{{appointment.id}}</p>
   <p>{{appointment.forest-name}}</p>
 {{/each}}
 ```
+
 {% endcode %}
 
 #### Available parameters
 
-| Parameter     | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| filters       | Object | <p>A stringified JSON object containing either:</p><ul><li>a filter</li><li>an aggregation of several filters</li></ul><p>A filter is built using the following template:</p><p>  <code>{</code></p><p>    <code>field: &#x3C;a field name></code></p><p>    <code>operator: &#x3C;an operator name></code></p><p>    <code>value: &#x3C;a value></code></p><p>  <code>}</code></p><p></p><p>An aggregation is built using the following template</p><p>  <code>{</code></p><p>    <code>aggregator: &#x3C;and or or></code></p><p>    <code>conditions: &#x3C;an array of filters or aggregations></code></p><p>  <code>}</code></p><p><br>List of available operators is: <code>less_than</code>, <code>greater_than</code>, <code>equal</code>, <code>after</code>, <code>before</code>, <code>contains</code>, <code>starts_with</code>, <code>ends_with</code>, <code>not_contains</code>, <code>present</code>, <code>not_equal</code>, <code>blank</code></p> |
-| timezone      | String | The timezone string. Example: `America/Los_Angeles`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| page\[number] | Number | The page number you want to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| page\[size]   | Number | The number of records per page you want to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Parameter     | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| filters       | Object | <p>A stringified JSON object containing either:</p><ul><li>a filter</li><li>an aggregation of several filters</li></ul><p>A filter is built using the following template:</p><p> <code>{</code></p><p> <code>field: &#x3C;a field name></code></p><p> <code>operator: &#x3C;an operator name></code></p><p> <code>value: &#x3C;a value></code></p><p> <code>}</code></p><p></p><p>An aggregation is built using the following template</p><p> <code>{</code></p><p> <code>aggregator: &#x3C;and or or></code></p><p> <code>conditions: &#x3C;an array of filters or aggregations></code></p><p> <code>}</code></p><p><br>List of available operators is: <code>less_than</code>, <code>greater_than</code>, <code>equal</code>, <code>after</code>, <code>before</code>, <code>contains</code>, <code>starts_with</code>, <code>ends_with</code>, <code>not_contains</code>, <code>present</code>, <code>not_equal</code>, <code>blank</code></p> |
+| timezone      | String | The timezone string. Example: `America/Los_Angeles`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| page\[number] | Number | The page number you want to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| page\[size]   | Number | The number of records per page you want to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 ### Deleting records
 
 The `deleteRecords` action lets you delete one or multiple records. A pop-up will automatically ask for a confirmation when a user triggers the delete action.
 
 {% code title="template.hbs" %}
+
 ```markup
 {{#each @records as |record|}}
   <Button::BetaButton
@@ -156,6 +204,7 @@ The `deleteRecords` action lets you delete one or multiple records. A pop-up wil
   />
 {{/each}}
 ```
+
 {% endcode %}
 
 ### Triggering a Smart Action
@@ -168,6 +217,7 @@ Here’s how to trigger your [Smart Actions](../actions/create-and-manage-smart-
 
 {% tabs %}
 {% tab title="template.hbs" %}
+
 ```markup
 <Button::BetaButton
   @type="primary"
@@ -175,9 +225,11 @@ Here’s how to trigger your [Smart Actions](../actions/create-and-manage-smart-
   @action={{fn this.triggerSmartAction @collection 'Reschedule' record}}
 />
 ```
+
 {% endtab %}
 
 {% tab title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
@@ -195,6 +247,7 @@ export default class extends Component {
   }
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -206,19 +259,20 @@ function triggerSmartAction(
 )
 ```
 
-| Argument name  | Description                                                                                                             |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| context        | Context is the reference to the component, in the smart view it is accessible through the keyword `this`                |
-| collection     | The `collection` that has the Smart Action                                                                              |
-| actionName     | The Smart Action name                                                                                                   |
-| records        | An array of records or a single one                                                                                     |
-| callback       | A function executed after the smart action that takes as the single parameter the result of the smart action execution. |
-| values         | An object containing the values to be passed for the smart action fields                                                |
+| Argument name | Description                                                                                                             |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| context       | Context is the reference to the component, in the smart view it is accessible through the keyword `this`                |
+| collection    | The `collection` that has the Smart Action                                                                              |
+| actionName    | The Smart Action name                                                                                                   |
+| records       | An array of records or a single one                                                                                     |
+| callback      | A function executed after the smart action that takes as the single parameter the result of the smart action execution. |
+| values        | An object containing the values to be passed for the smart action fields                                                |
 
 Here is an example of how to trigger the smart action with the values passed from the code, you only need to do it if you **don't** want to use the built-in [smart action form](../actions/create-and-manage-smart-actions/use-a-smart-action-form.md)
 
 {% tabs %}
 {% tab title="template.hbs" %}
+
 ```markup
 <Button::BetaButton
   @type="primary"
@@ -226,17 +280,18 @@ Here is an example of how to trigger the smart action with the values passed fro
   @action={{fn this.rescheduleToNewTime record}}
 />
 ```
+
 {% endtab %}
 
 {% tab title="component.js" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { triggerSmartAction } from 'client/utils/smart-view-utils';
-import { tracked } from '@glimmer/tracking'
+import { tracked } from '@glimmer/tracking';
 
 export default class extends Component {
-
   @tracked newTime = '11:00';
 
   @action
@@ -247,13 +302,13 @@ export default class extends Component {
       actionName,
       records,
       () => {},
-      values,
+      values
     );
   }
 
   @action
   rescheduleToNewTime(record) {
-    this.triggerSmartAction('Reschedule', record, { newTime })
+    this.triggerSmartAction('Reschedule', record, { newTime });
   }
 
   @action
@@ -262,6 +317,7 @@ export default class extends Component {
   }
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 

@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Another example
 
@@ -44,82 +86,97 @@ In this Smart Collection, we want to display for each activity log its action, t
 You can check out the list of [available field options](https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields#available-field-options) if you need them for your own case.
 
 {% code title="/forest/activity-logs.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models');
 
 collection('activity-logs', {
   isSearchable: false,
-  fields: [{
-    field: 'id',
-    type: 'string',
-  }, {
-    field: 'action',
-    type: 'Enum',
-    isFilterable: true,
-    enums: [
-      'create',
-      'read',
-      'update',
-      'delete',
-      'action',
-      'search',
-      'filter'],
-  }, {
-    field: 'label',
-    type: 'String',
-    isFilterable: true,
-  }, {
-    field: 'collectionId',
-    type: 'String',
-    isFilterable: true,
-  }, {
-    field: 'userId',
-    type: 'String',
-    isFilterable: true,
-  }, {
-    field: 'createdAt',
-    type: 'Date',
-    isFilterable: true,
-  }, {
-    field: 'user',
-    type: 'Number',
-    reference: 'users.id',
-    get: async (activityLog) => {
-      // For search queries, the user is already loaded for performance reasons
-      if (activityLog.user) { return activityLog.user; }
-      if (!activityLog.userId) { return null; }
+  fields: [
+    {
+      field: 'id',
+      type: 'string',
+    },
+    {
+      field: 'action',
+      type: 'Enum',
+      isFilterable: true,
+      enums: [
+        'create',
+        'read',
+        'update',
+        'delete',
+        'action',
+        'search',
+        'filter',
+      ],
+    },
+    {
+      field: 'label',
+      type: 'String',
+      isFilterable: true,
+    },
+    {
+      field: 'collectionId',
+      type: 'String',
+      isFilterable: true,
+    },
+    {
+      field: 'userId',
+      type: 'String',
+      isFilterable: true,
+    },
+    {
+      field: 'createdAt',
+      type: 'Date',
+      isFilterable: true,
+    },
+    {
+      field: 'user',
+      type: 'Number',
+      reference: 'users.id',
+      get: async (activityLog) => {
+        // For search queries, the user is already loaded for performance reasons
+        if (activityLog.user) {
+          return activityLog.user;
+        }
+        if (!activityLog.userId) {
+          return null;
+        }
 
-      return models.users.findOne({
-        attributes: ['id', 'firstName', 'lastName', 'email'],
-        paranoid: false,
-        where: {
-          id: activityLog.userId,
-        },
-      });
+        return models.users.findOne({
+          attributes: ['id', 'firstName', 'lastName', 'email'],
+          paranoid: false,
+          where: {
+            id: activityLog.userId,
+          },
+        });
+      },
     },
-  }, {
-    field: 'user_email',
-    type: 'String',
-    isFilterable: true,
-    get: (activityLog) => {
-      // The field is declared after, when processed, the user has already been retrieved
-      return activityLog.user.email;
+    {
+      field: 'user_email',
+      type: 'String',
+      isFilterable: true,
+      get: (activityLog) => {
+        // The field is declared after, when processed, the user has already been retrieved
+        return activityLog.user.email;
+      },
     },
-  }
   ],
 });
-
 ```
+
 {% endcode %}
 
 ## Implementing the GET (all records with a filter on related data)
 
-This is a complex use case: How to handle filters on related data. We want to be able to filter using the  `user.mail` field.\
+This is a complex use case: How to handle filters on related data. We want to be able to filter using the `user.mail` field.\
 \
 To accommodate you we already provide you a simple service [`ElasticsearchHelper`](https://docs.forestadmin.com/woodshop/how-tos/create-a-smart-collection-with-elasticsearch/elasticsearch-service-utils) that handles all the logic to connect with your Elasticsearch data.
 
 {% code title="routes/activity-logs.js" %}
+
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -127,7 +184,11 @@ const router = express.Router();
 const models = require('../models');
 
 // We need parseFilter utils to create the where clause for sequelize
-const { RecordSerializer, Schemas, parseFilter } = require('forest-express-sequelize');
+const {
+  RecordSerializer,
+  Schemas,
+  parseFilter,
+} = require('forest-express-sequelize');
 
 const ElasticsearchHelper = require('../service/elasticsearch-helper');
 const { FIELD_DEFINITIONS } = require('../utils/filter-translator');
@@ -136,10 +197,7 @@ const serializer = new RecordSerializer({ name: 'es-activity-logs' });
 
 // Custom mapping function
 function mapActivityLog(id, source) {
-  const {
-    createdAt,
-    ...simpleProperties
-  } = source;
+  const { createdAt, ...simpleProperties } = source;
 
   return {
     id,
@@ -158,19 +216,21 @@ const configuration = {
     createdAt: FIELD_DEFINITIONS.date,
   },
   mappingFunction: mapActivityLog,
-  sort: [
-    { createdAt: { order: 'desc' } },
-  ],
-}
+  sort: [{ createdAt: { order: 'desc' } }],
+};
 
 const elasticsearchHelper = new ElasticsearchHelper(configuration);
 
 // Specific implementation to handle related data
 async function computeUserFilter(models, filter, options) {
-  const where = await parseFilter({
-    ...filter,
-    field: filter.field.replace('user_', ''),
-  }, Schemas.schemas.users, options.timezone);
+  const where = await parseFilter(
+    {
+      ...filter,
+      field: filter.field.replace('user_', ''),
+    },
+    Schemas.schemas.users,
+    options.timezone
+  );
 
   const users = await models.users.findAll({
     where,
@@ -178,7 +238,11 @@ async function computeUserFilter(models, filter, options) {
     paranoid: false,
   });
 
-  return { operator: 'equal', field: 'userId', value: users.map((user) => user.id) };
+  return {
+    operator: 'equal',
+    field: 'userId',
+    value: users.map((user) => user.id),
+  };
 }
 
 async function computeFilterOnRelatedEntity(models, options, filter) {
@@ -200,9 +264,11 @@ async function computeFiltersOnRelatedEntities(models, filters, options) {
 
   return {
     ...filters,
-    conditions: await Promise.all(filters.conditions.map(
-      computeFilterOnRelatedEntity.bind(undefined, models, options),
-    )),
+    conditions: await Promise.all(
+      filters.conditions.map(
+        computeFilterOnRelatedEntity.bind(undefined, models, options)
+      )
+    ),
   };
 }
 
@@ -219,7 +285,11 @@ router.get('/es-activity-logs', async (request, response, next) => {
       filters = undefined;
     }
 
-    const filtersWithRelatedEntities = await computeFiltersOnRelatedEntities(models, filters, options);
+    const filtersWithRelatedEntities = await computeFiltersOnRelatedEntities(
+      models,
+      filters,
+      options
+    );
 
     const result = await elasticsearchHelper.functionSearch({
       page,
@@ -229,10 +299,10 @@ router.get('/es-activity-logs', async (request, response, next) => {
     });
 
     response.send({
-      ...await serializer.serialize(result.results),
+      ...(await serializer.serialize(result.results)),
       meta: {
         count: result.count,
-      }
+      },
     });
   } catch (e) {
     next(e);
@@ -241,6 +311,7 @@ router.get('/es-activity-logs', async (request, response, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 ## Implementing the GET (all records with the search)
@@ -248,6 +319,7 @@ module.exports = router;
 Another way to search through related data is to implement your own search logic.
 
 {% code title="routes/activity-logs.js" %}
+
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -264,10 +336,7 @@ const serializer = new RecordSerializer({ name: 'es-activity-logs' });
 
 // Custom mapping function
 function mapActivityLog(id, source) {
-  const {
-    createdAt,
-    ...simpleProperties
-  } = source;
+  const { createdAt, ...simpleProperties } = source;
 
   return {
     id,
@@ -286,10 +355,8 @@ const configuration = {
     createdAt: FIELD_DEFINITIONS.date,
   },
   mappingFunction: mapActivityLog,
-  sort: [
-    { createdAt: { order: 'desc' } },
-  ],
-}
+  sort: [{ createdAt: { order: 'desc' } }],
+};
 
 const elasticsearchHelper = new ElasticsearchHelper(configuration);
 
@@ -318,28 +385,27 @@ router.get('/es-activity-logs', async (request, response, next) => {
 
     // NOTICE: Create a custom boolean query for Elasticsearch
     const booleanQuery = {
-      should: [{
-        terms: {
-          userId: userIdsFromSearch.map((user) => user.id),
+      should: [
+        {
+          terms: {
+            userId: userIdsFromSearch.map((user) => user.id),
+          },
         },
-      }],
+      ],
       minimum_should_match: 1,
     };
 
     // NOTICE: Use the elasticsearchHelper to query Elasticsearch
     const [results, count] = await Promise.all([
-      elasticsearchHelper.esSearch(
-        { page, pageSize },
-        booleanQuery,
-      ),
+      elasticsearchHelper.esSearch({ page, pageSize }, booleanQuery),
       elasticsearchHelper.esCount(booleanQuery),
     ]);
 
     response.send({
-      ...await serializer.serialize(results),
+      ...(await serializer.serialize(results)),
       meta: {
         count: count,
-      }
+      },
     });
   } catch (e) {
     next(e);
@@ -348,6 +414,7 @@ router.get('/es-activity-logs', async (request, response, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 ![](<../../../.gitbook/assets/image (483).png>)

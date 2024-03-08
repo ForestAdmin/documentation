@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Create an API-based Chart
 
@@ -25,6 +67,7 @@ When serializing the data, we use the `Liana.StatSerializer()` serializer. Check
 ```
 
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -63,6 +106,7 @@ router.post('/stats/mrr', (req, res) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -74,6 +118,7 @@ When serializing the data, we use the `Liana.StatSerializer()` serializer. Check
 ```
 
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -112,6 +157,7 @@ router.post('/stats/mrr', (req, res) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -123,6 +169,7 @@ When serializing the data, we use the `serialize_model()` method. Check the `val
 ```
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -133,9 +180,11 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 {% code title="/app/controllers/forest/charts_controller.rb" %}
+
 ```ruby
 class Forest::ChartsController < ForestLiana::ApplicationController
   def mrr
@@ -156,11 +205,13 @@ class Forest::ChartsController < ForestLiana::ApplicationController
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -172,9 +223,11 @@ urlpatterns = [
     path('/stats/mrr', csrf_exempt(views.ChartsMrrView.as_view()), name='stats-mrr')
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 import uuid
 import stripe
@@ -215,11 +268,13 @@ class ChartsMrrView(generic.ListView):
 
         return JsonResponse(res, safe=False)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/ChartsController.php" %}
+
 ```php
 <?php
 
@@ -242,9 +297,11 @@ class ChartsController extends Controller
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -253,9 +310,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/stats/mrr', [ChartsController::class, 'mrr']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+
 ```php
 <?php
 
@@ -274,6 +333,7 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -301,6 +361,7 @@ When serializing the data, we use the `Liana.StatSerializer()` serializer. Check
 ```
 
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 const _ = require('lodash');
 const P = require('bluebird');
@@ -310,40 +371,45 @@ const Liana = require('forest-express-sequelize');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const moment = require('moment');
 
-router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated, (req, res) => {
-  let repartition = [];
+router.post(
+  '/stats/credit-card-country-repartition',
+  Liana.ensureAuthenticated,
+  (req, res) => {
+    let repartition = [];
 
-  let from = moment.utc('2018-03-01').unix();
+    let from = moment.utc('2018-03-01').unix();
 
-  let to = moment.utc('2018-03-20').unix();
+    let to = moment.utc('2018-03-20').unix();
 
-  return stripe.charges
-    .list({
-      created: { gte: from, lte: to }
-    })
-    .then((response) => {
-      return P.each(response.data, (charge) => {
-        let country = charge.source.country || 'Others';
+    return stripe.charges
+      .list({
+        created: { gte: from, lte: to },
+      })
+      .then((response) => {
+        return P.each(response.data, (charge) => {
+          let country = charge.source.country || 'Others';
 
-        let entry = _.find(repartition, { key: country });
-        if (!entry) {
-          repartition.push({ key: country, value: 1 });
-        } else {
-          entry.value++;
-        }
+          let entry = _.find(repartition, { key: country });
+          if (!entry) {
+            repartition.push({ key: country, value: 1 });
+          } else {
+            entry.value++;
+          }
+        });
+      })
+      .then(() => {
+        let json = new Liana.StatSerializer({
+          value: repartition,
+        }).perform();
+
+        res.send(json);
       });
-    })
-    .then(() => {
-      let json = new Liana.StatSerializer({
-        value: repartition
-      }).perform();
-
-      res.send(json);
-    });
-});
+  }
+);
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -363,6 +429,7 @@ When serializing the data, we use the `Liana.StatSerializer()` serializer. Check
 ```
 
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 const _ = require('lodash');
 const P = require('bluebird');
@@ -372,41 +439,46 @@ const Liana = require('forest-express-mongoose');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const moment = require('moment');
 
-router.post('/stats/credit-card-country-repartition', Liana.ensureAuthenticated, (req, res) => {
-  let repartition = [];
+router.post(
+  '/stats/credit-card-country-repartition',
+  Liana.ensureAuthenticated,
+  (req, res) => {
+    let repartition = [];
 
-  let from = moment.utc('2018-03-01').unix();
+    let from = moment.utc('2018-03-01').unix();
 
-  let to = moment.utc('2018-03-20').unix();
+    let to = moment.utc('2018-03-20').unix();
 
-  return stripe.charges
-    .list({
-      created: { gte: from, lte: to }
-    })
-    .then((response) => {
-      return P.each(response.data, (charge) => {
-        console.log(charge.source);
-        let country = charge.source.country || 'Others';
+    return stripe.charges
+      .list({
+        created: { gte: from, lte: to },
+      })
+      .then((response) => {
+        return P.each(response.data, (charge) => {
+          console.log(charge.source);
+          let country = charge.source.country || 'Others';
 
-        let entry = _.find(repartition, { key: country });
-        if (!entry) {
-          repartition.push({ key: country, value: 1 });
-        } else {
-          entry.value++;
-        }
+          let entry = _.find(repartition, { key: country });
+          if (!entry) {
+            repartition.push({ key: country, value: 1 });
+          } else {
+            entry.value++;
+          }
+        });
+      })
+      .then(() => {
+        let json = new Liana.StatSerializer({
+          value: repartition,
+        }).perform();
+
+        res.send(json);
       });
-    })
-    .then(() => {
-      let json = new Liana.StatSerializer({
-        value: repartition
-      }).perform();
-
-      res.send(json);
-    });
-});
+  }
+);
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -426,6 +498,7 @@ When serializing the data, we use the `serialize_model()` method. Check the `val
 ```
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -436,6 +509,7 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 ```ruby
@@ -465,10 +539,12 @@ class Forest::ChartsController < ForestLiana::ApplicationController
   end
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -480,9 +556,11 @@ urlpatterns = [
     path('/stats/credit-card-country-repartition', csrf_exempt(views.CreditCardCountryRepartitionView.as_view()), name='stats-credit-card-country-repartition')
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 import uuid
 import stripe
@@ -526,10 +604,12 @@ class CreditCardCountryRepartitionView(generic.ListView):
 
         return JsonResponse(res, safe=False)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```
 {
   value: [{
@@ -543,6 +623,7 @@ class CreditCardCountryRepartitionView(generic.ListView):
 ```
 
 {% code title="app/Http/Controllers/ChartsController.php" %}
+
 ```php
 <?php
 
@@ -582,9 +663,11 @@ class ChartsController extends Controller
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -593,9 +676,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/stats/credit-card-country-repartition', [ChartsController::class, 'creditCardCountryRepartition']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+
 ```php
 <?php
 
@@ -614,6 +699,7 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -641,6 +727,7 @@ When serializing the data, we use the `Liana.StatSerializer()` serializer. Check
 ```
 
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 const _ = require('lodash');
 const P = require('bluebird');
@@ -658,7 +745,7 @@ router.post('/stats/charges-per-day', (req, res) => {
 
   return stripe.charges
     .list({
-      created: { gte: from, lte: to }
+      created: { gte: from, lte: to },
     })
     .then((response) => {
       return P.each(response.data, (charge) => {
@@ -674,7 +761,7 @@ router.post('/stats/charges-per-day', (req, res) => {
     })
     .then(() => {
       let json = new Liana.StatSerializer({
-        value: values
+        value: values,
       }).perform();
 
       res.send(json);
@@ -683,6 +770,7 @@ router.post('/stats/charges-per-day', (req, res) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -702,6 +790,7 @@ When serializing the data, we use the `Liana.StatSerializer()` serializer. Check
 ```
 
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 const _ = require('lodash');
 const P = require('bluebird');
@@ -719,7 +808,7 @@ router.post('/stats/charges-per-day', (req, res) => {
 
   return stripe.charges
     .list({
-      created: { gte: from, lte: to }
+      created: { gte: from, lte: to },
     })
     .then((response) => {
       return P.each(response.data, (charge) => {
@@ -735,7 +824,7 @@ router.post('/stats/charges-per-day', (req, res) => {
     })
     .then(() => {
       let json = new Liana.StatSerializer({
-        value: values
+        value: values,
       }).perform();
 
       res.send(json);
@@ -744,6 +833,7 @@ router.post('/stats/charges-per-day', (req, res) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -763,6 +853,7 @@ When serializing the data, we use the `serialize_model()` method. Check the `val
 ```
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -773,9 +864,11 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 {% code title="/app/controllers/forest/charts_controller.rb" %}
+
 ```ruby
 class Forest::ChartsController < ForestLiana::ApplicationController
   def charges_per_day
@@ -802,11 +895,13 @@ class Forest::ChartsController < ForestLiana::ApplicationController
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -818,9 +913,11 @@ urlpatterns = [
     path('/stats/charges-per-day', csrf_exempt(views.ChargesPerDayView.as_view()), name='stats-charges-per-day')
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 import uuid
 import stripe
@@ -864,10 +961,12 @@ class ChargesPerDayView(generic.ListView):
 
         return JsonResponse(res, safe=False)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```
 {
   value: [{
@@ -881,6 +980,7 @@ class ChargesPerDayView(generic.ListView):
 ```
 
 {% code title="app/Http/Controllers/ChartsController.php" %}
+
 ```php
 <?php
 
@@ -937,9 +1037,11 @@ class ChartsController extends Controller
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -948,9 +1050,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/stats/charges-per-day', [ChartsController::class, 'chargesPerDay']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+
 ```php
 <?php
 
@@ -969,6 +1073,7 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -997,6 +1102,7 @@ Here's how you could implement it:
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 ​// [...]
 const Liana = require('forest-express-sequelize');
@@ -1017,11 +1123,13 @@ router.post('/stats/some-objective', (req, res) => {
   }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/dashboard.js" %}
+
 ```javascript
 ​// [...]
 const Liana = require('forest-express-mongoose');
@@ -1042,11 +1150,13 @@ router.post('/stats/some-objective', (req, res) => {
   }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/config/routes.rb" %}
+
 ```ruby
 ...
 
@@ -1056,9 +1166,11 @@ end
 
 ...
 ```
+
 {% endcode %}
 
 {% code title="/app/controller/forest/your-model-controller.rb" %}
+
 ```ruby
 ...
 
@@ -1075,11 +1187,13 @@ end
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -1091,9 +1205,11 @@ urlpatterns = [
     path('/stats/some-objective', csrf_exempt(views.SomeObjectiveView.as_view()), name='stats-some-objective')
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 import uuid
 
@@ -1118,10 +1234,12 @@ class SomeObjectiveView(generic.ListView):
                 'id': uuid.uuid4()
             }}
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```
 {
   value: {
@@ -1132,6 +1250,7 @@ class SomeObjectiveView(generic.ListView):
 ```
 
 {% code title="app/Http/Controllers/ChartsController.php" %}
+
 ```php
 <?php
 
@@ -1152,9 +1271,11 @@ class ChartsController extends Controller
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -1163,9 +1284,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/stats/some-objective', [ChartsController::class, 'someObjective']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+
 ```php
 <?php
 
@@ -1184,6 +1307,7 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Create a Smart Collection with Amazon S3
 
@@ -19,34 +61,42 @@ You **MUST** declare an `id` field when creating a Smart Collection. The value o
 {% endhint %}
 
 {% code title="/forest/legal_docs.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models');
 
 collection('legal_docs', {
-  fields: [{
-    field: 'id',
-    type: 'String'
-  }, {
-    field: 'url',
-    type: 'String',
-    widget: 'link',
-    isReadOnly: true
-  }, {
-    field: 'last_modified',
-    type: 'Date',
-    isReadOnly: true
-  }, {
-    field: 'size',
-    type: 'String',
-    isReadOnly: true
-  }, {
-    field: 'is_verified',
-    type: 'Boolean',
-    isReadOnly: false
-  }]
+  fields: [
+    {
+      field: 'id',
+      type: 'String',
+    },
+    {
+      field: 'url',
+      type: 'String',
+      widget: 'link',
+      isReadOnly: true,
+    },
+    {
+      field: 'last_modified',
+      type: 'Date',
+      isReadOnly: true,
+    },
+    {
+      field: 'size',
+      type: 'String',
+      isReadOnly: true,
+    },
+    {
+      field: 'is_verified',
+      type: 'Boolean',
+      isReadOnly: false,
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -60,34 +110,42 @@ You **MUST** declare an `id` field when creating a Smart Collection. The value o
 {% endhint %}
 
 {% code title="/forest/legal_docs.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const models = require('../models');
 
 collection('legal_docs', {
-  fields: [{
-    field: 'id',
-    type: 'String'
-  }, {
-    field: 'url',
-    type: 'String',
-    widget: 'link',
-    isReadOnly: true
-  }, {
-    field: 'last_modified',
-    type: 'Date',
-    isReadOnly: true
-  }, {
-    field: 'size',
-    type: 'String',
-    isReadOnly: true
-  }, {
-    field: 'is_verified',
-    type: 'Boolean',
-    isReadOnly: false
-  }]
+  fields: [
+    {
+      field: 'id',
+      type: 'String',
+    },
+    {
+      field: 'url',
+      type: 'String',
+      widget: 'link',
+      isReadOnly: true,
+    },
+    {
+      field: 'last_modified',
+      type: 'Date',
+      isReadOnly: true,
+    },
+    {
+      field: 'size',
+      type: 'String',
+      isReadOnly: true,
+    },
+    {
+      field: 'is_verified',
+      type: 'Boolean',
+      isReadOnly: false,
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -109,6 +167,7 @@ The logic here is to list all the files uploaded on a specific S3 Bucket. We use
 Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org/) document. We use the very simple [JSON API Serializer](https://github.com/SeyZ/jsonapi-serializer) library for this task.
 
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -119,7 +178,7 @@ const Serializer = require('../serializers/legal_docs');
 
 function reconcileData(file) {
   return models.documents
-    .findOne({ where: { file_id: file.id }})
+    .findOne({ where: { file_id: file.id } })
     .then((doc) => {
       file.is_verified = doc ? doc.is_verified : false;
       return file;
@@ -127,7 +186,8 @@ function reconcileData(file) {
 }
 
 router.get('/legal_docs', (req, res, next) => {
-  return new S3Helper().files('livedemo/legal')
+  return new S3Helper()
+    .files('livedemo/legal')
     .then((files) => P.mapSeries(files, (file) => reconcileData(file)))
     .then((files) => Serializer.serialize(files))
     .then((files) => res.send(files))
@@ -136,17 +196,20 @@ router.get('/legal_docs', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 {% code title="/serializers/legal_docs.js" %}
+
 ```javascript
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 module.exports = new JSONAPISerializer('legal_docs', {
   attributes: ['url', 'last_modified', 'size', 'is_verified'],
-  keyForAttribute: 'underscore_case'
+  keyForAttribute: 'underscore_case',
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -158,6 +221,7 @@ The logic here is to list all the files uploaded on a specific S3 Bucket. We use
 Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org/) document. We use the very simple [JSON API Serializer](https://github.com/SeyZ/jsonapi-serializer) library for this task.
 
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -168,7 +232,7 @@ const Serializer = require('../serializers/legal_docs');
 
 function reconcileData(file) {
   return models.documents
-    .findOne({ where: { file_id: file.id }})
+    .findOne({ where: { file_id: file.id } })
     .then((doc) => {
       file.is_verified = doc ? doc.is_verified : false;
       return file;
@@ -176,7 +240,8 @@ function reconcileData(file) {
 }
 
 router.get('/legal_docs', (req, res, next) => {
-  return new S3Helper().files('livedemo/legal')
+  return new S3Helper()
+    .files('livedemo/legal')
     .then((files) => P.mapSeries(files, (file) => reconcileData(file)))
     .then((files) => Serializer.serialize(files))
     .then((files) => res.send(files))
@@ -185,24 +250,26 @@ router.get('/legal_docs', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 {% code title="/serializers/legal_docs.js" %}
+
 ```javascript
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 module.exports = new JSONAPISerializer('legal_docs', {
   attributes: ['url', 'last_modified', 'size', 'is_verified'],
-  keyForAttribute: 'underscore_case'
+  keyForAttribute: 'underscore_case',
 });
 ```
-{% endcode %}
 
+{% endcode %}
 
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/live-demo-s3-integration.png>)
+![](../../../.gitbook/assets/live-demo-s3-integration.png)
 
 ### Implementing the GET (specific record)
 
@@ -213,6 +280,7 @@ To access the details view of a Smart Collection record, you have to catch the G
 The implementation of the `reconcileData()` and `Serializer.serialize()` functions are already described in the [Implementing the GET (all records)](../#implementing-the-get-all-records) section.
 
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -234,6 +302,7 @@ router.get('/legal_docs/:doc_id', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -243,6 +312,7 @@ To access the details view of a Smart Collection record, you have to catch the G
 The implementation of the `reconcileData()` and `Serializer.serialize()` functions are already described in the [Implementing the GET (all records)](../#implementing-the-get-all-records) section.
 
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -264,8 +334,8 @@ router.get('/legal_docs/:doc_id', (req, res, next) => {
 
 module.exports = router;
 ```
-{% endcode %}
 
+{% endcode %}
 
 {% endtab %}
 {% endtabs %}
@@ -281,6 +351,7 @@ To handle the update of a record we have to catch the PUT API call. In our examp
 The implementation of the `reconcileData()` and `Serializer.serialize()` functions are already explained in the [Implementing the GET (all records)](../#implementing-the-get-all-records) section.
 
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -293,7 +364,7 @@ const Serializer = require('../serializers/legal_docs');
 
 router.put('/legal_docs/:doc_id', (req, res, next) => {
   return models.documents
-    .findOne({ where: { file_id: req.params.doc_id }})
+    .findOne({ where: { file_id: req.params.doc_id } })
     .then((doc) => {
       doc.is_verified = req.body.data.attributes.is_verified;
       return doc.save();
@@ -307,6 +378,7 @@ router.put('/legal_docs/:doc_id', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -314,6 +386,7 @@ module.exports = router;
 The implementation of the `reconcileData()` and `Serializer.serialize()` functions are already explained in the [Implementing the GET (all records)](../#implementing-the-get-all-records) section.
 
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -326,7 +399,7 @@ const Serializer = require('../serializers/legal_docs');
 
 router.put('/legal_docs/:doc_id', (req, res, next) => {
   return models.documents
-    .findOne({ where: { file_id: req.params.doc_id }})
+    .findOne({ where: { file_id: req.params.doc_id } })
     .then((doc) => {
       doc.is_verified = req.body.data.attributes.is_verified;
       return doc.save();
@@ -340,13 +413,13 @@ router.put('/legal_docs/:doc_id', (req, res, next) => {
 
 module.exports = router;
 ```
-{% endcode %}
 
+{% endcode %}
 
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/live-demo-s3-integration-verified.png>)
+![](../../../.gitbook/assets/live-demo-s3-integration-verified.png)
 
 ### Implementing the DELETE
 
@@ -355,6 +428,7 @@ Now we are able to see all the legal documents on Forest Admin, it’s time to i
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -372,11 +446,13 @@ router.delete('/legal_docs/:doc_id', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -394,11 +470,12 @@ router.delete('/legal_docs/:doc_id', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/live-demo-s3-integration-delete.png>)
+![](../../../.gitbook/assets/live-demo-s3-integration-delete.png)
 
 ### Implementing the POST
 
@@ -407,6 +484,7 @@ On our Live Demo example, creating a record directly from this Smart Collection 
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 ...
 
@@ -418,11 +496,13 @@ router.post('/legal_docs', permissionMiddlewareCreator.create(), (request, respo
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/legal_docs.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -434,11 +514,16 @@ const Serializer = require('../serializers/legal_docs');
 // ...
 
 router.post('/legal_docs', (req, res, next) => {
-  res.status(400).send('You cannot create legal documents from here. Please, upload them directly in the details view of a Company');
+  res
+    .status(400)
+    .send(
+      'You cannot create legal documents from here. Please, upload them directly in the details view of a Company'
+    );
 });
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

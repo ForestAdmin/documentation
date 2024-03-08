@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Relationships
 
@@ -10,12 +52,12 @@ A relationship is a connection between two collections.
 
 Relationships are visible and actionable in Forest Admin:
 
-* `hasMany` **(1)**
-* `belongsTo` or `hasOne`**(2)**
+- `hasMany` **(1)**
+- `belongsTo` or `hasOne`**(2)**
 
-![](<../../../.gitbook/assets/live-demo-collection-relationship.png>)
+![](../../../.gitbook/assets/live-demo-collection-relationship.png)
 
-If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association\_basics.html) to create new ones.
+If you installed Forest Admin within a **Rails** app, then all the relationships defined in your ActiveRecord models are supported out of the box. Check the official [Rails documentation](https://guides.rubyonrails.org/association_basics.html) to create new ones.
 
 If you installed Forest Admin directly on a database, then most relationships should have been [automatically generated](./#lumber-relationship-generation-rules). However, depending on your database nature and structure, you may have to add some manually.
 
@@ -25,8 +67,8 @@ Depending on your database type, your models will have been generated in Sequeli
 
 Below are some simple snippets showing you how to add relationships. However, should you want to dig deeper, please refer to the appropriate framework's documentations:
 
-* [Sequelize's documentation](https://sequelize.org/master/manual/assocs.html) on adding relationships in your models (SQL)
-* [Mongoose's documentation](https://mongoosejs.com/docs/guide.html) on adding relationships in your models (Mongodb)
+- [Sequelize's documentation](https://sequelize.org/master/manual/assocs.html) on adding relationships in your models (SQL)
+- [Mongoose's documentation](https://mongoosejs.com/docs/guide.html) on adding relationships in your models (Mongodb)
 
 ### Adding a `hasMany` relationship
 
@@ -35,6 +77,7 @@ In our [Live demo](https://app.forestadmin.com/Live%20Demo/Production/Operations
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customers',
@@ -48,11 +91,13 @@ module.exports = (sequelize, DataTypes) => {
   return Customer;
 };
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -66,6 +111,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('customers', schema, 'customers');
 };
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -80,7 +126,7 @@ Note that for orders to be displayed within the related data section of your cus
 Once you've added your relationship(s) in your model(s), they will only be taken into account **after you restart your server**.
 {% endhint %}
 
-![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-Linf3OXMqwbdmu1bCUF%2F-LinfZ7RFMnv-1sEZZoZ%2FCapture%20d%E2%80%99e%CC%81cran%202019-07-02%20a%CC%80%2019.13.59.png?alt=media\&token=b18bbf1c-3d3e-40c0-9c5b-746d3aa43096)
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-Linf3OXMqwbdmu1bCUF%2F-LinfZ7RFMnv-1sEZZoZ%2FCapture%20d%E2%80%99e%CC%81cran%202019-07-02%20a%CC%80%2019.13.59.png?alt=media&token=b18bbf1c-3d3e-40c0-9c5b-746d3aa43096)
 
 ### Adding a `hasOne` relationship
 
@@ -89,6 +135,7 @@ In case of a one-to-one relationship between 2 collections, the opposite of a `b
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customers',
@@ -102,11 +149,13 @@ module.exports = (sequelize, DataTypes) => {
   return Customer;
 };
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -120,11 +169,12 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('customers', schema, 'customers');
 };
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
 
-![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-Linf3OXMqwbdmu1bCUF%2F-LinfN5sVRQZ7WK6VBmM%2FCapture%20d%E2%80%99e%CC%81cran%202019-07-02%20a%CC%80%2019.11.57.png?alt=media\&token=96ead205-b9f0-40fa-9f24-442d5a6a7d99)
+![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-Linf3OXMqwbdmu1bCUF%2F-LinfN5sVRQZ7WK6VBmM%2FCapture%20d%E2%80%99e%CC%81cran%202019-07-02%20a%CC%80%2019.11.57.png?alt=media&token=96ead205-b9f0-40fa-9f24-442d5a6a7d99)
 
 {% hint style="info" %}
 Don't forget to **restart your server** for your newly added relationships to be taken into account.
@@ -132,11 +182,12 @@ Don't forget to **restart your server** for your newly added relationships to be
 
 ### Adding a `belongsTo` relationship
 
-On our Live Demo example, the Address model has a foreignKey customer\_id that points to the Customer. In other words, an **address**`belongsTo` a **customer**.
+On our Live Demo example, the Address model has a foreignKey customer_id that points to the Customer. In other words, an **address**`belongsTo` a **customer**.
 
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/models/addresses.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const Address = sequelize.define('addresses',
@@ -150,11 +201,13 @@ module.exports = (sequelize, DataTypes) => {
   return Address;
 };
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/models/addresses.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -168,6 +221,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('addresses', schema, 'addresses');
 };
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -194,6 +248,7 @@ In that case, adding the above code will not suffice to add the `belongsTo` rela
 If the field `fk_customername` of a table **Address** points to the field `name` of a table **Customer**, add the following:
 
 {% code title="/models/addresses.js" %}
+
 ```javascript
 ...
 Address.associate = (models) => {
@@ -204,6 +259,7 @@ Address.associate = (models) => {
 };
 ...
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -215,6 +271,7 @@ This is explained in [Sequelize's documentation](https://sequelize.org/master/ma
 `belongsToMany` association is often used to set up a many-to-many relationship with another model. For this example, we will consider the models `Projects` and `Users`. A user can be part of many projects, and one project has many users. The junction table that will keep track of the associations will be called `userProjects`, which will contain the foreign keys projectId and userId.
 
 {% code title="/models/user-projects.js" %}
+
 ```javascript
 ...
 UserProjects.associate = (models) => {
@@ -235,9 +292,11 @@ UserProjects.associate = (models) => {
 };
 ...
 ```
+
 {% endcode %}
 
 {% code title="/models/users.js" %}
+
 ```javascript
 ...
 Users.associate = (models) => {
@@ -249,9 +308,11 @@ Users.associate = (models) => {
 };
 ...
 ```
+
 {% endcode %}
 
 {% code title="/models/projects.js" %}
+
 ```javascript
 ...
 Projects.associate = (models) => {
@@ -263,6 +324,7 @@ Projects.associate = (models) => {
 };
 ...
 ```
+
 {% endcode %}
 
 ![](<../../../.gitbook/assets/Screenshot 2020-03-19 at 15.29.10.png>)

@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Create a Smart relationship
 
@@ -17,6 +59,7 @@ A BelongsTo Smart Relationship is created like a [Smart Field](../../../smart-fi
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/orders.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models');
@@ -45,51 +88,55 @@ collection('orders', {
   }]
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/orders.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const Address = require('../models/addresses');
 
 collection('Order', {
-  fields: [{
-    field: 'delivery_address',
-    type: 'String',
-    reference: 'Address._id',
-    get: function (order) {
-      return Address
-        .aggregate([
+  fields: [
+    {
+      field: 'delivery_address',
+      type: 'String',
+      reference: 'Address._id',
+      get: function (order) {
+        return Address.aggregate([
           {
-            $lookup:
-            {
+            $lookup: {
               from: 'orders',
               localField: 'customer_id',
               foreignField: 'customer_id',
-              as: 'orders_docs'
-            }
+              as: 'orders_docs',
+            },
           },
           {
-            $match:
-            {
-              'orders_docs._id': order._id
-            }
+            $match: {
+              'orders_docs._id': order._id,
+            },
+          },
+        ]).then((addresses) => {
+          if (addresses) {
+            return addresses[0]._id;
           }
-        ])
-        .then((addresses) => {
-          if (addresses) { return addresses[0]._id; }
         });
-    }
-  }]
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="lib/forest_liana/collections/order.rb" %}
+
 ```ruby
 class Forest::Order
   include ForestLiana::Collection
@@ -107,11 +154,13 @@ class Forest::Order
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/order.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Order, Address
@@ -135,19 +184,23 @@ class OrderForest(Collection):
 
 Collection.register(OrderForest, Order)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.orders import OrderForest
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Order.php" %}
+
 ```php
 <?php
 
@@ -187,11 +240,12 @@ class Order extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
 
-![](<../../../../.gitbook/assets/live-demo-collection-smart-relationship.png>)
+![](../../../../.gitbook/assets/live-demo-collection-smart-relationship.png)
 
 ### Create a HasMany Smart Relationship
 
@@ -202,38 +256,47 @@ A HasMany Smart Relationship is created like a [Smart Field](https://docs.forest
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/products.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('products', {
-  fields: [{
-    field: 'buyers',
-    type: ['String'],
-    reference: 'customers.id'
-  }]
+  fields: [
+    {
+      field: 'buyers',
+      type: ['String'],
+      reference: 'customers.id',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/products.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('products', {
-  fields: [{
-    field: 'buyers',
-    type: ['String'],
-    reference: 'Customer._id'
-  }]
+  fields: [
+    {
+      field: 'buyers',
+      type: ['String'],
+      reference: 'Customer._id',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="lib/forest_liana/collections/product.rb" %}
+
 ```ruby
 class Forest::Product
   include ForestLiana::Collection
@@ -243,11 +306,13 @@ class Forest::Product
   has_many :buyers, type: ['String'], reference: 'Customer.id'
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/product.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Product
@@ -266,11 +331,13 @@ class ProductForest(Collection):
 
 Collection.register(ProductForest, Product)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Product.php" %}
+
 ```php
 <?php
 
@@ -301,6 +368,7 @@ class Product extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -318,43 +386,54 @@ Then, you should handle pagination in order to avoid performance issue. The API 
 Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`customers` in this example). You can access to the serializer through the `recordsGetter.serialize` function.
 
 {% code title="/routes/products.js" %}
+
 ```javascript
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordSerializer } = require('forest-express-sequelize');
-const { products, customers, orders} = require('../models');
+const {
+  PermissionMiddlewareCreator,
+  RecordSerializer,
+} = require('forest-express-sequelize');
+const { products, customers, orders } = require('../models');
 
 const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('products');
 
-router.get('/products/:product_id/relationships/buyers', (request, response, next) => {
-  const productId = request.params.product_id;
-  const limit = parseInt(request.query.page.size, 10) || 20;
-  const offset = (parseInt(request.query.page.number, 10) - 1) * limit;
-  const include = [{
-    model: orders,
-    as: 'orders',
-    where: { product_id: productId },
-  }];
+router.get(
+  '/products/:product_id/relationships/buyers',
+  (request, response, next) => {
+    const productId = request.params.product_id;
+    const limit = parseInt(request.query.page.size, 10) || 20;
+    const offset = (parseInt(request.query.page.number, 10) - 1) * limit;
+    const include = [
+      {
+        model: orders,
+        as: 'orders',
+        where: { product_id: productId },
+      },
+    ];
 
-  // find the customers for the requested page and page size
-  const findAll = customers.findAll({
-    include,
-    offset,
-    limit,
-  });
+    // find the customers for the requested page and page size
+    const findAll = customers.findAll({
+      include,
+      offset,
+      limit,
+    });
 
-  // count all customers for pagination
-  const count = customers.count({ include });
+    // count all customers for pagination
+    const count = customers.count({ include });
 
-  // resolve the two promises and serialize the response
-  const serializer = new RecordSerializer(customers);
-  Promise.all([findAll, count])
-    .then(([customersFound, customersCount]) =>
-      serializer.serialize(customersFound, { count: customersCount }))
-    .then((recordsSerialized) => response.send(recordsSerialized))
-    .catch(next);
-});
+    // resolve the two promises and serialize the response
+    const serializer = new RecordSerializer(customers);
+    Promise.all([findAll, count])
+      .then(([customersFound, customersCount]) =>
+        serializer.serialize(customersFound, { count: customersCount })
+      )
+      .then((recordsSerialized) => response.send(recordsSerialized))
+      .catch(next);
+  }
+);
 ```
+
 {% endcode %}
 
 **Option2: using raw SQL**
@@ -366,6 +445,7 @@ Then, you should handle pagination in order to avoid performance issue. The API 
 Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`customers` in this example). You can access to the serializer through the `recordsGetter.serialize` function.
 
 {% code title="/routes/products.js" %}
+
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -410,6 +490,7 @@ router.get('/products/:product_id/relationships/buyers', (req, res, next) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -427,20 +508,25 @@ We use the `$lookup` operator of the **aggregate** pipeline. Since there's a man
 Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `Liana.ResourceSerializer` object.
 
 {% code title="/forest/products.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('products', {
-  fields: [{
-    field: 'buyers',
-    type: ['String'],
-    reference: 'Customer._id'
-  }]
+  fields: [
+    {
+      field: 'buyers',
+      type: ['String'],
+      reference: 'Customer._id',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/products.js" %}
+
 ```javascript
 const P = require('bluebird');
 const express = require('express');
@@ -450,96 +536,87 @@ const { Customers } = require('../models');
 const mongoose = require('mongoose');
 
 router.get('/Product/:product_id/relationships/buyers', (req, res, next) => {
-    let limit = parseInt(req.query.page.size) || 10;
-    let offset = (parseInt(req.query.page.number) - 1) * limit;
+  let limit = parseInt(req.query.page.size) || 10;
+  let offset = (parseInt(req.query.page.number) - 1) * limit;
 
-    let countQuery = Customers.aggregate([
-          {
-            $lookup:
-            {
-              from: 'orders',
-              localField: 'orders',
-              foreignField: '_id',
-              as: 'orders_docs'
-            }
-          },
-          {
-            $unwind: "$orders_docs"
-          },
-          {
-            $lookup:
-            {
-              from: 'products',
-              localField: 'orders_docs._id',
-              foreignField: 'orders',
-              as: 'products_docs'
-            }
-          },
-          {
-            $match:
-            {
-              'products_docs._id': mongoose.Types.ObjectId(req.params.product_id)
-            }
-          },
-          {
-            $count: "products_docs"
-          }
-        ]);
+  let countQuery = Customers.aggregate([
+    {
+      $lookup: {
+        from: 'orders',
+        localField: 'orders',
+        foreignField: '_id',
+        as: 'orders_docs',
+      },
+    },
+    {
+      $unwind: '$orders_docs',
+    },
+    {
+      $lookup: {
+        from: 'products',
+        localField: 'orders_docs._id',
+        foreignField: 'orders',
+        as: 'products_docs',
+      },
+    },
+    {
+      $match: {
+        'products_docs._id': mongoose.Types.ObjectId(req.params.product_id),
+      },
+    },
+    {
+      $count: 'products_docs',
+    },
+  ]);
 
-    let dataQuery = Customers.aggregate([
-          {
-            $lookup:
-            {
-              from: 'orders',
-              localField: 'orders',
-              foreignField: '_id',
-              as: 'orders_docs'
-            }
-          },
-          {
-            $unwind: "$orders_docs"
-          },
-          {
-            $lookup:
-            {
-              from: 'products',
-              localField: 'orders_docs._id',
-              foreignField: 'orders',
-              as: 'products_docs'
-            }
-          },
-          {
-            $match:
-            {
-              'products_docs._id': mongoose.Types.ObjectId(req.params.product_id)
-            }
-          }
-        ]);
+  let dataQuery = Customers.aggregate([
+    {
+      $lookup: {
+        from: 'orders',
+        localField: 'orders',
+        foreignField: '_id',
+        as: 'orders_docs',
+      },
+    },
+    {
+      $unwind: '$orders_docs',
+    },
+    {
+      $lookup: {
+        from: 'products',
+        localField: 'orders_docs._id',
+        foreignField: 'orders',
+        as: 'products_docs',
+      },
+    },
+    {
+      $match: {
+        'products_docs._id': mongoose.Types.ObjectId(req.params.product_id),
+      },
+    },
+  ]);
 
-    return P
-      .all([
-        countQuery,
-        dataQuery
-      ])
-      .spread((count, customers) => {
-        const serializer = new Liana.RecordSerializer(Customers);
-        return serializer.serialize(customers, { count: count.orders_count });
-      })
-      .then((products) => {
-        res.send(products);
-      })
-      .catch((err) => next(err));
-  });
+  return P.all([countQuery, dataQuery])
+    .spread((count, customers) => {
+      const serializer = new Liana.RecordSerializer(Customers);
+      return serializer.serialize(customers, { count: count.orders_count });
+    })
+    .then((products) => {
+      res.send(products);
+    })
+    .catch((err) => next(err));
+});
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/Product/:product_id/buyers`.
 
-We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active\_record\_basics.html) to **count** and **find all** customers who bought the current product.
+We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active_record_basics.html) to **count** and **find all** customers who bought the current product.
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
 
@@ -569,6 +646,7 @@ class Forest::ProductsController < ForestLiana::ApplicationController
   end
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
@@ -577,6 +655,7 @@ Upon browsing, an API call is triggered when accessing the data of the HasMany r
 You will have to declare this route in your app **urls.py** file
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -588,11 +667,13 @@ urlpatterns = [
     path('/app_product/<pk>/relationships/buyers', views.BuyersView.as_view(), name='product-buyers'),
 ]
 ```
+
 {% endcode %}
 
 Then create the pertained view
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django.views import generic
@@ -617,6 +698,7 @@ class BuyersView(PaginationMixin, generic.ListView):
 
         return JsonResponse(data, safe=False)
 ```
+
 {% endcode %}
 
 We’ve built the right SQL query using [Django ORM](https://docs.djangoproject.com/en/3.2/topics/db/queries/) to **find all** customers who bought the current product.
@@ -629,13 +711,14 @@ Finally, you don’t have to serialize the data yourself. The Forest Admin agent
 {% tab title="Laravel" %}
 Upon browsing, an API call is triggered when accessing the data of the HasMany relationships in order to fetch them asynchronously. In the following example, the API call is a GET on `/product/{id}/relationships/buyers`.
 
-We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active\_record\_basics.html) to **count** and **find all** customers who bought the current product.
+We’ve built the right SQL query using [Active Record](http://guides.rubyonrails.org/active_record_basics.html) to **count** and **find all** customers who bought the current product.
 
 Then, you should handle pagination in order to avoid performance issue. The API call has a querystring available which gives you all the necessary parameters you need to enable pagination.
 
 Finally, you don’t have to serialize the data yourself. The Forest Admin agent already knows how to serialize your collection (`Customer` in this example). You can access to the serializer through the `render()` function of JsonApi facade.
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -645,9 +728,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('forest/product/{id}/relationships/buyers', [ProductsController::class, 'buyers']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/controllers/ProductsController.php" %}
+
 ```php
 <?php
 
@@ -678,6 +763,7 @@ class ProductsController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

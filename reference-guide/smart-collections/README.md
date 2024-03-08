@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Smart Collections
 
@@ -35,25 +77,30 @@ As we are using the _customer id_ in this example, we do not need to declare an 
 {% endhint %}
 
 {% code title="forest/customer_stats.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models');
 
 collection('customer_stats', {
   isSearchable: true,
-  fields: [{
+  fields: [
+    {
       field: 'email',
       type: 'String',
-    }, {
+    },
+    {
       field: 'orders_count',
       type: 'Number',
-    }, {
+    },
+    {
       field: 'total_amount',
       type: 'Number',
-  }],
-
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -79,6 +126,7 @@ As we are using the _customer id_ in this example, we do not need to declare an 
 {% endhint %}
 
 {% code title="lib/forest-liana/collections/customer_stat.rb" %}
+
 ```ruby
 class Forest::CustomerStat
   include ForestLiana::Collection
@@ -92,6 +140,7 @@ class Forest::CustomerStat
 
 end
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -113,6 +162,7 @@ As we are using the _customer id_ in this example, we do not need to declare an 
 {% endhint %}
 
 {% code title="app/forest/customer_stat.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 
@@ -145,13 +195,16 @@ class CustomerStat(Collection):
 
 Collection.register(CustomerStat)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.customer_stat import CustomerStat
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -173,6 +226,7 @@ As we are using the _customer id_ in this example, we do not need to declare an 
 {% endhint %}
 
 {% code title="app/Models/SmartCollections/CustomerStat.php" %}
+
 ```php
 <?php
 
@@ -226,6 +280,7 @@ class CustomerStat extends SmartCollection
     }
 }
 ```
+
 {% endcode %}
 
 {% hint style="info" %}
@@ -251,6 +306,7 @@ We have implemented a **search logic** to catch if a search query (accessible th
 Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org) document. A class called RecordSerializer is made available to help you serialize the records. You can read [more about this class here](serializing-your-records.md).
 
 {% code title="/routes/customer_stats.js" %}
+
 ```javascript
 const { RecordSerializer } = require('forest-express-sequelize');
 const express = require('express');
@@ -266,7 +322,10 @@ router.get('/customer_stats', (req, res, next) => {
   let conditionSearch = '';
 
   if (req.query.search) {
-    conditionSearch = `customers.email LIKE '%${req.query.search.replace(/\'/g, '\'\'')}%'`;
+    conditionSearch = `customers.email LIKE '%${req.query.search.replace(
+      /\'/g,
+      "''"
+    )}%'`;
   }
 
   const queryData = `
@@ -303,16 +362,21 @@ router.get('/customer_stats', (req, res, next) => {
     sequelize.query(queryCount, { type: queryType }),
   ])
     .then(async ([customerStatsList, customerStatsCount]) => {
-      const customerStatsSerializer = new RecordSerializer({ name: 'customer_stats' });
-      const customerStats = await customerStatsSerializer.serialize(customerStatsList);
+      const customerStatsSerializer = new RecordSerializer({
+        name: 'customer_stats',
+      });
+      const customerStats = await customerStatsSerializer.serialize(
+        customerStatsList
+      );
       const count = customerStatsCount[0].count;
-      res.send({ ...customerStats, meta:{ count: count }});
+      res.send({ ...customerStats, meta: { count: count } });
     })
     .catch((err) => next(err));
 });
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -332,6 +396,7 @@ We have implemented a **search logic** to catch if a search query (accessible th
 Finally, the last step is to serialize the response data in the expected format which is simply a standard [JSON API](http://jsonapi.org) document. We use the [JSON API Serializer](https://github.com/fotinakis/jsonapi-serializers) library for this task.
 
 {% code title="lib/forest-liana/controllers/customer_stats_controller.rb" %}
+
 ```ruby
 class Forest::CustomerStatsController < ForestLiana::ApplicationController
   require 'jsonapi-serializers'
@@ -406,11 +471,13 @@ class Forest::CustomerStatsController < ForestLiana::ApplicationController
   end
 end
 ```
+
 {% endcode %}
 
 You then need to create a route pointing to your collection's index action to get all your collection's records.
 
 {% code title="config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -422,6 +489,7 @@ Rails.application.routes.draw do
 
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -429,6 +497,7 @@ end
 First we will add the right path to the **urls.py** file
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -440,11 +509,13 @@ urlpatterns = [
     path('/CustomerStat', csrf_exempt(views.CustomerStatView.as_view()), name='customer-stats'),
 ]
 ```
+
 {% endcode %}
 
 Then we will create the pertained view
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django.views import generic
@@ -478,6 +549,7 @@ class CustomerStatView(PaginationMixin, SearchMixin, generic.ListView):
 
         return JsonResponse(data, safe=False)
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -485,6 +557,7 @@ class CustomerStatView(PaginationMixin, SearchMixin, generic.ListView):
 Create a controller `CustomerStatsController`
 
 {% code title="app/Http/Controllers/CustomerStatsController.php" %}
+
 ```php
 <?php
 
@@ -529,11 +602,13 @@ class CustomerStatsController extends Controller
     }
 }
 ```
+
 {% endcode %}
 
 Then add the route.
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -542,6 +617,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('forest/customerStat', [CustomerStatsController::class, 'index']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Create a Smart Chart
 
@@ -33,6 +75,7 @@ If you are creating a **record-specific** smart chart (in the record Analytics t
 Our first Smart Chart example will be a simple table: however you may choose to make it as complex and customized as you wish.
 
 {% code title="" %}
+
 ```markup
 <BetaTable
   @columns={{array 'Username' 'Points'}}
@@ -48,25 +91,34 @@ Our first Smart Chart example will be a simple table: however you may choose to 
   </RowColumn>
 </BetaTable>
 ```
+
 {% endcode %}
 
 Using a trivial set of hardcoded data for example's sake:
 
 {% code title="Component tab" %}
+
 ```javascript
 import Component from '@glimmer/component';
-import { loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
+import {
+  loadExternalStyle,
+  loadExternalJavascript,
+} from 'client/utils/smart-view-utils';
 
 export default class extends Component {
-  users = [{
-    username: 'Darth Vador',
-    points: 1500000,
-  }, {
-    username: 'Luke Skywalker',
-    points: 2,
-  }]
+  users = [
+    {
+      username: 'Darth Vador',
+      points: 1500000,
+    },
+    {
+      username: 'Luke Skywalker',
+      points: 2,
+    },
+  ];
 }
 ```
+
 {% endcode %}
 
 ![](<../../.gitbook/assets/image (6).png>)
@@ -74,6 +126,7 @@ export default class extends Component {
 To query a custom route of your Forest server as your datasource, you may use this syntax instead:
 
 {% code title="Component tab" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
@@ -90,11 +143,15 @@ export default class extends Component {
   }
 
   async fetchData() {
-    const response = await this.lianaServerFetch.fetch('/forest/custom-data', {});
+    const response = await this.lianaServerFetch.fetch(
+      '/forest/custom-data',
+      {}
+    );
     this.users = await response.json();
   }
 }
 ```
+
 {% endcode %}
 
 ### Creating a Bar Chart
@@ -102,22 +159,28 @@ export default class extends Component {
 This second example shows how you can achieve any format of charts, as you can benefit from external libraries like D3js.
 
 {% code title="Template tab" %}
+
 ```markup
 <div class="c-smart-view">
     {{this.chart}}
 </div>
 ```
+
 {% endcode %}
 
 {% code title="Component tab" %}
+
 ```javascript
 import Component from '@glimmer/component';
-import { loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
+import {
+  loadExternalStyle,
+  loadExternalJavascript,
+} from 'client/utils/smart-view-utils';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class extends Component {
-   constructor(...args) {
+  constructor(...args) {
     super(...args);
 
     this.loadPlugin();
@@ -130,18 +193,23 @@ export default class extends Component {
     await loadExternalJavascript('https://d3js.org/d3.v6.min.js');
 
     this.loaded = true;
-    this.renderChart()
+    this.renderChart();
   }
 
   async fetchData() {
-    const response = await this.lianaServerFetch.fetch('/forest/custom-data', {});
+    const response = await this.lianaServerFetch.fetch(
+      '/forest/custom-data',
+      {}
+    );
     const data = await response.json();
     return data;
   }
 
   @action
   async renderChart() {
-    if (!this.loaded) { return; }
+    if (!this.loaded) {
+      return;
+    }
 
     const color = 'steelblue';
 
@@ -150,63 +218,80 @@ export default class extends Component {
     // const data = Object.assign(usersData.sort((a, b) => d3.descending(a.points, b.points)), {format: "%", y: "↑ Frequency"})
 
     // To remove if you're using data from your Forest server
-    const alphabet = await d3.csv('https://static.observableusercontent.com/files/09f63bb9ff086fef80717e2ea8c974f918a996d2bfa3d8773d3ae12753942c002d0dfab833d7bee1e0c9cd358cd3578c1cd0f9435595e76901508adc3964bbdc?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27alphabet.csv', function(d) {
-      return {
-        name: d.letter,
-        value: +d.frequency
-      };
-    })
-    const data = Object.assign(alphabet.sort((a, b) => d3.descending(a.value, b.value)), {format: "%", y: "↑ Frequency"})
-
+    const alphabet = await d3.csv(
+      'https://static.observableusercontent.com/files/09f63bb9ff086fef80717e2ea8c974f918a996d2bfa3d8773d3ae12753942c002d0dfab833d7bee1e0c9cd358cd3578c1cd0f9435595e76901508adc3964bbdc?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27alphabet.csv',
+      function (d) {
+        return {
+          name: d.letter,
+          value: +d.frequency,
+        };
+      }
+    );
+    const data = Object.assign(
+      alphabet.sort((a, b) => d3.descending(a.value, b.value)),
+      { format: '%', y: '↑ Frequency' }
+    );
 
     const height = 500;
     const width = 800;
-    const margin = ({top: 30, right: 0, bottom: 30, left: 40})
+    const margin = { top: 30, right: 0, bottom: 30, left: 40 };
 
-    const x = d3.scaleBand()
+    const x = d3
+      .scaleBand()
       .domain(d3.range(data.length))
       .range([margin.left, width - margin.right])
-      .padding(0.1)
-    const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.value)]).nice()
-      .range([height - margin.bottom, margin.top])
+      .padding(0.1);
+    const y = d3
+      .scaleLinear()
+      .domain([0, d3.max(data, (d) => d.value)])
+      .nice()
+      .range([height - margin.bottom, margin.top]);
 
-    const xAxis = g => g
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).tickFormat(i => data[i].username).tickSizeOuter(0))
+    const xAxis = (g) =>
+      g.attr('transform', `translate(0,${height - margin.bottom})`).call(
+        d3
+          .axisBottom(x)
+          .tickFormat((i) => data[i].username)
+          .tickSizeOuter(0)
+      );
 
-    const yAxis = g => g
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y).ticks(null, data.format))
-    .call(g => g.select(".domain").remove())
-    .call(g => g.append("text")
-        .attr("x", -margin.left)
-        .attr("y", 10)
-        .attr("fill", "currentColor")
-        .attr("text-anchor", "start")
-        .text(data.y))
+    const yAxis = (g) =>
+      g
+        .attr('transform', `translate(${margin.left},0)`)
+        .call(d3.axisLeft(y).ticks(null, data.format))
+        .call((g) => g.select('.domain').remove())
+        .call((g) =>
+          g
+            .append('text')
+            .attr('x', -margin.left)
+            .attr('y', 10)
+            .attr('fill', 'currentColor')
+            .attr('text-anchor', 'start')
+            .text(data.y)
+        );
 
-    const svg = d3.create("svg")
-        .attr("viewBox", [0, 0, width, height]);
+    const svg = d3.create('svg').attr('viewBox', [0, 0, width, height]);
 
-        svg.append("g")
-            .attr("fill", color)
-          .selectAll("rect")
-          .data(data)
-          .join("rect")
-            .attr("x", (d, i) => x(i))
-            .attr("y", d => y(d.value))
-            .attr("height", d => y(0) - y(d.value))
-            .attr("width", x.bandwidth());
+    svg
+      .append('g')
+      .attr('fill', color)
+      .selectAll('rect')
+      .data(data)
+      .join('rect')
+      .attr('x', (d, i) => x(i))
+      .attr('y', (d) => y(d.value))
+      .attr('height', (d) => y(0) - y(d.value))
+      .attr('width', x.bandwidth());
 
-    svg.append("g").call(xAxis);
+    svg.append('g').call(xAxis);
 
-    svg.append("g").call(yAxis);
+    svg.append('g').call(yAxis);
 
     this.chart = svg.node();
   }
 }
 ```
+
 {% endcode %}
 
 In the above snippet, notice how we import the **D3js** library. Of course, you can choose to use any other library of your choice.
@@ -224,22 +309,28 @@ The resulting chart can be resized to fit your use:
 This last example shows how you can achieve virtually anything, since you are basically coding in a sandbox. There's no limit to what you can do with Smart charts.
 
 {% code title="Template tab" %}
+
 ```markup
 <div class="c-smart-view">
     {{this.chart}}
 </div>
 ```
+
 {% endcode %}
 
 {% code title="Component tab" %}
+
 ```javascript
 import Component from '@glimmer/component';
-import { loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
+import {
+  loadExternalStyle,
+  loadExternalJavascript,
+} from 'client/utils/smart-view-utils';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class extends Component {
-   constructor(...args) {
+  constructor(...args) {
     super(...args);
 
     this.loadPlugin();
@@ -253,24 +344,32 @@ export default class extends Component {
     await loadExternalJavascript('https://unpkg.com/topojson-client@3');
 
     this.loaded = true;
-    this.renderChart()
+    this.renderChart();
   }
 
   @action
   async renderChart() {
-    if (!this.loaded) { return; }
+    if (!this.loaded) {
+      return;
+    }
 
     const height = 610;
     const width = 975;
-    const format = d3.format(",.0f");
+    const format = d3.format(',.0f');
     const path = d3.geoPath();
 
     // This is the JSON for drawing the contours of the map
     // Ref.: https://github.com/d3/d3-fetch/blob/v2.0.0/README.md#json
-    const us = await d3.json("https://static.observableusercontent.com/files/6b1776f5a0a0e76e6428805c0074a8f262e3f34b1b50944da27903e014b409958dc29b03a1c9cc331949d6a2a404c19dfd0d9d36d9c32274e6ffbc07c11350ee?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27counties-albers-10m.json")
-    const features = new Map(topojson.feature(us, us.objects.counties).features.map(d => [d.id, d]))
+    const us = await d3.json(
+      'https://static.observableusercontent.com/files/6b1776f5a0a0e76e6428805c0074a8f262e3f34b1b50944da27903e014b409958dc29b03a1c9cc331949d6a2a404c19dfd0d9d36d9c32274e6ffbc07c11350ee?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27counties-albers-10m.json'
+    );
+    const features = new Map(
+      topojson.feature(us, us.objects.counties).features.map((d) => [d.id, d])
+    );
     // Population should contain data about the density
-    const population = await d3.json('https://static.observableusercontent.com/files/beb56a2d9534662123fa352ffff2db8472e481776fcc1608ee4adbd532ea9ccf2f1decc004d57adc76735478ee68c0fd18931ba01fc859ee4901deb1bee2ed1b?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27population.json')
+    const population = await d3.json(
+      'https://static.observableusercontent.com/files/beb56a2d9534662123fa352ffff2db8472e481776fcc1608ee4adbd532ea9ccf2f1decc004d57adc76735478ee68c0fd18931ba01fc859ee4901deb1bee2ed1b?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27population.json'
+    );
 
     const data = population.slice(1).map(([population, state, county]) => {
       const id = state + county;
@@ -279,66 +378,74 @@ export default class extends Component {
         id,
         position: feature && path.centroid(feature),
         title: feature && feature.properties.name,
-        value: +population
+        value: +population,
       };
-    })
+    });
 
-    const radius = d3.scaleSqrt([0, d3.max(data, d => d.value)], [0, 40])
+    const radius = d3.scaleSqrt([0, d3.max(data, (d) => d.value)], [0, 40]);
 
-    const svg = d3.create("svg")
-        .attr("viewBox", [0, 0, width, height]);
+    const svg = d3.create('svg').attr('viewBox', [0, 0, width, height]);
 
-    svg.append("path")
+    svg
+      .append('path')
       .datum(topojson.feature(us, us.objects.nation))
-      .attr("fill", "#ddd")
-      .attr("d", path);
+      .attr('fill', '#ddd')
+      .attr('d', path);
 
-    svg.append("path")
+    svg
+      .append('path')
       .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
-      .attr("fill", "none")
-      .attr("stroke", "white")
-      .attr("stroke-linejoin", "round")
-      .attr("d", path);
+      .attr('fill', 'none')
+      .attr('stroke', 'white')
+      .attr('stroke-linejoin', 'round')
+      .attr('d', path);
 
-    const legend = svg.append("g")
-      .attr("fill", "#777")
-      .attr("transform", "translate(915,608)")
-      .attr("text-anchor", "middle")
-      .style("font", "10px sans-serif")
-    .selectAll("g")
+    const legend = svg
+      .append('g')
+      .attr('fill', '#777')
+      .attr('transform', 'translate(915,608)')
+      .attr('text-anchor', 'middle')
+      .style('font', '10px sans-serif')
+      .selectAll('g')
       .data(radius.ticks(4).slice(1))
-    .join("g");
+      .join('g');
 
-    legend.append("circle")
-      .attr("fill", "none")
-      .attr("stroke", "#ccc")
-      .attr("cy", d => -radius(d))
-      .attr("r", radius);
+    legend
+      .append('circle')
+      .attr('fill', 'none')
+      .attr('stroke', '#ccc')
+      .attr('cy', (d) => -radius(d))
+      .attr('r', radius);
 
-    legend.append("text")
-      .attr("y", d => -2 * radius(d))
-      .attr("dy", "1.3em")
-      .text(radius.tickFormat(4, "s"));
+    legend
+      .append('text')
+      .attr('y', (d) => -2 * radius(d))
+      .attr('dy', '1.3em')
+      .text(radius.tickFormat(4, 's'));
 
-    svg.append("g")
-      .attr("fill", "brown")
-      .attr("fill-opacity", 0.5)
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 0.5)
-    .selectAll("circle")
-    .data(data
-      .filter(d => d.position)
-      .sort((a, b) => d3.descending(a.value, b.value)))
-    .join("circle")
-      .attr("transform", d => `translate(${d.position})`)
-      .attr("r", d => radius(d.value))
-    .append("title")
-      .text(d => `${d.title} ${format(d.value)}`);
+    svg
+      .append('g')
+      .attr('fill', 'brown')
+      .attr('fill-opacity', 0.5)
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 0.5)
+      .selectAll('circle')
+      .data(
+        data
+          .filter((d) => d.position)
+          .sort((a, b) => d3.descending(a.value, b.value))
+      )
+      .join('circle')
+      .attr('transform', (d) => `translate(${d.position})`)
+      .attr('r', (d) => radius(d.value))
+      .append('title')
+      .text((d) => `${d.title} ${format(d.value)}`);
 
     this.chart = svg.node();
   }
 }
 ```
+
 {% endcode %}
 
 In the above snippet, notice how we import the **D3js** library. Of course, you can choose to use any other library of your choice.
@@ -356,28 +463,50 @@ The resulting chart can be resized to fit your use:
 This is another example to help you build a Cohort Chart.
 
 {% code title="Template tab" %}
+
 ```markup
 <div class="c-smart-chart">
   <div id="demo"></div>
 </div>
 ```
+
 {% endcode %}
 
 {% code title="Component tab" %}
+
 ```javascript
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { loadExternalStyle, loadExternalJavascript } from 'client/utils/smart-view-utils';
-function isValidHex(color){
-    return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
+import {
+  loadExternalStyle,
+  loadExternalJavascript,
+} from 'client/utils/smart-view-utils';
+function isValidHex(color) {
+  return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color);
 }
-function shadeColor(color, percent) { //#
-    color = isValidHex(color) ? color : "#3f83a3"; //handling null color;
-    percent = 1.0 - Math.ceil(percent / 10) / 10;
-    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
-    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+function shadeColor(color, percent) {
+  //#
+  color = isValidHex(color) ? color : '#3f83a3'; //handling null color;
+  percent = 1.0 - Math.ceil(percent / 10) / 10;
+  var f = parseInt(color.slice(1), 16),
+    t = percent < 0 ? 0 : 255,
+    p = percent < 0 ? percent * -1 : percent,
+    R = f >> 16,
+    G = (f >> 8) & 0x00ff,
+    B = f & 0x0000ff;
+  return (
+    '#' +
+    (
+      0x1000000 +
+      (Math.round((t - R) * p) + R) * 0x10000 +
+      (Math.round((t - G) * p) + G) * 0x100 +
+      (Math.round((t - B) * p) + B)
+    )
+      .toString(16)
+      .slice(1)
+  );
 }
 export default class extends Component {
   @service lianaServerFetch;
@@ -389,24 +518,26 @@ export default class extends Component {
   async loadPlugin() {
     await loadExternalJavascript('https://d3js.org/d3.v6.min.js');
     this.loaging = false;
-    this.renderChart()
+    this.renderChart();
   }
-  getRows(data){
+  getRows(data) {
     var rows = [];
     var keys = Object.keys(data);
     var days = [];
     var percentDays = [];
-    for(var key in keys){
-        if(data.hasOwnProperty(keys[key])) {
-            days = data[keys[key]];
-            percentDays.push(keys[key]);
-            for(var i = 0; i < days.length; i++){
-                percentDays.push(i > 0 ? Math.round((days[i]/days[0] * 100) * 100) / 100 : days[i]);
-            }
-            rows.push(percentDays);
-            percentDays = [];
+    for (var key in keys) {
+      if (data.hasOwnProperty(keys[key])) {
+        days = data[keys[key]];
+        percentDays.push(keys[key]);
+        for (var i = 0; i < days.length; i++) {
+          percentDays.push(
+            i > 0 ? Math.round((days[i] / days[0]) * 100 * 100) / 100 : days[i]
+          );
         }
+        rows.push(percentDays);
+        percentDays = [];
       }
+    }
     return rows;
   }
   @action
@@ -414,81 +545,77 @@ export default class extends Component {
     // To fetch data from the backend
     // const data = await this.lianaServerFetch.fetch('/forest/custom-route', {});
     const options = {
-      data : {
-          // You can use any data format, just change the getRows logic
-          "May 3, 2021" : [79, 18, 16, 12, 16, 11, 7, 5],
-          "May 10, 2021" : [168, 35, 28, 30, 24, 12, 10 ],
-          "May 17, 2021" : [188, 42, 32, 34, 25, 18],
-          "May 24, 2021" : [191, 42, 32, 28, 12],
-          "May 31, 2021" : [191, 45, 34, 30],
-          "June 7, 2021" : [184, 42, 32],
-          "June 14, 2021" : [182, 44],
+      data: {
+        // You can use any data format, just change the getRows logic
+        'May 3, 2021': [79, 18, 16, 12, 16, 11, 7, 5],
+        'May 10, 2021': [168, 35, 28, 30, 24, 12, 10],
+        'May 17, 2021': [188, 42, 32, 34, 25, 18],
+        'May 24, 2021': [191, 42, 32, 28, 12],
+        'May 31, 2021': [191, 45, 34, 30],
+        'June 7, 2021': [184, 42, 32],
+        'June 14, 2021': [182, 44],
       },
-      title : "Retention rates by weeks after sign-up"
+      title: 'Retention rates by weeks after sign-up',
     };
-    var graphTitle = options.title || "Retention Graph";
+    var graphTitle = options.title || 'Retention Graph';
     var data = options.data || null;
-    const container = d3.select("#demo").append("div")
-        .attr("class", "box");
-    var header = container.append("div")
-        .attr("class", "box-header with-border");
-    var title = header.append("p")
-        .attr("class", "box-title")
-        .text(graphTitle);
-    var body = container.append("div")
-        .attr("class", "box-body");
-    var table = body.append("table")
-        .attr("class", "table table-bordered text-center");
-    var headData = ["Cohort", "New users", "1", "2", "3", "4", "5", "6", "7"];
-    var tHead = table.append("thead")
-        .append("tr")
-        .attr("class", "retention-thead")
-        .selectAll("td")
-        .data(headData)
-        .enter()
-        .append("td")
-        .attr("class", function (d, i) {
-            if(i == 0)
-                return "retention-date"
-            else
-                return "days"
-        })
-        .text(function (d) {
-            return d;
-        });
+    const container = d3.select('#demo').append('div').attr('class', 'box');
+    var header = container
+      .append('div')
+      .attr('class', 'box-header with-border');
+    var title = header.append('p').attr('class', 'box-title').text(graphTitle);
+    var body = container.append('div').attr('class', 'box-body');
+    var table = body
+      .append('table')
+      .attr('class', 'table table-bordered text-center');
+    var headData = ['Cohort', 'New users', '1', '2', '3', '4', '5', '6', '7'];
+    var tHead = table
+      .append('thead')
+      .append('tr')
+      .attr('class', 'retention-thead')
+      .selectAll('td')
+      .data(headData)
+      .enter()
+      .append('td')
+      .attr('class', function (d, i) {
+        if (i == 0) return 'retention-date';
+        else return 'days';
+      })
+      .text(function (d) {
+        return d;
+      });
     var rowsData = this.getRows(data);
-    var tBody = table.append("tbody");
-    var rows = tBody.selectAll("tr")
-        .data(rowsData).enter()
-        .append("tr");
-    var cells = rows.selectAll("td")
-        .data(function (row, i) {
-            return row;
-        }).enter()
-        .append("td")
-        .attr("class", function (d, i) {
-            if(i == 0)
-                return "retention-date";
-            else
-                return "days";
-        })
-        .attr("style", function (d, i) {
-            if(i > 1)
-            return "background-color :" + shadeColor("#00c4b4", d);
-        })
-        .append("div")
-        .attr("data-toggle", "tooltip")
-        .text(function (d, i) {
-            return d + (i > 1 ? "%" : "");
-        });
+    var tBody = table.append('tbody');
+    var rows = tBody.selectAll('tr').data(rowsData).enter().append('tr');
+    var cells = rows
+      .selectAll('td')
+      .data(function (row, i) {
+        return row;
+      })
+      .enter()
+      .append('td')
+      .attr('class', function (d, i) {
+        if (i == 0) return 'retention-date';
+        else return 'days';
+      })
+      .attr('style', function (d, i) {
+        if (i > 1) return 'background-color :' + shadeColor('#00c4b4', d);
+      })
+      .append('div')
+      .attr('data-toggle', 'tooltip')
+      .text(function (d, i) {
+        return d + (i > 1 ? '%' : '');
+      });
   }
 }
 ```
+
 {% endcode %}
 
 In the above snippet, notice how we import the **D3js** library. Of course, you can choose to use any other library of your choice.
 
 {% code title="Style tab" %}
+
 ```css
 .c-smart-chart {
   display: flex;
@@ -499,46 +626,51 @@ In the above snippet, notice how we import the **D3js** library. Of course, you 
   top: 0;
   background-color: var(--color-beta-surface);
 }
-.box{
-  position:relative;
-  border-radius:3px;
-  background:#ffffff;
-  width:100%;
+.box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  width: 100%;
 }
-.box-body{
-  max-height:500px;
-  overflow:auto;
-  border-top-left-radius:0;
-  border-top-right-radius:0;
-  border-bottom-right-radius:3px;
-  border-bottom-left-radius:3px;
+.box-body {
+  max-height: 500px;
+  overflow: auto;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
-.box-header{
-  color:#444;
-  display:block;
-  padding:10px;
-  position:relative
+.box-header {
+  color: #444;
+  display: block;
+  padding: 10px;
+  position: relative;
 }
-.box-header .box-title{
-    display:inline-block;
-    font-size:18px;
-    margin:0;
-    line-height:1;
+.box-header .box-title {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0;
+  line-height: 1;
 }
-.box-title{
-    display:inline-block;font-size:18px;margin:0;line-height:1
+.box-title {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0;
+  line-height: 1;
 }
-.retention-thead, .retention-date{
-    background-color: #cfcfcf;
-    font-weight: 700;
-    padding: 8px;
+.retention-thead,
+.retention-date {
+  background-color: #cfcfcf;
+  font-weight: 700;
+  padding: 8px;
 }
-.days{
+.days {
   cursor: pointer;
   padding: 8px;
   text-align: center;
 }
 ```
+
 {% endcode %}
 
 The resulting chart can be resized to fit your use:

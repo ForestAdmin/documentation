@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Use a Smart Action Form
 
@@ -16,40 +58,53 @@ For example, you might want to specify a reason if you want to block a user acco
 On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `companies`.
 
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('companies', {
-  actions: [{
-    name: 'Upload Legal Docs',
-    type: 'single',
-    fields: [{
-      field: 'Certificate of Incorporation',
-      description: 'The legal document relating to the formation of a company or corporation.',
-      type: 'File',
-      isRequired: true
-    }, {
-      field: 'Proof of address',
-      description: '(Electricity, Gas, Water, Internet, Landline & Mobile Phone Invoice / Payment Schedule) no older than 3 months of the legal representative of your company',
-      type: 'File',
-      isRequired: true
-    }, {
-      field: 'Company bank statement',
-      description: 'PDF including company name as well as IBAN',
-      type: 'File',
-      isRequired: true
-    }, {
-      field: 'Valid proof of ID',
-      description: 'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
-      type: 'File',
-      isRequired: true
-    }]
-  }]
+  actions: [
+    {
+      name: 'Upload Legal Docs',
+      type: 'single',
+      fields: [
+        {
+          field: 'Certificate of Incorporation',
+          description:
+            'The legal document relating to the formation of a company or corporation.',
+          type: 'File',
+          isRequired: true,
+        },
+        {
+          field: 'Proof of address',
+          description:
+            '(Electricity, Gas, Water, Internet, Landline & Mobile Phone Invoice / Payment Schedule) no older than 3 months of the legal representative of your company',
+          type: 'File',
+          isRequired: true,
+        },
+        {
+          field: 'Company bank statement',
+          description: 'PDF including company name as well as IBAN',
+          type: 'File',
+          isRequired: true,
+        },
+        {
+          field: 'Valid proof of ID',
+          description:
+            'ID card or passport if the document has been issued in the EU, EFTA, or EEA / ID card or passport + resident permit or driving license if the document has been issued outside the EU, EFTA, or EEA of the legal representative of your company',
+          type: 'File',
+          isRequired: true,
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/companies.js" %}
+
 ```javascript
 const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
@@ -87,6 +142,7 @@ router.post('/actions/upload-legal-docs', permissionMiddlewareCreator.smartActio
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -94,6 +150,7 @@ module.exports = router;
 On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `companies`.
 
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
@@ -124,9 +181,11 @@ collection('companies', {
     }],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -161,6 +220,7 @@ router.post('/actions/upload-legal-docs',
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -168,6 +228,7 @@ module.exports = router;
 On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `Company`.
 
 {% code title="/lib/forest_liana/collections/company.rb" %}
+
 ```ruby
 class Forest::Company
   include ForestLiana::Collection
@@ -197,9 +258,11 @@ class Forest::Company
   }]
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -210,9 +273,11 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 {% code title="/app/controllers/forest/companies_controller.rb" %}
+
 ```ruby
 class Forest::CompaniesController < ForestLiana::SmartActionsController
 
@@ -255,6 +320,7 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -262,6 +328,7 @@ end
 On our Live Demo example, we’ve defined 4 input fields on the Smart Action `Upload Legal Docs` on the collection `Company`.
 
 {% code title="app/forest/company.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Company
@@ -300,17 +367,21 @@ class CompanyForest(Collection):
 
 Collection.register(CompanyForest, Company)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.companies import CompanyForest
 ```
+
 {% endcode %}
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -322,9 +393,11 @@ urlpatterns = [
     path('/actions/upload-legal-docs', csrf_exempt(views.UploadLegalDocsView.as_view()), name='upload-legal-docs'),
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -362,6 +435,7 @@ class UploadLegalDocsView(ActionView):
         # Once the upload is finished, send a success message to the admin user in the UI.
         return JsonResponse({'success': 'Legal documents are successfully uploaded.'})
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -373,6 +447,7 @@ The 2nd parameter of the `SmartAction` method is not required. If you don't fill
 {% endhint %}
 
 {% code title="app/Models/Company.php" %}
+
 ```php
 <?php
 
@@ -431,15 +506,19 @@ class Company extends Model
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 Route::post('forest/smart-actions/company_upload-legal-docs', [CompaniesController::class, 'uploadLegalDocs']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 <?php
 
@@ -477,6 +556,7 @@ class CompaniesController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -515,6 +595,7 @@ Forest Admin allows you to set default values of your form. In this example, we 
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const { customers } = require('../models');
@@ -558,11 +639,13 @@ collection('Customers', {
   ...
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const { customers } = require('../models');
@@ -606,11 +689,13 @@ collection('Customers', {
   ...
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="lib/forest_liana/customers.rb" %}
+
 ```ruby
 class Forest::Customers
   include ForestLiana::Collection
@@ -653,11 +738,13 @@ class Forest::Customers
     ...
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/customer.py" %}
+
 ```python
 import json
 
@@ -711,11 +798,13 @@ class CompanyForest(Collection):
 
 Collection.register(CompanyForest, Company)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -776,6 +865,7 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -796,37 +886,39 @@ Combined with the **load** [hook](./#making-a-form-dynamic) feature, this can be
 const { customers } = require('../models');
 
 collection('customers', {
-  actions: [{
-    name: 'Some action',
-    type: 'single',
-    fields: [
-      {
-        field: 'country',
-        type: 'String',
-        isReadOnly: true
-      },
-      {
-        field: 'city',
-        type: 'String'
-      },
-    ],
-    hooks: {
-      load: async ({ fields, request }) => {
-        const country = fields.find(field => field.field === 'country');
-        country.value = 'France';
+  actions: [
+    {
+      name: 'Some action',
+      type: 'single',
+      fields: [
+        {
+          field: 'country',
+          type: 'String',
+          isReadOnly: true,
+        },
+        {
+          field: 'city',
+          type: 'String',
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const country = fields.find((field) => field.field === 'country');
+          country.value = 'France';
 
-        const id = request.body.data.attributes.ids[0];
-        const customer = await customers.findById(id);
+          const id = request.body.data.attributes.ids[0];
+          const customer = await customers.findById(id);
 
-        // If customer country is not France, empty field and make it editable
-        if (customer.country !== 'France') {
-          country.value = '';
-          country.isReadOnly = false;
-        }
-        return fields;
+          // If customer country is not France, empty field and make it editable
+          if (customer.country !== 'France') {
+            country.value = '';
+            country.isReadOnly = false;
+          }
+          return fields;
+        },
       },
     },
-  }],
+  ],
   fields: [],
   segments: [],
 });
@@ -843,6 +935,7 @@ Here's a typical example: Selecting a **City** within a list of cities from the 
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="forest/customers.js" %}
+
 ```javascript
 const { getEnumsFromDatabaseForThisRecord } = require('./my-own-helper');
 const { getZipCodeFromCity } = require('...');
@@ -850,76 +943,74 @@ const { collection } = require('forest-express-sequelize');
 const { customers } = require('../models');
 
 collection('customers', {
-  actions: [{
-    name: 'Send invoice',
-    type: 'single',
-    fields: [
-      {
-        field: 'country',
-        type: 'Enum',
-        enums: []
-      },
-      {
-        field: 'city',
-        type: 'String',
-        hook: 'onCityChange'
-      },
-      {
-        field: 'zip code',
-        type: 'String',
-        hook: 'onZipCodeChange'
-      },
-    ],
-    hooks: {
-      load: async ({ fields, request }) => {
-        const country = fields.find(field => field.field === 'country');
-
-        const id = request.body.data.attributes.ids[0];
-        const customer = await customers.findByPk(id);
-
-        country.enums = getEnumsFromDatabaseForThisRecord(customer);
-
-        return fields;
-      },
-      change: {
-        onCityChange: async ({ fields, request, changedField }) => {
-          const zipCode = fields.find(field => field.field === 'zip code');
+  actions: [
+    {
+      name: 'Send invoice',
+      type: 'single',
+      fields: [
+        {
+          field: 'country',
+          type: 'Enum',
+          enums: [],
+        },
+        {
+          field: 'city',
+          type: 'String',
+          hook: 'onCityChange',
+        },
+        {
+          field: 'zip code',
+          type: 'String',
+          hook: 'onZipCodeChange',
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const country = fields.find((field) => field.field === 'country');
 
           const id = request.body.data.attributes.ids[0];
           const customer = await customers.findByPk(id);
 
-          zipCode.value = getZipCodeFromCity(
-            customer,
-            changedField.value
-          );
+          country.enums = getEnumsFromDatabaseForThisRecord(customer);
 
           return fields;
         },
-        onZipCodeChange: async ({ fields, request, changedField }) => {
-          const city = fields.find(field => field.field === 'city');
+        change: {
+          onCityChange: async ({ fields, request, changedField }) => {
+            const zipCode = fields.find((field) => field.field === 'zip code');
 
-          const id = request.body.data.attributes.ids[0];
-          const customer = await customers.findByPk(id);
+            const id = request.body.data.attributes.ids[0];
+            const customer = await customers.findByPk(id);
 
-          city.value = getCityFromZipCode(
-            customer,
-            changedField.value
-          );
+            zipCode.value = getZipCodeFromCity(customer, changedField.value);
 
-          return fields;
+            return fields;
+          },
+          onZipCodeChange: async ({ fields, request, changedField }) => {
+            const city = fields.find((field) => field.field === 'city');
+
+            const id = request.body.data.attributes.ids[0];
+            const customer = await customers.findByPk(id);
+
+            city.value = getCityFromZipCode(customer, changedField.value);
+
+            return fields;
+          },
         },
       },
     },
-  }],
+  ],
   fields: [],
   segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="forest/customers.js" %}
+
 ```javascript
 const { getEnumsFromDatabaseForThisRecord } = require('./my-own-helper');
 const { getZipCodeFromCity } = require('...');
@@ -927,76 +1018,74 @@ const { collection } = require('forest-express-mongoose');
 const { customers } = require('../models');
 
 collection('customers', {
-  actions: [{
-    name: 'Send invoice',
-    type: 'single',
-    fields: [
-      {
-        field: 'country',
-        type: 'Enum',
-        enums: []
-      },
-      {
-        field: 'city',
-        type: 'String',
-        hook: 'onCityChange'
-      },
-      {
-        field: 'zip code',
-        type: 'String',
-        hook: 'onZipCodeChange'
-      },
-    ],
-    hooks: {
-      load: async ({ fields, request }) => {
-        const country = fields.find(field => field.field === 'country');
-
-        const id = request.body.data.attributes.ids[0];
-        const customer = await customers.findById(id);
-
-        country.enums = getEnumsFromDatabaseForThisRecord(customer);
-
-        return fields;
-      },
-      change: {
-        onCityChange: async ({ fields, request, changedField }) => {
-          const zipCode = fields.find(field => field.field === 'zip code');
+  actions: [
+    {
+      name: 'Send invoice',
+      type: 'single',
+      fields: [
+        {
+          field: 'country',
+          type: 'Enum',
+          enums: [],
+        },
+        {
+          field: 'city',
+          type: 'String',
+          hook: 'onCityChange',
+        },
+        {
+          field: 'zip code',
+          type: 'String',
+          hook: 'onZipCodeChange',
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const country = fields.find((field) => field.field === 'country');
 
           const id = request.body.data.attributes.ids[0];
           const customer = await customers.findById(id);
 
-          zipCode.value = getZipCodeFromCity(
-            customer,
-            changedField.value
-          );
+          country.enums = getEnumsFromDatabaseForThisRecord(customer);
 
           return fields;
         },
-        onZipCodeChange: async ({ fields, request, changedField }) => {
-          const city = fields.find(field => field.field === 'city');
+        change: {
+          onCityChange: async ({ fields, request, changedField }) => {
+            const zipCode = fields.find((field) => field.field === 'zip code');
 
-          const id = request.body.data.attributes.ids[0];
-          const customer = await customers.findById(id);
+            const id = request.body.data.attributes.ids[0];
+            const customer = await customers.findById(id);
 
-          city.value = getCityFromZipCode(
-            customer,
-            changedField.value
-          );
+            zipCode.value = getZipCodeFromCity(customer, changedField.value);
 
-          return fields;
+            return fields;
+          },
+          onZipCodeChange: async ({ fields, request, changedField }) => {
+            const city = fields.find((field) => field.field === 'city');
+
+            const id = request.body.data.attributes.ids[0];
+            const customer = await customers.findById(id);
+
+            city.value = getCityFromZipCode(customer, changedField.value);
+
+            return fields;
+          },
         },
       },
     },
-  }],
+  ],
   fields: [],
   segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/company.rb" %}
+
 ```javascript
 actions 'Send invoice',
   type: 'single',
@@ -1058,11 +1147,13 @@ actions 'Send invoice',
       },
   }
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/company.py" %}
+
 ```python
 import json
 
@@ -1153,11 +1244,13 @@ class CompanyForest(Collection):
 
 Collection.register(CompanyForest, Company)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Company.php" %}
+
 ```php
 <?php
 
@@ -1248,6 +1341,7 @@ class Company extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -1256,9 +1350,9 @@ class Company extends Model
 
 The `hooks` property receives a _context_ object containing:
 
-* the `fields` array in its current state (containing also the current values)
-* the `request` object containing all the information related to the records selection. Explained [here](./#available-smart-action-properties).
-* the `changedField` is the current field who trigger the hook (only for change hook)
+- the `fields` array in its current state (containing also the current values)
+- the `request` object containing all the information related to the records selection. Explained [here](./#available-smart-action-properties).
+- the `changedField` is the current field who trigger the hook (only for change hook)
 
 {% hint style="info" %}
 `fields` **must** be returned. Note that `fields` is an array containing existing fields with properties described in [this section](./#handling-input-values).
@@ -1268,38 +1362,48 @@ To dynamically change a property within a `load` or `change` [hook](use-a-smart-
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
-const city = fields.find(field => field.field === 'city');
-city.description = "Please enter the name of your favorite city";
+const city = fields.find((field) => field.field === 'city');
+city.description = 'Please enter the name of your favorite city';
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
-const city = fields.find(field => field.field === 'city');
-city.description = "Please enter the name of your favorite city";
+const city = fields.find((field) => field.field === 'city');
+city.description = 'Please enter the name of your favorite city';
 ```
+
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```javascript
 city = context[:fields].find{|field| field[:field] == 'city'}
 city[:description] = "Please enter the name of your favorite city"
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
 city = next((x for x in fields if x['field'] == 'city'), None)
 city['description'] = 'Please enter the name of your favorite city'
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```php
 $fields = $this->getFields();
 $fields['city']['description'] = "Please enter the name of your favorite city";
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -1307,6 +1411,7 @@ As a result, the correct way to set a **default value** is using the `value` pro
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
     hooks: {
       load: ({ fields, request }) => {
@@ -1316,9 +1421,11 @@ As a result, the correct way to set a **default value** is using the `value` pro
       },
     }
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
     hooks: {
       load: ({ fields, request }) => {
@@ -1328,9 +1435,11 @@ As a result, the correct way to set a **default value** is using the `value` pro
       },
     }
 ```
+
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
     hooks: {
       :load => -> (context){
@@ -1340,9 +1449,11 @@ As a result, the correct way to set a **default value** is using the `value` pro
       },
     }
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
     'hooks': {
         'load': self.send_invoice_load,
@@ -1354,9 +1465,11 @@ def send_invoice_load(fields, request, *args, **kwargs):
     country['value'] = 'France'
     return fields
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```php
  ->load(
     function () {
@@ -1367,6 +1480,7 @@ def send_invoice_load(fields, request, *args, **kwargs):
    }
 )
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -1380,6 +1494,7 @@ You can add a `field` dynamically inside the `fields` array, like so:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 [...]
 hooks: {
@@ -1396,9 +1511,11 @@ hooks: {
 }
 [...]
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
 [...]
 hooks: {
@@ -1415,9 +1532,11 @@ hooks: {
 }
 [...]
 ```
+
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 :hooks => {
   :change => {
@@ -1432,9 +1551,11 @@ hooks: {
   }
 }
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
     'hooks': {
         'change': {
@@ -1450,9 +1571,11 @@ def on_field_change(self, fields, request, changed_field, *args, **kwargs):
     })
     return fields
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```php
  ->change(
     [
@@ -1470,6 +1593,7 @@ def on_field_change(self, fields, request, changed_field, *args, **kwargs):
     ]
  );
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -1481,6 +1605,7 @@ Note that you may add a `change` hook on a dynamically-added field. Simply use t
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 [...]
 hooks: {
@@ -1502,9 +1627,11 @@ hooks: {
 }
 [...]
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
 [...]
 hooks: {
@@ -1526,9 +1653,11 @@ hooks: {
 }
 [...]
 ```
+
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 :hooks => {
   :change => {
@@ -1548,9 +1677,11 @@ hooks: {
   }
 }
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
     'hooks': {
         'change': {
@@ -1572,9 +1703,11 @@ def on_another_field_change(self, fields, request, changed_field, *args, **kwarg
     // Do what you want
     return fields
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```php
 ->change(
     [
@@ -1600,6 +1733,7 @@ def on_another_field_change(self, fields, request, changed_field, *args, **kwarg
     ]
 );
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -1610,105 +1744,120 @@ When using hooks with a bulk Smart action, you'll probably need te get the value
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection, RecordsGetter } = require('forest-express-sequelize');
 const { customers } = require('../models');
 const customersHaveSameCountry = require('../services/customers-have-same-country');
 
 collection('customers', {
-  actions: [{
-    name: 'Some action',
-    type: 'bulk',
-    fields: [
-      {
-        field: 'country',
-        type: 'String',
-        isReadOnly: true
-      },
-      {
-        field: 'city',
-        type: 'String'
-      },
-    ],
-    hooks: {
-      load: async ({ fields, request }) => {
-        const country = fields.find(field => field.field === 'country');
+  actions: [
+    {
+      name: 'Some action',
+      type: 'bulk',
+      fields: [
+        {
+          field: 'country',
+          type: 'String',
+          isReadOnly: true,
+        },
+        {
+          field: 'city',
+          type: 'String',
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const country = fields.find((field) => field.field === 'country');
 
-        const ids = await new RecordsGetter(customers, request.user, request.query)
-          .getIdsFromRequest(request);
-        const customers = await customers.findAll({ where: { id }});
+          const ids = await new RecordsGetter(
+            customers,
+            request.user,
+            request.query
+          ).getIdsFromRequest(request);
+          const customers = await customers.findAll({ where: { id } });
 
-        country.value = '';
-        country.isReadOnly = false;
+          country.value = '';
+          country.isReadOnly = false;
 
-        // If customers have the same country, set field to this country and make it not editable
-        if (customersHaveSameCountry(customers)) {
-          country.value = customers.country;
-          country.isReadOnly = true;
-        }
+          // If customers have the same country, set field to this country and make it not editable
+          if (customersHaveSameCountry(customers)) {
+            country.value = customers.country;
+            country.isReadOnly = true;
+          }
 
-        return fields;
+          return fields;
+        },
       },
     },
-  }],
+  ],
   fields: [],
   segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection, RecordsGetter } = require('forest-express-mongoose');
 const { customers } = require('../models');
 const customersHaveSameCountry = require('../services/customers-have-same-country');
 
 collection('customers', {
-  actions: [{
-    name: 'Some action',
-    type: 'bulk',
-    fields: [
-      {
-        field: 'country',
-        type: 'String',
-        isReadOnly: true
-      },
-      {
-        field: 'city',
-        type: 'String'
-      },
-    ],
-    hooks: {
-      load: async ({ fields, request }) => {
-        const country = fields.find(field => field.field === 'country');
+  actions: [
+    {
+      name: 'Some action',
+      type: 'bulk',
+      fields: [
+        {
+          field: 'country',
+          type: 'String',
+          isReadOnly: true,
+        },
+        {
+          field: 'city',
+          type: 'String',
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const country = fields.find((field) => field.field === 'country');
 
-        const ids = await new RecordsGetter(customers, request.user, request.query)
-          .getIdsFromRequest(request);
-        const customers = await customers.findAll({ _id: { $in: ids } });
+          const ids = await new RecordsGetter(
+            customers,
+            request.user,
+            request.query
+          ).getIdsFromRequest(request);
+          const customers = await customers.findAll({ _id: { $in: ids } });
 
-        country.value = '';
-        country.isReadOnly = false;
+          country.value = '';
+          country.isReadOnly = false;
 
-        // If customers have the same country, set field to this country and make it not editable
-        if (customersHaveSameCountry(customers)) {
-          country.value = customers.country;
-          country.isReadOnly = true;
-        }
+          // If customers have the same country, set field to this country and make it not editable
+          if (customersHaveSameCountry(customers)) {
+            country.value = customers.country;
+            country.isReadOnly = true;
+          }
 
-        return fields;
+          return fields;
+        },
       },
     },
-  }],
+  ],
   fields: [],
   segments: [],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 class Forest::Customers
   include ForestLiana::Collection
@@ -1749,9 +1898,11 @@ class Forest::Customers
     },
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
 import json
 
@@ -1802,10 +1953,12 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -1865,6 +2018,7 @@ class Customer extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

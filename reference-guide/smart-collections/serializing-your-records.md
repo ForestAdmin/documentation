@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Serializing your records
 
@@ -16,19 +58,23 @@ In order to help you do so, the helper `RecordSerializer` is made available thro
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 const { RecordSerializer } = require('forest-express-sequelize');​
 
 const recordSerializer = new RecordSerializer({ name: 'customer_stats' });
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```javascript
 const { RecordSerializer } = require('forest-express-mongoose');​
 
 const recordsSerializer = new RecordSerializer({ modelName: 'customer_stats' });
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -41,45 +87,57 @@ Let's take a look at the collection defined in the documentation's [smart collec
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/customer_stats.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customer_stats', {
   isSearchable: true,
-  fields: [{
-    field: 'email',
-    type: 'String',
-  }, {
-    field: 'orders_count',
-    type: 'Number',
-  }, {
-    field: 'total_amount',
-    type: 'Number',
-  }],
+  fields: [
+    {
+      field: 'email',
+      type: 'String',
+    },
+    {
+      field: 'orders_count',
+      type: 'Number',
+    },
+    {
+      field: 'total_amount',
+      type: 'Number',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/forest/customer_stats.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('customer_stats', {
   isSearchable: true,
-  fields: [{
-    field: 'email',
-    type: 'String',
-  }, {
-    field: 'orders_count',
-    type: 'Number',
-  }, {
-    field: 'total_amount',
-    type: 'Number',
-  }],
+  fields: [
+    {
+      field: 'email',
+      type: 'String',
+    },
+    {
+      field: 'orders_count',
+      type: 'Number',
+    },
+    {
+      field: 'total_amount',
+      type: 'Number',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -88,6 +146,7 @@ The serializer exposes a `.serialize()` method that takes as an argument an arra
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 const records = [
   {
@@ -109,9 +168,11 @@ const records = [
   ...
 ]
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```javascript
 const records = [
   {
@@ -133,19 +194,21 @@ const records = [
   ...
 ]
 ```
+
 {% endtab %}
 {% endtabs %}
 
 To perform the serialization just use the `.serialize()` method like this:
 
 ```javascript
-const serializedRecords = recordSerializer.serialize(records)
+const serializedRecords = recordSerializer.serialize(records);
 ```
 
 The serialized records are formatted as follows:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 {
   data: [
@@ -171,9 +234,11 @@ The serialized records are formatted as follows:
   ]
 }
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```javascript
 {
   data: [
@@ -199,6 +264,7 @@ The serialized records are formatted as follows:
   ]
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -211,47 +277,59 @@ Now let's say we want to reference the customer related to a stat instead of jus
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/customer_stats.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customer_stats', {
   isSearchable: true,
-  fields: [{
-    field: 'orders_count',
-    type: 'Number',
-  }, {
-    field: 'total_amount',
-    type: 'Number',
-  }, {
-    field: 'customer',
-    type: 'String',
-    reference: 'customers.id',
-  }],
+  fields: [
+    {
+      field: 'orders_count',
+      type: 'Number',
+    },
+    {
+      field: 'total_amount',
+      type: 'Number',
+    },
+    {
+      field: 'customer',
+      type: 'String',
+      reference: 'customers.id',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/forest/customer_stats.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('customer_stats', {
   isSearchable: true,
-  fields: [{
-    field: 'orders_count',
-    type: 'Number',
-  }, {
-    field: 'total_amount',
-    type: 'Number',
-  }, {
-    field: 'customer',
-    type: 'String',
-    reference: 'customers._id',
-  }],
+  fields: [
+    {
+      field: 'orders_count',
+      type: 'Number',
+    },
+    {
+      field: 'total_amount',
+      type: 'Number',
+    },
+    {
+      field: 'customer',
+      type: 'String',
+      reference: 'customers._id',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -260,6 +338,7 @@ For the belongsTo relationship to be properly serialized, the records passed on 
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 const records = [
   {
@@ -285,9 +364,11 @@ const records = [
   ...
 ]
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```javascript
 const records = [
   {
@@ -303,6 +384,7 @@ const records = [
   ...
 ]
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -311,13 +393,14 @@ Now if we try to serialize this data, the serializer will automatically detect t
 The included records will then be picked up and wrapped to comply to the JSON API relationships format.
 
 ```javascript
-const serializedRecords = recordsSerializer.serialize(records)
+const serializedRecords = recordsSerializer.serialize(records);
 ```
 
 The serialized records are formatted as follows:
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 {
   data: [
@@ -349,9 +432,11 @@ The serialized records are formatted as follows:
   ]
 }
 ```
+
 {% endtab %}
 
 {% tab title="MongoDB" %}
+
 ```javascript
 {
   data: [
@@ -383,6 +468,7 @@ The serialized records are formatted as follows:
   ]
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 

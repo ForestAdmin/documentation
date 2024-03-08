@@ -5,8 +5,50 @@ description: >-
 ---
 
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Deploy your admin backend to Ubuntu server
 
@@ -16,18 +58,22 @@ Before starting anything, you have to make sure you're able to connect to your s
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 ssh -i ~/.ssh/aws.pem ubuntu@ec2-18-204-18-81.compute-1.amazonaws.com
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```
 Warning: Permanently added 'ec2-18-204-18-81.compute-1.amazonaws.com,18.204.18.81' (ECDSA) to the list of known hosts.
 Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-1021-aws x86_64)
 ...
 ubuntu@ip-172-31-83-152:~$
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -52,7 +98,7 @@ The syntax used is `rsync OPTIONS SOURCE TARGET`.
 rsync -avz -e "ssh -i ~/.ssh/aws.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --exclude=node_modules --exclude=.git --progress QuickStart ubuntu@ec2-18-204-18-81.compute-1.amazonaws.com:~/
 ```
 
-In the example above, we use a SSH connection to transfer the file and we connect to the remote server using an identity\_file (a private key).
+In the example above, we use a SSH connection to transfer the file and we connect to the remote server using an identity_file (a private key).
 
 | Option            | Description                            |
 | ----------------- | -------------------------------------- |
@@ -67,14 +113,17 @@ Once done, you can find the code of your admin backend on the home directory of 
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 ssh -i ~/.ssh/aws.pem ubuntu@ec2-18-204-18-81.compute-1.amazonaws.com
 ubuntu@ip-172-31-83-152:~$ cd Quickstart/
 ubuntu@ip-172-31-83-152:~/QuickStart$ ls -l
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```bash
 total 5116
 -rw-r--r-- 1 ubuntu ubuntu    1386 Oct 22 08:11 app.js
@@ -91,6 +140,7 @@ drwxr-xr-x 2 ubuntu ubuntu    4096 Oct 19 11:53 serializers
 drwxr-xr-x 2 ubuntu ubuntu    4096 Oct 19 11:55 services
 ubuntu@ip-172-31-83-152:~/QuickStart$
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -120,13 +170,16 @@ Now, you can connect to your remote server using SSH and clone the repository us
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 ssh -i ~/.ssh/aws.pem ubuntu@ec2-18-204-18-81.compute-1.amazonaws.com
 git clone https://github.com/YourAccount/QuickStart.git
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```bash
 Cloning into 'QuickStart'...
 remote: Enumerating objects: 34, done.
@@ -135,6 +188,7 @@ remote: Compressing objects: 100% (21/21), done.
 remote: Total 34 (delta 7), reused 34 (delta 7), pack-reused 0
 Unpacking objects: 100% (34/34), done.
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -142,13 +196,16 @@ That's it. Your admin backend's code is available on your remote server.
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 ubuntu@ip-172-31-83-152:~$ cd QuickStart/
 ubuntu@ip-172-31-83-152:~/QuickStart$ ls -l
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```
 total 5112
 -rw-rw-r-- 1 ubuntu ubuntu    1386 Oct 23 13:42 app.js
@@ -164,6 +221,7 @@ drwxrwxr-x 2 ubuntu ubuntu    4096 Oct 23 13:42 serializers
 drwxrwxr-x 2 ubuntu ubuntu    4096 Oct 23 13:42 services
 ubuntu@ip-172-31-83-152:~/QuickStart$
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -200,18 +258,22 @@ Then, you will be able to connect to the database server:
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 sudo -u postgres psql
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```bash
 psql (10.5 (Ubuntu 10.5-0ubuntu0.18.04))
 Type "help" for help.
 
 postgres=
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -246,29 +308,36 @@ That's it, your database is now fully imported.
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```
 PGPASSWORD=secret psql -U forest -h 127.0.0.1 forest_demo
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```bash
 psql (10.5 (Ubuntu 10.5-0ubuntu0.18.04))
 Type "help" for help.
 
 forest_demo=>
 ```
+
 {% endtab %}
 {% endtabs %}
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```
 forest_demo=> \d
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```sql
                  List of relations
  Schema |        Name         |   Type   |  Owner
@@ -293,6 +362,7 @@ forest_demo=> \d
  public | transactions_id_seq | sequence | postgres
 (18 rows)
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -307,12 +377,14 @@ sudo vim /etc/environment
 ```
 
 {% code title="/etc/environment" %}
+
 ```bash
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 FOREST_ENV_SECRET=2417520743be37a9c5af198c018e0ddee9b7c41de1ccb8e76c9d027faa74059e
 FOREST_AUTH_SECRET=Piq7a9Kv5anLbK4gj81rirsLhfaJ0pdL
 DATABASE_URL=postgres://forest:secret@127.0.0.1/forest_demo
 ```
+
 {% endcode %}
 
 Then, you can restart your server to take these new variables into account or simply type:
@@ -327,12 +399,15 @@ From your admin backend's directory, simply type:
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 npm start
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```
 > QuickStart@0.0.1 start /home/ubuntu/QuickStart
 > node ./bin/www
@@ -340,6 +415,7 @@ npm start
 🌳  Your back office API is listening on port 3000  🌳
 🌳  Access the UI: http://app.forestadmin.com  🌳
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -374,6 +450,7 @@ sudo apt install nginx
 To do so, edit (with sudo access) the file located `/etc/nginx/sites-available/default` and replace the existing section `location /` by this one:
 
 {% code title="/etc/nginx/sites-available/default" %}
+
 ```
 location / {
   proxy_pass http://localhost:3000;
@@ -384,6 +461,7 @@ location / {
   proxy_cache_bypass $http_upgrade;
 }
 ```
+
 {% endcode %}
 
 &#x20;Then, restart nginx:
@@ -395,7 +473,7 @@ sudo systemctl restart nginx
 That's it, your admin backend is now listening on the port **80**. Make sure your firewall allows inbound traffic from this port.
 
 {% hint style="danger" %}
-We now require that you configure **HTTPS** (port 443) on your admin backend service for **security reasons.** [http://nginx.org/en/docs/http/configuring\_https\_servers.html](http://nginx.org/en/docs/http/configuring\_https\_servers.html)​
+We now require that you configure **HTTPS** (port 443) on your admin backend service for **security reasons.** [http://nginx.org/en/docs/http/configuring_https_servers.html](http://nginx.org/en/docs/http/configuring_https_servers.html)​
 {% endhint %}
 
 {% hint style="warning" %}

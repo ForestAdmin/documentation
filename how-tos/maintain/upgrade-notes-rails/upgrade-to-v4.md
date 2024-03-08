@@ -6,8 +6,50 @@ description: >-
 ---
 
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Upgrade to v4
 
@@ -50,6 +92,7 @@ You could be impacted if you use the _user session_ in Smart Action controllers 
 **Calling `forest_user` in v3**
 
 {% code title="v3 format" %}
+
 ```javascript
 {
   "id": "172",
@@ -72,11 +115,13 @@ You could be impacted if you use the _user session_ in Smart Action controllers 
   "exp": 1571123309
 }
 ```
+
 {% endcode %}
 
 **Calling `forest_user` in v4**
 
 {% code title="v4 format" %}
+
 ```javascript
 {
   "id": "172",
@@ -89,6 +134,7 @@ You could be impacted if you use the _user session_ in Smart Action controllers 
   "exp": 1571123309
 }
 ```
+
 {% endcode %}
 
 Consequently, the user information is now accessible as described below:
@@ -112,6 +158,7 @@ You could be impacted if you have custom filter implementations.
 Below are a few example of the new filter conditions format you can access using`params[:filters]`:
 
 {% code title="Simple condition example:" %}
+
 ```javascript
 {
   "field": "planLimitationReachedAt",
@@ -119,9 +166,11 @@ Below are a few example of the new filter conditions format you can access using
   "value": null
 }
 ```
+
 {% endcode %}
 
 {% code title="Multiple conditions example:" %}
+
 ```javascript
 {
   "aggregator": "and",
@@ -136,6 +185,7 @@ Below are a few example of the new filter conditions format you can access using
   }]
 }
 ```
+
 {% endcode %}
 
 ## Important Notice
@@ -152,4 +202,4 @@ Once an agent v4 deployed, **all users of your project will be automatically log
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 
-* [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#release-400---2019-10-04)
+- [Rails changelog](https://github.com/ForestAdmin/forest-rails/blob/master/CHANGELOG.md#release-400---2019-10-04)

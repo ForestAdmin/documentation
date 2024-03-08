@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Create a dynamic calendar view for an event-booking use case
 
@@ -8,11 +50,9 @@ This example shows you how you can implement a calendar view with a custom workf
 
 In our example, we want to manage the bookings for a sports court where:
 
-* We have a list of court opening dates. Each date can be subject to a price increase if the period is busy. These dates [come from a collection](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#available-dates-model) called `availableDates`
-* A list of available slots appears after selecting a date and duration. These available slots [come from a smart collection](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#available-slots-smart-collection) called `availableSlots`
-* The user can book a specific slot [using a smart action](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#book-smart-action) called`book`.
-
-
+- We have a list of court opening dates. Each date can be subject to a price increase if the period is busy. These dates [come from a collection](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#available-dates-model) called `availableDates`
+- A list of available slots appears after selecting a date and duration. These available slots [come from a smart collection](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#available-slots-smart-collection) called `availableSlots`
+- The user can book a specific slot [using a smart action](https://docs.forestadmin.com/woodshop/how-tos/create-a-custom-view#book-smart-action) called`book`.
 
 ## How it works
 
@@ -175,20 +215,27 @@ export default Component.extend(SmartViewMixin, {
     this._super(...args);
     this.loadPlugin();
     this.initConditions();
-    this.set('durations', [{
-      label: '1 hour',
-      value: 1,
-    }, {
-      label: '2 hours',
-      value: 2,
-    }, {
-      label: '3 hours',
-      value: 3,
-    }]);
+    this.set('durations', [
+      {
+        label: '1 hour',
+        value: 1,
+      },
+      {
+        label: '2 hours',
+        value: 2,
+      },
+      {
+        label: '3 hours',
+        value: 3,
+      },
+    ]);
   },
 
   didInsertElement() {
-    this.set('availableSlotsCollection', this.store.peekAll('collection').findBy('name', 'availableSlots'));
+    this.set(
+      'availableSlotsCollection',
+      this.store.peekAll('collection').findBy('name', 'availableSlots')
+    );
   },
 
   // update displayed events when new records are retrieved
@@ -196,13 +243,17 @@ export default Component.extend(SmartViewMixin, {
     this.setEvent();
   }),
 
-  onConfigurationChange: observer('selectedDate', 'selectedDuration', function () {
-    this.searchAvailabilities();
-  }),
+  onConfigurationChange: observer(
+    'selectedDate',
+    'selectedDuration',
+    function () {
+      this.searchAvailabilities();
+    }
+  ),
 
   initConditions() {
     if (this.filters) {
-      this.filters.forEach(condition => {
+      this.filters.forEach((condition) => {
         if (condition.operator === 'is after') {
           this.set('conditionAfter', condition);
         } else if (condition.operator === 'is before') {
@@ -217,72 +268,84 @@ export default Component.extend(SmartViewMixin, {
       this.set('calendarId', `${this.elementId}-calendar`);
 
       // retrieve fullCalendar script to build the calendar view
-      $.getScript('https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js', () => {
-        this.setEvent();
-        const calendarEl = document.getElementById(this.calendarId);
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-          height: 600,
-          allDaySlot: true,
-          eventClick: (event, jsEvent, view) => {
-            // persist the selected event information when an event is clicked
-            this.set('selectedAvailability', event.event);
-            const eventStart = event.event.start;
-            const selectedDate = `${eventStart.getDate().toString()}/${(eventStart.getMonth() + 1).toString()}/${eventStart.getFullYear().toString()}`;
-            // persist the selected event's date to be displayed in the view
-            this.set('selectedDate', selectedDate);
-          },
-          // define logic to be triggered when the user navigates between date ranges
-          datesSet: (view) => {
-            // define params to query the relevant records from the database based on the date range
-            const params = {
-              filters: JSON.stringify({
-                aggregator: 'and',
-                conditions: [{
-                  field: 'date',
-                  operator: 'before',
-                  value: view.end,
-                }, {
-                  field: 'date',
-                  operator: 'after',
-                  value: view.start,
-                }],
-              }),
-              'page[number]': 1,
-              'page[size]': 31,
-              timezone: 'Europe/Paris',
-            };
+      $.getScript(
+        'https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js',
+        () => {
+          this.setEvent();
+          const calendarEl = document.getElementById(this.calendarId);
+          const calendar = new FullCalendar.Calendar(calendarEl, {
+            height: 600,
+            allDaySlot: true,
+            eventClick: (event, jsEvent, view) => {
+              // persist the selected event information when an event is clicked
+              this.set('selectedAvailability', event.event);
+              const eventStart = event.event.start;
+              const selectedDate = `${eventStart.getDate().toString()}/${(
+                eventStart.getMonth() + 1
+              ).toString()}/${eventStart.getFullYear().toString()}`;
+              // persist the selected event's date to be displayed in the view
+              this.set('selectedDate', selectedDate);
+            },
+            // define logic to be triggered when the user navigates between date ranges
+            datesSet: (view) => {
+              // define params to query the relevant records from the database based on the date range
+              const params = {
+                filters: JSON.stringify({
+                  aggregator: 'and',
+                  conditions: [
+                    {
+                      field: 'date',
+                      operator: 'before',
+                      value: view.end,
+                    },
+                    {
+                      field: 'date',
+                      operator: 'after',
+                      value: view.start,
+                    },
+                  ],
+                }),
+                'page[number]': 1,
+                'page[size]': 31,
+                timezone: 'Europe/Paris',
+              };
 
-            // query the records from the availableDates collection
-            return this.store.query('forest-available-date', params)
-              .then((records) => {
-                this.set('records', records);
-              })
-              .catch((error) => {
-                this.set('records', null);
-                alert('We could not retrieve the available dates');
-                console.error(error);
-              });
-          },
-        });
+              // query the records from the availableDates collection
+              return this.store
+                .query('forest-available-date', params)
+                .then((records) => {
+                  this.set('records', records);
+                })
+                .catch((error) => {
+                  this.set('records', null);
+                  alert('We could not retrieve the available dates');
+                  console.error(error);
+                });
+            },
+          });
 
-        this.set('_calendar', calendar);
-        calendar.render();
-        this.set('loaded', true);
-      });
+          this.set('_calendar', calendar);
+          calendar.render();
+          this.set('loaded', true);
+        }
+      );
 
       const headElement = document.getElementsByTagName('head')[0];
       const cssLink = document.createElement('link');
 
       cssLink.type = 'text/css';
       cssLink.rel = 'stylesheet';
-      cssLink.href = 'https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css';
+      cssLink.href =
+        'https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css';
       headElement.appendChild(cssLink);
     });
   },
 
   // create calendar event objects for each availableDates record
   setEvent() {
-    if (!this.records || !this.loaded) { return; }
+    if (!this.records || !this.loaded) {
+      return;
+    }
 
     this._calendar.getEvents().forEach((event) => event.remove());
 
@@ -308,20 +371,22 @@ export default Component.extend(SmartViewMixin, {
   // retrieve record from the availableSlots collection when an event has been selected
   searchAvailabilities() {
     if (this.selectedAvailability) {
-      return this.store.query('forest-available-slot', {
-        date: this.selectedAvailability.start,
-        duration: this.selectedDuration,
-      }).then((slots) => {
-        this.set('availableSlots', slots);
-      }).catch((error) => {
-        this.set('availableSlots', null);
-        alert('We could not retrieve the available slots');
-        console.error(error);
-      });
+      return this.store
+        .query('forest-available-slot', {
+          date: this.selectedAvailability.start,
+          duration: this.selectedDuration,
+        })
+        .then((slots) => {
+          this.set('availableSlots', slots);
+        })
+        .catch((error) => {
+          this.set('availableSlots', null);
+          alert('We could not retrieve the available slots');
+          console.error(error);
+        });
     }
   },
 });
-
 ```
 
 ### Available dates model
@@ -333,34 +398,37 @@ This file contains the model definition for the collection `availableDates`. It 
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
-  const AvailableDates = sequelize.define('availableDates', {
-    date: {
-      type: DataTypes.DATE,
+  const AvailableDates = sequelize.define(
+    'availableDates',
+    {
+      date: {
+        type: DataTypes.DATE,
+      },
+      opened: {
+        type: DataTypes.BOOLEAN,
+      },
+      pricingPremium: {
+        type: DataTypes.STRING,
+      },
     },
-    opened: {
-      type: DataTypes.BOOLEAN,
-    },
-    pricingPremium: {
-      type: DataTypes.STRING,
-    },
-  }, {
-    tableName: 'available_dates',
-    underscored: true,
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+    {
+      tableName: 'available_dates',
+      underscored: true,
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   return AvailableDates;
 };
-
 ```
 
 ### Available slots smart collection
 
-To create a smart collection that returns records built from an API call,  two files need to be created:
+To create a smart collection that returns records built from an API call, two files need to be created:
 
-* a file `available-slots.js` inside the folder `forest` to declare the collection
-* a file `available-slots.js` inside the `routes` folder to implement the `GET` logic for the collection
+- a file `available-slots.js` inside the folder `forest` to declare the collection
+- a file `available-slots.js` inside the `routes` folder to implement the `GET` logic for the collection
 
 **File forest/available-slots.js**
 
@@ -370,22 +438,26 @@ This file includes the smart collection definition.
 const { collection } = require('forest-express-sequelize');
 
 collection('availableSlots', {
-  fields: [{
-    field: 'startDate',
-    type: 'Date',
-  }, {
-    field: 'endDate',
-    type: 'Date',
-  }, {
-    field: 'time',
-    type: 'String',
-  }, {
-    field: 'maxTimeSlot',
-    type: 'Number',
-  }],
+  fields: [
+    {
+      field: 'startDate',
+      type: 'Date',
+    },
+    {
+      field: 'endDate',
+      type: 'Date',
+    },
+    {
+      field: 'time',
+      type: 'String',
+    },
+    {
+      field: 'maxTimeSlot',
+      type: 'Number',
+    },
+  ],
   segments: [],
 });
-
 ```
 
 **File routes/available-slots.js**
@@ -394,38 +466,49 @@ This file includes the logic implemented to retrieve the available slots from an
 
 ```javascript
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordSerializer } = require('forest-express-sequelize');
+const {
+  PermissionMiddlewareCreator,
+  RecordSerializer,
+} = require('forest-express-sequelize');
 const { availableSlots } = require('../models');
 
 const router = express.Router();
-const permissionMiddlewareCreator = new PermissionMiddlewareCreator('availableSlots');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator(
+  'availableSlots'
+);
 const recordSerializer = new RecordSerializer({ name: 'availableSlots' });
 
 // Get a list of Available slots
-router.get('/availableSlots', permissionMiddlewareCreator.list(), (request, response, next) => {
-  const { date } = request.query;
-  const { duration } = request.query;
-  return fetch(`https://apicallplaceholder/slots/?date=${date}&duration=${duration}`)
-    .then((response) => JSON.parse(response))
-    .then((matchingSlots) => {
-      return recordSerializer.serialize(matchingSlots)
-        .then((recordsSerialized) => response.send(recordsSerialized));
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-});
-
+router.get(
+  '/availableSlots',
+  permissionMiddlewareCreator.list(),
+  (request, response, next) => {
+    const { date } = request.query;
+    const { duration } = request.query;
+    return fetch(
+      `https://apicallplaceholder/slots/?date=${date}&duration=${duration}`
+    )
+      .then((response) => JSON.parse(response))
+      .then((matchingSlots) => {
+        return recordSerializer
+          .serialize(matchingSlots)
+          .then((recordsSerialized) => response.send(recordsSerialized));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+);
 
 module.exports = router;
 ```
 
 ### Book smart action
 
-To create the action to book a slot,  two files need to be updated:
+To create the action to book a slot, two files need to be updated:
 
-* the file `available-slots.js` inside the folder `forest` to declare the action
-* the file `available-slots.js` inside the `routes` folder to implement the logic for the action
+- the file `available-slots.js` inside the folder `forest` to declare the action
+- the file `available-slots.js` inside the `routes` folder to implement the logic for the action
 
 **File forest/available-slots.js**
 

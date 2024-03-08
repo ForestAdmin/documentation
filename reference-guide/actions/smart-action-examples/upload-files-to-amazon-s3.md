@@ -1,6 +1,48 @@
 {% hint style="warning" %}
-VERSION WARNING TEST
+Please be sure of your agent type and version and pick the right documentation accordingly.
 {% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 # Upload files to amazon s3
 
@@ -111,16 +153,19 @@ function S3Helper() {
       id: file.Key.replace('livedemo/legal/', ''),
       url: `https://s3-eu-west-1.amazonaws.com/${process.env.S3_BUCKET}/${file.Key}`,
       last_modified: file.LastModified,
-      size: filesize(file.Size)
-    }
+      size: filesize(file.Size),
+    };
   }
 
   this.upload = (rawData, filename) => {
     return new P((resolve, reject) => {
       // Create the S3 client.
-      let s3Bucket = new AWS.S3({ params: { Bucket: process.env.S3_BUCKET }});
+      let s3Bucket = new AWS.S3({ params: { Bucket: process.env.S3_BUCKET } });
       let parsed = parseDataUri(rawData);
-      let base64Image = rawData.replace(/^data:(image|application)\/\w+;base64,/, '');
+      let base64Image = rawData.replace(
+        /^data:(image|application)\/\w+;base64,/,
+        ''
+      );
 
       let data = {
         Key: filename,
@@ -128,23 +173,25 @@ function S3Helper() {
         ContentEncoding: 'base64',
         ContentDisposition: 'inline',
         ContentType: parsed.mimeType,
-        ACL: 'public-read'
+        ACL: 'public-read',
       };
 
       // Upload the image.
-      s3Bucket.upload(data, function(err, response) {
-        if (err) { return reject(err); }
+      s3Bucket.upload(data, function (err, response) {
+        if (err) {
+          return reject(err);
+        }
         return resolve(response);
 
         return models.companies
-        .findById(companyId)
-        .then((company) => {
-          company.certificate_of_incorporation_id = certificateId;
-          return company.save();
-        })
-        .then(() => {
-          res.send({ success: 'Legal documents are successfully uploaded.' });
-        });
+          .findById(companyId)
+          .then((company) => {
+            company.certificate_of_incorporation_id = certificateId;
+            return company.save();
+          })
+          .then(() => {
+            res.send({ success: 'Legal documents are successfully uploaded.' });
+          });
       });
     });
   };
@@ -155,20 +202,24 @@ function S3Helper() {
     let files = [];
 
     return new P((resolve, reject) => {
-      return s3.listObjects({
-        Bucket: process.env.S3_BUCKET,
-        Prefix: prefix
-      }).on('success', function handlePage(r) {
-        files.push(...r.data.Contents);
+      return s3
+        .listObjects({
+          Bucket: process.env.S3_BUCKET,
+          Prefix: prefix,
+        })
+        .on('success', function handlePage(r) {
+          files.push(...r.data.Contents);
 
-        if(r.hasNextPage()) {
-          r.nextPage().on('success', handlePage).send();
-        } else {
-          return resolve(files.map((f) => mapAttrs(f)));
-        }
-      }).on('error', (err) => {
-        reject(err);
-      }).send();
+          if (r.hasNextPage()) {
+            r.nextPage().on('success', handlePage).send();
+          } else {
+            return resolve(files.map((f) => mapAttrs(f)));
+          }
+        })
+        .on('error', (err) => {
+          reject(err);
+        })
+        .send();
     });
   };
 
@@ -178,14 +229,18 @@ function S3Helper() {
     let files = [];
 
     return new P((resolve, reject) => {
-      return s3.listObjects({
-        Bucket: process.env.S3_BUCKET,
-        Prefix: key,
-      }).on('success', (file) => {
-        return resolve(mapAttrs(file.data.Contents[0]));
-      }).on('error', (err) => {
-        reject(err);
-      }).send();
+      return s3
+        .listObjects({
+          Bucket: process.env.S3_BUCKET,
+          Prefix: key,
+        })
+        .on('success', (file) => {
+          return resolve(mapAttrs(file.data.Contents[0]));
+        })
+        .on('error', (err) => {
+          reject(err);
+        })
+        .send();
     });
   };
 
@@ -193,14 +248,16 @@ function S3Helper() {
     const s3 = new AWS.S3();
 
     return new P((resolve, reject) => {
-      return s3.deleteObjects({
-        Bucket: process.env.S3_BUCKET,
-        Delete: {
-          Objects: [{ Key: key }]
-        }
-      }).on('success', () => resolve())
-      .on('error', (err) => reject(err))
-      .send();
+      return s3
+        .deleteObjects({
+          Bucket: process.env.S3_BUCKET,
+          Delete: {
+            Objects: [{ Key: key }],
+          },
+        })
+        .on('success', () => resolve())
+        .on('error', (err) => reject(err))
+        .send();
     });
   };
 
@@ -208,20 +265,20 @@ function S3Helper() {
     const s3 = new AWS.S3();
 
     return new P((resolve, reject) => {
-      return s3.copyObject({
-        Bucket: process.env.S3_BUCKET,
-        CopySource: process.env.S3_BUCKET + '/' + key,
-        Key: newKey,
-        MetadataDirective: 'REPLACE'
-      }).on('success', (file) => {
-        return this
-          .deleteFile(key)
-          .then(() => {
+      return s3
+        .copyObject({
+          Bucket: process.env.S3_BUCKET,
+          CopySource: process.env.S3_BUCKET + '/' + key,
+          Key: newKey,
+          MetadataDirective: 'REPLACE',
+        })
+        .on('success', (file) => {
+          return this.deleteFile(key).then(() => {
             return resolve(this.file(newKey));
           });
-      })
-      .on('error', (err) => reject(err))
-      .send();
+        })
+        .on('error', (err) => reject(err))
+        .send();
     });
   };
 }
