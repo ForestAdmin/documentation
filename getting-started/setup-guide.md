@@ -60,21 +60,21 @@ For the purpose of this tutorial, we have used [this database](../how-tos/databa
 
 At the end of your onboarding, you will **out-of-the-box** be able to:
 
-- Access all your data **(1)**
-- Export your data **(2)**
-- Add a record **(3)**
-- View and edit a record **(4)**
-- Edit your UI **(5)**
-- Search and filter **(6)**
+* Access all your data **(1)**
+* Export your data **(2)**
+* Add a record **(3)**
+* View and edit a record **(4)**
+* Edit your UI **(5)**
+* Search and filter **(6)**
 
 ![](<../.gitbook/assets/image (547).png>)
 
 However, your business logic likely requires more features. What if you need to...
 
-- refund an order
-- upload new documents, accept or reject them, or ask customers to update their documents,
-- contact a customer or ask a team member to perform an action,
-- and much more?
+* refund an order
+* upload new documents, accept or reject them, or ask customers to update their documents,
+* contact a customer or ask a team member to perform an action,
+* and much more?
 
 It's possible with **smart actions** :point_down:
 
@@ -92,11 +92,9 @@ Declare it in your `/forest/orders.js` file:
 const { collection } = require('forest-express-sequelize');
 
 collection('orders', {
-  actions: [
-    {
-      name: 'Refund order',
-    },
-  ],
+  actions: [{
+    name: 'Refund order',
+  }],
 });
 ```
 
@@ -136,11 +134,9 @@ Declare it in your `/forest/orders.js` file:
 const { collection } = require('forest-express-mongoose');
 
 collection('orders', {
-  actions: [
-    {
-      name: 'Refund order',
-    },
-  ],
+  actions: [{
+    name: 'Refund order',
+  }],
 });
 ```
 
