@@ -4,6 +4,52 @@ description: >-
   following breaking changes to ensure a smooth update.
 ---
 
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Upgrade to v3
 
 ## Breaking changes
@@ -13,6 +59,7 @@ description: >-
 Set CORS `credentials: true` if you're using custom CORS configuration.
 
 {% code title="app.js" %}
+
 ```javascript
 var express = require('express');
 var cors = require('cors');
@@ -21,16 +68,19 @@ var app = express();
 
 // ...
 
-app.use(cors({
-  origin: [/\.forestadmin\.com$/],
-  allowedHeaders: ['Authorization', 'X-Requested-With', 'Content-Type'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [/\.forestadmin\.com$/],
+    allowedHeaders: ['Authorization', 'X-Requested-With', 'Content-Type'],
+    credentials: true,
+  })
+);
 
 // ...
 
 module.exports = app;
 ```
+
 {% endcode %}
 
 ### Global smart action
@@ -42,35 +92,41 @@ Please now use `type: 'global'`.SQLMongodb
 **Before**
 
 {% code title="/forest/products.js" %}
+
 ```javascript
 const Liana = require('forest-express-sequelize');
 const models = require('../models');
 
 Liana.collection('products', {
-  actions: [{
-    name: 'Import data',
-    global: true
-  }],
-
+  actions: [
+    {
+      name: 'Import data',
+      global: true,
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 **After**
 
 {% code title="/forest/products.js" %}
+
 ```javascript
 const Liana = require('forest-express-sequelize');
 const models = require('../models');
 
 Liana.collection('products', {
-  actions: [{
-    name: 'Import data',
-    type: 'global'
-  }],
-
+  actions: [
+    {
+      name: 'Import data',
+      type: 'global',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 ### Schema versioning
@@ -87,14 +143,15 @@ This file **must be deployed** for any remote environment (staging, production, 
 
 In the following example, we have added two fields on the `invoices` table:
 
-* `emailSent`
-* `quadernoId`
+- `emailSent`
+- `quadernoId`
 
-Versioning the`.forestadmin-schema.json` file allows you to easily visualize the changes.![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj\_ZiSkSA%2F-LcecOC6sl4pvNT7gLKI%2F-LcecRPYz9T0g\_e16FWT%2Fversioning.png?alt=media\&token=ded5a007-ccc7-4dd9-82ee-f939cf667a9f).forestadmin-schema.json versioning example
+Versioning the`.forestadmin-schema.json` file allows you to easily visualize the changes.![](https://gblobscdn.gitbook.com/assets%2F-LR7SWfEwsNtj_ZiSkSA%2F-LcecOC6sl4pvNT7gLKI%2F-LcecRPYz9T0g_e16FWT%2Fversioning.png?alt=media&token=ded5a007-ccc7-4dd9-82ee-f939cf667a9f).forestadmin-schema.json versioning example
 
 ## Changelogs
 
 This release note covers only the major changes. To learn more, please refer to the changelogs in our different repositories:
 ​
-* ​[Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-300---2019-04-22)​
-* ​[Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-300---2019-04-22)​
+
+- ​[Express-sequelize changelog](https://github.com/ForestAdmin/forest-express-sequelize/blob/master/CHANGELOG.md#release-300---2019-04-22)​
+- ​[Express-mongoose changelog](https://github.com/ForestAdmin/forest-express-mongoose/blob/master/CHANGELOG.md#release-300---2019-04-22)​

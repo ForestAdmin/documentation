@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Create and manage Smart Actions
 
 ### What is a Smart Action?
@@ -17,34 +63,43 @@ In order to create a Smart action, you will first need to **declare it in your c
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('companies', {
-  actions: [{
-    name: 'Mark as Live'
-  }],
+  actions: [
+    {
+      name: 'Mark as Live',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('companies', {
-  actions: [{
-    name: 'Mark as Live'
-  }],
+  actions: [
+    {
+      name: 'Mark as Live',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/company.rb" %}
+
 ```ruby
 class Forest::Company
   include ForestLiana::Collection
@@ -54,11 +109,13 @@ class Forest::Company
   action 'Mark as Live'
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/companies.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Company
@@ -71,19 +128,23 @@ class CompanyForest(Collection):
 
 Collection.register(CompanyForest, Company)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.companies import CompanyForest
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Company.php" %}
+
 ```php
 <?php
 
@@ -111,6 +172,7 @@ class Company extends Model
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -120,10 +182,10 @@ After declaring it, your Smart action will appear in the Smart actions tab withi
 {% hint style="warning" %}
 A Smart action is displayed in the UI only if:
 
-* it is set as "visible" (see screenshot below)\
+- it is set as "visible" (see screenshot below)\
   AND
-* in non-development environments, the user's [role ](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles)must grant the "trigger" permission
-{% endhint %}
+- in non-development environments, the user's [role ](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles)must grant the "trigger" permission
+  {% endhint %}
 
 You must make the action visible there if you wish users to be able to see it.
 
@@ -144,6 +206,7 @@ In the following example, we've implemented the _Mark as live_ Smart Action, whi
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
@@ -162,6 +225,7 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -173,6 +237,7 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 
 {% tab title="Mongodb" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 const { PermissionMiddlewareCreator } = require('forest-express-mongoose');
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
@@ -190,6 +255,7 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 module.exports = router;
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -203,6 +269,7 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 The route declaration takes place in `config/routes.rb`.
 
 {% code title="/config/routes.rb" %}
+
 ```javascript
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -213,11 +280,13 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 The business logic in this Smart Action is extremely simple. We only update here the attribute `status` of the companies to the value `live`:
 
 {% code title="/app/controllers/forest/companies_controller.rb" %}
+
 ```ruby
 class Forest::CompaniesController < ForestLiana::SmartActionsController
   def mark_as_live
@@ -228,6 +297,7 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -243,6 +313,7 @@ You may have to [add CORS headers](../../../how-tos/setup/configuring-cors-heade
 Make sure your **project** `urls.py` file include you app urls with the `forest` prefix.
 
 {% code title="urls.py" %}
+
 ```javascript
 from django.contrib import admin
 from django.urls import path, include
@@ -253,11 +324,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 ```
+
 {% endcode %}
 
 The route declaration takes place in `app/urls.py`.
 
 {% code title="app/urls.py" %}
+
 ```javascript
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -269,11 +342,13 @@ urlpatterns = [
     path('/actions/mark-as-live', csrf_exempt(views.MarkAsLiveView.as_view()), name='mark-as-live'),
 ]
 ```
+
 {% endcode %}
 
 The business logic in this Smart Action is extremely simple. We only update here the attribute `status` of the companies to the value `live`:
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -288,6 +363,7 @@ class MarkAsLiveView(ActionView):
 
         return JsonResponse({'success': 'live!'})
 ```
+
 {% endcode %}
 
 Note that Forest Admin takes care of the authentication thanks to the `ActionView` parent class view.
@@ -301,6 +377,7 @@ You may have to [add CORS headers](../../../how-tos/setup/configuring-cors-heade
 The route declaration takes place in `routes/web.php`.
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -310,11 +387,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/smart-actions/company_mark-as-live', [CompaniesController::class, 'markAsLive']);
 ```
+
 {% endcode %}
 
 The business logic in this Smart Action is extremely simple. We only update here the attribute `status` of the companies to the value `live`:
 
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 <?php
 
@@ -343,6 +422,7 @@ class CompaniesController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -361,6 +441,7 @@ The `data.attributes.values` key contains all the values of your input fields ([
 Other properties of `data.attributes` are used to manage the _select all_ behavior.
 
 {% code title="payload example" %}
+
 ```javascript
 {
   "data": {
@@ -374,6 +455,7 @@ Other properties of `data.attributes` are used to manage the _select all_ behavi
   }
 }
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}
@@ -457,6 +539,7 @@ Returning a 204 status code to the HTTP request of the Smart Action shows the de
 On our Live Demo example, if our Smart Action `Mark as Live` route is implemented like this:
 
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -467,11 +550,12 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 ...
 ```
+
 {% endcode %}
 
 We will see a success message in the browser:
 
-![](<../../../.gitbook/assets/toastr-success.png>)
+![](../../../.gitbook/assets/toastr-success.png)
 
 #### Custom success notification
 
@@ -480,6 +564,7 @@ If we return a 200 status code with an object `{ success: '...' }` as the payloa
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -490,11 +575,13 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -505,10 +592,12 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 class Forest::CompaniesController < ForestLiana::SmartActionsController
   def mark_as_live
@@ -517,10 +606,12 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -531,11 +622,13 @@ class MarkAsLiveView(ActionView):
     def post(self, request, *args, **kwargs):
         return JsonResponse({'success': 'Company is now live!'})
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 class CompaniesController extends ForestController
 {
@@ -549,13 +642,14 @@ class CompaniesController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
 
 … the success notification will look like this:
 
-![](<../../../.gitbook/assets/toastr-success-custom.png>)
+![](../../../.gitbook/assets/toastr-success-custom.png)
 
 #### Custom error notification
 
@@ -564,6 +658,7 @@ Finally, returning a 400 status code allows you to return errors properly.
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -574,11 +669,13 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -589,11 +686,13 @@ router.post('/actions/mark-as-live', permissionMiddlewareCreator.smartAction(), 
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/app/controllers/forest/companies_controller.rb" %}
+
 ```ruby
 class Forest::CompaniesController < ForestLiana::SmartActionsController
   def mark_as_live
@@ -602,11 +701,13 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -618,11 +719,13 @@ class MarkAsLiveView(ActionView):
         return JsonResponse({'error': 'The company was already live!'}, status=400)
 
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 class CompaniesController extends ForestController
 {
@@ -637,11 +740,12 @@ class CompaniesController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
 
-![](<../../../.gitbook/assets/toastr-error.png>)
+![](../../../.gitbook/assets/toastr-error.png)
 
 #### Custom HTML response
 
@@ -652,30 +756,40 @@ On our Live Demo example, we’ve created a `Charge credit card` Smart Action on
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customers', {
-  actions: [{
-    name: 'Charge credit card',
-    type: 'single',
-    fields: [{
-      field: 'amount',
-      isRequired: true,
-      description: 'The amount (USD) to charge the credit card. Example: 42.50',
-      type: 'Number'
-    }, {
-      field: 'description',
-      isRequired: true,
-      description: 'Explain the reason why you want to charge manually the customer here',
-      type: 'String'
-    }]
-  }]
+  actions: [
+    {
+      name: 'Charge credit card',
+      type: 'single',
+      fields: [
+        {
+          field: 'amount',
+          isRequired: true,
+          description:
+            'The amount (USD) to charge the credit card. Example: 42.50',
+          type: 'Number',
+        },
+        {
+          field: 'description',
+          isRequired: true,
+          description:
+            'Explain the reason why you want to charge manually the customer here',
+          type: 'String',
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/customers.js" %}
+
 ```javascript
 ...
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -716,35 +830,46 @@ router.post('/actions/charge-credit-card', permissionMiddlewareCreator.smartActi
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('Customer', {
-  actions: [{
-    name: 'Charge credit card',
-    type: 'single',
-    fields: [{
-      field: 'amount',
-      isRequired: true,
-      description: 'The amount (USD) to charge the credit card. Example: 42.50',
-      type: 'Number'
-    }, {
-      field: 'description',
-      isRequired: true,
-      description: 'Explain the reason why you want to charge manually the customer here',
-      type: 'String'
-    }]
-  }]
+  actions: [
+    {
+      name: 'Charge credit card',
+      type: 'single',
+      fields: [
+        {
+          field: 'amount',
+          isRequired: true,
+          description:
+            'The amount (USD) to charge the credit card. Example: 42.50',
+          type: 'Number',
+        },
+        {
+          field: 'description',
+          isRequired: true,
+          description:
+            'Explain the reason why you want to charge manually the customer here',
+          type: 'String',
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/customers.js" %}
+
 ```javascript
 ...
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -785,11 +910,13 @@ router.post('/actions/charge-credit-card', (req, res) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -809,9 +936,11 @@ class Forest::Customer
   }]
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -822,9 +951,11 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 {% code title="/app/controllers/forest/customers_controller.rb" %}
+
 ```ruby
 class Forest::CustomersController < ForestLiana::SmartActionsController
   def charge_credit_card
@@ -860,10 +991,12 @@ EOF
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
+
 <pre class="language-python" data-title="app/forest/customer.py"><code class="lang-python"><strong>from django_forest.utils.collection import Collection
 </strong>from app.models import Company
 
@@ -891,6 +1024,7 @@ Collection.register(CompanyForest, Company)
 </code></pre>
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -902,9 +1036,11 @@ urlpatterns = [
     path('/actions/charge-credit-card', csrf_exempt(views.ChargeCreditCardView.as_view()), name='charge-credit-card'),
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 import stripe
 
@@ -948,11 +1084,13 @@ class ChargeCreditCardView(ActionView):
 
         return JsonResponse({'html': data}, safe=False)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -996,9 +1134,11 @@ class Customer extends Model
 
     }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -1007,9 +1147,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/smart-actions/customer_charge-credit-card', [CustomersController::class, 'chargeCreditCard']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/CustomersController.php" %}
+
 ```php
 <?php
 
@@ -1061,6 +1203,7 @@ class CustomersController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -1072,30 +1215,40 @@ You can either respond with an HTML page in case of error. The user will be able
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customers', {
-  actions: [{
-    name: 'Charge credit card',
-    type: 'single',
-    fields: [{
-      field: 'amount',
-      isRequired: true,
-      description: 'The amount (USD) to charge the credit card. Example: 42.50',
-      type: 'Number'
-    }, {
-      field: 'description',
-      isRequired: true,
-      description: 'Explain the reason why you want to charge manually the customer here',
-      type: 'String'
-    }]
-  }]
+  actions: [
+    {
+      name: 'Charge credit card',
+      type: 'single',
+      fields: [
+        {
+          field: 'amount',
+          isRequired: true,
+          description:
+            'The amount (USD) to charge the credit card. Example: 42.50',
+          type: 'Number',
+        },
+        {
+          field: 'description',
+          isRequired: true,
+          description:
+            'Explain the reason why you want to charge manually the customer here',
+          type: 'String',
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/customers.js" %}
+
 ```javascript
 ...
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -1132,35 +1285,46 @@ router.post('/actions/charge-credit-card', permissionMiddlewareCreator.smartActi
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('Customer', {
-  actions: [{
-    name: 'Charge credit card',
-    type: 'single',
-    fields: [{
-      field: 'amount',
-      isRequired: true,
-      description: 'The amount (USD) to charge the credit card. Example: 42.50',
-      type: 'Number'
-    }, {
-      field: 'description',
-      isRequired: true,
-      description: 'Explain the reason why you want to charge manually the customer here',
-      type: 'String'
-    }]
-  }]
+  actions: [
+    {
+      name: 'Charge credit card',
+      type: 'single',
+      fields: [
+        {
+          field: 'amount',
+          isRequired: true,
+          description:
+            'The amount (USD) to charge the credit card. Example: 42.50',
+          type: 'Number',
+        },
+        {
+          field: 'description',
+          isRequired: true,
+          description:
+            'Explain the reason why you want to charge manually the customer here',
+          type: 'String',
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/customers.js" %}
+
 ```javascript
 ...
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -1197,11 +1361,13 @@ router.post('/actions/charge-credit-card', (req, res) => {
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -1221,9 +1387,11 @@ class Forest::Customer
   }]
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -1234,6 +1402,7 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 <pre class="language-ruby" data-title="/app/controllers/forest/customers_controller.rb"><code class="lang-ruby">class Forest::CustomersController &#x3C; ForestLiana::SmartActionsController
@@ -1263,9 +1432,11 @@ end
   end
 end
 </code></pre>
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 <pre class="language-python" data-title="app/forest/customer.py"><code class="lang-python"><strong>from django_forest.utils.collection import Collection
 </strong>from app.models import Company
 
@@ -1293,6 +1464,7 @@ Collection.register(CompanyForest, Company)
 </code></pre>
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -1304,9 +1476,11 @@ urlpatterns = [
     path('/actions/charge-credit-card', csrf_exempt(views.ChargeCreditCardView.as_view()), name='charge-credit-card'),
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 import stripe
 
@@ -1346,11 +1520,13 @@ class ChargeCreditCardView(ActionView):
 
         return JsonResponse({'html': data}, safe=False, status=status.HTTP_400_BAD_REQUEST)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -1394,9 +1570,11 @@ class Customer extends Model
 
     }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -1405,9 +1583,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/smart-actions/customer_charge-credit-card', [CustomersController::class, 'chargeCreditCard']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/CustomersController.php" %}
+
 ```php
 <?php
 
@@ -1452,6 +1632,7 @@ class CustomersController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -1466,36 +1647,45 @@ To set up a webhook all you have to do is to add a `webhook`object in the respon
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 response.send({
-  webhook: { // This is the object that will be used to fire http calls.
+  webhook: {
+    // This is the object that will be used to fire http calls.
     url: 'http://my-company-name', // The url of the company providing the service.
     method: 'POST', // The method you would like to use (typically a POST).
-    headers: { }, // You can add some headers if needed (you can remove it).
-    body: { // A body to send to the url (only JSON supported).
+    headers: {}, // You can add some headers if needed (you can remove it).
+    body: {
+      // A body to send to the url (only JSON supported).
       adminToken: 'your-admin-token',
     },
   },
 });
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
 response.send({
-  webhook: { // This is the object that will be used to fire http calls.
+  webhook: {
+    // This is the object that will be used to fire http calls.
     url: 'http://my-company-name', // The url of the company providing the service.
     method: 'POST', // The method you would like to use (typically a POST).
-    headers: { }, // You can add some headers if needed (you can remove it).
-    body: { // A body to send to the url (only JSON supported).
+    headers: {}, // You can add some headers if needed (you can remove it).
+    body: {
+      // A body to send to the url (only JSON supported).
       adminToken: 'your-admin-token',
     },
   },
 });
 ```
+
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 render json: {
   webhook: { # This is the object that will be used to fire http calls.
@@ -1508,9 +1698,11 @@ render json: {
   }
 }
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
 return JsonResponse({
     'webhook': { # This is the object that will be used to fire http calls.
@@ -1523,9 +1715,11 @@ return JsonResponse({
     }
 })
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
+
 ```php
 return response()->json(
   [
@@ -1540,6 +1734,7 @@ return response()->json(
   ]
 );
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -1558,19 +1753,24 @@ Another interesting use of this is automating SSO authentication into your exter
 On our Live Demo, the collection `customers` has a Smart Action `Generate invoice`. In this use case, we want to download the generated PDF invoice after clicking on the action. To indicate a Smart Action returns something to download, you have to enable the option `download`.
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('customers', {
-  actions: [{
-    name: 'Generate invoice',
-    download: true // If true, the action triggers a file download in the Browser.
-  }]
+  actions: [
+    {
+      name: 'Generate invoice',
+      download: true, // If true, the action triggers a file download in the Browser.
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/customers.js" %}
+
 ```javascript
 ...
 
@@ -1595,6 +1795,7 @@ router.post('/actions/generate-invoice', permissionMiddlewareCreator.smartAction
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -1602,19 +1803,24 @@ module.exports = router;
 On our Live Demo, the collection `customers` has a Smart Action `Generate invoice`. In this use case, we want to download the generated PDF invoice after clicking on the action. To indicate a Smart Action returns something to download, you have to enable the option `download`.
 
 {% code title="/forest/customers.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('Customer', {
-  actions: [{
-    name: 'Generate invoice',
-    download: true // If true, the action triggers a file download in the Browser.
-  }]
+  actions: [
+    {
+      name: 'Generate invoice',
+      download: true, // If true, the action triggers a file download in the Browser.
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/customers.js" %}
+
 ```javascript
 ...
 
@@ -1639,6 +1845,7 @@ router.post('/actions/generate-invoice', Liana.ensureAuthenticated,
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -1650,6 +1857,7 @@ Don’t forget to expose the `Content-Disposition` header in the CORS configurat
 {% endhint %}
 
 {% code title="/lib/forest_liana/collections/customer.rb" %}
+
 ```ruby
 class Forest::Customer
   include ForestLiana::Collection
@@ -1659,9 +1867,11 @@ class Forest::Customer
   action 'Generate invoice', download: true
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -1672,9 +1882,11 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/application.rb" %}
+
 ```ruby
 module LiveDemoRails
   class Application < Rails::Application
@@ -1689,9 +1901,11 @@ module LiveDemoRails
   end
 end
 ```
+
 {% endcode %}
 
 {% code title="/app/controllers/forest/customers_controller.rb" %}
+
 ```ruby
 class Forest::CustomersController < ForestLiana::SmartActionsController
   def generate_invoice
@@ -1700,6 +1914,7 @@ class Forest::CustomersController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -1711,6 +1926,7 @@ Don’t forget to expose the `Content-Disposition` header in the CORS configurat
 {% endhint %}
 
 {% code title="app/forest/customer.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Customer
@@ -1724,9 +1940,11 @@ class CustomerForest(Collection):
 
 Collection.register(CustomerForest, Customer)
 ```
+
 {% endcode %}
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -1738,9 +1956,11 @@ urlpatterns = [
     path('/actions/generate-invoice', csrf_exempt(views.GenerateInvoiceView.as_view()), name='generate-invoice'),
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 from datetime import datetime
 from django.http import HttpResponse
@@ -1766,6 +1986,7 @@ class GenerateInvoiceView(ActionView):
             },
         )
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -1773,6 +1994,7 @@ class GenerateInvoiceView(ActionView):
 On our Live Demo, the collection `Customer` has a Smart Action `Generate invoice`. In this use case, we want to download the generated PDF invoice after clicking on the action. To indicate a Smart Action returns something to download, you have to enable the option `download`.
 
 {% code title="app/Models/Customer.php" %}
+
 ```php
 <?php
 
@@ -1801,9 +2023,11 @@ class Customer extends Model
     }
  }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -1812,9 +2036,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/smart-actions/customer_generate-invoice', [CustomersController::class, 'generateInvoice']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/CustomersController.php" %}
+
 ```php
 <?php
 
@@ -1838,6 +2064,7 @@ class CustomersController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -1861,27 +2088,35 @@ In the example below, the “Add new transaction” action **(1)** is accessible
 Below is the sample code. We use faker to generate random data in our example. Remember to install it if you wish to use it (`npm install faker`).
 
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('companies', {
-  actions: [{
-    name: 'Add new transaction',
-    description: 'Name of the company who will receive the transaction.',
-    fields: [{
-      field: 'Beneficiary company',
+  actions: [
+    {
+      name: 'Add new transaction',
       description: 'Name of the company who will receive the transaction.',
-      reference: 'companies.id'
-    },{
-      field: 'Amount',
-      type: 'Number'
-    }]
-  }],
+      fields: [
+        {
+          field: 'Beneficiary company',
+          description: 'Name of the company who will receive the transaction.',
+          reference: 'companies.id',
+        },
+        {
+          field: 'Amount',
+          type: 'Number',
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 const faker = require('faker');
@@ -1917,6 +2152,7 @@ router.post('/actions/add-new-transaction', permissionMiddlewareCreator.smartAct
       });
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -1924,27 +2160,35 @@ router.post('/actions/add-new-transaction', permissionMiddlewareCreator.smartAct
 Below is the sample code. We use faker to generate random data in our example. Remember to install it if you wish to use it (`npm install faker`).
 
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('Company', {
-  actions: [{
-    name: 'Add new transaction',
-    description: 'Name of the company who will receive the transaction.',
-    fields: [{
-      field: 'Beneficiary company',
+  actions: [
+    {
+      name: 'Add new transaction',
       description: 'Name of the company who will receive the transaction.',
-      reference: 'Company'
-    },{
-      field: 'Amount',
-      type: 'Number'
-    }]
-  }],
+      fields: [
+        {
+          field: 'Beneficiary company',
+          description: 'Name of the company who will receive the transaction.',
+          reference: 'Company',
+        },
+        {
+          field: 'Amount',
+          type: 'Number',
+        },
+      ],
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/companies.js" %}
+
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -1953,37 +2197,40 @@ const Transaction = require('../models/transactions');
 const faker = require('faker');
 // ...
 
-router.post('/actions/add-new-transaction', Liana.ensureAuthenticated,
+router.post(
+  '/actions/add-new-transaction',
+  Liana.ensureAuthenticated,
   (req, res) => {
-    let emitterCompanyId = req.body.data.attributes.ids[0]
-    let beneficiaryCompanyId = req.body.data.attributes.values['Beneficiary company']
-    let amount = req.body.data.attributes.values['Amount']
+    let emitterCompanyId = req.body.data.attributes.ids[0];
+    let beneficiaryCompanyId =
+      req.body.data.attributes.values['Beneficiary company'];
+    let amount = req.body.data.attributes.values['Amount'];
 
-    return Transaction
-      .create({
-        emitter_company_id: emitterCompanyId,
-        beneficiary_company_id: beneficiaryCompanyId,
-        beneficiary_iban: faker.finance.iban(),
-        emitter_iban: faker.finance.iban(),
-        vat_amount: faker.finance.amount(500, 10000, 0),
-        fee_amount: faker.finance.amount(500, 10000, 0),
-        status: ['to_validate', 'validated', 'rejected'].sample,
-        note: faker.lorem.sentences(),
-        amount: amount,
-        emitter_bic: faker.finance.bic(),
-        beneficiary_bic: faker.finance.bic()
-      })
-      .then(() => {
-	    // the code below automatically refresh the related data
-    	// 'emitted_transactions' on the Companies' Summary View
-    	// after submitting the Smart action form.
-        res.send({
-          success: 'New transaction emitted',
-          refresh: { relationships: ['emitted_transactions'] },
-        });
+    return Transaction.create({
+      emitter_company_id: emitterCompanyId,
+      beneficiary_company_id: beneficiaryCompanyId,
+      beneficiary_iban: faker.finance.iban(),
+      emitter_iban: faker.finance.iban(),
+      vat_amount: faker.finance.amount(500, 10000, 0),
+      fee_amount: faker.finance.amount(500, 10000, 0),
+      status: ['to_validate', 'validated', 'rejected'].sample,
+      note: faker.lorem.sentences(),
+      amount: amount,
+      emitter_bic: faker.finance.bic(),
+      beneficiary_bic: faker.finance.bic(),
+    }).then(() => {
+      // the code below automatically refresh the related data
+      // 'emitted_transactions' on the Companies' Summary View
+      // after submitting the Smart action form.
+      res.send({
+        success: 'New transaction emitted',
+        refresh: { relationships: ['emitted_transactions'] },
       });
-});
+    });
+  }
+);
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -1991,6 +2238,7 @@ router.post('/actions/add-new-transaction', Liana.ensureAuthenticated,
 Below is the sample code. We use the `gem 'faker'` to easily generate fake data. Remember to add this gem to your `Gemfile` and install it (`bundle install`) if you wish to use it.
 
 {% code title="/lib/forest_liana/collections/company.rb" %}
+
 ```ruby
 class Forest::Company
   include ForestLiana::Collection
@@ -2010,9 +2258,11 @@ class Forest::Company
   # ...
 end
 ```
+
 {% endcode %}
 
 {% code title="/controllers/forest/companies_controller.rb" %}
+
 ```ruby
 class Forest::CompaniesController < ForestLiana::SmartActionsController
   # ...
@@ -2046,9 +2296,11 @@ class Forest::CompaniesController < ForestLiana::SmartActionsController
   end
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -2062,6 +2314,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -2069,6 +2322,7 @@ end
 Below is the sample code. We use the python Faker package to easily generate fake data. Remember to add this package to your `requirements.txt` and install it if you wish to use it.
 
 {% code title="app/forest/company.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Company
@@ -2092,9 +2346,11 @@ class CompanyForest(Collection):
 
 Collection.register(CompanyForest, Company)
 ```
+
 {% endcode %}
 
 {% code title="app/url.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -2106,9 +2362,11 @@ urlpatterns = [
     path('/actions/add-new-transaction', csrf_exempt(views.AddNewTransactionView.as_view()), name='add-new-transaction'),
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 from faker import Faker
 from django.http import JsonResponse
@@ -2154,6 +2412,7 @@ class AddNewTransactionView(ActionView):
             }
         })
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -2161,6 +2420,7 @@ class AddNewTransactionView(ActionView):
 Below is the sample code. We use the Faker package to easily generate fake data. Remember to add this package to your `composer.json` and install it if you wish to use it.
 
 {% code title="app/Models/Company.php" %}
+
 ```php
 <?php
 
@@ -2203,9 +2463,11 @@ class Company extends Model
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 <?php
 
@@ -2260,9 +2522,11 @@ class CompaniesController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -2271,6 +2535,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/smart-actions/company_add-new-transaction', [CompaniesController::class, 'addNewTransaction']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -2292,20 +2557,26 @@ Here's a working example for both cases:
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/forest/models.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('models', {
-  actions: [{
-    name: 'Return and track',
-  }, {
-    name: 'Show some activity',
-  }],
+  actions: [
+    {
+      name: 'Return and track',
+    },
+    {
+      name: 'Show some activity',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/models.js" %}
+
 ```javascript
 ...
 
@@ -2333,25 +2604,32 @@ router.post('/actions/show-some-activity', permissionMiddlewareCreator.smartActi
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/forest/models.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('models', {
-  actions: [{
-    name: 'Initiate return and display tracking',
-  }, {
-    name: 'Show some activity',
-  }],
+  actions: [
+    {
+      name: 'Initiate return and display tracking',
+    },
+    {
+      name: 'Show some activity',
+    },
+  ],
 });
 ```
+
 {% endcode %}
 
 {% code title="/routes/models.js" %}
+
 ```javascript
 ...
 
@@ -2379,11 +2657,13 @@ router.post('/actions/show-some-activity', Liana.ensureAuthenticated,
 
 module.exports = router;
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/company.rb" %}
+
 ```ruby
 class Forest::Company
   include ForestLiana::Collection
@@ -2394,9 +2674,11 @@ class Forest::Company
   action 'Show some activity'
 end
 ```
+
 {% endcode %}
 
 {% code title="/config/routes.rb" %}
+
 ```ruby
 ...
 
@@ -2407,9 +2689,11 @@ end
 
 ...
 ```
+
 {% endcode %}
 
 {% code title="/app/controller/forest/company_controller.rb" %}
+
 ```ruby
 ...
 
@@ -2431,11 +2715,13 @@ end
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/company.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Company
@@ -2450,9 +2736,11 @@ class CompanyForest(Collection):
 
 Collection.register(CompanyForest, Company)
 ```
+
 {% endcode %}
 
 {% code title="app/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -2465,9 +2753,11 @@ urlpatterns = [
     path('/actions/show-some-activity', csrf_exempt(views.ShowSomeActivityView.as_view()), name='show-some-activity'),
 ]
 ```
+
 {% endcode %}
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -2488,11 +2778,13 @@ class ShowSomeActivityView(ActionView):
              'redirectTo': '/MyProject/MyEnvironment/MyTeam/data/20/index/record/20/108/activity',
         })
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Models/company.php" %}
+
 ```php
 <?php
 
@@ -2527,9 +2819,11 @@ class Company extends Model
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 ...
      /**
@@ -2559,9 +2853,11 @@ class Company extends Model
     }
 ...
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -2572,6 +2868,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('forest/smart-actions/company_return-and-track', [CompaniesController::class, 'returnAndTrack']);
 Route::post('forest/smart-actions/company_show-some-activity', [CompaniesController::class, 'showSomeActivity']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -2596,7 +2893,7 @@ When using Forest Admin collaboratively with clear roles defined it becomes rele
 \
 [Learn more about roles](https://docs.forestadmin.com/user-guide/project-settings/teams-and-users/manage-roles).
 
-![](<../../../.gitbook/assets/project-settings-roles-permissions.png>)
+![](../../../.gitbook/assets/project-settings-roles-permissions.png)
 
 ### Require approval for a Smart action
 
@@ -2610,9 +2907,9 @@ To add an additional layer of security over a smart action, head over to the _Ro
 
 Actions requiring approval will be available in the Collaboration menu **(3)** in the “Approvals” section:
 
-* “Requested” for all incoming requests (yours to approve or not)
-* “To Review” **(4)** for requests you need to review
-* “History” for all past requests.
+- “Requested” for all incoming requests (yours to approve or not)
+- “To Review” **(4)** for requests you need to review
+- “History” for all past requests.
 
 In “To Review”, you will be able to approve or reject the request **(5)** with an optional message **(6)** for more details.
 

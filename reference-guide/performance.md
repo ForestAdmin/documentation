@@ -4,6 +4,52 @@ description: >-
   steps we recommend taking to ensure your Forest is optimized.
 ---
 
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Performance
 
 Please find here all the hands-on best practices to keep your admin panel performant. Depending on your user's needs, you might either hide or optimize some fields to limit the number of components, avoid a large datasets display or rework complex logic.
@@ -49,13 +95,15 @@ Sometimes, searching in all fields is not relevant and may even result in big pe
 In this example, we configure Forest Admin to only search on the fields `name` and `industry` of our collection `companies`.
 
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 ​
 collection('companies', {
-  searchFields: ['name', 'industry'],   
+  searchFields: ['name', 'industry'],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -63,13 +111,15 @@ collection('companies', {
 In this example, we configure Forest to only search on the fields `name` and `industry` of our collection `companies`.
 
 {% code title="/forest/companies.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 ​
 collection('companies', {
-  searchFields: ['name', 'industry'],   
+  searchFields: ['name', 'industry'],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -77,6 +127,7 @@ collection('companies', {
 In this example, we configure Forest to only search on the fields `name` and `industry` of our collection `Company`.
 
 {% code title="/lib/forest_liana/collections/company.rb" %}
+
 ```ruby
 class Forest::Company
   include ForestLiana::Collection
@@ -86,10 +137,11 @@ class Forest::Company
   search_fields ['name', 'industry']
 
   action 'Mark as Live'
-  
+
 # ...
 end
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -106,9 +158,11 @@ In certain conditions, usually, when your database reaches a point where it has 
 
 {% tabs %}
 {% tab title="SQL" %}
-* adding the `deactivateCountMiddleware` like so:
+
+- adding the `deactivateCountMiddleware` like so:
 
 {% code title="/routes/books.js" %}
+
 ```javascript
 const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('forest-express-sequelize');
 
@@ -117,13 +171,16 @@ const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('fore
 // Get a number of Books
 router.get('/books/count', deactivateCountMiddleware);
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
-* adding the `deactivateCountMiddleware` like so:
+
+- adding the `deactivateCountMiddleware` like so:
 
 {% code title="/routes/books.js" %}
+
 ```javascript
 const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('forest-express-sequelize');
 
@@ -132,11 +189,13 @@ const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('fore
 // Get a number of Books
 router.get('/books/count', deactivateCountMiddleware);
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
-* creating a controller in the repository `lib/forest_liana/controllers` for override the count action
+
+- creating a controller in the repository `lib/forest_liana/controllers` for override the count action
 
 ```ruby
 class Forest::BooksController < ForestLiana::ResourcesController
@@ -146,19 +205,21 @@ class Forest::BooksController < ForestLiana::ResourcesController
 end
 ```
 
-* adding a route in `app/config/routes.rb` before `mount ForestLiana::Engine => '/forest'`
+- adding a route in `app/config/routes.rb` before `mount ForestLiana::Engine => '/forest'`
 
 ```ruby
 namespace :forest do
     get '/Book/count' , to: 'books#count'
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
 ..adding the following middleware in settings.py and set the collection(s) to deactivate.
 
 {% code title="myproject/settings.py" %}
+
 ```python
 MIDDLEWARE = [
    'django_forest.middleware.DeactivateCountMiddleware',
@@ -174,11 +235,13 @@ FOREST = {
    # ...
 }
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/BooksController.php" %}
+
 ```php
 <?php
 
@@ -202,11 +265,13 @@ class BooksController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 
 adding a route in `app/routes/web.php`
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -215,6 +280,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('forest/book/count', [BooksController::class, 'count']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -224,21 +290,32 @@ To disable the count request in the table of a relationship (Related data sectio
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/books.js" %}
+
 ```javascript
-router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
+router.get(
+  '/books/:recordId/relationships/companies/count',
+  deactivateCountMiddleware
+);
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/books.js" %}
+
 ```javascript
-router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
+router.get(
+  '/books/:recordId/relationships/companies/count',
+  deactivateCountMiddleware
+);
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 class Forest::BookCompaniesController < ForestLiana::AssociationsController
   def count
@@ -258,10 +335,12 @@ namespace :forest do
     get '/Book/:id/relationships/companies/count' , to: 'book_companies#count'
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="myproject/settings.py" %}
+
 ```python
 MIDDLEWARE = [
    'django_forest.middleware.DeactivateCountMiddleware',
@@ -277,6 +356,7 @@ FOREST = {
    # ...
 }
 ```
+
 {% endcode %}
 
 Furthermore, if you want to disable on all relationships at once:
@@ -291,10 +371,12 @@ FOREST = {
    # ...
 }
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/BookCompaniesController.php" %}
+
 ```php
 <?php
 
@@ -323,9 +405,11 @@ class BookCompaniesController extends RelationshipsController
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -334,6 +418,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('forest/book/{id}/relationships/companies/count', [BookCompaniesController::class, 'count']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -343,6 +428,7 @@ You can also disable the count request in a collection only in certain condition
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/books.js" %}
+
 ```javascript
 // Get a number of Books when you have a filtering
 router.get('/books/count', (request, response, next) => {
@@ -353,11 +439,13 @@ router.get('/books/count', (request, response, next) => {
   }
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/routes/books.js" %}
+
 ```javascript
 // Get a number of Books when you have a filter
 router.get('/books/count', (request, response, next) => {
@@ -368,10 +456,12 @@ router.get('/books/count', (request, response, next) => {
   }
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 class Forest::BooksController < ForestLiana::ResourcesController
   def count
@@ -384,10 +474,12 @@ class Forest::BooksController < ForestLiana::ResourcesController
   end
 end
 ```
+
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="myproject/myapp/middlewares.py" %}
+
 ```python
 class CustomDeactivateCountMiddleware(DeactivateCountMiddleware):
 
@@ -395,9 +487,11 @@ class CustomDeactivateCountMiddleware(DeactivateCountMiddleware):
         is_deactivated = super().is_deactivated(request, view_func, *args, **kwargs)
         return is_deactivated and 'search' not in request.GET
 ```
+
 {% endcode %}
 
 {% code title="myproject/settings.py" %}
+
 ```python
 MIDDLEWARE = [
    'myproject.myapp.middlewares.CustomDeactivateCountMiddleware',
@@ -413,11 +507,13 @@ FOREST = {
    # ...
 }
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/BooksController.php" %}
+
 ```php
 <?php
 
@@ -445,6 +541,7 @@ class BooksController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -453,34 +550,39 @@ One more example: you may want to deactivate the pagination count request for a 
 
 {% tabs %}
 {% tab title="SQL" %}
+
 ```javascript
 router.get('/books/count', (request, response, next) => {
   // Count is deactivated for the Operations team
   if (request.user.team === 'Operations') {
     deactivateCountMiddleware(request, response);
-  // Count is made for all other teams
+    // Count is made for all other teams
   } else {
     next();
   }
 });
 ```
+
 {% endtab %}
 
 {% tab title="Mongodb" %}
+
 ```javascript
 router.get('/books/count', (request, response, next) => {
   // Count is deactivated for the Operations team
   if (request.user.team === 'Operations') {
     deactivateCountMiddleware(request, response);
-  // Count is made for all other teams
+    // Count is made for all other teams
   } else {
     next();
   }
 });
 ```
+
 {% endtab %}
 
 {% tab title="Rails" %}
+
 ```ruby
 class Forest::BooksController < ForestLiana::ResourcesController
   def count
@@ -493,10 +595,12 @@ class Forest::BooksController < ForestLiana::ResourcesController
   end
 end
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/BooksController.php" %}
+
 ```php
 <?php
 
@@ -525,6 +629,7 @@ class BooksController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

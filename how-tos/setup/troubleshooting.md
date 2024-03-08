@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Troubleshooting
 
 #### ❓ Don't you see an answer to your problem? Describe it on our [Developer Community Forum](https://community.forestadmin.com/) and we will answer quickly.
@@ -12,21 +58,15 @@
 
 ✅ Such an issue has been solved on our community forum. [Check it out.](https://community.forestadmin.com/t/cant-connect-to-postgres-db-inside-another-docker-container/725)
 
-
-
 🙋🏾‍♂️ After installing Forest Admin with Docker, I expect to see my visual data. Instead, I'm getting such error:
 
-![onboarding error](<../../.gitbook/assets/onboarding-error.png>)
+![onboarding error](../../.gitbook/assets/onboarding-error.png)
 
 ✅ Such an issue has been solved on our community forum. [Check it out](https://community.forestadmin.com/t/your-server-encountered-an-error-getaddrinfo-enotfound-postgres-postgres-5432/1798).
-
-
 
 🙋🏻 When I want to pull data from my MongoDB database when installing Forest Admin with Docker, I keep getting an error even when I changed to all access.
 
 ✅ Such an issue has been solved on our community forum. [Check it out](https://community.forestadmin.com/t/getting-error-mongoserverselectionerror-connection-monitor-to-54-71-237-255-27017-closed/3146).
-
-
 
 🙋‍♂️ When I try to deploy lumber-admin via Docker with a remote database, I am getting an error `Error: Unprocessable Entity`
 
@@ -47,8 +87,6 @@ I suspect a problem on DB, but I cannot find any details or logs about this even
 🙋🏼‍♀️ When installing via npm, everything worked well up to the “npm start” command when I received an error.
 
 ✅ A similar issue has been solved on our community forum. [Check it out.](https://community.forestadmin.com/t/npm-start-error/1520)
-
-
 
 #### Nodejs app with Express and Sequelize
 

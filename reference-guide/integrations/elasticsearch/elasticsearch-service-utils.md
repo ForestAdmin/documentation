@@ -1,17 +1,64 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Elasticsearch service/utils
 
 ## Connecting to Elasticsearch with a Custom Service
 
 This service wraps the [Elasticsearch Node.js client](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html) and provides the following implementation:
 
-* Get a list of records (with Pagination and Filters handling)
-* Get a simple record
-* Create a record
-* Update an existing record
-* Delete a record
+- Get a list of records (with Pagination and Filters handling)
+- Get a simple record
+- Create a record
+- Update an existing record
+- Delete a record
 
 {% tabs %}
 {% tab title="Prototype" %}
+
 ```javascript
 const { Client } = require('@elastic/elasticsearch');
 
@@ -25,7 +72,7 @@ class ElasticsearchHelper {
     filterDefinition,
     mappingFunction,
     sort,
-  }); 
+  });
 
   // Get a List of Records based on the query (page, filter, search, sort)
   functionSearch ({
@@ -43,22 +90,23 @@ class ElasticsearchHelper {
 
   // Remove a by Id
   removeRecord(recordId);
-  
+
   // Remove multiple Ids
   removeRecords(recordsIdsToDelete);
 }
 
 module.exports = ElasticsearchHelper;
 ```
+
 {% endtab %}
 
 {% tab title="Full implementation" %}
 {% code title="service/elasticsearch-helper.js" %}
+
 ```javascript
 const { Client } = require('@elastic/elasticsearch');
 
 const { esTranslateFilter } = require('../utils/filter-translator');
-
 
 function baseMappingFunction(id, source) {
   return {
@@ -68,16 +116,16 @@ function baseMappingFunction(id, source) {
 }
 
 class ElasticsearchHelper {
-
   constructor({
     index,
     filterDefinition,
     mappingFunction = baseMappingFunction,
     sort,
   }) {
-
     if (!index) {
-      throw new Error('Your elasticsearch index for this collection is required !');
+      throw new Error(
+        'Your elasticsearch index for this collection is required !'
+      );
     }
 
     this.index = index;
@@ -96,9 +144,7 @@ class ElasticsearchHelper {
    * @param {any} booleanQuery Elasticsearch bool query
    * @returns {Promise<Array<Record>>}
    */
-  async  esSearch({
-    pageSize, page,
-  }, booleanQuery) {
+  async esSearch({ pageSize, page }, booleanQuery) {
     const size = pageSize || 20;
     const from = ((page || 1) - 1) * size;
 
@@ -116,8 +162,9 @@ class ElasticsearchHelper {
       from,
     });
 
-    return response.body.hits.hits
-      .map((hit) => this.mappingFunction(hit._id, hit._source));
+    return response.body.hits.hits.map((hit) =>
+      this.mappingFunction(hit._id, hit._source)
+    );
   }
 
   /**
@@ -151,16 +198,11 @@ class ElasticsearchHelper {
    *  results: Array<Record>
    * }>}
    */
-  async functionSearch({
-    pageSize, page, filters, options,
-  }) {
+  async functionSearch({ pageSize, page, filters, options }) {
     const esFilter = esTranslateFilter(this.filterDefinition, filters, options);
 
     const [results, count] = await Promise.all([
-      this.esSearch(
-        { page, pageSize },
-        { filter: esFilter },
-      ),
+      this.esSearch({ page, pageSize }, { filter: esFilter }),
       this.esCount({ filter: esFilter }),
     ]);
 
@@ -210,7 +252,7 @@ class ElasticsearchHelper {
       op_type: 'create',
       refresh: true,
     });
-  
+
     return this.getRecord(response.body._id);
   }
 
@@ -227,7 +269,7 @@ class ElasticsearchHelper {
       body: {
         doc: {
           ...propertiesToUpdate,
-        }
+        },
       },
       refresh: true,
     });
@@ -246,18 +288,18 @@ class ElasticsearchHelper {
       refresh: true,
     });
   }
-  
- /**
+
+  /**
    * @param {Array<any>} idsToDelete
    * @returns {Promise}
    */
   async removeRecords(idsToDelete) {
-    const body = idsToDelete.map(id => {
+    const body = idsToDelete.map((id) => {
       return {
         delete: {
           _index: this.index,
-          _id: id
-        }
+          _id: id,
+        },
       };
     });
 
@@ -270,6 +312,7 @@ class ElasticsearchHelper {
 
 module.exports = ElasticsearchHelper;
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -282,14 +325,15 @@ You need to add Elasticsearch Node.js client to your project`npm install @elasti
 
 This utils takes an object representing a filter from the ForestAdmin UI and transforms it into a filter for Elasticsearch.
 
-* Date filters
-* Number filters
-* Text filters
-* Enum filters
+- Date filters
+- Number filters
+- Text filters
+- Enum filters
 
 {% tabs %}
 {% tab title="Full implementation" %}
 {% code title="utils/filter-translator.js" %}
+
 ```javascript
 const { BaseOperatorDateParser } = require('forest-express-sequelize');
 const moment = require('moment');
@@ -375,7 +419,8 @@ function equal(fieldDefinition, oneFilter, options) {
       };
     }
 
-    default: throw new Error('Invalid field type for operator equal');
+    default:
+      throw new Error('Invalid field type for operator equal');
   }
 }
 
@@ -431,7 +476,11 @@ function dateInRange(rangeOperator, fieldDefinition, oneFilter, options) {
  * @param {OneFilter} oneFilter
  */
 function startsWith(fieldDefinition, oneFilter) {
-  if (![FIELD_DEFINITIONS.keyword, FIELD_DEFINITIONS.text].includes(fieldDefinition)) {
+  if (
+    ![FIELD_DEFINITIONS.keyword, FIELD_DEFINITIONS.text].includes(
+      fieldDefinition
+    )
+  ) {
     throw new Error('Unsupported operator starts_with');
   }
 
@@ -450,7 +499,11 @@ function startsWith(fieldDefinition, oneFilter) {
  * @param {OneFilter} oneFilter
  */
 function endsWith(fieldDefinition, oneFilter) {
-  if (![FIELD_DEFINITIONS.keyword, FIELD_DEFINITIONS.text].includes(fieldDefinition)) {
+  if (
+    ![FIELD_DEFINITIONS.keyword, FIELD_DEFINITIONS.text].includes(
+      fieldDefinition
+    )
+  ) {
     throw new Error('Unsupported operator ends_with');
   }
 
@@ -469,7 +522,11 @@ function endsWith(fieldDefinition, oneFilter) {
  * @param {OneFilter} oneFilter
  */
 function contains(fieldDefinition, oneFilter) {
-  if (![FIELD_DEFINITIONS.keyword, FIELD_DEFINITIONS.text].includes(fieldDefinition)) {
+  if (
+    ![FIELD_DEFINITIONS.keyword, FIELD_DEFINITIONS.text].includes(
+      fieldDefinition
+    )
+  ) {
     throw new Error('Unsupported operator contains');
   }
 
@@ -487,7 +544,7 @@ function contains(fieldDefinition, oneFilter) {
  * @param {FieldDefinition} fieldDefinition
  * @param {OneFilter} oneFilter
  */
- function numberInRange(rangeOperator, fieldDefinition, oneFilter) {
+function numberInRange(rangeOperator, fieldDefinition, oneFilter) {
   if (![FIELD_DEFINITIONS.number].includes(fieldDefinition)) {
     throw new Error(`Unsupported operator ${rangeOperator}`);
   }
@@ -540,16 +597,26 @@ const MAPPING = {
  * @param {OneFilter} oneFilter
  */
 function mapFilter(fieldDefinitions, operatorDateParser, options, oneFilter) {
-  if (fieldDefinitions[oneFilter.field] === FIELD_DEFINITIONS.date
-    && Object.values(DATE_OPERATORS).includes(oneFilter.operator)) {
+  if (
+    fieldDefinitions[oneFilter.field] === FIELD_DEFINITIONS.date &&
+    Object.values(DATE_OPERATORS).includes(oneFilter.operator)
+  ) {
     return mapDateOperator(operatorDateParser, oneFilter, options);
   }
 
   const mapper = MAPPING[oneFilter.operator];
   const fieldDefinition = fieldDefinitions[oneFilter.field];
 
-  if (!mapper) { throw new Error(`Unknown operator ${oneFilter.operator}, you need to define it !`); }
-  if (!fieldDefinition) { throw new Error(`Unknown field ${oneFilter.field}, your field hasn't any field definition. Please check your ElasticsearchHelper configuration`); }
+  if (!mapper) {
+    throw new Error(
+      `Unknown operator ${oneFilter.operator}, you need to define it !`
+    );
+  }
+  if (!fieldDefinition) {
+    throw new Error(
+      `Unknown field ${oneFilter.field}, your field hasn't any field definition. Please check your ElasticsearchHelper configuration`
+    );
+  }
 
   return mapper(fieldDefinition, oneFilter, options);
 }
@@ -563,7 +630,9 @@ function mapFilter(fieldDefinitions, operatorDateParser, options, oneFilter) {
  * @returns {any} A valid ES filter
  */
 function esTranslateFilter(fieldDefinitions, filters, options) {
-  if (!filters) { return []; }
+  if (!filters) {
+    return [];
+  }
 
   const operatorDateParser = new BaseOperatorDateParser({
     timezone: options.timezone,
@@ -580,7 +649,7 @@ function esTranslateFilter(fieldDefinitions, filters, options) {
   }
 
   const mapped = filters.conditions.map(
-    mapFilter.bind(undefined, fieldDefinitions, operatorDateParser, options),
+    mapFilter.bind(undefined, fieldDefinitions, operatorDateParser, options)
   );
 
   if (filters.aggregator === 'and') {
@@ -597,8 +666,8 @@ function esTranslateFilter(fieldDefinitions, filters, options) {
 
 exports.esTranslateFilter = esTranslateFilter;
 exports.FIELD_DEFINITIONS = FIELD_DEFINITIONS;
-
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

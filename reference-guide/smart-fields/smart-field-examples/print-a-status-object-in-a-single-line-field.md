@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Print a status object in a single line field
 
 **Context**: as a user I want to display in a single field all the lines from a status object from a user's record.
@@ -49,15 +95,17 @@ collection('user', {
         // check if the user has a subdocument to return
         if (user.onboarding_progress) {
           // list all your fields from the subdocument you want to display
-          const fieldsNameList = ['registered',
+          const fieldsNameList = [
+            'registered',
             'payment_complete',
             'data_uploaded',
             'location_data_added',
             'data_processed',
-            'complete'];
+            'complete',
+          ];
           // create empty string which will be filled with a div per field listed above - this string will be the value returned
           let fieldValueList = '';
-          // 
+          //
           // iterate over the list of fields and add style that will be used to display the subdocument fields
           for (index = 0; index < fieldsNameList.length; index++) {
             const fieldName = fieldsNameList[index];
@@ -90,9 +138,12 @@ collection('user', {
 ```javascript
 exports.customFieldsStyles = {
   fieldDivStyle: 'margin: 24px 0px; color: #415574',
-  fieldNameStyle: 'padding: 6px 16px; margin: 12px; background-color:#b5c8d05e; border-radius: 6px',
+  fieldNameStyle:
+    'padding: 6px 16px; margin: 12px; background-color:#b5c8d05e; border-radius: 6px',
   fieldValueStyle: 'padding: 6px 16px; margin: 12px; border-radius: 6px',
-  fieldValueStyleRed: 'padding: 6px 12px; background-color:#ff7f7f87; border-radius: 6px',
-  fieldValueStyleGreen: 'padding: 6px 12px; background-color:#7FFF7F; border-radius: 6px',
+  fieldValueStyleRed:
+    'padding: 6px 12px; background-color:#ff7f7f87; border-radius: 6px',
+  fieldValueStyleGreen:
+    'padding: 6px 12px; background-color:#7FFF7F; border-radius: 6px',
 };
 ```

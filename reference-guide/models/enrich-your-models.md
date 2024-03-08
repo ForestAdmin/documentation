@@ -5,6 +5,52 @@ description: >-
   manage your models like you normally would.
 ---
 
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Enrich your models
 
 ### Declaring a new model
@@ -14,6 +60,7 @@ Whenever you have a new table/collection in your database, you will have to crea
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/models/companies.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
@@ -37,6 +84,7 @@ module.exports = (sequelize, DataTypes) => {
   return Company;
 };
 ```
+
 {% endcode %}
 
 **Fields** within that model should match your table's fields as shown in next section.
@@ -44,8 +92,7 @@ module.exports = (sequelize, DataTypes) => {
 New **relationships** may be added there:
 
 ```javascript
-  Company.associate = (models) => {
-  };
+Company.associate = (models) => {};
 ```
 
 You can learn more about relationships on this [dedicated page](relationships/).
@@ -53,6 +100,7 @@ You can learn more about relationships on this [dedicated page](relationships/).
 
 {% tab title="Mongodb" %}
 {% code title="/models/companies.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -66,6 +114,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('companies', schema, 'companies');
 };
 ```
+
 {% endcode %}
 
 **Fields** within that model should match your collection's fields as shown in next section.
@@ -169,7 +218,7 @@ module.exports = (mongoose, Mongoose) => {
 
 ...will result in the following interface:
 
-![](<../../.gitbook/assets/nested-documents-field-customization-mongoose.png>)
+![](../../.gitbook/assets/nested-documents-field-customization-mongoose.png)
 
 ### Removing a model
 
@@ -192,6 +241,7 @@ Depending on your database type, your models will have been generated in _Sequel
 In Sequelize, you add validation using the `validate` property:
 
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customers', {
@@ -209,6 +259,7 @@ module.exports = (sequelize, DataTypes) => {
   return Customer;
 };
 ```
+
 {% endcode %}
 
 The 2 validators above will have the following effect on your email field:
@@ -224,6 +275,7 @@ For an exhaustive list of available validators, check out the [Sequelize documen
 In Mongoose, you add validators alongside the `type` property:
 
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -240,6 +292,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('customer', schema, 'customer');
 };
 ```
+
 {% endcode %}
 
 This is the effect on your field:
@@ -249,6 +302,7 @@ This is the effect on your field:
 Mongoose has no build-in validators to check whether a string is an email. Should you want to validate that a content is an email, you have several solutions:
 
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -264,11 +318,13 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('customer', schema, 'customer');
 };
 ```
+
 {% endcode %}
 
 A better yet solution would be to rely on an external library called [validator.js](https://www.npmjs.com/package/validator) which provides many [build-in validators](https://www.npmjs.com/package/validator#validators):
 
 {% code title="/models/customers.js" %}
+
 ```javascript
 import { isEmail } from 'validator';
 
@@ -286,6 +342,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('customer', schema, 'customer');
 };
 ```
+
 {% endcode %}
 
 You then that any invalid email is refused:
@@ -305,6 +362,7 @@ You can choose to add a default value for some fields in your models. As a resul
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('customers', {
@@ -319,11 +377,13 @@ module.exports = (sequelize, DataTypes) => {
   return Customer;
 };
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -339,6 +399,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('customer', schema, 'customer');
 };
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -356,6 +417,7 @@ In our case, let's pretend we want to update a `update_count` field every time a
 To add a `beforeSave` hook in Sequelize, use the following syntax:
 
 {% code title="/models/orders.js" %}
+
 ```javascript
 module.exports = (sequelize, DataTypes) => {
   var Order = sequelize.define('orders', {
@@ -375,6 +437,7 @@ module.exports = (sequelize, DataTypes) => {
   return Order;
 };
 ```
+
 {% endcode %}
 
 Every time the order is updated, the updateCount field will be incremented by 1:
@@ -388,6 +451,7 @@ The exhaustive list of available hooks in Sequelize are available [here](https:/
 To add a hook in Mongoose on `save` event, you may use the following snippet:
 
 {% code title="/models/customers.js" %}
+
 ```javascript
 module.exports = (mongoose, Mongoose) => {
   const schema = Mongoose.Schema({
@@ -409,6 +473,7 @@ module.exports = (mongoose, Mongoose) => {
   return mongoose.model('order', schema, 'order');
 };
 ```
+
 {% endcode %}
 
 {% hint style="warning" %}

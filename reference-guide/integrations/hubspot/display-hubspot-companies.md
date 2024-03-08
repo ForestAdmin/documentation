@@ -1,6 +1,50 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Display Hubspot companies
-
-
 
 This example shows you how to create a smart collection to list the companies of your Hubspot account.
 
@@ -12,9 +56,9 @@ This example shows you how to create a smart collection to list the companies of
 
 ## Requirements
 
-* An admin backend running on forest-express-sequelize
-* [superagent](https://www.npmjs.com/package/superagent) npm package
-* a Hubspot account
+- An admin backend running on forest-express-sequelize
+- [superagent](https://www.npmjs.com/package/superagent) npm package
+- a Hubspot account
 
 ## How it works
 
@@ -23,6 +67,7 @@ This example shows you how to create a smart collection to list the companies of
 This directory contains the `hubspot-companies.js` file where the collection is declared.
 
 {% code title="/forest/hubspot-companies.js" %}
+
 ```javascript
 const collection = require('forest-express-sequelize');
 
@@ -32,16 +77,19 @@ collection('hubspot_companies', {
     {
       field: 'id',
       type: 'Number',
-    }, {
+    },
+    {
       field: 'name',
       type: 'String',
-    }, {
+    },
+    {
       field: 'hubspot_link',
       type: 'String',
     },
   ],
 });
 ```
+
 {% endcode %}
 
 ### Directory: /routes
@@ -55,6 +103,7 @@ The Hubspot API key is defined in the `.env` file and requested through the expr
 {% endhint %}
 
 {% code title="/routes/hubspot-companies.js" %}
+
 ```javascript
 const Liana = require('forest-express-sequelize');
 const express = require('express');
@@ -77,7 +126,9 @@ const hubspotCompaniesSerializer = new JSONAPISerializer('hubspotCompanies', {
 
 function getHubspotCompaniesList(limit, offset) {
   return superagent
-    .get(`https://api.hubapi.com/companies/v2/companies/paged?hapikey=${process.env.HUBSPOT_API}&properties=name&limit=${limit}&offset=${offset}`)
+    .get(
+      `https://api.hubapi.com/companies/v2/companies/paged?hapikey=${process.env.HUBSPOT_API}&properties=name&limit=${limit}&offset=${offset}`
+    )
     .then((response) => JSON.parse(response.res.text));
 }
 
@@ -87,7 +138,9 @@ async function getAllHubspotCompanies() {
   let offset = '';
   while (hasMore) {
     let getCompaniesResponse = await getHubspotCompaniesList(250, offset);
-    allHubspotCompanies = allHubspotCompanies.concat(getCompaniesResponse.companies);
+    allHubspotCompanies = allHubspotCompanies.concat(
+      getCompaniesResponse.companies
+    );
     offset = getCompaniesResponse.offset;
     hasMore = getCompaniesResponse['has-more'];
   }
@@ -96,29 +149,43 @@ async function getAllHubspotCompanies() {
 
 function searchHubspotCompanies(companies, search) {
   return companies.filter((item) => {
-    return item.properties.name.value.toUpperCase().includes(search.toUpperCase());
+    return item.properties.name.value
+      .toUpperCase()
+      .includes(search.toUpperCase());
   });
 }
 
-router.get('/hubspot_companies', Liana.ensureAuthenticated, async (req, res, next) => {
-  // set pagination parameters when exist (default limit is 250 as it is the max allowed by Hubspot)
-  let limit = req.query.page ? parseInt(req.query.page.size) : 20;
-  let offset = req.query.page ? (parseInt(req.query.page.number) - 1) * limit : 0;
+router.get(
+  '/hubspot_companies',
+  Liana.ensureAuthenticated,
+  async (req, res, next) => {
+    // set pagination parameters when exist (default limit is 250 as it is the max allowed by Hubspot)
+    let limit = req.query.page ? parseInt(req.query.page.size) : 20;
+    let offset = req.query.page
+      ? (parseInt(req.query.page.number) - 1) * limit
+      : 0;
 
-  // set search terms when exist
-  let search = null;
-  search = req.query.search ? req.query.search : search;
+    // set search terms when exist
+    let search = null;
+    search = req.query.search ? req.query.search : search;
 
-  let hubspotCompanies = await getAllHubspotCompanies();
-  if (search) {
-    hubspotCompanies = searchHubspotCompanies(hubspotCompanies, search);
+    let hubspotCompanies = await getAllHubspotCompanies();
+    if (search) {
+      hubspotCompanies = searchHubspotCompanies(hubspotCompanies, search);
+    }
+    const count = hubspotCompanies ? hubspotCompanies.length : null;
+    const paginateHubspotCompanies = hubspotCompanies.slice(
+      offset,
+      offset + limit
+    );
+    const serializedCompanies = hubspotCompaniesSerializer.serialize(
+      paginateHubspotCompanies
+    );
+    return res.send({ ...serializedCompanies, meta: { count } });
   }
-  const count = hubspotCompanies ? hubspotCompanies.length : null;
-  const paginateHubspotCompanies = hubspotCompanies.slice(offset, offset + limit);
-  const serializedCompanies = hubspotCompaniesSerializer.serialize(paginateHubspotCompanies);
-  return res.send({ ...serializedCompanies, meta: { count } });
-});
+);
 
 module.exports = router;
 ```
+
 {% endcode %}

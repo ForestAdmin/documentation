@@ -2,6 +2,52 @@
 description: Let's get you up and running on Forest Admin in minutes!
 ---
 
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Quick start
 
 ### Step 1: Create an account and follow the onboarding
@@ -30,7 +76,7 @@ However, your business logic likely requires more features. What if you need to.
 * contact a customer or ask a team member to perform an action,
 * and much more?
 
-It's possible with **smart actions** :point\_down:
+It's possible with **smart actions** :point_down:
 
 ### Step 2: Create a Smart Action
 
@@ -41,15 +87,17 @@ Let's say you want to let your customer support team to easily refund orders, yo
 Declare it in your `/forest/orders.js` file:
 
 {% code title="/forest/orders.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 
 collection('orders', {
   actions: [{
-    name: 'Refund order'
+    name: 'Refund order',
   }],
 });
 ```
+
 {% endcode %}
 
 Then implement it according to your business logic:
@@ -81,15 +129,17 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 Declare it in your `/forest/orders.js` file:
 
 {% code title="/forest/orders.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 
 collection('orders', {
   actions: [{
-    name: 'Refund order'
+    name: 'Refund order',
   }],
 });
 ```
+
 {% endcode %}
 
 Then implement it according to your business logic:
@@ -121,6 +171,7 @@ You must make sure that all your Smart Actions routes are configured with the Sm
 Declare it in your `/lib/forest_liana/collections/order.rb` file:
 
 {% code title="/lib/forest_liana/collections/order.rb" %}
+
 ```ruby
 class Forest::Order
   include ForestLiana::Collection
@@ -130,11 +181,13 @@ class Forest::Order
   action 'Refund order'
 end
 ```
+
 {% endcode %}
 
 Then declare the corresponding route:
 
 {% code title="/app/controllers/forest/orders_controller.rb" %}
+
 ```ruby
 Rails.application.routes.draw do
   # MUST be declared before the mount ForestLiana::Engine.
@@ -145,6 +198,7 @@ Rails.application.routes.draw do
   mount ForestLiana::Engine => '/forest'
 end
 ```
+
 {% endcode %}
 
 Lastly, implement the action according to your business logic:
@@ -171,6 +225,7 @@ You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md)
 Declare it in your `app/forest/orders.py` file:
 
 {% code title="app/forest/orders.py" %}
+
 ```python
 from django_forest.utils.collection import Collection
 from app.models import Order
@@ -183,19 +238,23 @@ class OrderForest(Collection):
 
 Collection.register(OrderForest, Order)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.orders import OrderForest
 ```
+
 {% endcode %}
 
 Make sure your **project** `urls.py` file include you app urls with the `forest` prefix.
 
 {% code title="urls.py" %}
+
 ```javascript
 from django.contrib import admin
 from django.urls import path, include
@@ -206,11 +265,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 ```
+
 {% endcode %}
 
 Then declare the corresponding route:
 
 {% code title="app/urls.py" %}
+
 ```javascript
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -222,11 +283,13 @@ urlpatterns = [
     path('/actions/refund-order', csrf_exempt(views.RefundOrderView.as_view()), name='refund-order'),
 ]
 ```
+
 {% endcode %}
 
 Lastly, implement the action according to your business logic:
 
 {% code title="app/views.py" %}
+
 ```python
 from django.http import JsonResponse
 from django_forest.utils.views.action import ActionView
@@ -239,6 +302,7 @@ class RefundOrderView(ActionView):
 
         return JsonResponse({'success': 'Order refunded!'})
 ```
+
 {% endcode %}
 
 Note that Forest Admin takes care of the authentication thanks to the `ActionView` parent class view.
@@ -252,6 +316,7 @@ You may have to [add CORS headers](../how-tos/setup/configuring-cors-headers.md)
 Declare it in your `app/Models/Order.php` file:
 
 {% code title="app/Models/Order.php" %}
+
 ```php
 /**
  * @return SmartAction
@@ -261,19 +326,23 @@ public function refundOrder(): SmartAction
     return $this->smartAction('single', 'refund order');
 }
 ```
+
 {% endcode %}
 
 Then declare the corresponding route:
 
 {% code title="routes/web.php" %}
+
 ```php
 Route::post('forest/smart-actions/order_refund-order', [OrdersController::class, 'refundOrder']);
 ```
+
 {% endcode %}
 
 Lastly, implement the action according to your business logic:
 
 {% code title="app/Http/Controllers/OrdersController.php" %}
+
 ```php
 <?php
 
@@ -298,6 +367,7 @@ class OrdersController extends ForestController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

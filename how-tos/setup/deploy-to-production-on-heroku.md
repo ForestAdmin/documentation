@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Deploy your admin backend on Heroku
 
 This tutorial is designed to assist people who want to have a step-by-step guide to deploy the Lumber-generated admin backend to Heroku.
@@ -16,29 +62,32 @@ Push your code using the following command:&#x20;
 
 {% tabs %}
 {% tab title="Command line" %}
+
 ```bash
 git push heroku master
 ```
+
 {% endtab %}
 
 {% tab title="Output" %}
+
 ```
-Counting objects: 25, done.                 
-Delta compression using up to 4 threads.                
-Compressing objects: 100% (20/20), done.       
+Counting objects: 25, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (20/20), done.
 Writing objects: 100% (25/25), 21.56 KiB | 5.39 MiB/s, done.
 Total 25 (delta 9), reused 0 (delta 0)
-remote: Compressing source files... done.        
+remote: Compressing source files... done.
 remote: Building source:
-remote:                             
-remote: -----> Node.js app detected                                 
-remote:                                   
+remote:
+remote: -----> Node.js app detected
+remote:
 remote: -----> Creating runtime environment
-remote:                     
-remote:        NPM_CONFIG_LOGLEVEL=error   
-remote:        NODE_VERBOSE=false                  
+remote:
+remote:        NPM_CONFIG_LOGLEVEL=error
+remote:        NODE_VERBOSE=false
 remote:        NODE_ENV=production
-remote:        NODE_MODULES_CACHE=true              
+remote:        NODE_MODULES_CACHE=true
 remote:
 remote: -----> Installing binaries
 remote:        engines.node (package.json):  unspecified
@@ -83,6 +132,7 @@ remote: Verifying deploy... done.
 To https://git.heroku.com/lumber-deploy-to-production.git
  * [new branch]      master -> master
 ```
+
 {% endtab %}
 {% endtabs %}
 

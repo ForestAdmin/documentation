@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Refresh hasMany relationship in smart action
 
 **Context**: In this example I have a model `tenants` that hasMany records from a model `ssoProviders`. I want to create a new ssoProvider from a smart action accessible at the level of a tenant and refresh the list of ssoProviders shown in the summary view.
@@ -13,13 +59,16 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model>
-  const Tenants = sequelize.define('tenants', {
-  }, {
-    tableName: 'tenants',
-    underscored: true,
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+  const Tenants = sequelize.define(
+    'tenants',
+    {},
+    {
+      tableName: 'tenants',
+      underscored: true,
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   // This section contains the relationships for this model. See: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships>.
   Tenants.associate = (models) => {
@@ -43,16 +92,20 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model>
-  const SsoProviders = sequelize.define('ssoProviders', {
-    description: {
-      type: DataTypes.STRING,
+  const SsoProviders = sequelize.define(
+    'ssoProviders',
+    {
+      description: {
+        type: DataTypes.STRING,
+      },
     },
-  }, {
-    tableName: 'sso_providers',
-    underscored: true,
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+    {
+      tableName: 'sso_providers',
+      underscored: true,
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   // This section contains the relationships for this model. See: <https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships>.
   SsoProviders.associate = (models) => {

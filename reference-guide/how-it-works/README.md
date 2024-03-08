@@ -1,13 +1,59 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # How it works
 
 Before you start writing a single line of code, it’s a good idea to get an overview of how Forest Admin works. The magic lies in its architecture.
 
 Forest Admin provides you with:
 
-* An API hosted on your server to retrieve your data. We call it the **Admin Backend**
-  * if you chose a database as a datasource (PostgreSQLL, MySQL / MariaDB, MSSQL, MongoDB), your Admin Backend will be generated as a **standalone folder**.
-  * if you chose an existing app as a datasource (Rails, Django, Laravel, Express/Sequelize, Express/Mongoose), your Admin Backend will be generated **within your app**.
-* A user interface to access and manage your data from your browser. This **Forest Admin User Interface** is built and managed through resources hosted on Forest Admin's servers.
+- An API hosted on your server to retrieve your data. We call it the **Admin Backend**
+  - if you chose a database as a datasource (PostgreSQLL, MySQL / MariaDB, MSSQL, MongoDB), your Admin Backend will be generated as a **standalone folder**.
+  - if you chose an existing app as a datasource (Rails, Django, Laravel, Express/Sequelize, Express/Mongoose), your Admin Backend will be generated **within your app**.
+- A user interface to access and manage your data from your browser. This **Forest Admin User Interface** is built and managed through resources hosted on Forest Admin's servers.
 
 {% tabs %}
 {% tab title="SQL/Mongodb" %}
@@ -79,6 +125,7 @@ The connection to both servers to the **Admin Backend** and the **Forest Admin S
 The JWT Data Token contains all the details of the requesting user. On any authenticated request to your Admin Backend, you can access them with the variable `req.user`.
 
 {% code title="req.user content example" %}
+
 ```javascript
 {
   "id": "172",
@@ -93,6 +140,7 @@ The JWT Data Token contains all the details of the requesting user. On any authe
   "exp": 1571123309
 }
 ```
+
 {% endcode %}
 {% endhint %}
 
@@ -126,7 +174,7 @@ The [IP whitelisting](../../how-tos/setup/forest-admin-ip-white-listing-forest-c
 
 ### **DMZ & VPN**
 
-You're free to host your **Admin Backend** in the cloud architecture you want to be compliant with your security infrastructure (DMZ, VPN, etc.).﻿
+You're free to host your **Admin Backend** in the cloud architecture you want to be compliant with your security infrastructure (DMZ, VPN, etc.).
 
 ![](../../.gitbook/assets/how-it-works-11.jpg)
 

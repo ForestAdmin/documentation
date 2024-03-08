@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Smart Segments
 
 ### What is a Smart Segment?
@@ -21,6 +67,7 @@ You’re free to implement the business logic you need. The only requirement is 
 On our implementation, we use a raw SQL query to filter and sort the product that was sold the most.
 
 {% code title="/forest/products.js" %}
+
 ```javascript
 const { collection } = require('forest-express-sequelize');
 const models = require('../models');
@@ -28,25 +75,32 @@ const models = require('../models');
 const { Op, QueryTypes } = models.objectMapping;
 
 collection('products', {
-  segments: [{
-    name: 'Bestsellers',
-    where: (product) => {
-      return models.connections.default.query(`
+  segments: [
+    {
+      name: 'Bestsellers',
+      where: (product) => {
+        return models.connections.default
+          .query(
+            `
         SELECT products.id, COUNT(orders.*)
         FROM products
         JOIN orders ON orders.product_id = products.id
         GROUP BY products.id
         ORDER BY count DESC
         LIMIT 5;
-      `, { type: QueryTypes.SELECT })
-      .then((products) => {
-        let productIds = products.map((product) => product.id);
-        return { id: { [Op.in]: productIds }};
-      });
-    }
-  }]
+      `,
+            { type: QueryTypes.SELECT }
+          )
+          .then((products) => {
+            let productIds = products.map((product) => product.id);
+            return { id: { [Op.in]: productIds } };
+          });
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -54,51 +108,59 @@ collection('products', {
 You’re free to implement the business logic you need. Your Smart Segment should return something like `{ _id: { $in: [ 1,2,3,4,5 ] } }`.
 
 {% code title="/forest/products.js" %}
+
 ```javascript
 const { collection } = require('forest-express-mongoose');
 const { Product } = require('../models');
 
 collection('Product', {
-  fields: [{
-    field: 'buyers',
-    type: ['String'],
-    reference: 'Customer'
-  }],
-  segments: [{
-    name: 'Bestsellers',
-    where: (product) => {
-      return Product
-      	.aggregate([
-		    {
-		        $project: { orders_count: {$size: { "$ifNull": [ "$orders", [] ] } } }
-		    },
-		    {
-		        $sort: {"orders_count":-1}
-		    },
-		    {
-		    	$limit: 5
-		    }
-		])
-        .then((products) => {
+  fields: [
+    {
+      field: 'buyers',
+      type: ['String'],
+      reference: 'Customer',
+    },
+  ],
+  segments: [
+    {
+      name: 'Bestsellers',
+      where: (product) => {
+        return Product.aggregate([
+          {
+            $project: { orders_count: { $size: { $ifNull: ['$orders', []] } } },
+          },
+          {
+            $sort: { orders_count: -1 },
+          },
+          {
+            $limit: 5,
+          },
+        ]).then((products) => {
           let productIds = [];
-          products.filter((product) => {
-            if (product._id.length === 0) { return false; }
-            return true;
-          })
-          .forEach((product) => {
-          	productIds.push(product._id);
-          });
-		  return {"_id": { $in: productIds} };
-	  });
-    }
-  }]
+          products
+            .filter((product) => {
+              if (product._id.length === 0) {
+                return false;
+              }
+              return true;
+            })
+            .forEach((product) => {
+              productIds.push(product._id);
+            });
+          return { _id: { $in: productIds } };
+        });
+      },
+    },
+  ],
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/collections/product.rb" %}
+
 ```ruby
 class Forest::Product
   include ForestLiana::Collection
@@ -112,11 +174,13 @@ class Forest::Product
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/product.py" %}
+
 ```python
 from django.db.models import Q
 from django_forest.utils.collection import Collection
@@ -146,14 +210,17 @@ class ProductForest(Collection):
 
 Collection.register(ProductForest, Product)
 ```
+
 {% endcode %}
 
 Ensure the file app/forest/\_\_init\_\_.py exists and contains the import of the previous defined class :
 
 {% code title="app/forest/__init__.py" %}
+
 ```python
 from app.forest.product import ProductForest
 ```
+
 {% endcode %}
 {% endtab %}
 
@@ -163,6 +230,7 @@ The 2nd parameter of the `SmartSegment` method is not required. If you don't fil
 {% endhint %}
 
 {% code title="app/Models/Product.php" %}
+
 ```php
 <?php
 
@@ -197,6 +265,7 @@ class Product extends Model
         );
     }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}

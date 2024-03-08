@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Install
 
 Forest Admin is a low-code internal tool solution that scales with your project. With 30+ out-of-the-box tools and pre-built UI components, you can ship an admin panel in a few minutes, and then easily customize it to meet your specific business logic. Thanks to the layout editor, non-technical team members can adjust the UI to their needs.&#x20;
@@ -6,20 +52,20 @@ Forest Admin has a unique hybrid architecture - only the frontend is managed on 
 
 ## Requirements
 
-* A local or remote working database (non empty)&#x20;
+- A local or remote working database (non empty)&#x20;
 
 or&#x20;
 
-* An existing app (Django, Rails or Express with Sequelize and Mongoose)
-* NPM or Docker installed
-* Browser Support: we highly recommend Google Chrome or Firefox
+- An existing app (Django, Rails or Express with Sequelize and Mongoose)
+- NPM or Docker installed
+- Browser Support: we highly recommend Google Chrome or Firefox
 
 Once you start [creating a project](https://app.forestadmin.com/new-project), you will be able to choose a datasource, the source of the data your admin panel will use.
 
 Forest Admin can be implemented in two very different ways :&#x20;
 
-* Using an existing app: integrate Forest Admin into your Ruby on Rails, Django, Node.js app with Express (and Sequelize ORM or Mongoose ORM).
-* As a dedicated app: create a dedicated app directly linked to your PostgreSQL, MySQL / MariaDB, Microsoft SQL Server or MongoDB database.&#x20;
+- Using an existing app: integrate Forest Admin into your Ruby on Rails, Django, Node.js app with Express (and Sequelize ORM or Mongoose ORM).
+- As a dedicated app: create a dedicated app directly linked to your PostgreSQL, MySQL / MariaDB, Microsoft SQL Server or MongoDB database.&#x20;
 
 At Forest Admin, if you have the choice, we recommend integrating in an existing app as it is easier to maintain.
 
@@ -27,10 +73,10 @@ At Forest Admin, if you have the choice, we recommend integrating in an existing
 
 At the moment, we are supporting:&#x20;
 
-* Ruby on Rails app
-* Django project
-* Node.js app with Express and Sequelize ORM
-* Node.js app with Express and Mongoose ORM
+- Ruby on Rails app
+- Django project
+- Node.js app with Express and Sequelize ORM
+- Node.js app with Express and Mongoose ORM
 
 #### Install Forest Admin using an existing Ruby on Rails app&#x20;
 
@@ -42,8 +88,8 @@ You are asked to provide the URL of your application that runs locally. When you
 
 Requirements:&#x20;
 
-* Python version should be between 3.6 and 3.10.
-* Django version must be 3.2 or higher.
+- Python version should be between 3.6 and 3.10.
+- Django version must be 3.2 or higher.
 
 You are asked to provide the URL of your project that runs locally. When you follow the steps, add our app to your installed apps, and set up your agent, you should automatically be redirected to your admin panel!
 
@@ -51,10 +97,10 @@ You are asked to provide the URL of your project that runs locally. When you fol
 
 Requirements:&#x20;
 
-* Using Sequelize or Mongoose ORM
-* Sequelize version must be 5.21 or higher
-* Mongoose version must be 5 or higher
-* Express version must be 4.17.3 or higher
+- Using Sequelize or Mongoose ORM
+- Sequelize version must be 5.21 or higher
+- Mongoose version must be 5 or higher
+- Express version must be 4.17.3 or higher
 
 You are asked to provide the URL of your application that runs locally. When you follow the steps, you should automatically be redirected to your admin panel!
 
@@ -66,10 +112,10 @@ In case of an error, you can consult the [troubleshooting page](troubleshooting.
 
 At the moment, we are supporting:&#x20;
 
-* PostgreSQL
-* MySQL / MariaDB
-* Microsoft SQL Server
-* MongoDB&#x20;
+- PostgreSQL
+- MySQL / MariaDB
+- Microsoft SQL Server
+- MongoDB&#x20;
 
 When choosing one of these databases, you will be prompted to enter your database credentials. Your database credentials never leave the browser, they are only used to generate the environment variables in the setup instructions for the next step.
 
@@ -81,27 +127,27 @@ Then, you will be able to create and connect your admin backend, with the follow
 
 {% tabs %}
 {% tab title="NPM / Yarn" %}
-| Option                   | Description                                      |
+| Option | Description |
 | ------------------------ | ------------------------------------------------ |
-| `-c, --connection-url`   | The database credentials with a connection URL.  |
-| `-S, --ssl`              | Use SSL for database connection (true \| false). |
-| `-s, --schema`           | Your database schema.                            |
-| `-H, --application-host` | Hostname of your admin backend application.      |
-| `-p, --application-port` | Port of your admin backend application.          |
-| `-h, --help`             | Output usage information.                        |
+| `-c, --connection-url` | The database credentials with a connection URL. |
+| `-S, --ssl` | Use SSL for database connection (true \| false). |
+| `-s, --schema` | Your database schema. |
+| `-H, --application-host` | Hostname of your admin backend application. |
+| `-p, --application-port` | Port of your admin backend application. |
+| `-h, --help` | Output usage information. |
 {% endtab %}
 
 {% tab title="Docker" %}
-| Option             | Description                                                                                                                                                           |
+| Option | Description |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `APPLICATION_HOST` | Hostname of your admin backend application.                                                                                                                           |
-| `APPLICATION_PORT` | Port of your admin backend application.                                                                                                                               |
-| `DATABASE_SSL`     | Use SSL for database connection (true \| false).                                                                                                                      |
-| `DATABASE_SCHEMA`  | Your database schema.                                                                                                                                                 |
-| `DATABASE_URL`     | The database credentials with a connection URL.                                                                                                                       |
-| `FOREST_EMAIL`     | Your Forest Admin account email.                                                                                                                                      |
-| `FOREST_TOKEN`     | Your Forest Admin account token.                                                                                                                                      |
-| `FOREST_PASSWORD`  | Your Forest Admin account password. Although not recommended, you can use this instead of `FOREST_TOKEN`. Wrap it in double quotes if it contains special characters. |
+| `APPLICATION_HOST` | Hostname of your admin backend application. |
+| `APPLICATION_PORT` | Port of your admin backend application. |
+| `DATABASE_SSL` | Use SSL for database connection (true \| false). |
+| `DATABASE_SCHEMA` | Your database schema. |
+| `DATABASE_URL` | The database credentials with a connection URL. |
+| `FOREST_EMAIL` | Your Forest Admin account email. |
+| `FOREST_TOKEN` | Your Forest Admin account token. |
+| `FOREST_PASSWORD` | Your Forest Admin account password. Although not recommended, you can use this instead of `FOREST_TOKEN`. Wrap it in double quotes if it contains special characters. |
 {% endtab %}
 {% endtabs %}
 

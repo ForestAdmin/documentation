@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Azure Table Storage
 
 {% hint style="success" %}
@@ -14,11 +60,11 @@ You can use the new [Azure Data Explorer](https://azure.microsoft.com/en-us/serv
 
 In our example, we are going to use the Table Customers with the fields:
 
-* **Id**: PartitionKey + RowKey
-* **Timestamp** (updated at)
-* **Email** as String
-* **FirstName** as String
-* **LastName** as String
+- **Id**: PartitionKey + RowKey
+- **Timestamp** (updated at)
+- **Email** as String
+- **FirstName** as String
+- **LastName** as String
 
 ### Install Azure `data-tables` package
 
@@ -32,29 +78,37 @@ npm install @azure/data-tables --save
 const { collection } = require('forest-express-sequelize');
 
 collection('customers', {
-  fields: [{
-    field: 'id',
-    type: 'String',
-    get: (customer) => `${customer.partitionKey}|${customer.rowKey}`,
-  }, {
-    field: 'partitionKey',
-    type: 'String',
-  }, {
-    field: 'rowKey',
-    type: 'String',
-  }, {
-    field: 'timestamp',
-    type: 'Date',
-  }, {
-    field: 'Email',
-    type: 'String',
-  }, {
-  field: 'LastName',
-  type: 'String',
-  }, {
-    field: 'FirstName',
-    type: 'String',
-  }, ],
+  fields: [
+    {
+      field: 'id',
+      type: 'String',
+      get: (customer) => `${customer.partitionKey}|${customer.rowKey}`,
+    },
+    {
+      field: 'partitionKey',
+      type: 'String',
+    },
+    {
+      field: 'rowKey',
+      type: 'String',
+    },
+    {
+      field: 'timestamp',
+      type: 'Date',
+    },
+    {
+      field: 'Email',
+      type: 'String',
+    },
+    {
+      field: 'LastName',
+      type: 'String',
+    },
+    {
+      field: 'FirstName',
+      type: 'String',
+    },
+  ],
 });
 ```
 
@@ -66,9 +120,10 @@ const { TableClient } = require('@azure/data-tables');
 const getClient = (tableName) => {
   const client = TableClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONNECTION_STRING,
-    tableName);
+    tableName
+  );
   return client;
-}
+};
 
 const azureTableStorageService = {
   deleteEntityAsync: async (tableName, partitionKey, rowKey) => {
@@ -85,25 +140,30 @@ const azureTableStorageService = {
     const client = getClient(tableName);
     var azureResponse = await client.listEntities();
 
-    let iterator = await azureResponse.byPage({maxPageSize: options.pageSize});
+    let iterator = await azureResponse.byPage({
+      maxPageSize: options.pageSize,
+    });
 
     for (let i = 1; i < options.pageNumber; i++) iterator.next(); // Skip pages
 
     let entities = await iterator.next();
-    let records = entities.value.filter(entity => entity.etag);
+    let records = entities.value.filter((entity) => entity.etag);
 
     // Load an extra page if we need to allow (Next Page)
     const entitiesNextPage = await iterator.next();
     let nbNextPage = 0;
     if (entitiesNextPage && entitiesNextPage.value) {
-      nbNextPage = entitiesNextPage.value.filter(entity => entity.etag).length;
+      nbNextPage = entitiesNextPage.value.filter(
+        (entity) => entity.etag
+      ).length;
     }
 
     // Azure Data Tables does not provide a row count.
     // We just inform the user there is a new page with at least x items
-    const minimumRowEstimated = (options.pageNumber-1) * options.pageSize + records.length + nbNextPage;
+    const minimumRowEstimated =
+      (options.pageNumber - 1) * options.pageSize + records.length + nbNextPage;
 
-    return {records, count: minimumRowEstimated};
+    return { records, count: minimumRowEstimated };
   },
 
   createEntityAsync: async (tableName, entity) => {
@@ -115,10 +175,9 @@ const azureTableStorageService = {
 
   updateEntityAsync: async (tableName, entity) => {
     const client = getClient(tableName);
-    await client.updateEntity(entity, "Replace");
+    await client.updateEntity(entity, 'Replace');
     return client.getEntity(entity.partitionKey, entity.rowKey);
   },
-
 };
 
 module.exports = azureTableStorageService;
@@ -128,93 +187,139 @@ module.exports = azureTableStorageService;
 
 ```javascript
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordCreator, RecordUpdater } = require('forest-express');
+const {
+  PermissionMiddlewareCreator,
+  RecordCreator,
+  RecordUpdater,
+} = require('forest-express');
 const { RecordSerializer } = require('forest-express');
 
 const router = express.Router();
 
 const COLLECTION_NAME = 'customers';
-const permissionMiddlewareCreator = new PermissionMiddlewareCreator(COLLECTION_NAME);
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator(
+  COLLECTION_NAME
+);
 const recordSerializer = new RecordSerializer({ name: COLLECTION_NAME });
 
-const azureTableStorageService = require("../services/azure-table-storage-service");
+const azureTableStorageService = require('../services/azure-table-storage-service');
 
 // Get a list of Customers
-router.get(`/${COLLECTION_NAME}`, permissionMiddlewareCreator.list(), async (request, response, next) => {
-  const pageSize = parseInt(request.query.page.size) || 15;
-  const pageNumber = parseInt(request.query.page.number);
+router.get(
+  `/${COLLECTION_NAME}`,
+  permissionMiddlewareCreator.list(),
+  async (request, response, next) => {
+    const pageSize = parseInt(request.query.page.size) || 15;
+    const pageNumber = parseInt(request.query.page.number);
 
-  azureTableStorageService.listEntitiesAsync(COLLECTION_NAME, {pageSize, pageNumber})
-  .then( async ({records, count}) => {
-    const recordsSerialized = await recordSerializer.serialize(records);
-    response.send({ ...recordsSerialized, meta: { count }});
-  })
-  .catch ( (e) => {
-    console.error(e);
-    next(e);
-
-  });
-});
+    azureTableStorageService
+      .listEntitiesAsync(COLLECTION_NAME, { pageSize, pageNumber })
+      .then(async ({ records, count }) => {
+        const recordsSerialized = await recordSerializer.serialize(records);
+        response.send({ ...recordsSerialized, meta: { count } });
+      })
+      .catch((e) => {
+        console.error(e);
+        next(e);
+      });
+  }
+);
 
 // Get a Customer
-router.get(`/${COLLECTION_NAME}/:recordId`, permissionMiddlewareCreator.details(), async (request, response, next) => {
-  const parts = request.params.recordId.split('|');
-  azureTableStorageService.getEntityAsync(COLLECTION_NAME, parts[0], parts[1])
-  .then( (record) => recordSerializer.serialize(record))
-  .then( (recordSerialized) => response.send(recordSerialized))
-  .catch ( (e) => {
-    console.error(e);
-    next(e);
-  });
-});
+router.get(
+  `/${COLLECTION_NAME}/:recordId`,
+  permissionMiddlewareCreator.details(),
+  async (request, response, next) => {
+    const parts = request.params.recordId.split('|');
+    azureTableStorageService
+      .getEntityAsync(COLLECTION_NAME, parts[0], parts[1])
+      .then((record) => recordSerializer.serialize(record))
+      .then((recordSerialized) => response.send(recordSerialized))
+      .catch((e) => {
+        console.error(e);
+        next(e);
+      });
+  }
+);
 
 // Create a Customer
-router.post(`/${COLLECTION_NAME}`, permissionMiddlewareCreator.create(), async (request, response, next) => {
-  const recordCreator = new RecordCreator({name: COLLECTION_NAME}, request.user, request.query);
-  recordCreator.deserialize(request.body)
-  .then( (recordToCreate) => {
-    return azureTableStorageService.createEntityAsync(COLLECTION_NAME, recordToCreate);
-  })
-  .then((record) => recordSerializer.serialize(record))
-  .then((recordSerialized) => response.send(recordSerialized))
-  .catch ( (e) => {
-    console.error(e);
-    next(e);
-  });
-});
+router.post(
+  `/${COLLECTION_NAME}`,
+  permissionMiddlewareCreator.create(),
+  async (request, response, next) => {
+    const recordCreator = new RecordCreator(
+      { name: COLLECTION_NAME },
+      request.user,
+      request.query
+    );
+    recordCreator
+      .deserialize(request.body)
+      .then((recordToCreate) => {
+        return azureTableStorageService.createEntityAsync(
+          COLLECTION_NAME,
+          recordToCreate
+        );
+      })
+      .then((record) => recordSerializer.serialize(record))
+      .then((recordSerialized) => response.send(recordSerialized))
+      .catch((e) => {
+        console.error(e);
+        next(e);
+      });
+  }
+);
 
 // Update a Customer
-router.put(`/${COLLECTION_NAME}/:recordId`, permissionMiddlewareCreator.update(), async (request, response, next) => {
-  const parts = request.params.recordId.split('|');
-  const recordUpdater = new RecordUpdater({name: COLLECTION_NAME}, request.user, request.query);
-  recordUpdater.deserialize(request.body)
-  .then( (recordToUpdate) => {
-    recordToUpdate.partitionKey = parts[0];
-    recordToUpdate.rowKey = parts[1];
-    return azureTableStorageService.updateEntityAsync(COLLECTION_NAME, recordToUpdate);
-  })
-  .then( (record) => recordSerializer.serialize(record) )
-  .then( (recordSerialized) => response.send(recordSerialized) )
-  .catch ( (e) => {
-    console.error(e);
-    next(e);
-  });
-
-});
+router.put(
+  `/${COLLECTION_NAME}/:recordId`,
+  permissionMiddlewareCreator.update(),
+  async (request, response, next) => {
+    const parts = request.params.recordId.split('|');
+    const recordUpdater = new RecordUpdater(
+      { name: COLLECTION_NAME },
+      request.user,
+      request.query
+    );
+    recordUpdater
+      .deserialize(request.body)
+      .then((recordToUpdate) => {
+        recordToUpdate.partitionKey = parts[0];
+        recordToUpdate.rowKey = parts[1];
+        return azureTableStorageService.updateEntityAsync(
+          COLLECTION_NAME,
+          recordToUpdate
+        );
+      })
+      .then((record) => recordSerializer.serialize(record))
+      .then((recordSerialized) => response.send(recordSerialized))
+      .catch((e) => {
+        console.error(e);
+        next(e);
+      });
+  }
+);
 
 // Delete a list of Customers
-router.delete(`/${COLLECTION_NAME}`, permissionMiddlewareCreator.delete(), async (request, response, next) => {
-  try {
-    for (const key of request.body.data.attributes.ids) {
-      const parts = key.split('|');
-      await azureTableStorageService.deleteEntityAsync(COLLECTION_NAME, parts[0], parts[1]);
+router.delete(
+  `/${COLLECTION_NAME}`,
+  permissionMiddlewareCreator.delete(),
+  async (request, response, next) => {
+    try {
+      for (const key of request.body.data.attributes.ids) {
+        const parts = key.split('|');
+        await azureTableStorageService.deleteEntityAsync(
+          COLLECTION_NAME,
+          parts[0],
+          parts[1]
+        );
+      }
+      response.status(204).send();
+    } catch (e) {
+      console.error(e);
+      next(e);
     }
-    response.status(204).send()
-  } catch (e) {
-    console.error(e);
-    next(e);
   }
-});
+);
 
 module.exports = router;
 ```

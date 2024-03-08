@@ -1,3 +1,49 @@
+{% hint style="warning" %}
+Please be sure of your agent type and version and pick the right documentation accordingly.
+{% endhint %}
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% hint style="danger" %}
+This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
+
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% hint style="success" %}
+This is still the latest Ruby on Rails documentation of the `forest_liana` agent, you’re at the right place, please read on.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Python" %}
+{% hint style="danger" %}
+This is the documentation of the `django-forestadmin` Django agent that will soon reach end-of-support.
+
+If you’re using a Django agent, notice that `django-forestadmin` v1 is replaced by [`forestadmin-agent-django`](https://docs.forestadmin.com/developer-guide-agents-python) v1.
+
+If you’re using a Flask agent, go to the [`forestadmin-agent-flask`](https://docs.forestadmin.com/developer-guide-agents-python) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+
+{% tab title="PHP" %}
+{% hint style="danger" %}
+This is the documentation of the `forestadmin/laravel-forestadmin` Laravel agent that will soon reach end-of-support.
+
+If you’re using a Laravel agent, notice that `forestadmin/laravel-forestadmin` v1 is replaced by [`forestadmin/laravel-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v3.
+
+If you’re using a Symfony agent, go to the [`forestadmin/symfony-forestadmin`](https://docs.forestadmin.com/developer-guide-agents-php) v1 documentation.
+
+Please check your agent type and version and read on or switch to the right documentation.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 # Override a route
 
 Overriding a route allows you to change or completely replace a Forest Admin's route behavior.
@@ -13,86 +59,123 @@ Here are a few examples:
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordsGetter, RecordsCounter } = require('forest-express-sequelize');
+const {
+  PermissionMiddlewareCreator,
+  RecordsGetter,
+  RecordsCounter,
+} = require('forest-express-sequelize');
 const { companies } = require('../models');
 
 const router = express.Router();
-const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator(
+  'companies'
+);
 
 //...
 
 // Get a list of Companies - Check out our documentation for more details: https://docs.forestadmin.com/documentation/reference-guide/routes/default-routes#get-a-list-of-records
-router.get('/companies', permissionMiddlewareCreator.list(), (request, response, next) => {
-  const { query, user } = request;
-  query.searchExtended = '1';
-  
-  const recordsGetter = new RecordsGetter(companies, user, query);
-  recordsGetter.getAll()
-    .then(records => recordsGetter.serialize(records))
-    .then(recordsSerialized => response.send(recordsSerialized))
-    .catch(next);
-});
+router.get(
+  '/companies',
+  permissionMiddlewareCreator.list(),
+  (request, response, next) => {
+    const { query, user } = request;
+    query.searchExtended = '1';
+
+    const recordsGetter = new RecordsGetter(companies, user, query);
+    recordsGetter
+      .getAll()
+      .then((records) => recordsGetter.serialize(records))
+      .then((recordsSerialized) => response.send(recordsSerialized))
+      .catch(next);
+  }
+);
 
 // Get a number of Companies - Check out our documentation for more details: https://docs.forestadmin.com/documentation/reference-guide/routes/default-routes#get-a-list-of-records
-router.get('/companies/count', permissionMiddlewareCreator.list(), (request, response, next) => {
-  const { query, user } = request;
-  query.searchExtended = '1';
+router.get(
+  '/companies/count',
+  permissionMiddlewareCreator.list(),
+  (request, response, next) => {
+    const { query, user } = request;
+    query.searchExtended = '1';
 
-  const recordsCounter = new RecordsCounter(companies, user, query);
-  recordsCounter.count()
-    .then(count => response.send({ count }))
-    .catch(next);
-});
+    const recordsCounter = new RecordsCounter(companies, user, query);
+    recordsCounter
+      .count()
+      .then((count) => response.send({ count }))
+      .catch(next);
+  }
+);
 
 //...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordsGetter, RecordsCounter } = require('forest-express-mongoose');
+const {
+  PermissionMiddlewareCreator,
+  RecordsGetter,
+  RecordsCounter,
+} = require('forest-express-mongoose');
 const { companies } = require('../models');
 
 const router = express.Router();
-const permissionMiddlewareCreator = new PermissionMiddlewareCreator('companies');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator(
+  'companies'
+);
 
 //...
 
 // Get a list of Companies - Check out our documentation for more details: https://docs.forestadmin.com/documentation/reference-guide/routes/default-routes#get-a-list-of-records
-router.get('/companies', permissionMiddlewareCreator.list(), (request, response, next) => {
-  const { query, user } = request;
-  query.searchExtended = '1';
-  
-  const recordsGetter = new RecordsGetter(companies, user, query);
-  recordsGetter.getAll()
-    .then(records => recordsGetter.serialize(records))
-    .then(recordsSerialized => response.send(recordsSerialized))
-    .catch(next);
-});
+router.get(
+  '/companies',
+  permissionMiddlewareCreator.list(),
+  (request, response, next) => {
+    const { query, user } = request;
+    query.searchExtended = '1';
+
+    const recordsGetter = new RecordsGetter(companies, user, query);
+    recordsGetter
+      .getAll()
+      .then((records) => recordsGetter.serialize(records))
+      .then((recordsSerialized) => response.send(recordsSerialized))
+      .catch(next);
+  }
+);
 
 // Get a number of Companies - Check out our documentation for more details: https://docs.forestadmin.com/documentation/reference-guide/routes/default-routes#get-a-list-of-records
-router.get('/companies/count', permissionMiddlewareCreator.list(), (request, response, next) => {
-  const { query, user } = request;
-  query.searchExtended = '1';
+router.get(
+  '/companies/count',
+  permissionMiddlewareCreator.list(),
+  (request, response, next) => {
+    const { query, user } = request;
+    query.searchExtended = '1';
 
-  const recordsCounter = new RecordsCounter(companies, user, query);
-  recordsCounter.count()
-    .then(count => response.send({ count }))
-    .catch(next);
-});
+    const recordsCounter = new RecordsCounter(companies, user, query);
+    recordsCounter
+      .count()
+      .then((count) => response.send({ count }))
+      .catch(next);
+  }
+);
 
 //...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/controllers/companies_controller.rb" %}
+
 ```ruby
 if ForestLiana::UserSpace.const_defined?('CompanyController')
   ForestLiana::UserSpace::CompanyController.class_eval do
@@ -113,11 +196,13 @@ if ForestLiana::UserSpace.const_defined?('CompanyController')
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/views.py" %}
+
 ```python
 from django.http import JsonResponse
 
@@ -150,7 +235,7 @@ class CompaniesListView(ListView):
             return self.error_response(e)
         else:
             return JsonResponse(data, safe=False)
-            
+
 class CompaniesCountView(ResourceView):
     def get(self, request):
         queryset = self.Model.objects.all()
@@ -158,9 +243,11 @@ class CompaniesCountView(ResourceView):
         params.update({'searchExtended': '1'})
         return self.get_count(queryset, params, request)
 ```
+
 {% endcode %}
 
 {% code title="app/forest/urls.py" %}
+
 ```python
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -173,11 +260,13 @@ urlpatterns = [
     path('/companies', csrf_exempt(views.CompaniesListView.as_view()), name='companies-list'),
 ]
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 <?php
 
@@ -207,9 +296,11 @@ class CompaniesController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -219,6 +310,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('forest/company', [CompaniesController::class, 'index']);
 Route::get('forest/company/count', [CompaniesController::class, 'count']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -234,46 +326,65 @@ Using extended search is less performant than default search. Use this wisely.
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
-```javascript
-router.delete('/companies/:recordId', permissionMiddlewareCreator.delete(), (request, response, next) => {
-  const { params, query, user } = request;
-  
-  if (Number(params.recordId) === 82) {
-    response.status(403).send('This record is protected, you cannot remove it.');
-    return;
-  }
 
-  const recordRemover = new RecordRemover(companies, user, query);
-  recordRemover.remove(params.recordId)
-    .then(() => response.status(204).send())
-    .catch(next);
-});
+```javascript
+router.delete(
+  '/companies/:recordId',
+  permissionMiddlewareCreator.delete(),
+  (request, response, next) => {
+    const { params, query, user } = request;
+
+    if (Number(params.recordId) === 82) {
+      response
+        .status(403)
+        .send('This record is protected, you cannot remove it.');
+      return;
+    }
+
+    const recordRemover = new RecordRemover(companies, user, query);
+    recordRemover
+      .remove(params.recordId)
+      .then(() => response.status(204).send())
+      .catch(next);
+  }
+);
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/routes/companies.js" %}
-```javascript
-router.delete('/companies/:recordId', permissionMiddlewareCreator.delete(), (request, response, next) => {
-  const { params, query, user } = request;
-  
-  if (Number(params.recordId) === 82) {
-    response.status(403).send('This record is protected, you cannot remove it.');
-    return;
-  }
 
-  const recordRemover = new RecordRemover(companies, user, query);
-  recordRemover.remove(params.recordId)
-    .then(() => response.status(204).send())
-    .catch(next);
-});
+```javascript
+router.delete(
+  '/companies/:recordId',
+  permissionMiddlewareCreator.delete(),
+  (request, response, next) => {
+    const { params, query, user } = request;
+
+    if (Number(params.recordId) === 82) {
+      response
+        .status(403)
+        .send('This record is protected, you cannot remove it.');
+      return;
+    }
+
+    const recordRemover = new RecordRemover(companies, user, query);
+    recordRemover
+      .remove(params.recordId)
+      .then(() => response.status(204).send())
+      .catch(next);
+  }
+);
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/controllers/company_controller.rb" %}
+
 ```ruby
 if ForestLiana::UserSpace.const_defined?('CompanyController')
   ForestLiana::UserSpace::CompanyController.class_eval do
@@ -288,10 +399,12 @@ if ForestLiana::UserSpace.const_defined?('CompanyController')
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
+
 ```python
 from django.http import HttpResponse
 
@@ -306,12 +419,14 @@ class CompaniesDetailView(DetailView):
             'This record is protected, you cannot remove it.',
              status=403);
 
-        return super(CompaniesDetailView, self).delete(request, pk) 
+        return super(CompaniesDetailView, self).delete(request, pk)
 ```
+
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/CompaniesController.php" %}
+
 ```php
 <?php
 
@@ -339,6 +454,7 @@ class CompaniesController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -350,6 +466,7 @@ To achieve this, simply remove the `next()` statement of any route:
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -360,11 +477,13 @@ router.post('/companies', permissionMiddlewareCreator.create(), (req, res, next)
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/routes/companies.js" %}
+
 ```javascript
 ...
 
@@ -375,11 +494,13 @@ router.post('/companies', permissionMiddlewareCreator.create(), (req, res, next)
 
 ...
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/controllers/companies_controller.rb" %}
+
 ```ruby
 if ForestLiana::UserSpace.const_defined?('CompanyController')
   ForestLiana::UserSpace::CompanyController.class_eval do
@@ -390,11 +511,13 @@ if ForestLiana::UserSpace.const_defined?('CompanyController')
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/views.py" %}
+
 ```python
 from django.http import JsonResponse
 
@@ -408,11 +531,13 @@ class CompaniesListView(ListView):
         model = self.Model
         # >> Add your own logic here <<
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/UsersController.php" %}
+
 ```php
 <?php
 
@@ -429,6 +554,7 @@ class UsersController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -438,6 +564,7 @@ For instance, if you have a `Users` collection, you might want to create your us
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="/routes/users.js" %}
+
 ```javascript
 ...
 
@@ -464,11 +591,13 @@ router.post('/users', permissionMiddlewareCreator.create(), (request, response, 
     });
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="MongoDB" %}
 {% code title="/routes/users.js" %}
+
 ```javascript
 ...
 
@@ -495,11 +624,13 @@ router.post('/users', permissionMiddlewareCreator.create(), (request, response, 
     });
 });
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
 {% code title="/lib/forest_liana/controllers/users_controller.rb" %}
+
 ```ruby
 require 'net/http'
 require 'uri'
@@ -520,11 +651,13 @@ if ForestLiana::UserSpace.const_defined?('UserController')
   end
 end
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Django" %}
 {% code title="app/forest/views.py" %}
+
 ```python
 import requests
 import json
@@ -538,22 +671,24 @@ class CompaniesListView(ListView):
     # Create a Company
     def post(self, request):
         body = self.get_body(request.body)
-        
+
         r = requests.post('https://<your-api>/users', json.dumps(body), headers={'Content-Type': 'application/json'})
         result = r.json()
-        
+
         instance = self.Model.objects.create(**result['data'])
-        
+
         # json api serializer
         Schema = JsonApiSchema.get(self.Model._meta.db_table)
         data = Schema().dump(instance)
         return JsonResponse(data, safe=False)
 ```
+
 {% endcode %}
 {% endtab %}
 
 {% tab title="Laravel" %}
 {% code title="app/Http/Controllers/UsersController.php" %}
+
 ```php
 <?php
 
@@ -584,9 +719,11 @@ class UsersController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+
 ```php
 <?php
 
@@ -606,9 +743,11 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -617,9 +756,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/user', [UsersController::class, 'store']);
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Controllers/UsersController.php" %}
+
 ```php
 <?php
 
@@ -650,9 +791,11 @@ class UsersController extends ResourcesController
     }
 }
 ```
+
 {% endcode %}
 
 {% code title="app/Http/Middleware/VerifyCsrfToken.php" %}
+
 ```php
 <?php
 
@@ -672,9 +815,11 @@ class VerifyCsrfToken extends Middleware
     ];
 }
 ```
+
 {% endcode %}
 
 {% code title="routes/web.php" %}
+
 ```php
 <?php
 
@@ -683,6 +828,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('forest/user', [UsersController::class, 'store']);
 ```
+
 {% endcode %}
 {% endtab %}
 {% endtabs %}
