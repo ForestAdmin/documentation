@@ -11,8 +11,7 @@ Please be sure of your agent type and version and pick the right documentation a
 {% hint style="danger" %}
 This is the documentation of the `forest-express-sequelize` and `forest-express-mongoose` Node.js agents that will soon reach end-of-support.
 
-`forest-express-sequelize` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
-`forest-express-mongoose` v9 is replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
+`forest-express-sequelize` v9 and `forest-express-mongoose` v9 are replaced by [`@forestadmin/agent`](https://docs.forestadmin.com/developer-guide-agents-nodejs/) v1.
 
 Please check your agent type and version and read on or switch to the right documentation.
 {% endhint %}
