@@ -33,7 +33,7 @@ Please follow the dedicated [migration guide](https://docs.forestadmin.com/devel
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
 | v9      | 2022-10-09      | 🟢    | 🟢             | -              | -           | -          |
-| v8      | 2021-07-19      | 🟠    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
+| v8      | 2021-07-19      | 🔴    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
 | v7      | 2021-02-22      | 🔴    | 🔴             | 2023-06-30     | 2023-12-31  | ~3 years   |
 | v6      | 2020-03-17      | 🔴    | 🔴             | 2022-12-31     | 2023-06-30  | ~3.5 years |
 | v5      | 2019-10-31      | 🔴    | 🔴             | 2022-06-30     | 2023-06-30  | ~3.5 years |
@@ -53,7 +53,7 @@ Please follow the dedicated [migration guide](https://docs.forestadmin.com/devel
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
 | v9      | 2022-10-09      | 🟢    | 🟢             | -              | -           | -          |
-| v8      | 2021-07-19      | 🟠    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
+| v8      | 2021-07-19      | 🔴    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
 | v7      | 2021-02-22      | 🔴    | 🔴             | 2023-06-30     | 2023-12-31  | ~3 years   |
 | v6      | 2020-03-17      | 🔴    | 🔴             | 2022-12-31     | 2023-06-30  | ~3.5 years |
 | v5      | 2019-10-31      | 🔴    | 🔴             | 2022-06-30     | 2023-06-30  | ~3.5 years |
@@ -67,10 +67,10 @@ Please follow the dedicated [migration guide](https://docs.forestadmin.com/devel
 {% tab title="Ruby on Rails" %}
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
-|---------|-----------------| ----- | -------------- | -------------- | ----------- | ---------- |
+| ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
 | v9      | 2024-01-25      | 🟢    | 🟢             | -              | -           | -          |
 | v8      | 2023-03-14      | 🟢    | 🟢             | -              | -           | -          |
-| v7      | 2021-07-20      | 🟠    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
+| v7      | 2021-07-20      | 🔴    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
 | v6      | 2021-02-22      | 🔴    | 🔴             | 2023-06-30     | 2023-12-31  | ~3 years   |
 | v5      | 2020-03-20      | 🔴    | 🔴             | 2022-12-31     | 2023-06-30  | ~3.5 years |
 | v4      | 2019-10-04      | 🔴    | 🔴             | 2022-06-30     | 2022-12-31  | ~3 years   |
@@ -88,7 +88,7 @@ Please follow the dedicated [migration guide](https://docs.forestadmin.com/devel
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
-| v1      | 2021-08-13      | 🟢    | 🟠             | 2024-06-30     | 2024-12-31  | ~3.5 years |
+| v1      | 2021-08-13      | 🟠    | 🔴             | 2024-06-30     | 2024-12-31  | ~3.5 years |
 
 {% endtab %}
 
@@ -100,7 +100,7 @@ Please follow the dedicated [migration guide](https://docs.forestadmin.com/devel
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
 | ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
-| v1      | 2022-04-15      | 🟢    | 🟠             | 2024-06-30     | 2024-12-31  | ~2.5 years |
+| v1      | 2022-04-15      | 🟠    | 🔴             | 2024-06-30     | 2024-12-31  | ~2.5 years |
 
 {% endtab %}
 {% endtabs %}
