@@ -576,6 +576,12 @@ Here is the list of available options to customize your input form.
 | description | string           | (optional) Add a description for your admin users to help them fill correctly your form                                                                                                                                                                                                   |
 | isRequired  | boolean          | (optional) If `true`, your input field will be set as required in the browser. Default is `false`.                                                                                                                                                                                        |
 | hook        | string           | (optional) Specify the change hook. If specified the corresponding hook is called when the input change                                                                                                                                                                                   |
+| widget      | string           | (optional) The following widgets are available to your smart action fields (`text area`, `date`, `boolean`, `file,` `dateonly`)                                                                                                                                                           |
+{% hint style="warning" %}
+The `widget` property is only partially supported.
+If you want to use a custom widget via a Smart Action Hook, you'll need to use the syntax mentioned in the next section.
+{% endhint %}
+
 
 ## Making a form dynamic with hooks
 
@@ -1355,6 +1361,15 @@ The `hooks` property receives a _context_ object containing:
 
 {% hint style="info" %}
 `fields` **must** be returned. Note that `fields` is an array containing existing fields with properties described in [this section](./#handling-input-values).
+{% endhint %}
+
+{% hint style="warning" %}
+If you want to use a widget inside of a hook, you'll need to use the following syntax on your field:
+
+- For a `text area`, use `{ widgetEdit: 'text area editor', parameters: {} }`
+- For a `boolean`, use `{ widgetEdit: 'boolean editor', parameters: {} }`
+- For a `date` or a `dateonly`, use `{ widgetEdit: 'date editor', parameters: {} }`
+- For a `file`, use `{ widgetEdit: 'file picker', parameters: {} }`
 {% endhint %}
 
 To dynamically change a property within a `load` or `change` [hook](use-a-smart-action-form.md#making-a-form-dynamic-with-hooks), just set it! For instance, setting a new _description_ for the field `city`:
