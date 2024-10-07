@@ -576,7 +576,6 @@ Here is the list of available options to customize your input form.
 | description | string           | (optional) Add a description for your admin users to help them fill correctly your form                                                                                                                                                                                                   |
 | isRequired  | boolean          | (optional) If `true`, your input field will be set as required in the browser. Default is `false`.                                                                                                                                                                                        |
 | hook        | string           | (optional) Specify the change hook. If specified the corresponding hook is called when the input change                                                                                                                                                                                   |
-| widget      | string           | (optional) The following widgets are available to your smart action fields (`text area`, `date`, `boolean`, `file,` `dateonly`)                                                                                                                                                           |
 
 ## Making a form dynamic with hooks
 
