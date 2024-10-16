@@ -2023,7 +2023,7 @@ class Customer extends Model
 {% endtab %}
 {% endtabs %}
 
-### Use components to layout your form
+## Use components to better layout your form
 
 {% hint style="info" %}
 This feature is only available from **version 9.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
@@ -2032,25 +2032,25 @@ This feature is only available from **version 9.0.0** (`forest-express-sequelize
 This feature is useful when dealing with long/complex forms, with many fields. It will let your organize them and add useful information to guide the end user.
 The layout must contain the fields as they should be rendered on the form.
 
-#### List of supported layout components
+### List of supported layout components
 
 {% tabs %}
 {% tab title="SQL" %}
 {% code title="forest/customers.js" %}
 
-```json
+```javascript
 // Page
 {
   type: 'Layout',
   component: 'Page',
-  elements: [...] // An array of fields or other layout elements (except other pages)
+  elements: [] // An array of fields or other layout elements (except other pages)
 },
 
 // Row
 {
   type: 'Layout',
   component: 'Row',
-  fields: [...] // An array of one or two fields
+  fields: [] // An array of one or two fields
 }
 
 // Separator
@@ -2072,7 +2072,7 @@ The layout must contain the fields as they should be rendered on the form.
 {% endtab %}
 {% endtabs %}
 
-#### Example
+### Example
 
 Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
 
@@ -2187,3 +2187,6 @@ collection('customers', {
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+
+The resulting action form will be:
+![](../../../.gitbook/assets/action-form-pages.png)
