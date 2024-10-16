@@ -2018,7 +2018,6 @@ class Customer extends Model
 }
 ```
 
-{% endcode %}
 {% endtab %}
 {% endtabs %}
 
