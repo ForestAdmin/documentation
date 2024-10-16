@@ -2038,7 +2038,7 @@ The layout must contain the fields as they should be rendered on the form.
 {% tab title="SQL" %}
 {% code title="forest/customers.js" %}
 
-```javascript
+```json
 // Page
 {
   type: 'Layout',
