@@ -1743,7 +1743,6 @@ When using hooks with a bulk Smart action, you'll probably need te get the value
 
 {% tabs %}
 {% tab title="SQL" %}
-{% code title="/forest/customers.js" %}
 
 ```javascript
 const { collection, RecordsGetter } = require('forest-express-sequelize');
@@ -1796,11 +1795,9 @@ collection('customers', {
 });
 ```
 
-{% endcode %}
 {% endtab %}
 
 {% tab title="Mongodb" %}
-{% code title="/forest/customers.js" %}
 
 ```javascript
 const { collection, RecordsGetter } = require('forest-express-mongoose');
@@ -1853,7 +1850,6 @@ collection('customers', {
 });
 ```
 
-{% endcode %}
 {% endtab %}
 
 {% tab title="Rails" %}
@@ -2016,6 +2012,7 @@ class Customer extends Model
 }
 ```
 
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
