@@ -2034,10 +2034,6 @@ The layout must contain the fields as they should be rendered on the form.
 
 ### List of supported layout components
 
-{% tabs %}
-{% tab title="SQL" %}
-{% code title="forest/customers.js" %}
-
 ```javascript
 // Page
 {
@@ -2068,21 +2064,15 @@ The layout must contain the fields as they should be rendered on the form.
 
 ```
 
-{% endcode %}
-{% endtab %}
-{% endtabs %}
-
 ### Example
 
 Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
 
-{% tabs %}
-{% tab title="SQL" %}
 {% code title="forest/customers.js" %}
 
 ```javascript
 const applyLayout = (fields) => {
-  const findFieldByName = (name) => fields.find((field) => field.field === name);
+  const fieldByName = (name) => fields.find((field) => field.field === name);
   return [
     {
       type: 'Layout',
@@ -2096,11 +2086,11 @@ const applyLayout = (fields) => {
         {
           type: 'Layout',
           component: 'Row',
-          fields: [findFieldByName('firstname'), findFieldByName('lastname')]
+          fields: [fieldByName('firstname'), fieldByName('lastname')]
         },
         { type: 'Layout', component: 'Separator' },
-        findFieldByName('username'),
-        findFieldByName('email'),
+        fieldByName('username'),
+        fieldByName('email'),
       ]
     },
     {
@@ -2115,9 +2105,9 @@ const applyLayout = (fields) => {
         {
           type: 'Layout',
           component: 'Row',
-          fields: [findFieldByName('city'), findFieldByName('zip code')]
+          fields: [fieldByName('city'), fieldByName('zip code')]
         },
-        findFieldByName('country'),
+        fieldByName('country'),
       ]
     }
   ]
@@ -2185,8 +2175,6 @@ collection('customers', {
 ```
 
 {% endcode %}
-{% endtab %}
-{% endtabs %}
 
 The resulting action form will be:
 ![](../../../.gitbook/assets/action-form-pages.png)
