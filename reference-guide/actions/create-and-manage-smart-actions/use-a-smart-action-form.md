@@ -2177,4 +2177,5 @@ collection('customers', {
 {% endcode %}
 
 The resulting action form will be:
+
 ![](../../../.gitbook/assets/action-form-pages.png)
