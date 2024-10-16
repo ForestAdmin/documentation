@@ -2029,7 +2029,7 @@ class Customer extends Model
 This feature is only available from **version 9.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
 {% endhint %}
 
-This feature is usefull when dealing with long/complex forms, with many fields. It will let your organize them and add useful information to guide the end user.
+This feature is useful when dealing with long/complex forms, with many fields. It will let your organize them and add useful information to guide the end user.
 The layout must contain the fields as they should be rendered on the form.
 
 #### List of supported layout components
