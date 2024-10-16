@@ -2064,6 +2064,57 @@ The layout must contain the fields as they should be rendered on the form.
 
 ```
 
+```javascript
+const { collection, RecordsGetter } = require('forest-express-mongoose');
+const { customers } = require('../models');
+const customersHaveSameCountry = require('../services/customers-have-same-country');
+
+collection('customers', {
+  actions: [
+    {
+      name: 'Some action',
+      type: 'bulk',
+      fields: [
+        {
+          field: 'country',
+          type: 'String',
+          isReadOnly: true,
+        },
+        {
+          field: 'city',
+          type: 'String',
+        },
+      ],
+      hooks: {
+        load: async ({ fields, request }) => {
+          const country = fields.find((field) => field.field === 'country');
+
+          const ids = await new RecordsGetter(
+            customers,
+            request.user,
+            request.query
+          ).getIdsFromRequest(request);
+          const customers = await customers.findAll({ _id: { $in: ids } });
+
+          country.value = '';
+          country.isReadOnly = false;
+
+          // If customers have the same country, set field to this country and make it not editable
+          if (customersHaveSameCountry(customers)) {
+            country.value = customers.country;
+            country.isReadOnly = true;
+          }
+
+          return fields;
+        },
+      },
+    },
+  ],
+  fields: [],
+  segments: [],
+});
+```
+
 ### Example
 
 Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
