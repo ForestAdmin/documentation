@@ -578,6 +578,163 @@ Here is the list of available options to customize your input form.
 | hook        | string           | (optional) Specify the change hook. If specified the corresponding hook is called when the input change                                                                                                                                                                                   |
 | widget      | string           | (optional) The following widgets are available to your smart action fields (`text area`, `date`, `boolean`, `file,` `dateonly`)                                                                                                                                                           |
 
+## Use components to better layout your form
+
+{% hint style="info" %}
+This feature is only available from **version 9.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
+{% endhint %}
+
+This feature is useful when dealing with long/complex forms, with many fields. It will let your organize them and add useful information to guide the end user.
+The layout must contain the fields as they should be rendered on the form.
+
+### List of supported layout components
+
+```javascript
+// Page
+{
+  type: 'Layout',
+  component: 'Page',
+  elements: [] // An array of fields or other layout elements (except other pages)
+},
+
+// Row
+{
+  type: 'Layout',
+  component: 'Row',
+  fields: [] // An array of one or two fields
+}
+
+// Separator
+{
+  type: 'Layout',
+  component: 'Separator',
+}
+
+// Html bloc
+{
+  type: 'Layout',
+  component: 'HtmlBlock',
+  content: '...' // A text content, which supports html tags
+}
+
+```
+
+### Example
+
+Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
+
+{% code title="forest/customers.js" %}
+
+```javascript
+const applyLayout = (fields) => {
+  const fieldByName = (name) => fields.find((field) => field.field === name);
+  return [
+    {
+      type: 'Layout',
+      component: 'Page',
+      elements: [
+        {
+          type: 'Layout',
+          component: 'HtmlBlock',
+          content: '<h3>Please fill in the customer details <b>first</b>, following this <a href="https://how-to-invoice.doc.example">guide</a></h3>'
+        },
+        {
+          type: 'Layout',
+          component: 'Row',
+          fields: [fieldByName('firstname'), fieldByName('lastname')]
+        },
+        { type: 'Layout', component: 'Separator' },
+        fieldByName('username'),
+        fieldByName('email'),
+      ]
+    },
+    {
+      type: 'Layout',
+      component: 'Page',
+      elements: [
+        {
+          type: 'Layout',
+          component: 'HtmlBlock',
+          content: 'You may now enter his address details'
+        },
+        {
+          type: 'Layout',
+          component: 'Row',
+          fields: [fieldByName('city'), fieldByName('zip code')]
+        },
+        fieldByName('country'),
+      ]
+    }
+  ]
+}
+
+collection('customers', {
+  actions: [
+    {
+      name: 'Send invoice',
+      type: 'single',
+      fields: [
+        {
+          field: 'firstname',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'lastname',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'username',
+          type: 'String',
+        },
+        {
+          field: 'email',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'country',
+          type: 'Enum',
+          enums: [],
+        },
+        {
+          field: 'city',
+          type: 'String',
+          hook: 'onCityChange',
+        },
+        {
+          field: 'zip code',
+          type: 'String',
+          hook: 'onZipCodeChange',
+        },
+      ],
+      hooks: {
+        load: async ({ fields }) => {
+          return applyLayout(fields);
+        },
+        change: {
+          onCityChange: async ({ fields }) => {
+            return applyLayout(fields);
+          },
+          onZipCodeChange: async ({ fields }) => {
+            return applyLayout(fields);
+          },
+        },
+      },
+    },
+  ],
+  fields: [],
+  segments: [],
+});
+```
+
+{% endcode %}
+
+The resulting action form will be:
+
+![](../../../.gitbook/assets/action-form-pages.png)
+
 ## Making a form dynamic with hooks
 
 Business logic often requires your forms to adapt to its context. Forest Admin makes this possible through a powerful way to extend your form's logic.
@@ -2022,211 +2179,3 @@ class Customer extends Model
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-
-## Use components to better layout your form
-
-{% hint style="info" %}
-This feature is only available from **version 9.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
-{% endhint %}
-
-This feature is useful when dealing with long/complex forms, with many fields. It will let your organize them and add useful information to guide the end user.
-The layout must contain the fields as they should be rendered on the form.
-
-### List of supported layout components
-
-```javascript
-// Page
-{
-  type: 'Layout',
-  component: 'Page',
-  elements: [] // An array of fields or other layout elements (except other pages)
-},
-
-// Row
-{
-  type: 'Layout',
-  component: 'Row',
-  fields: [] // An array of one or two fields
-}
-
-// Separator
-{
-  type: 'Layout',
-  component: 'Separator',
-}
-
-// Html bloc
-{
-  type: 'Layout',
-  component: 'HtmlBlock',
-  content: '...' // A text content, which supports html tags
-}
-
-```
-
-```javascript
-const { collection, RecordsGetter } = require('forest-express-mongoose');
-const { customers } = require('../models');
-const customersHaveSameCountry = require('../services/customers-have-same-country');
-
-collection('customers', {
-  actions: [
-    {
-      name: 'Some action',
-      type: 'bulk',
-      fields: [
-        {
-          field: 'country',
-          type: 'String',
-          isReadOnly: true,
-        },
-        {
-          field: 'city',
-          type: 'String',
-        },
-      ],
-      hooks: {
-        load: async ({ fields, request }) => {
-          const country = fields.find((field) => field.field === 'country');
-
-          const ids = await new RecordsGetter(
-            customers,
-            request.user,
-            request.query
-          ).getIdsFromRequest(request);
-          const customers = await customers.findAll({ _id: { $in: ids } });
-
-          country.value = '';
-          country.isReadOnly = false;
-
-          // If customers have the same country, set field to this country and make it not editable
-          if (customersHaveSameCountry(customers)) {
-            country.value = customers.country;
-            country.isReadOnly = true;
-          }
-
-          return fields;
-        },
-      },
-    },
-  ],
-  fields: [],
-  segments: [],
-});
-```
-
-### Example
-
-Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
-
-{% code title="forest/customers.js" %}
-
-```javascript
-const applyLayout = (fields) => {
-  const fieldByName = (name) => fields.find((field) => field.field === name);
-  return [
-    {
-      type: 'Layout',
-      component: 'Page',
-      elements: [
-        {
-          type: 'Layout',
-          component: 'HtmlBlock',
-          content: '<h3>Please fill in the customer details <b>first</b>, following this <a href="https://how-to-invoice.doc.example">guide</a></h3>'
-        },
-        {
-          type: 'Layout',
-          component: 'Row',
-          fields: [fieldByName('firstname'), fieldByName('lastname')]
-        },
-        { type: 'Layout', component: 'Separator' },
-        fieldByName('username'),
-        fieldByName('email'),
-      ]
-    },
-    {
-      type: 'Layout',
-      component: 'Page',
-      elements: [
-        {
-          type: 'Layout',
-          component: 'HtmlBlock',
-          content: 'You may now enter his address details'
-        },
-        {
-          type: 'Layout',
-          component: 'Row',
-          fields: [fieldByName('city'), fieldByName('zip code')]
-        },
-        fieldByName('country'),
-      ]
-    }
-  ]
-}
-
-collection('customers', {
-  actions: [
-    {
-      name: 'Send invoice',
-      type: 'single',
-      fields: [
-        {
-          field: 'firstname',
-          type: 'String',
-          isRequired: true,
-        },
-        {
-          field: 'lastname',
-          type: 'String',
-          isRequired: true,
-        },
-        {
-          field: 'username',
-          type: 'String',
-        },
-        {
-          field: 'email',
-          type: 'String',
-          isRequired: true,
-        },
-        {
-          field: 'country',
-          type: 'Enum',
-          enums: [],
-        },
-        {
-          field: 'city',
-          type: 'String',
-          hook: 'onCityChange',
-        },
-        {
-          field: 'zip code',
-          type: 'String',
-          hook: 'onZipCodeChange',
-        },
-      ],
-      hooks: {
-        load: async ({ fields }) => {
-          return applyLayout(fields);
-        },
-        change: {
-          onCityChange: async ({ fields }) => {
-            return applyLayout(fields);
-          },
-          onZipCodeChange: async ({ fields }) => {
-            return applyLayout(fields);
-          },
-        },
-      },
-    },
-  ],
-  fields: [],
-  segments: [],
-});
-```
-
-{% endcode %}
-
-The resulting action form will be:
-
-![](../../../.gitbook/assets/action-form-pages.png)
