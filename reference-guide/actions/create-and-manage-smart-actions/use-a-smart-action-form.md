@@ -1959,8 +1959,6 @@ Collection.register(CustomerForest, Customer)
 {% tab title="Laravel" %}
 
 ```php
-<?php
-
 namespace App\Models;
 
 use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
