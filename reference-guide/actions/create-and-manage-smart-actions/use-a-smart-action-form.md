@@ -2186,3 +2186,4 @@ collection('customers', {
 
 {% endcode %}
 {% endtab %}
+{% endtabs %}
