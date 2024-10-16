@@ -2070,6 +2070,7 @@ The layout must contain the fields as they should be rendered on the form.
 
 {% endcode %}
 {% endtab %}
+{% endtabs %}
 
 #### Example
 
