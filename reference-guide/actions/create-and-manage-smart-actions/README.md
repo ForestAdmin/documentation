@@ -466,14 +466,16 @@ Should you want not to use the `RecordsGetter` and use request attributes direct
 
 Here is the list of available options to customize your Smart Action:
 
-| Name       | Type             | Description                                                                                                                          |
-| ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| name       | string           | Label of the action displayed in Forest Admin.                                                                                       |
-| type       | string           | (optional) [Type](../#triggering-different-types-of-actions) of the action. Can be `bulk`, `global` or `single`. Default is `bulk`.  |
-| fields     | array of objects | (optional) Check the [handling input values](use-a-smart-action-form.md#handling-input-values) section.                              |
-| download   | boolean          | (optional) If `true`, the action triggers a file download in the Browser. Default is `false`                                         |
-| endpoint   | string           | (optional) Set the API route to call when clicking on the Smart Action. Default is `'/forest/actions/name-of-the-action-dasherized'` |
-| httpMethod | string           | (optional) Set the HTTP method to use when clicking on the Smart Action. Default is `POST`.                                          |
+| Name              | Type             | Description                                                                                                                                                                                                         |
+| ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name              | string           | Label of the action displayed in Forest Admin.                                                                                                                                                                      |
+| type              | string           | (optional) [Type](../#triggering-different-types-of-actions) of the action. Can be `bulk`, `global` or `single`. Default is `bulk`.                                                                                 |
+| fields            | array of objects | (optional) Check the [handling input values](use-a-smart-action-form.md#handling-input-values) section.                                                                                                             |
+| download          | boolean          | (optional) If `true`, the action triggers a file download in the Browser. Default is `false`                                                                                                                        |
+| endpoint          | string           | (optional) Set the API route to call when clicking on the Smart Action. Default is `'/forest/actions/name-of-the-action-dasherized'`                                                                                |
+| httpMethod        | string           | (optional) Set the HTTP method to use when clicking on the Smart Action. Default is `POST`.                                                                                                                         |
+| description       | string           | (optional) Add a description shown in the smart action form. This supports html tags. ⚠️ only available in `forest-express-sequelize`, `forest-express-mongoose` and `forest-rails`                                 |
+| submitButtonLabel | string           | (optional) Sets the text written on the submit button at the end of the form. Default value is the Smart Action name. ⚠️ only available in `forest-express-sequelize`, `forest-express-mongoose` and `forest-rails` |
 
 {% hint style="success" %}
 Want to go further with Smart Actions? Read the [next page](use-a-smart-action-form.md) to discover how to make your Smart Actions even more powerful with **Forms**!

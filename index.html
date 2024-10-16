@@ -1,0 +1,4906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* This is needed because the page cover bleed (100vw) will cause horizontal scrolling */
+    /* FIXME: use :has once it is ready for Firefox and lift these back to PageSheetView.module.css */
+    html,
+    body {
+      overflow-x: clip;
+    }
+
+    body.theme-overlay {
+      position: fixed;
+      width: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--theme-overlay-background);
+      z-index: 10000;
+    }
+
+    body.dragging * {
+      cursor: grabbing !important;
+    }
+
+    .gitbook-splashscreen {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slate-spacer {
+      height: 0;
+      color: transparent;
+      outline: none;
+      position: absolute;
+    }
+  </style>
+  <title>Create and manage Smart Actions - Developer guide</title>
+  <style id="__style-root-primary-color" type="text/css">
+    :root {
+      --custom-theme-color-primary-xxlight: #dcf0e3;
+      --custom-theme-color-primary-xlight: #bee4ca;
+      --custom-theme-color-primary-light: #85cd9d;
+      --custom-theme-color-primary-base: #5cbc7c;
+      --custom-theme-color-primary-dark: #597c65;
+      --custom-theme-color-primary-xdark: #3e5746;
+      --custom-theme-color-primary-xxdark: #272727;
+    }
+  </style>
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-Bold.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-BoldItalic.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-Black.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-BlackItalic.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-Medium.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-MediumItalic.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-Regular.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/Roboto/Roboto-Italic.woff2?v=3.19" crossorigin="anonymous">
+  <style id="__font-Roboto-gitbook-content-font">
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local("Roboto Bold"), local("Roboto-Bold"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Bold.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Bold.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: italic;
+      font-weight: 700;
+      font-display: swap;
+      src: local("Roboto BoldItalic"), local("Roboto-BoldItalic"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-BoldItalic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-BoldItalic.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+      src: local("Roboto Black"), local("Roboto-Black"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Black.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Black.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: italic;
+      font-weight: 800;
+      font-display: swap;
+      src: local("Roboto BlackItalic"), local("Roboto-BlackItalic"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-BlackItalic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-BlackItalic.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local("Roboto Medium"), local("Roboto-Medium"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Medium.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Medium.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: italic;
+      font-weight: 500;
+      font-display: swap;
+      src: local("Roboto MediumItalic"), local("Roboto-MediumItalic"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-MediumItalic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-MediumItalic.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local("Roboto Regular"), local("Roboto-Regular"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Regular.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Regular.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-content-font';
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: local("Roboto Italic"), local("Roboto-Italic"), url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Italic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/Roboto/Roboto-Italic.woff?v=3.19") format("woff");
+    }
+  </style>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-JCKLY2HY24"></script>
+  <script type="text/javascript" async=""
+    src="https://www.googletagmanager.com/gtag/js?id=G-JCKLY2HY24&amp;l=dataLayer&amp;cx=c"></script>
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script type="text/javascript" async=""
+    src="https://www.googletagmanager.com/gtag/js?id=G-GPKT94PSG4&amp;l=dataLayer&amp;cx=c"></script>
+  <script type="text/javascript" async=""
+    src="https://www.googletagmanager.com/gtag/js?l=dataLayer&amp;id=UA-182387026-1"></script>
+  <meta name="description" content="" id="__meta-description">
+  <meta name="og:description" content="" id="__meta-og:description">
+  <meta name="og:image"
+    content="https://app.gitbook.com/share/space/thumbnail/x9GURwd0RAwi8uWZgH5v/page/-LZ_NNMHdg2N9Ycw1bkS.png?color=%235cbc7c&amp;logo=https%3A%2F%2F1726799947-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F-LR7SWfEwsNtj_ZiSkSA-2892543716%252Ficon%252FfdRoaRqUbbFLzUeG8xmn%252Flogoforest.PNG%3Falt%3Dmedia%26token%3Da8581159-153a-4204-8e88-5214c4635aa7&amp;theme=default"
+    id="__meta-og:image">
+  <meta name="twitter:card" content="summary_large_image" id="__meta-twitter:card">
+  <meta name="og:title" content="Create and manage Smart Actions" id="__meta-og:title">
+  <meta name="twitter:site" content="Developer guide" id="__meta-twitter:site">
+  <meta name="robots" content="index" id="__meta-robots">
+  <link rel="icon"
+    href="https://1726799947-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/spaces%2F-LR7SWfEwsNtj_ZiSkSA%2Favatar.png?generation=1581090845646539&amp;alt=media"
+    id="__link-icon">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Bold.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-BoldItalic.woff2?v=3.19"
+    crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Black.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-BlackItalic.woff2?v=3.19"
+    crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Medium.woff2?v=3.19" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-MediumItalic.woff2?v=3.19"
+    crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Regular.woff2?v=3.19"
+    crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+    href="https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Italic.woff2?v=3.19" crossorigin="anonymous">
+  <style id="__font-SourceCodePro-gitbook-code-font">
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: local("Source Code Pro Bold"), local("SourceCodePro-Bold"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Bold.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Bold.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: italic;
+      font-weight: 700;
+      font-display: swap;
+      src: local("Source Code Pro BoldItalic"), local("SourceCodePro-BoldItalic"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-BoldItalic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-BoldItalic.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+      src: local("Source Code Pro Black"), local("SourceCodePro-Black"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Black.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Black.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: italic;
+      font-weight: 800;
+      font-display: swap;
+      src: local("Source Code Pro BlackItalic"), local("SourceCodePro-BlackItalic"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-BlackItalic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-BlackItalic.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: local("Source Code Pro Medium"), local("SourceCodePro-Medium"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Medium.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Medium.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: italic;
+      font-weight: 500;
+      font-display: swap;
+      src: local("Source Code Pro MediumItalic"), local("SourceCodePro-MediumItalic"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-MediumItalic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-MediumItalic.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: local("Source Code Pro Regular"), local("SourceCodePro-Regular"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Regular.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Regular.woff?v=3.19") format("woff");
+    }
+
+    @font-face {
+      font-family: 'gitbook-code-font';
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: local("Source Code Pro Italic"), local("SourceCodePro-Italic"), url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Italic.woff2?v=3.19") format("woff2"),
+        url("https://app.gitbook.com/public/fonts/SourceCodePro/SourceCodePro-Italic.woff?v=3.19") format("woff");
+    }
+  </style>
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/markup.lazy-WGG2PV2S.min.js">
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/python.lazy-334CPGSR.min.js">
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/ruby.lazy-7RUEUMVU.min.js">
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/javascript.lazy-SHFKRNY6.min.js">
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/markup-templating.lazy-3E7CK3WO.min.js">
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/css.lazy-FZGPVMW3.min.js">
+  <link rel="modulepreload" href="https://app.gitbook.com/public/app/chunks/php.lazy-QCPC7WVJ.min.js">
+  <script type="module" defer=""
+    src="https://app.gitbook.com/public/app/public-CZV4XFHL.min.js?v=10.9.361-c8faa2c5590b8c0c4a23cc2a9f7460f88a26eab3-5423969453"></script>
+  <link as="style" rel="preload"
+    href="https://app.gitbook.com/public/app/public-UAEK2C63.css?v=10.9.361-c8faa2c5590b8c0c4a23cc2a9f7460f88a26eab3-5423969453">
+  <link rel="stylesheet"
+    href="https://app.gitbook.com/public/app/public-UAEK2C63.css?v=10.9.361-c8faa2c5590b8c0c4a23cc2a9f7460f88a26eab3-5423969453">
+  <style id="react-native-stylesheet">
+    [stylesheet-group="0"] {}
+
+    body {
+      margin: 0;
+    }
+
+    button::-moz-focus-inner,
+    input::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
+
+    html {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    input::-webkit-search-cancel-button,
+    input::-webkit-search-decoration,
+    input::-webkit-search-results-button,
+    input::-webkit-search-results-decoration {
+      display: none;
+    }
+
+    [stylesheet-group="1"] {}
+
+    .css-11aywtz {
+      -moz-appearance: textfield;
+      -webkit-appearance: none;
+      background-color: rgba(0, 0, 0, 0.00);
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      border: 0 solid black;
+      box-sizing: border-box;
+      font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0px;
+      padding: 0px;
+      resize: none;
+    }
+
+    .css-175oi2r {
+      align-items: stretch;
+      background-color: rgba(0, 0, 0, 0.00);
+      border: 0 solid black;
+      box-sizing: border-box;
+      display: flex;
+      flex-basis: auto;
+      flex-direction: column;
+      flex-shrink: 0;
+      list-style: none;
+      margin: 0px;
+      min-height: 0px;
+      min-width: 0px;
+      padding: 0px;
+      position: relative;
+      text-decoration: none;
+      z-index: 0;
+    }
+
+    .css-1qaijid {
+      background-color: rgba(0, 0, 0, 0.00);
+      border: 0 solid black;
+      box-sizing: border-box;
+      color: inherit;
+      display: inline;
+      font: inherit;
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      text-align: inherit;
+      text-decoration: none;
+      white-space: inherit;
+      word-wrap: break-word;
+    }
+
+    .css-1rynq56 {
+      background-color: rgba(0, 0, 0, 0.00);
+      border: 0 solid black;
+      box-sizing: border-box;
+      color: rgba(0, 0, 0, 1.00);
+      display: inline;
+      font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      text-align: inherit;
+      text-decoration: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .css-9pa8cd {
+      bottom: 0px;
+      height: 100%;
+      left: 0px;
+      opacity: 0;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 100%;
+      z-index: -1;
+    }
+
+    [stylesheet-group="2"] {}
+
+    .r-1064s9p {
+      margin: 4px;
+    }
+
+    .r-11mg6pl {
+      border-bottom-color: rgba(255, 255, 255, 1.00);
+      border-left-color: rgba(255, 255, 255, 1.00);
+      border-right-color: rgba(255, 255, 255, 1.00);
+      border-top-color: rgba(255, 255, 255, 1.00);
+    }
+
+    .r-13awgt0 {
+      flex: 1;
+    }
+
+    .r-13fxbef {
+      border-bottom-color: rgba(211, 61, 61, 1.00);
+      border-left-color: rgba(211, 61, 61, 1.00);
+      border-right-color: rgba(211, 61, 61, 1.00);
+      border-top-color: rgba(211, 61, 61, 1.00);
+    }
+
+    .r-1471scf {
+      display: inline;
+    }
+
+    .r-156hn8l {
+      border-bottom-color: rgba(211, 220, 228, 1.00);
+      border-left-color: rgba(211, 220, 228, 1.00);
+      border-right-color: rgba(211, 220, 228, 1.00);
+      border-top-color: rgba(211, 220, 228, 1.00);
+    }
+
+    .r-17gur6a {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+
+    .r-18c69zk {
+      border-bottom-left-radius: 100px;
+      border-bottom-right-radius: 100px;
+      border-top-left-radius: 100px;
+      border-top-right-radius: 100px;
+    }
+
+    .r-190qawg {
+      border-bottom-color: rgba(227, 232, 237, 1.00);
+      border-left-color: rgba(227, 232, 237, 1.00);
+      border-right-color: rgba(227, 232, 237, 1.00);
+      border-top-color: rgba(227, 232, 237, 1.00);
+    }
+
+    .r-19dn8jc {
+      border-bottom-color: rgba(104, 60, 17, 1.00);
+      border-left-color: rgba(104, 60, 17, 1.00);
+      border-right-color: rgba(104, 60, 17, 1.00);
+      border-top-color: rgba(104, 60, 17, 1.00);
+    }
+
+    .r-19nkufj {
+      border-bottom-color: rgba(40, 49, 67, 1.00);
+      border-left-color: rgba(40, 49, 67, 1.00);
+      border-right-color: rgba(40, 49, 67, 1.00);
+      border-top-color: rgba(40, 49, 67, 1.00);
+    }
+
+    .r-1awa8pu {
+      border-bottom-color: rgba(101, 119, 134, 1.00);
+      border-left-color: rgba(101, 119, 134, 1.00);
+      border-right-color: rgba(101, 119, 134, 1.00);
+      border-top-color: rgba(101, 119, 134, 1.00);
+    }
+
+    .r-1c57tb8 {
+      border-bottom-left-radius: 34px;
+      border-bottom-right-radius: 34px;
+      border-top-left-radius: 34px;
+      border-top-right-radius: 34px;
+    }
+
+    .r-1d4xg89 {
+      border-bottom-color: rgba(170, 184, 194, 1.00);
+      border-left-color: rgba(170, 184, 194, 1.00);
+      border-right-color: rgba(170, 184, 194, 1.00);
+      border-top-color: rgba(170, 184, 194, 1.00);
+    }
+
+    .r-1dqxon3 {
+      overflow-x: auto;
+      overflow-y: auto;
+    }
+
+    .r-1edjr5w {
+      padding: 80px;
+    }
+
+    .r-1f0042m {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .r-1fdo3w0 {
+      margin: 16px;
+    }
+
+    .r-1fuqb1j {
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+    }
+
+    .r-1j16mh1 {
+      border-bottom-left-radius: 100%;
+      border-bottom-right-radius: 100%;
+      border-top-left-radius: 100%;
+      border-top-right-radius: 100%;
+    }
+
+    .r-1jkafct {
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+
+    .r-1jyn79y {
+      border-bottom-color: rgba(0, 150, 136, 1.00);
+      border-left-color: rgba(0, 150, 136, 1.00);
+      border-right-color: rgba(0, 150, 136, 1.00);
+      border-top-color: rgba(0, 150, 136, 1.00);
+    }
+
+    .r-1p0fg95 {
+      border-bottom-color: rgba(245, 247, 249, 1.00);
+      border-left-color: rgba(245, 247, 249, 1.00);
+      border-right-color: rgba(245, 247, 249, 1.00);
+      border-top-color: rgba(245, 247, 249, 1.00);
+    }
+
+    .r-1phboty {
+      border-bottom-style: solid;
+      border-left-style: solid;
+      border-right-style: solid;
+      border-top-style: solid;
+    }
+
+    .r-1rwzld0 {
+      border-bottom-color: rgba(11, 79, 47, 1.00);
+      border-left-color: rgba(11, 79, 47, 1.00);
+      border-right-color: rgba(11, 79, 47, 1.00);
+      border-top-color: rgba(11, 79, 47, 1.00);
+    }
+
+    .r-1tw7wh {
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+    }
+
+    .r-1udh08x {
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    .r-1w1o3af {
+      border-bottom-color: rgba(251, 232, 240, 1.00);
+      border-left-color: rgba(251, 232, 240, 1.00);
+      border-right-color: rgba(251, 232, 240, 1.00);
+      border-top-color: rgba(251, 232, 240, 1.00);
+    }
+
+    .r-1wgstfn {
+      border-bottom-style: none;
+      border-left-style: none;
+      border-right-style: none;
+      border-top-style: none;
+    }
+
+    .r-1x6f3t4 {
+      border-bottom-color: rgba(236, 243, 255, 1.00);
+      border-left-color: rgba(236, 243, 255, 1.00);
+      border-right-color: rgba(236, 243, 255, 1.00);
+      border-top-color: rgba(236, 243, 255, 1.00);
+    }
+
+    .r-1xc7w19 {
+      border-bottom-color: rgba(0, 0, 0, 1.00);
+      border-left-color: rgba(0, 0, 0, 1.00);
+      border-right-color: rgba(0, 0, 0, 1.00);
+      border-top-color: rgba(0, 0, 0, 1.00);
+    }
+
+    .r-1xfd6ze {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .r-1xutcf9 {
+      padding: 40px;
+    }
+
+    .r-1xxtai4 {
+      border-bottom-color: rgba(220, 240, 227, 1.00);
+      border-left-color: rgba(220, 240, 227, 1.00);
+      border-right-color: rgba(220, 240, 227, 1.00);
+      border-top-color: rgba(220, 240, 227, 1.00);
+    }
+
+    .r-1yadl64 {
+      border-bottom-width: 0px;
+      border-left-width: 0px;
+      border-right-width: 0px;
+      border-top-width: 0px;
+    }
+
+    .r-42olwf {
+      border-bottom-color: rgba(0, 0, 0, 0.00);
+      border-left-color: rgba(0, 0, 0, 0.00);
+      border-right-color: rgba(0, 0, 0, 0.00);
+      border-top-color: rgba(0, 0, 0, 0.00);
+    }
+
+    .r-4a18lf {
+      border-bottom-color: rgba(255, 0, 0, 1.00);
+      border-left-color: rgba(255, 0, 0, 1.00);
+      border-right-color: rgba(255, 0, 0, 1.00);
+      border-top-color: rgba(255, 0, 0, 1.00);
+    }
+
+    .r-4k9ki3 {
+      border-bottom-color: rgba(92, 188, 124, 1.00);
+      border-left-color: rgba(92, 188, 124, 1.00);
+      border-right-color: rgba(92, 188, 124, 1.00);
+      border-top-color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-4qtqp9 {
+      display: inline-block;
+    }
+
+    .r-60ke3l {
+      border-bottom-color: rgba(0, 128, 0, 1.00);
+      border-left-color: rgba(0, 128, 0, 1.00);
+      border-right-color: rgba(0, 128, 0, 1.00);
+      border-top-color: rgba(0, 128, 0, 1.00);
+    }
+
+    .r-6578ry {
+      margin: 40px;
+    }
+
+    .r-6koalj {
+      display: flex;
+    }
+
+    .r-6ncur5 {
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+    }
+
+    .r-6t2glc {
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+    }
+
+    .r-9x6qib {
+      border-bottom-color: rgba(204, 214, 221, 1.00);
+      border-left-color: rgba(204, 214, 221, 1.00);
+      border-right-color: rgba(204, 214, 221, 1.00);
+      border-top-color: rgba(204, 214, 221, 1.00);
+    }
+
+    .r-ancj0c {
+      border-bottom-color: rgba(218, 212, 255, 1.00);
+      border-left-color: rgba(218, 212, 255, 1.00);
+      border-right-color: rgba(218, 212, 255, 1.00);
+      border-top-color: rgba(218, 212, 255, 1.00);
+    }
+
+    .r-by8dw1 {
+      margin: 24px;
+    }
+
+    .r-cdmcib {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+
+    .r-cpet4d {
+      border-bottom-left-radius: 999px;
+      border-bottom-right-radius: 999px;
+      border-top-left-radius: 999px;
+      border-top-right-radius: 999px;
+    }
+
+    .r-crgep1 {
+      margin: 0px;
+    }
+
+    .r-d045u9 {
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+      border-right-width: 2px;
+      border-top-width: 2px;
+    }
+
+    .r-d23pfw {
+      padding: 24px;
+    }
+
+    .r-dta0w2 {
+      flex: 2;
+    }
+
+    .r-edyy15 {
+      padding: 8px;
+    }
+
+    .r-eg6o18 {
+      border-bottom-style: dashed;
+      border-left-style: dashed;
+      border-right-style: dashed;
+      border-top-style: dashed;
+    }
+
+    .r-egco7n {
+      border-bottom-color: rgba(253, 195, 137, 1.00);
+      border-left-color: rgba(253, 195, 137, 1.00);
+      border-right-color: rgba(253, 195, 137, 1.00);
+      border-top-color: rgba(253, 195, 137, 1.00);
+    }
+
+    .r-fx7oqy {
+      border-bottom-color: rgba(0, 0, 255, 1.00);
+      border-left-color: rgba(0, 0, 255, 1.00);
+      border-right-color: rgba(0, 0, 255, 1.00);
+      border-top-color: rgba(0, 0, 255, 1.00);
+    }
+
+    .r-gav1f {
+      border-bottom-color: rgba(24, 28, 31, 1.00);
+      border-left-color: rgba(24, 28, 31, 1.00);
+      border-right-color: rgba(24, 28, 31, 1.00);
+      border-top-color: rgba(24, 28, 31, 1.00);
+    }
+
+    .r-hvic4v {
+      display: none;
+    }
+
+    .r-hwh8t1 {
+      margin: 8px;
+    }
+
+    .r-jqra5g {
+      border-bottom-color: rgba(55, 65, 81, 1.00);
+      border-left-color: rgba(55, 65, 81, 1.00);
+      border-right-color: rgba(55, 65, 81, 1.00);
+      border-top-color: rgba(55, 65, 81, 1.00);
+    }
+
+    .r-jxo161 {
+      border-bottom-color: rgba(255, 204, 203, 1.00);
+      border-left-color: rgba(255, 204, 203, 1.00);
+      border-right-color: rgba(255, 204, 203, 1.00);
+      border-top-color: rgba(255, 204, 203, 1.00);
+    }
+
+    .r-kdyh1x {
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    .r-krxsd3 {
+      display: -webkit-box;
+    }
+
+    .r-m2nopt {
+      border-bottom-color: rgba(43, 46, 57, 1.00);
+      border-left-color: rgba(43, 46, 57, 1.00);
+      border-right-color: rgba(43, 46, 57, 1.00);
+      border-top-color: rgba(43, 46, 57, 1.00);
+    }
+
+    .r-m7id7e {
+      flex: unset;
+    }
+
+    .r-m9k8lk {
+      border-bottom-color: rgba(223, 255, 240, 1.00);
+      border-left-color: rgba(223, 255, 240, 1.00);
+      border-right-color: rgba(223, 255, 240, 1.00);
+      border-top-color: rgba(223, 255, 240, 1.00);
+    }
+
+    .r-nsbfu8 {
+      padding: 16px;
+    }
+
+    .r-p4pd8u {
+      border-bottom-color: rgba(36, 42, 49, 1.00);
+      border-left-color: rgba(36, 42, 49, 1.00);
+      border-right-color: rgba(36, 42, 49, 1.00);
+      border-top-color: rgba(36, 42, 49, 1.00);
+    }
+
+    .r-qwd59z {
+      border-bottom-left-radius: 1px;
+      border-bottom-right-radius: 1px;
+      border-top-left-radius: 1px;
+      border-top-right-radius: 1px;
+    }
+
+    .r-rs99b7 {
+      border-bottom-width: 1px;
+      border-left-width: 1px;
+      border-right-width: 1px;
+      border-top-width: 1px;
+    }
+
+    .r-t60dpp {
+      padding: 0px;
+    }
+
+    .r-texgdz {
+      margin: 80px;
+    }
+
+    .r-tuq35u {
+      padding: 4px;
+    }
+
+    .r-tyhe3k {
+      border-bottom-left-radius: 64px;
+      border-bottom-right-radius: 64px;
+      border-top-left-radius: 64px;
+      border-top-right-radius: 64px;
+    }
+
+    .r-xoduu5 {
+      display: inline-flex;
+    }
+
+    .r-xyw6el {
+      padding: 12px;
+    }
+
+    .r-ywje51 {
+      margin: auto;
+    }
+
+    .r-z2wwpe {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    .r-zhp00w {
+      padding: 2px;
+    }
+
+    [stylesheet-group="2.1"] {}
+
+    .r-10x3wzx {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    .r-11yq8vr {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .r-1e081e0 {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .r-1guathk {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .r-1h4fu65 {
+      padding-bottom: 24px;
+      padding-top: 24px;
+    }
+
+    .r-1hy1u7s {
+      margin-left: 24px;
+      margin-right: 24px;
+    }
+
+    .r-1isdzm1 {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+
+    .r-1jgb5lz {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .r-1p02zvt {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    .r-1p4rafz {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+
+    .r-1p6iasa {
+      margin-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    .r-1pn2ns4 {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .r-1r5su4o {
+      margin-bottom: 16px;
+      margin-top: 16px;
+    }
+
+    .r-1unineu {
+      margin-bottom: 40px;
+      margin-top: 40px;
+    }
+
+    .r-1vvnge1 {
+      padding-bottom: 2px;
+      padding-top: 2px;
+    }
+
+    .r-1w3m5we {
+      padding-bottom: 80px;
+      padding-top: 80px;
+    }
+
+    .r-1ybube5 {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+
+    .r-1ydw1k6 {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
+    .r-1yzf0co {
+      padding-bottom: 16px;
+      padding-top: 16px;
+    }
+
+    .r-4amgru {
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .r-5njf8e {
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+    .r-5wp0in {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .r-c8eef1 {
+      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+
+    .r-g4w12b {
+      padding-left: 94px;
+      padding-right: 94px;
+    }
+
+    .r-g8va3u {
+      margin-left: 80px;
+      margin-right: 80px;
+    }
+
+    .r-lz04qo {
+      margin-left: -4px;
+      margin-right: -4px;
+    }
+
+    .r-mgi0kt {
+      margin-left: -24px;
+      margin-right: -24px;
+    }
+
+    .r-mk0yit {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .r-mvpalk {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    .r-oyd9sg {
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+
+    .r-pw2am6 {
+      margin-bottom: 24px;
+      margin-top: 24px;
+    }
+
+    .r-r0h9e2 {
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+
+    .r-r26ds4 {
+      margin-bottom: 80px;
+      margin-top: 80px;
+    }
+
+    .r-rjfia {
+      padding-bottom: 0px;
+      padding-top: 0px;
+    }
+
+    .r-s1qlax {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    .r-ymttw5 {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    [stylesheet-group="2.2"] {}
+
+    .r-100vyta {
+      margin-top: 7px;
+    }
+
+    .r-1029d6i {
+      top: -24px;
+    }
+
+    .r-105ug2t {
+      pointer-events: auto !important;
+    }
+
+    .r-109y4c4 {
+      height: 1px;
+    }
+
+    .r-10drpc {
+      color: rgba(0, 73, 215, 1.00);
+    }
+
+    .r-10kz8ia {
+      color: rgba(228, 79, 137, 1.00);
+    }
+
+    .r-10ptun7 {
+      height: 16px;
+    }
+
+    .r-10pyoum {
+      color: rgba(5, 5, 5, 1.00);
+    }
+
+    .r-10sqg0u {
+      margin-bottom: 1px;
+    }
+
+    .r-10x49cs {
+      font-size: 10px;
+    }
+
+    .r-10xqauy {
+      padding-top: env(safe-area-inset-top);
+    }
+
+    .r-111w7nw {
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.69);
+    }
+
+    .r-113qch9 {
+      cursor: auto;
+    }
+
+    .r-116b19x {
+      padding-left: 40px;
+    }
+
+    .r-119vxgs {
+      border-top-style: dashed;
+    }
+
+    .r-11c0sde {
+      margin-top: 24px;
+    }
+
+    .r-11f42r {
+      height: 314px;
+    }
+
+    .r-11g3r6m {
+      padding-right: 24px;
+    }
+
+    .r-11j9u27 {
+      visibility: hidden;
+    }
+
+    .r-11mo1y0 {
+      margin-bottom: 7px;
+    }
+
+    .r-11mpjr4 {
+      background-color: rgba(223, 223, 223, 1.00);
+    }
+
+    .r-11udlyb {
+      background-color: rgba(0, 150, 136, 1.00);
+    }
+
+    .r-11vxtcu {
+      background-color: rgba(211, 220, 228, 1.00);
+    }
+
+    .r-11wrixw {
+      margin-left: 0px;
+    }
+
+    .r-11yh6sk {
+      overflow-x: hidden;
+    }
+
+    .r-11ys0m {
+      -webkit-break-before: auto;
+      break-before: auto;
+    }
+
+    .r-123mryc {
+      color: rgba(185, 94, 4, 1.00);
+    }
+
+    .r-127358a {
+      animation-name: r-9p3sdl;
+    }
+
+    .r-127gp16 {
+      max-width: 150px;
+    }
+
+    .r-12dqhl9 {
+      height: calc(100vh - 80px);
+    }
+
+    .r-12mrs02 {
+      object-fit: contain;
+    }
+
+    .r-12v2sbk {
+      background-color: rgba(36, 42, 49, 0.50);
+    }
+
+    .r-12vffkv>* {
+      pointer-events: auto;
+    }
+
+    .r-12vffkv {
+      pointer-events: none !important;
+    }
+
+    .r-12ym1je {
+      width: 18px;
+    }
+
+    .r-12zb1j4 {
+      margin-right: 7px;
+    }
+
+    .r-135wba7 {
+      line-height: 24px;
+    }
+
+    .r-13hce6t {
+      margin-left: 4px;
+    }
+
+    .r-13i40vn {
+      box-shadow: 0px 12px 13px rgba(0, 0, 0, 0.02);
+    }
+
+    .r-13i4ljo {
+      width: 172px;
+    }
+
+    .r-13l2t4g {
+      border-right-width: 1px;
+    }
+
+    .r-13ll0g2 {
+      color: rgba(10, 48, 105, 1.00);
+    }
+
+    .r-13lvk87 {
+      margin-left: 110px;
+    }
+
+    .r-13qz1uu {
+      width: 100%;
+    }
+
+    .r-13tjlyg {
+      transition-duration: 0.1s;
+    }
+
+    .r-13yce4e {
+      border-top-width: 0px;
+    }
+
+    .r-142tt33 {
+      -webkit-text-decoration-line: line-through;
+      text-decoration-line: line-through;
+    }
+
+    .r-144uupt {
+      left: 2px;
+    }
+
+    .r-146iojx {
+      max-width: 300px;
+    }
+
+    .r-1472mwg {
+      height: 24px;
+    }
+
+    .r-14792hc {
+      left: -64px;
+    }
+
+    .r-14bkmb3 {
+      bottom: -3px;
+    }
+
+    .r-14eup4l {
+      top: 3px;
+    }
+
+    .r-14gqq1x {
+      margin-top: 4px;
+    }
+
+    .r-14lw9ot {
+      background-color: rgba(255, 255, 255, 1.00);
+    }
+
+    .r-14sbq61 {
+      background-color: rgba(33, 150, 243, 1.00);
+    }
+
+    .r-14utu6a {
+      line-height: 8px;
+    }
+
+    .r-14vq63g {
+      background-color: rgba(3, 58, 22, 1.00);
+    }
+
+    .r-14yzgew {
+      line-height: 18px;
+    }
+
+    .r-150rngu {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .r-157h22z {
+      background-color: rgba(45, 50, 58, 1.00);
+    }
+
+    .r-15czi30 {
+      background-image: linear-gradient(90deg, #e44f89, #c62c68);
+    }
+
+    .r-15d4u6f {
+      background-color: rgba(145, 176, 240, 1.00);
+    }
+
+    .r-15g7tld {
+      margin-bottom: 80px;
+    }
+
+    .r-15m1z73 {
+      margin-left: 40px;
+    }
+
+    .r-15n4387 {
+      outline-color: #2662d7;
+    }
+
+    .r-15o5oer {
+      bottom: auto;
+    }
+
+    .r-15ysp7h {
+      min-height: 32px;
+    }
+
+    .r-15zivkp {
+      margin-bottom: 4px;
+    }
+
+    .r-16dba41 {
+      font-weight: 400;
+    }
+
+    .r-16l9doz {
+      height: auto;
+    }
+
+    .r-16vg0q1 {
+      max-width: 225px;
+    }
+
+    .r-16y2uox {
+      flex-grow: 1;
+    }
+
+    .r-173mn98 {
+      align-self: flex-end;
+    }
+
+    .r-1777fci {
+      justify-content: center;
+    }
+
+    .r-17bb2tj {
+      animation-duration: 0.75s;
+    }
+
+    .r-17giqoz {
+      box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.52);
+    }
+
+    .r-17grq5a {
+      margin-right: -8px;
+    }
+
+    .r-17leim2 {
+      background-repeat: repeat;
+    }
+
+    .r-17rnw9f {
+      line-height: 30px;
+    }
+
+    .r-17s6mgv {
+      justify-content: flex-end;
+    }
+
+    .r-17tb59b {
+      opacity: 0.7;
+    }
+
+    .r-17tloay {
+      opacity: 0.6;
+    }
+
+    .r-17wrw06 {
+      color: rgba(180, 26, 26, 1.00);
+    }
+
+    .r-184en5c {
+      z-index: 1;
+    }
+
+    .r-18ayb63 {
+      border-right-color: rgba(227, 232, 237, 1.00);
+    }
+
+    .r-18kxxzh {
+      flex-grow: 0;
+    }
+
+    .r-18nhz7w {
+      top: -3px;
+    }
+
+    .r-18p6if4 {
+      border-right-width: 2px;
+    }
+
+    .r-18u37iz {
+      flex-direction: row;
+    }
+
+    .r-18y5qoh {
+      color: rgba(165, 214, 255, 1.00);
+    }
+
+    .r-190thrv {
+      color: rgba(145, 75, 5, 1.00);
+    }
+
+    .r-19554kt {
+      width: 90px;
+    }
+
+    .r-19akecc {
+      color: rgba(175, 245, 180, 1.00);
+    }
+
+    .r-19byhck {
+      flex-basis: 32%;
+    }
+
+    .r-19lq7b1 {
+      top: 16px;
+    }
+
+    .r-19r33im {
+      letter-spacing: 1.2px;
+    }
+
+    .r-19tq15n {
+      margin-top: 80px;
+    }
+
+    .r-19wmn03 {
+      width: 20px;
+    }
+
+    .r-19z077z {
+      touch-action: none;
+    }
+
+    .r-1a3cspq {
+      background-color: rgba(40, 49, 67, 1.00);
+    }
+
+    .r-1abnn5w {
+      animation-play-state: paused;
+    }
+
+    .r-1acpoxo {
+      width: 36px;
+    }
+
+    .r-1aerykh {
+      border-top-color: rgba(211, 220, 228, 1.00);
+    }
+
+    .r-1aockid {
+      width: 40px;
+    }
+
+    .r-1armvtb {
+      font-size: 8px;
+    }
+
+    .r-1awozwy {
+      align-items: center;
+    }
+
+    .r-1axcl7z {
+      border: 1px solid #d3dce4;
+    }
+
+    .r-1ay1djp {
+      animation-duration: 1s;
+    }
+
+    .r-1b00too {
+      background-color: rgba(236, 239, 241, 1.00);
+    }
+
+    .r-1b096ap {
+      border-bottom-color: rgba(36, 42, 49, 1.00);
+    }
+
+    .r-1b1g84l {
+      bottom: -8px;
+    }
+
+    .r-1b3fm86 {
+      background-color: undefined;
+    }
+
+    .r-1b43r93 {
+      font-size: 14px;
+    }
+
+    .r-1bcbbo8 {
+      color: rgba(17, 99, 41, 1.00);
+    }
+
+    .r-1bnj018 {
+      color: rgba(92, 105, 117, 1.00);
+    }
+
+    .r-1bwgafa {
+      -webkit-text-decoration-color: rgba(136, 153, 168, 1.00);
+      text-decoration-color: rgba(136, 153, 168, 1.00);
+    }
+
+    .r-1c681wc {
+      color: rgba(77, 222, 152, 1.00);
+    }
+
+    .r-1c6unfx {
+      forced-color-adjust: none;
+    }
+
+    .r-1ce3o0f {
+      max-height: 80vh;
+    }
+
+    .r-1ceczpf {
+      min-height: 24px;
+    }
+
+    .r-1clhhh9 {
+      -moz-transition-property: all;
+      -webkit-transition-property: all;
+      transition-property: all;
+    }
+
+    .r-1cmwbt1 {
+      gap: 8px;
+    }
+
+    .r-1d09ksm {
+      align-items: baseline;
+    }
+
+    .r-1d2f490 {
+      left: 0px;
+    }
+
+    .r-1d4mawv {
+      margin-right: 4px;
+    }
+
+    .r-1d5kdc7 {
+      flex-direction: column-reverse;
+    }
+
+    .r-1d7fvdj {
+      justify-content: space-evenly;
+    }
+
+    .r-1d9grui {
+      border-bottom-color: rgba(211, 220, 228, 1.00);
+    }
+
+    .r-1ddef8g {
+      -webkit-text-decoration-line: underline;
+      text-decoration-line: underline;
+    }
+
+    .r-1dernwh {
+      height: 70%;
+    }
+
+    .r-1dlgt49 {
+      max-height: 30px;
+    }
+
+    .r-1dmvmgl {
+      background-color: rgba(36, 42, 49, 1.00);
+    }
+
+    .r-1dn12g7 {
+      line-height: 48px;
+    }
+
+    .r-1dpl46z {
+      border-bottom-right-radius: 4px;
+    }
+
+    .r-1dqbpge {
+      cursor: text;
+    }
+
+    .r-1dumtqg {
+      background-color: rgba(253, 195, 137, 1.00);
+    }
+
+    .r-1efo1hp {
+      border-bottom-color: rgba(43, 46, 57, 1.00);
+    }
+
+    .r-1ei5mc7 {
+      cursor: inherit;
+    }
+
+    .r-1eic64l {
+      color: rgba(198, 44, 104, 1.00);
+    }
+
+    .r-1enij54 {
+      color: rgba(133, 205, 157, 1.00);
+    }
+
+    .r-1enofrn {
+      font-size: 12px;
+    }
+
+    .r-1etz4cy {
+      color: rgba(194, 217, 255, 1.00);
+    }
+
+    .r-1euycsn {
+      flex-direction: row-reverse;
+    }
+
+    .r-1ewcgjf {
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .r-1f2v84d {
+      color: rgba(204, 207, 212, 1.00);
+    }
+
+    .r-1f4ipl0 {
+      left: 29px;
+    }
+
+    .r-1f529hi {
+      line-height: 14px;
+    }
+
+    .r-1fd96xs {
+      padding-left: 50px;
+    }
+
+    .r-1fdih9r {
+      gap: 24px;
+    }
+
+    .r-1fe0xdi {
+      left: 0%;
+    }
+
+    .r-1ff274t {
+      text-align: right;
+    }
+
+    .r-1fi01yr {
+      background-color: rgba(55, 65, 81, 1.00);
+    }
+
+    .r-1fiaf3z {
+      opacity: 0.05;
+    }
+
+    .r-1fo40xd {
+      top: 80px;
+    }
+
+    .r-1fq43b1 {
+      flex-basis: 100%;
+    }
+
+    .r-1g7fiml {
+      height: 30px;
+    }
+
+    .r-1g80fh1 {
+      margin-right: 80px;
+    }
+
+    .r-1ghhsy9 {
+      color: rgba(52, 109, 219, 1.00);
+    }
+
+    .r-1gigy5k {
+      border-bottom-color: rgba(45, 50, 58, 1.00);
+    }
+
+    .r-1glc72y {
+      border-bottom-color: rgba(245, 247, 249, 1.00);
+    }
+
+    .r-1glkqn6 {
+      width: 80px;
+    }
+
+    .r-1h0z5md {
+      justify-content: flex-start;
+    }
+
+    .r-1h815vi {
+      right: 92%;
+    }
+
+    .r-1h8ys4a {
+      padding-top: 4px;
+    }
+
+    .r-1h9q8wt {
+      color: rgba(69, 69, 69, 1.00);
+    }
+
+    .r-1habvwh {
+      align-items: flex-start;
+    }
+
+    .r-1hjwoze {
+      height: 18px;
+    }
+
+    .r-1hlnpa {
+      height: 3px;
+    }
+
+    .r-1hpgsb4 {
+      ;
+    }
+
+    .r-1hqdnve {
+      box-shadow: 0px 0px 4px inset rgba(0, 0, 0, 0.08);
+    }
+
+    .r-1hrvmjx {
+      border-top-color: rgba(55, 65, 81, 1.00);
+    }
+
+    .r-1hvjb8t {
+      padding-right: 4px;
+    }
+
+    .r-1hy97zq {
+      padding-top: 80px;
+    }
+
+    .r-1hycxz {
+      width: 350px;
+    }
+
+    .r-1i6wzkk {
+      -moz-transition-property: opacity;
+      -webkit-transition-property: opacity;
+      transition-property: opacity;
+    }
+
+    .r-1i7sdiz {
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .r-1i93rbr {
+      right: 0%;
+    }
+
+    .r-1ielgck {
+      animation-duration: 300ms;
+    }
+
+    .r-1ifxtd0 {
+      margin-bottom: 16px;
+    }
+
+    .r-1ik5qf4 {
+      max-width: 500px;
+    }
+
+    .r-1iln25a {
+      word-wrap: normal;
+    }
+
+    .r-1ioqa4e {
+      border-top-right-radius: 7px;
+    }
+
+    .r-1ipicw7 {
+      width: 300px;
+    }
+
+    .r-1j7aebl {
+      width: 880px;
+    }
+
+    .r-1janqcz {
+      width: 16px;
+    }
+
+    .r-1jg9483 {
+      width: 8px;
+    }
+
+    .r-1jj8364 {
+      margin-left: auto;
+    }
+
+    .r-1jkjb {
+      margin-left: 8px;
+    }
+
+    .r-1jnzvcq {
+      padding-bottom: 80px;
+    }
+
+    .r-1jocfgc {
+      width: 290px;
+    }
+
+    .r-1jpmnxg {
+      word-wrap: anywhere;
+    }
+
+    .r-1jsra8 {
+      box-shadow: inset 0px 0px 0px 1px #e3e8ed;
+    }
+
+    .r-1jxfwug {
+      border-top-width: 2px;
+    }
+
+    .r-1k1q3bj {
+      max-height: 300px;
+    }
+
+    .r-1k25im9 {
+      height: 26px;
+    }
+
+    .r-1kb76zh {
+      margin-right: 8px;
+    }
+
+    .r-1kf75xu {
+      color: rgba(12, 105, 61, 1.00);
+    }
+
+    .r-1kfrs79 {
+      font-weight: 600;
+    }
+
+    .r-1ki14p2 {
+      top: 10px;
+    }
+
+    .r-1kihuf0 {
+      align-self: center;
+    }
+
+    .r-1kizfxg {
+      border-bottom-color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-1kjq87h {
+      width: 376px;
+    }
+
+    .r-1knl56f {
+      animation-name: r-1hunrpy;
+    }
+
+    .r-1kvn7zp {
+      max-height: 150px;
+    }
+
+    .r-1kx0pzc {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.1), #181c1f);
+    }
+
+    .r-1l0m7dr {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.1), #ffffff);
+    }
+
+    .r-1l7z4oj {
+      padding-bottom: 16px;
+    }
+
+    .r-1l94q7l {
+      box-shadow: inset 0px 0px 1px rgb(0 0 0 / 30%);
+    }
+
+    .r-1ld3bg {
+      top: -4px;
+    }
+
+    .r-1ldzwu0 {
+      animation-timing-function: linear;
+    }
+
+    .r-1ljd8xs {
+      border-left-width: 1px;
+    }
+
+    .r-1lky6n1 {
+      background-color: rgba(227, 232, 237, 1.00);
+    }
+
+    .r-1lnfjr6 {
+      -webkit-background-clip: text;
+    }
+
+    .r-1lnt56z {
+      color: rgba(211, 220, 228, 1.00);
+    }
+
+    .r-1loqt21 {
+      cursor: pointer;
+    }
+
+    .r-1m04atk {
+      padding-left: 8px;
+    }
+
+    .r-1m4drjs {
+      top: -6px;
+    }
+
+    .r-1maqer6 {
+      max-width: 860px;
+    }
+
+    .r-1md8qp7 {
+      right: -40px;
+    }
+
+    .r-1mdbw0j {
+      padding-bottom: 0px;
+    }
+
+    .r-1mdsxwj {
+      color: rgba(237, 159, 81, 1.00);
+    }
+
+    .r-1mgmw1x {
+      background-image: linear-gradient(90deg, #5f45ff, #442fc8);
+    }
+
+    .r-1mhb1uw {
+      width: 42px;
+    }
+
+    .r-1mhtwjo {
+      left: -3px;
+    }
+
+    .r-1mlwlqe {
+      flex-basis: auto;
+    }
+
+    .r-1mnahxq {
+      margin-top: 0px;
+    }
+
+    .r-1moh23t {
+      bottom: 16px;
+    }
+
+    .r-1mrlafo {
+      background-position: 0;
+    }
+
+    .r-1ms9ukt {
+      bottom: -5px;
+    }
+
+    .r-1mtwht8 {
+      color: rgba(210, 168, 255, 1.00);
+    }
+
+    .r-1muvv40 {
+      animation-iteration-count: infinite;
+    }
+
+    .r-1n20pny {
+      width: 140px;
+    }
+
+    .r-1n6k3lk {
+      color: rgba(36, 42, 49, 1.00);
+    }
+
+    .r-1na1l7e {
+      animation-play-state: running;
+    }
+
+    .r-1nf4jbm {
+      color: rgba(59, 69, 78, 1.00);
+    }
+
+    .r-1niwhzg {
+      background-color: rgba(0, 0, 0, 0.00);
+    }
+
+    .r-1nj16ve {
+      left: -10px;
+    }
+
+    .r-1nlw0im {
+      bottom: 8px;
+    }
+
+    .r-1nq9s1i {
+      color: rgba(145, 176, 240, 1.00);
+    }
+
+    .r-1ny4l3l {
+      outline-style: none;
+    }
+
+    .r-1o9jcv2 {
+      max-width: 660px;
+    }
+
+    .r-1ocf4r9 {
+      scroll-snap-type: y mandatory;
+    }
+
+    .r-1odw9d6 {
+      background-color: rgba(20, 23, 28, 1.00);
+    }
+
+    .r-1oec5bt {
+      opacity: 0.2;
+    }
+
+    .r-1oep0n4 {
+      left: -12px;
+    }
+
+    .r-1ois7e2 {
+      color: rgba(55, 65, 81, 1.00);
+    }
+
+    .r-1or9b2r {
+      height: 10px;
+    }
+
+    .r-1osy6ei {
+      color: rgba(255, 220, 215, 1.00);
+    }
+
+    .r-1oszu61 {
+      align-items: stretch;
+    }
+
+    .r-1otgn73 {
+      touch-action: manipulation;
+    }
+
+    .r-1ow6zhx {
+      margin-left: 16px;
+    }
+
+    .r-1p0dtai {
+      bottom: 0px;
+    }
+
+    .r-1p3vkdf {
+      border-right-color: rgba(45, 50, 58, 1.00);
+    }
+
+    .r-1p5i0ed {
+      bottom: -24px;
+    }
+
+    .r-1p69tiw {
+      border-top-color: rgba(43, 46, 57, 1.00);
+    }
+
+    .r-1peese0 {
+      margin-bottom: 24px;
+    }
+
+    .r-1ph75f1 {
+      height: 80px;
+    }
+
+    .r-1pi2tsx {
+      height: 100%;
+    }
+
+    .r-1pl7oy7 {
+      min-height: 48px;
+    }
+
+    .r-1pmet0j {
+      outline-color: #597c65;
+    }
+
+    .r-1pos5eu {
+      vertical-align: middle;
+    }
+
+    .r-1ptriwd {
+      right: 2px;
+    }
+
+    .r-1pyaxff {
+      padding-right: 8px;
+    }
+
+    .r-1q142lx {
+      flex-shrink: 0;
+    }
+
+    .r-1q3nxaj {
+      z-index: 300;
+    }
+
+    .r-1q59sa6 {
+      background-color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-1q6j1ae {
+      right: -88px;
+    }
+
+    .r-1q6rxnj {
+      padding-right: 110px;
+    }
+
+    .r-1q77oe7 {
+      background-color: rgba(171, 183, 202, 1.00);
+    }
+
+    .r-1q9jyb7 {
+      -webkit-filter: blur(16px) contrast(110%) hue-rotate(10deg) brightness(1.2) saturate(1.2);
+      filter: blur(16px) contrast(110%) hue-rotate(10deg) brightness(1.2) saturate(1.2);
+    }
+
+    .r-1qc3rpd {
+      transform: scaleY(-1);
+    }
+
+    .r-1qd0xha {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .r-1qdbj55 {
+      animation-name: r-ndfo3d;
+    }
+
+    .r-1qefu2b {
+      right: -3px;
+    }
+
+    .r-1qhn6m8 {
+      padding-left: 16px;
+    }
+
+    .r-1quu1zo {
+      ;
+    }
+
+    .r-1r0uwd5 {
+      color: rgba(255, 166, 87, 1.00);
+    }
+
+    .r-1r74h94 {
+      left: 8px;
+    }
+
+    .r-1r8g8re {
+      height: 36px;
+    }
+
+    .r-1rasi3h {
+      color: rgba(136, 153, 168, 1.00);
+    }
+
+    .r-1rbj2e8 {
+      outline-color: #f5f7f9;
+    }
+
+    .r-1rdth4h {
+      border-left-color: rgba(55, 65, 81, 1.00);
+    }
+
+    .r-1rho1gz {
+      box-shadow: 0px 12px 13px rgba(0, 0, 0, 0.12);
+    }
+
+    .r-1rkdych {
+      max-width: 1040px;
+    }
+
+    .r-1rla0r3 {
+      background-image: linear-gradient(90deg, #d33d3d, #b41a1a);
+    }
+
+    .r-1rnoaur {
+      overflow-y: auto;
+    }
+
+    .r-1ro0kt6 {
+      flex-basis: 0%;
+    }
+
+    .r-1ro7rbe {
+      right: 100%;
+    }
+
+    .r-1rttkqs {
+      width: 400px;
+    }
+
+    .r-1rxb9bi {
+      row-gap: 4px;
+    }
+
+    .r-1s3egr7 {
+      z-index: 100;
+    }
+
+    .r-1s8p94s {
+      max-width: 832px;
+    }
+
+    .r-1saw2mv {
+      border-left-color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-1sc18lr {
+      padding-bottom: 88px;
+    }
+
+    .r-1sncvnh {
+      transform: translateZ(0px);
+    }
+
+    .r-1sxrcry {
+      background-size: auto;
+    }
+
+    .r-1t2qqvi {
+      flex-basis: 50%;
+    }
+
+    .r-1t7uo4s {
+      object-fit: cover;
+    }
+
+    .r-1t8m4kl {
+      text-shadow: 0px 0px 3px rgba(36, 42, 49, 1.00);
+    }
+
+    .r-1ta3fxp {
+      -webkit-column-gap: 8px;
+      column-gap: 8px;
+    }
+
+    .r-1tazni7 {
+      cursor: not-allowed;
+    }
+
+    .r-1ts5s6y {
+      aspect-ratio: 1.7777777777777777;
+    }
+
+    .r-1ttybm1 {
+      border-top-color: rgba(45, 50, 58, 1.00);
+    }
+
+    .r-1ty4vvm {
+      left: 40px;
+    }
+
+    .r-1tymxbh {
+      box-shadow: 5px 0px 7px rgba(36, 42, 49, 0.60);
+    }
+
+    .r-1u8kdu {
+      bottom: 24px;
+    }
+
+    .r-1ua3vzd {
+      background-color: rgba(223, 255, 240, 1.00);
+    }
+
+    .r-1ub1aon {
+      transform: translateY(100%);
+    }
+
+    .r-1udbk01 {
+      text-overflow: ellipsis;
+    }
+
+    .r-1ufdtu9 {
+      background-image: linear-gradient(270deg, #e3e8ed 10%, #f5f7f9, #e3e8ed 90%);
+    }
+
+    .r-1ufr4wv {
+      z-index: 9;
+    }
+
+    .r-1ug9s38 {
+      box-shadow: inset 0px 0px 0px 1px #374151;
+    }
+
+    .r-1ui5ee8 {
+      font-size: 32px;
+    }
+
+    .r-1ul06mb {
+      margin-left: 32px;
+    }
+
+    .r-1ulgld5 {
+      color: rgba(255, 123, 114, 1.00);
+    }
+
+    .r-1uql0sn {
+      top: -1.2em;
+    }
+
+    .r-1ur9v65 {
+      padding-top: 40px;
+    }
+
+    .r-1ut4w64 {
+      margin-bottom: -1px;
+    }
+
+    .r-1uwte3a {
+      padding-bottom: 40px;
+    }
+
+    .r-1uypc71 {
+      animation-timing-function: ease-in;
+    }
+
+    .r-1v2oles {
+      top: 50%;
+    }
+
+    .r-1v4p587 {
+      border-bottom-color: rgba(24, 28, 31, 1.00);
+    }
+
+    .r-1v6e3re {
+      min-width: 48px;
+    }
+
+    .r-1v7fmog {
+      background-color: rgba(236, 243, 255, 1.00);
+    }
+
+    .r-1v7sw2p {
+      background-size: 50% 80px;
+    }
+
+    .r-1vamr63 {
+      max-width: 720px;
+    }
+
+    .r-1vckr1u {
+      background-color: rgba(245, 247, 249, 1.00);
+    }
+
+    .r-1vex5ub {
+      color: rgba(68, 47, 200, 1.00);
+    }
+
+    .r-1vo7ria {
+      color: rgba(38, 98, 215, 1.00);
+    }
+
+    .r-1vutw0s {
+      background-color: rgba(103, 6, 12, 1.00);
+    }
+
+    .r-1vz48go {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1), #181c1f);
+    }
+
+    .r-1vzi8xi {
+      vertical-align: middle;
+    }
+
+    .r-1w2pmg {
+      height: 0px;
+    }
+
+    .r-1w6e6rj {
+      flex-wrap: wrap;
+    }
+
+    .r-1wb8bfx {
+      text-decoration-thickness: 2px;
+    }
+
+    .r-1wbh5a2 {
+      flex-shrink: 1;
+    }
+
+    .r-1wezhl {
+      margin-left: 80px;
+    }
+
+    .r-1wfhzrg {
+      height: 120px;
+    }
+
+    .r-1wghi3f {
+      top: -8px;
+    }
+
+    .r-1wtj0ep {
+      justify-content: space-between;
+    }
+
+    .r-1wv73ep {
+      align-self: baseline;
+    }
+
+    .r-1ww30s9 {
+      max-width: 30px;
+    }
+
+    .r-1wyyakw {
+      z-index: -1;
+    }
+
+    .r-1wzrnnt {
+      margin-top: 16px;
+    }
+
+    .r-1x35g6 {
+      font-size: 24px;
+    }
+
+    .r-1xbve24 {
+      height: 6px;
+    }
+
+    .r-1xc5h7i {
+      color: rgba(62, 87, 70, 1.00);
+    }
+
+    .r-1xcajam {
+      position: fixed;
+    }
+
+    .r-1xnzce8 {
+      -moz-user-select: text;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    .r-1xoqk23 {
+      background-color: rgba(68, 47, 200, 1.00);
+    }
+
+    .r-1y14msn {
+      border-bottom-color: rgba(55, 65, 81, 1.00);
+    }
+
+    .r-1y9xkqr {
+      left: 8%;
+    }
+
+    .r-1yb8zos {
+      background-color: rgba(162, 169, 185, 1.00);
+    }
+
+    .r-1ybp48z {
+      background-image: linear-gradient(90deg, #cc3131, #b41a1a);
+    }
+
+    .r-1ye8kvj {
+      max-width: 600px;
+    }
+
+    .r-1ygmrgt {
+      padding-top: 24px;
+    }
+
+    .r-1ylffjs {
+      -webkit-text-decoration-style: dotted;
+      text-decoration-style: dotted;
+    }
+
+    .r-1yv4afn {
+      border-top-color: rgba(227, 232, 237, 1.00);
+    }
+
+    .r-1yvhtrz {
+      width: 32px;
+    }
+
+    .r-1yxedwg {
+      top: 8px;
+    }
+
+    .r-1yyzdbt {
+      border-left-color: rgba(227, 232, 237, 1.00);
+    }
+
+    .r-257lmc {
+      width: 1180px;
+    }
+
+    .r-29dh1f {
+      background-image: linear-gradient(90deg, #eceff1, #e3e8ed);
+    }
+
+    .r-2awvau {
+      min-width: -webkit-max-content;
+      min-width: -moz-max-content;
+      min-width: max-content;
+    }
+
+    .r-2eszeu::-webkit-scrollbar {
+      display: none
+    }
+
+    .r-2eszeu {
+      scrollbar-width: none;
+    }
+
+    .r-2fm7cc {
+      color: rgba(139, 148, 158, 1.00);
+    }
+
+    .r-2fw26j {
+      outline-offset: 0px;
+    }
+
+    .r-2jelyo {
+      background-color: rgba(24, 28, 31, 1.00);
+    }
+
+    .r-2jxp4q {
+      background-color: rgba(34, 39, 46, 1.00);
+    }
+
+    .r-2kxcpj {
+      inset: 0px;
+    }
+
+    .r-2llsf {
+      min-height: 100%;
+    }
+
+    .r-2o02ov {
+      margin-top: 40px;
+    }
+
+    .r-2tavb8 {
+      background-color: rgba(0, 0, 0, 0.60);
+    }
+
+    .r-2zpn8w {
+      -webkit-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .r-30o5oe {
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .r-30qeir {
+      bottom: -4px;
+    }
+
+    .r-36ujnk {
+      font-style: italic;
+    }
+
+    .r-37tt59 {
+      line-height: 32px;
+    }
+
+    .r-3da1kt {
+      height: 8px;
+    }
+
+    .r-3dgjpp {
+      border-top-color: rgba(36, 42, 49, 1.00);
+    }
+
+    .r-3hw5f6 {
+      color: rgba(149, 56, 0, 1.00);
+    }
+
+    .r-3mc0re {
+      right: 8px;
+    }
+
+    .r-3mtglp {
+      row-gap: 16px;
+    }
+
+    .r-3o833n {
+      background-color: rgba(251, 232, 240, 1.00);
+    }
+
+    .r-3pxcvb {
+      border-bottom-color: rgba(255, 255, 255, 1.00);
+    }
+
+    .r-3s2u2q {
+      white-space: nowrap;
+    }
+
+    .r-417010 {
+      z-index: 0;
+    }
+
+    .r-41syhy {
+      max-width: 504px;
+    }
+
+    .r-432wen {
+      width: 3px;
+    }
+
+    .r-44c749 {
+      border-bottom-left-radius: 7px;
+    }
+
+    .r-493a2x {
+      width: 680px;
+    }
+
+    .r-4c3hy2 {
+      max-width: 245px;
+    }
+
+    .r-4d76ec {
+      height: 200px;
+    }
+
+    .r-4dj0k7 {
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .r-4gszlv {
+      background-size: cover;
+    }
+
+    .r-4jz4xt {
+      background-image: linear-gradient(90deg, #374151, #374151);
+    }
+
+    .r-4v7adb {
+      height: 5px;
+    }
+
+    .r-59fiw0 {
+      max-width: 416px;
+    }
+
+    .r-5cpxsl {
+      stroke-width: 3;
+    }
+
+    .r-5is6sd {
+      max-width: 460px;
+    }
+
+    .r-5jl2zp {
+      border-top-color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-5kkj8d {
+      border-top-width: 1px;
+    }
+
+    .r-5ks0hp {
+      right: 3.5px;
+    }
+
+    .r-5kx3fr {
+      page-break-inside: avoid;
+    }
+
+    .r-5n18jz {
+      background-color: rgba(220, 240, 227, 1.00);
+    }
+
+    .r-5oul0u {
+      margin-bottom: 8px;
+    }
+
+    .r-5soawk {
+      width: 10px;
+    }
+
+    .r-5xr8s6 {
+      outline-width: 2px;
+    }
+
+    .r-60emj1 {
+      background-color: rgba(255, 204, 203, 1.00);
+    }
+
+    .r-61z16t {
+      margin-right: 0px;
+    }
+
+    .r-633pao {
+      pointer-events: none !important;
+    }
+
+    .r-6dt33c {
+      opacity: 1;
+    }
+
+    .r-6k4xqk {
+      margin-top: -40px;
+    }
+
+    .r-6t5ypu {
+      border-bottom-left-radius: 4px;
+    }
+
+    .r-6taxm2:-ms-input-placeholder {
+      color: var(--placeholderTextColor);
+      opacity: 1;
+    }
+
+    .r-6taxm2::-moz-placeholder {
+      color: var(--placeholderTextColor);
+      opacity: 1;
+    }
+
+    .r-6taxm2::-webkit-input-placeholder {
+      color: var(--placeholderTextColor);
+      opacity: 1;
+    }
+
+    .r-6taxm2::placeholder {
+      color: var(--placeholderTextColor);
+      opacity: 1;
+    }
+
+    .r-6uxfom {
+      margin-left: 24px;
+    }
+
+    .r-6wscbn {
+      max-width: 252px;
+    }
+
+    .r-73dpzl {
+      border-top-color: rgba(245, 247, 249, 1.00);
+    }
+
+    .r-7b7h2f {
+      left: 100%;
+    }
+
+    .r-7cikom {
+      font-size: inherit;
+    }
+
+    .r-7l9xyp {
+      background-color: rgba(255, 255, 255, 0.20);
+    }
+
+    .r-7q8q6z {
+      cursor: default;
+    }
+
+    .r-7xmw5f {
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+    }
+
+    .r-81rbui {
+      animation-name: r-1ak6360;
+    }
+
+    .r-855088 {
+      border-left-color: rgba(0, 0, 0, 0.00);
+    }
+
+    .r-88pszg {
+      margin-right: 16px;
+    }
+
+    .r-8akbws {
+      -webkit-box-orient: vertical;
+    }
+
+    .r-8d26hk {
+      margin-bottom: 40px;
+    }
+
+    .r-8hc5te {
+      width: 6px;
+    }
+
+    .r-8jwyv6 {
+      -moz-transition: opacity 0.2s ease-in-out;
+      -webkit-transition: opacity 0.2s ease-in-out;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .r-8upyzv {
+      width: 260px;
+    }
+
+    .r-8v5hsd {
+      color: rgba(126, 231, 135, 1.00);
+    }
+
+    .r-9030i9 {
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.99);
+    }
+
+    .r-9111t9 {
+      padding-right: 410px;
+    }
+
+    .r-92ng3h {
+      width: 1px;
+    }
+
+    .r-934yyj {
+      padding-left: 34px;
+    }
+
+    .r-9358xi {
+      background-color: rgba(35, 131, 226, 0.14);
+    }
+
+    .r-95jzfe {
+      padding-top: 16px;
+    }
+
+    .r-97e31f {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .r-97prym {
+      flex-basis: 16px;
+    }
+
+    .r-99m41f {
+      color: rgba(110, 119, 129, 1.00);
+    }
+
+    .r-9aemit {
+      padding-right: 0px;
+    }
+
+    .r-9ji8r7 {
+      transform: translateY(0%);
+    }
+
+    .r-9jpwak {
+      min-width: auto;
+    }
+
+    .r-a21fva {
+      box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.69);
+    }
+
+    .r-a2tzq0 {
+      justify-content: space-around;
+    }
+
+    .r-a5pmau {
+      margin-right: 2px;
+    }
+
+    .r-a9hzal {
+      height: 660px;
+    }
+
+    .r-adacv {
+      min-height: 64px;
+    }
+
+    .r-adyw6z {
+      font-size: 20px;
+    }
+
+    .r-ah5dr5>* {
+      pointer-events: none;
+    }
+
+    .r-ah5dr5 {
+      pointer-events: auto !important;
+    }
+
+    .r-ak0haq {
+      color: rgba(121, 192, 255, 1.00);
+    }
+
+    .r-aqxs90 {
+      -moz-transition: opacity 500ms ease-in, z-index 1000ms ease-in;
+      -webkit-transition: opacity 500ms ease-in, z-index 1000ms ease-in;
+      transition: opacity 500ms ease-in, z-index 1000ms ease-in;
+    }
+
+    .r-b4cb4 {
+      max-height: 440px;
+    }
+
+    .r-b88u0q {
+      font-weight: 700;
+    }
+
+    .r-bcqeeo {
+      min-width: 0px;
+    }
+
+    .r-bcycc3 {
+      box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .r-bgnin {
+      min-width: 150px;
+    }
+
+    .r-bnwqim {
+      position: relative;
+    }
+
+    .r-bsjocg {
+      @media print: [object Object];
+    }
+
+    .r-bta5j5 {
+      right: 40px;
+    }
+
+    .r-buy8e9 {
+      overflow-y: hidden;
+    }
+
+    .r-bv2aro {
+      padding-left: env(safe-area-inset-left);
+    }
+
+    .r-bxaprw {
+      border-top-left-radius: 7px;
+    }
+
+    .r-c68hjy {
+      color: rgba(161, 161, 161, 1.00);
+    }
+
+    .r-cdhzog {
+      padding-right: 80px;
+    }
+
+    .r-cpa5s6 {
+      scroll-snap-align: start;
+    }
+
+    .r-d822y2 {
+      color: rgba(5, 80, 174, 1.00);
+    }
+
+    .r-deolkf {
+      box-sizing: border-box;
+    }
+
+    .r-dflpy8 {
+      height: 1.2em;
+    }
+
+    .r-dkge59 {
+      background-color: rgba(170, 184, 194, 1.00);
+    }
+
+    .r-dnmrzs {
+      max-width: 100%;
+    }
+
+    .r-dse9kg {
+      outline-style: auto;
+    }
+
+    .r-dvzd6p {
+      right: -1px;
+    }
+
+    .r-dvzwsg {
+      border-left-color: rgba(211, 220, 228, 1.00);
+    }
+
+    .r-dwliz8 {
+      border-left-width: 2px;
+    }
+
+    .r-e1k2in {
+      right: 16px;
+    }
+
+    .r-e9uq0i {
+      animation-duration: 1200ms;
+    }
+
+    .r-ea455c {
+      border: none;
+    }
+
+    .r-eafdt9 {
+      transition-duration: 0.15s;
+    }
+
+    .r-ecifi {
+      max-width: 970px;
+    }
+
+    .r-ehq7j7 {
+      background-size: contain;
+    }
+
+    .r-epq5cr {
+      height: 2px;
+    }
+
+    .r-eqo98v {
+      top: 24px;
+    }
+
+    .r-eqz5dr {
+      flex-direction: column;
+    }
+
+    .r-ero68b {
+      min-height: 40px;
+    }
+
+    .r-eu3ka {
+      height: 40px;
+    }
+
+    .r-f4gmv6 {
+      gap: 16px;
+    }
+
+    .r-fa5tdg {
+      max-width: 456px;
+    }
+
+    .r-fdjqy7 {
+      text-align: left;
+    }
+
+    .r-flmpir {
+      border-bottom-color: rgba(40, 49, 67, 1.00);
+    }
+
+    .r-fnigne {
+      border-right-width: 0px;
+    }
+
+    .r-fpub7 {
+      color: rgba(0, 0, 0, 0.00);
+    }
+
+    .r-g3mlsw {
+      animation-name: r-t2lo5v;
+    }
+
+    .r-gg6oyi {
+      font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    .r-ggadg3 {
+      left: -2px;
+    }
+
+    .r-givd4m {
+      left: -5px;
+    }
+
+    .r-gl891g {
+      min-width: 420px;
+    }
+
+    .r-gpge5b {
+      right: calc(50% + 11px);
+    }
+
+    .r-gtdqiz {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+
+    .r-gu0qjt {
+      padding-left: 32px;
+    }
+
+    .r-gxnn5r {
+      border-left-width: 0px;
+    }
+
+    .r-gxopl6 {
+      left: 316px;
+    }
+
+    .r-gy4na3 {
+      padding-left: 0px;
+    }
+
+    .r-gys0vz {
+      color: rgba(0, 136, 71, 1.00);
+    }
+
+    .r-h2mvr {
+      min-width: 8px;
+    }
+
+    .r-h2q2x {
+      transform: scaleX(-1);
+    }
+
+    .r-h3s6tt {
+      height: 48px;
+    }
+
+    .r-h7ga17 {
+      background-color: rgba(43, 46, 57, 1.00);
+    }
+
+    .r-h7gdob {
+      color: currentColor;
+    }
+
+    .r-ha54is {
+      icon-color: #a2a9b9;
+    }
+
+    .r-hauab {
+      -moz-transition: width 50ms ease-in-out;
+      -webkit-transition: width 50ms ease-in-out;
+      transition: width 50ms ease-in-out;
+    }
+
+    .r-hbpseb {
+      line-height: 22px;
+    }
+
+    .r-hd655f {
+      color: rgba(162, 169, 185, 1.00);
+    }
+
+    .r-hlbwmg {
+      border-right-color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-homxoj {
+      color: inherit;
+    }
+
+    .r-hpxh1o {
+      color: rgba(89, 124, 101, 1.00);
+    }
+
+    .r-hq6u89 {
+      left: 92%;
+    }
+
+    .r-htfu76 {
+      margin-left: -8px;
+    }
+
+    .r-hu79xy {
+      min-width: 196px;
+    }
+
+    .r-hvns9x {
+      max-width: 400px;
+    }
+
+    .r-hxflta {
+      padding-right: env(safe-area-inset-right);
+    }
+
+    .r-i023vh {
+      padding-right: 16px;
+    }
+
+    .r-i7h7g2 {
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+    }
+
+    .r-i8xx8x {
+      color: rgba(207, 34, 46, 1.00);
+    }
+
+    .r-ia06lx {
+      background-color: rgba(115, 92, 255, 1.00);
+    }
+
+    .r-ibjss6 {
+      background-color: rgba(136, 153, 168, 1.00);
+    }
+
+    .r-icoktb {
+      opacity: 0.5;
+    }
+
+    .r-ifefl9 {
+      min-height: 0px;
+    }
+
+    .r-ihd41t {
+      border: 1px solid #374151;
+    }
+
+    .r-iphfwy {
+      padding-bottom: 4px;
+    }
+
+    .r-ipm5af {
+      top: 0px;
+    }
+
+    .r-iqs06e {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1));
+    }
+
+    .r-ir6n1k {
+      border-top-right-radius: 6px;
+    }
+
+    .r-ixzivm {
+      @media print: [object Object];
+    }
+
+    .r-iyfy8q {
+      width: auto;
+    }
+
+    .r-j300sb {
+      animation-name: r-1rx4pb;
+    }
+
+    .r-jfrpv2 {
+      color: rgba(130, 80, 223, 1.00);
+    }
+
+    .r-jn0m22 {
+      top: 54px;
+    }
+
+    .r-jn5ml {
+      right: -5px;
+    }
+
+    .r-jvuzdy {
+      top: -5px;
+    }
+
+    .r-jwli3a {
+      color: rgba(255, 255, 255, 1.00);
+    }
+
+    .r-jxjwwx {
+      left: 24px;
+    }
+
+    .r-k200y {
+      align-self: flex-start;
+    }
+
+    .r-k923pl {
+      background-color: rgba(218, 212, 255, 1.00);
+    }
+
+    .r-kcufgn {
+      cursor: ew-resize;
+    }
+
+    .r-key0ze {
+      height: 240px;
+    }
+
+    .r-kicko2 {
+      border-top-left-radius: 4px;
+    }
+
+    .r-kls4rr {
+      padding-right: 40px;
+    }
+
+    .r-knv0ih {
+      margin-top: 8px;
+    }
+
+    .r-kquydp {
+      right: -4px;
+    }
+
+    .r-ky29hr {
+      bottom: 2px;
+    }
+
+    .r-l0gwng {
+      width: 200px;
+    }
+
+    .r-l13dpy {
+      z-index: 200;
+    }
+
+    .r-l27s25 {
+      background-color: rgba(204, 207, 212, 1.00);
+    }
+
+    .r-l9hqf4 {
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.69);
+    }
+
+    .r-l9st2p {
+      -webkit-text-decoration-color: rgba(162, 169, 185, 1.00);
+      text-decoration-color: rgba(162, 169, 185, 1.00);
+    }
+
+    .r-labphf {
+      height: -webkit-fit-content;
+      height: -moz-fit-content;
+      height: fit-content;
+    }
+
+    .r-lchren {
+      margin-right: auto;
+    }
+
+    .r-lk1fr1 {
+      icon-color: #8899a8;
+    }
+
+    .r-lltvgl {
+      overflow-x: auto;
+    }
+
+    .r-lqms97 {
+      margin-left: -1px;
+    }
+
+    .r-lrsllp {
+      width: 24px;
+    }
+
+    .r-lrvibr {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .r-lv5dtd {
+      padding-left: 110px;
+    }
+
+    .r-lx1l9k {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1), #ffffff);
+    }
+
+    .r-m0vln2 {
+      border-left-color: rgba(43, 46, 57, 1.00);
+    }
+
+    .r-m2pi6t {
+      padding-left: 4px;
+    }
+
+    .r-m5arl1 {
+      width: 2px;
+    }
+
+    .r-mabqd8 {
+      height: 32px;
+    }
+
+    .r-majxgm {
+      font-weight: 500;
+    }
+
+    .r-mbgqwd {
+      margin-right: 24px;
+    }
+
+    .r-mfh4gg {
+      scroll-snap-type: x mandatory;
+    }
+
+    .r-mfzc6t {
+      background-color: rgba(0, 0, 0, 0.10);
+    }
+
+    .r-mhe3cw {
+      z-index: 10;
+    }
+
+    .r-ms8t9i {
+      border-left-width: 3px;
+    }
+
+    .r-mwitap {
+      pointer-event: none;
+    }
+
+    .r-na6qhi {
+      ;
+    }
+
+    .r-ng8e2f {
+      cursor: -webkit-grab;
+      cursor: -moz-grab;
+      cursor: grab;
+    }
+
+    .r-nkouq2 {
+      box-shadow: -5px 0px 7px rgba(36, 42, 49, 0.60);
+    }
+
+    .r-notknq {
+      border-top-right-radius: 4px;
+    }
+
+    .r-nvplwv {
+      animation-timing-function: ease-out;
+    }
+
+    .r-nvvorq {
+      top: 3.5px;
+    }
+
+    .r-nwxazl {
+      line-height: 40px;
+    }
+
+    .r-nzcix3 {
+      border-bottom-color: rgba(227, 232, 237, 1.00);
+    }
+
+    .r-o2ldwd {
+      left: calc(50% + 11px);
+    }
+
+    .r-o8yidv {
+      border-top-left-radius: 6px;
+    }
+
+    .r-o9xkwf {
+      top: 2px;
+    }
+
+    .r-oax9xa {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    .r-obd0qt {
+      align-items: flex-end;
+    }
+
+    .r-onxxid {
+      background-color: rgba(27, 30, 33, 0.77);
+    }
+
+    .r-op3p1c {
+      width: 520px;
+    }
+
+    .r-orgf3d {
+      opacity: 0;
+    }
+
+    .r-ou6ah9 {
+      border-top-left-radius: 0px;
+    }
+
+    .r-oucylx {
+      border-bottom-color: rgba(0, 0, 0, 0.00);
+    }
+
+    .r-oz83uh {
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12);
+    }
+
+    .r-p1pxzi {
+      margin-bottom: 0px;
+    }
+
+    .r-pex7a0 {
+      color: rgba(130, 7, 30, 1.00);
+    }
+
+    .r-pi8zqv {
+      box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.04);
+    }
+
+    .r-pm9dpa {
+      max-height: 100%;
+    }
+
+    .r-puj83k {
+      padding-left: 24px;
+    }
+
+    .r-py1axk {
+      border-bottom-right-radius: 7px;
+    }
+
+    .r-q4m81j {
+      text-align: center;
+    }
+
+    .r-qklmqi {
+      border-bottom-width: 1px;
+    }
+
+    .r-qn3fzs {
+      padding-bottom: 24px;
+    }
+
+    .r-qyrhsv {
+      border-right-color: rgba(40, 49, 67, 1.00);
+    }
+
+    .r-r1s0sa {
+      background-color: rgba(255, 235, 233, 1.00);
+    }
+
+    .r-r7ey0d {
+      background-color: rgba(218, 212, 255, 0.50);
+    }
+
+    .r-r9hte5 {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    .r-rs94m5 {
+      background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4xIgogICB2aWV3Qm94PSIwIDAgMSAxIgogICBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0Ij4KICA8cGF0aAogICAgIGQ9Ik0gMC4wNDAzODA1OSwwLjYyNjc3NjcgMC4xNDY0NDY2MSwwLjUyMDcxMDY4IDAuNDI5Mjg5MzIsMC44MDM1NTMzOSAwLjMyMzIyMzMsMC45MDk2MTk0MSB6IE0gMC4yMTcxNTcyOSwwLjgwMzU1MzM5IDAuODUzNTUzMzksMC4xNjcxNTcyOSAwLjk1OTYxOTQxLDAuMjczMjIzMyAwLjMyMzIyMzMsMC45MDk2MTk0MSB6IgogICAgIGlkPSJyZWN0Mzc4MCIKICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIiAvPgo8L3N2Zz4K");
+    }
+
+    .r-rwqe4o {
+      width: 48px;
+    }
+
+    .r-s09aw7 {
+      background-image: linear-gradient(to left, #735cff, rgb(109 28 169), rgb(96 104 191), #008847, #FFD139, #b95e04, #d33d3d);
+    }
+
+    .r-s0e3za {
+      padding-left: 80px;
+    }
+
+    .r-sa2ff0 {
+      min-height: 100vh;
+    }
+
+    .r-sfbmgh {
+      z-index: 9999;
+    }
+
+    .r-sga3zk {
+      height: 64px;
+    }
+
+    .r-sgscqh {
+      width: 250px;
+    }
+
+    .r-t12b5v {
+      border-top-right-radius: 0px;
+    }
+
+    .r-t3lkjx {
+      background-color: rgba(228, 79, 137, 1.00);
+    }
+
+    .r-t9hbny {
+      background-color: rgba(211, 61, 61, 1.00);
+    }
+
+    .r-tceitz {
+      left: 16px;
+    }
+
+    .r-tni569 {
+      background-color: rgba(11, 79, 47, 1.00);
+    }
+
+    .r-tskmnb {
+      padding-top: 8px;
+    }
+
+    .r-tsynxw {
+      text-transform: uppercase;
+    }
+
+    .r-u529wo {
+      transform: translateY(-2px);
+    }
+
+    .r-u6sd8q {
+      background-repeat: no-repeat;
+    }
+
+    .r-u8s1d {
+      position: absolute;
+    }
+
+    .r-u92y06 {
+      background-color: rgba(255, 165, 0, 1.00);
+    }
+
+    .r-u9bbvc {
+      ;
+    }
+
+    .r-u9z937 {
+      bottom: 80px;
+    }
+
+    .r-ubezar {
+      font-size: 16px;
+    }
+
+    .r-ud0q2t {
+      letter-spacing: 1px;
+    }
+
+    .r-ufs8t {
+      background-clip: text;
+    }
+
+    .r-uibjmv {
+      font-family: gitbook-code-font, Menlo, monospace;
+    }
+
+    .r-upfvwg {
+      box-shadow: 0px 0px 1px rgb(255 255 255 / 30%);
+    }
+
+    .r-uweo6c {
+      bottom: 136px;
+    }
+
+    .r-ux9zog {
+      background-color: rgba(51, 61, 85, 1.00);
+    }
+
+    .r-v2u3o6 {
+      right: 4px;
+    }
+
+    .r-vjwmdu {
+      max-width: 75px;
+    }
+
+    .r-vkv6oe {
+      min-width: 40px;
+    }
+
+    .r-vlcob {
+      color: rgba(24, 28, 31, 1.00);
+    }
+
+    .r-vq47rg {
+      color: rgba(211, 61, 61, 1.00);
+    }
+
+    .r-vvn4in {
+      background-position: center;
+    }
+
+    .r-w0va4e {
+      margin-right: 40px;
+    }
+
+    .r-w9n8ly {
+      transition-delay: 200ms;
+    }
+
+    .r-wc24c3 {
+      z-index: 20;
+    }
+
+    .r-wech8c {
+      max-width: 1280px;
+    }
+
+    .r-wgabs5 {
+      border-bottom-width: 2px;
+    }
+
+    .r-wk8lta {
+      padding-top: 0px;
+    }
+
+    .r-ws9h79 {
+      left: 4px;
+    }
+
+    .r-wwqw7s {
+      left: -1px;
+    }
+
+    .r-wy61xf {
+      height: 72px;
+    }
+
+    .r-x1dlf0 {
+      max-width: 200px;
+    }
+
+    .r-x3cy2q {
+      background-size: 100% 100%;
+    }
+
+    .r-xb2eav {
+      font-size: 40px;
+    }
+
+    .r-xd6kpl {
+      padding-bottom: 8px;
+    }
+
+    .r-xifl00 {
+      left: -4px;
+    }
+
+    .r-xky0vn {
+      background-color: rgba(104, 60, 17, 1.00);
+    }
+
+    .r-xnn892 {
+      background-color: rgba(218, 251, 225, 1.00);
+    }
+
+    .r-xx3c9p {
+      animation-name: r-imtty0;
+    }
+
+    .r-xzortm {
+      margin-right: -16px;
+    }
+
+    .r-y2cmme {
+      color: rgba(190, 228, 202, 1.00);
+    }
+
+    .r-y3rmyz {
+      width: 120px;
+    }
+
+    .r-ye2ihm {
+      background-image: none;
+    }
+
+    .r-yh6aho {
+      background-image: linear-gradient(270deg, #2b2e39 10%, #22272e, #2b2e39 90%);
+    }
+
+    .r-yj30ev {
+      right: 24px;
+    }
+
+    .r-yrgyi6 {
+      white-space: pre;
+    }
+
+    .r-ywxogp {
+      color: rgba(115, 92, 255, 1.00);
+    }
+
+    .r-z3s97b {
+      border-right-color: rgba(43, 46, 57, 1.00);
+    }
+
+    .r-z80fyv {
+      height: 20px;
+    }
+
+    .r-z9jf92 {
+      color: rgba(234, 242, 247, 1.00);
+    }
+
+    .r-zchlnj {
+      right: 0px;
+    }
+
+    .r-zh076v {
+      height: 100vh;
+    }
+
+    .r-zits6j {
+      right: 8%;
+    }
+
+    .r-zo7nv5 {
+      -webkit-column-gap: 16px;
+      column-gap: 16px;
+    }
+
+    .r-ztyd71 {
+      background-color: rgba(0, 0, 0, 0.20);
+    }
+
+    @-webkit-keyframes r-1ak6360 {
+      0% {
+        background-position-x: 0%;
+      }
+
+      100% {
+        background-position-x: 100%;
+      }
+    }
+
+    @-webkit-keyframes r-1hunrpy {
+      0% {
+        transform: translateY(100%);
+      }
+
+      100% {
+        transform: translateY(0%);
+      }
+    }
+
+    @-webkit-keyframes r-1rx4pb {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(400%);
+      }
+    }
+
+    @-webkit-keyframes r-9p3sdl {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @-webkit-keyframes r-imtty0 {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes r-ndfo3d {
+      0% {
+        transform: translateY(0%);
+      }
+
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+    @-webkit-keyframes r-t2lo5v {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes r-1ak6360 {
+      0% {
+        background-position-x: 0%;
+      }
+
+      100% {
+        background-position-x: 100%;
+      }
+    }
+
+    @keyframes r-1hunrpy {
+      0% {
+        transform: translateY(100%);
+      }
+
+      100% {
+        transform: translateY(0%);
+      }
+    }
+
+    @keyframes r-1rx4pb {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(400%);
+      }
+    }
+
+    @keyframes r-9p3sdl {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes r-imtty0 {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes r-ndfo3d {
+      0% {
+        transform: translateY(0%);
+      }
+
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+    @keyframes r-t2lo5v {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    [stylesheet-group="10"] {}
+
+    [data-rnwrdesktop-166pt5r] {
+      width: max(220px, calc(100vw - max(300px, calc((100vw - 970px) / 2 - 0px)) - 750px - 110px - 300px - 0px));
+    }
+
+    [data-rnwrdesktop-18u37iz] {
+      flex-direction: row;
+    }
+
+    [data-rnwrdesktop-1hy97zq-1q6rxnj-lv5dtd-9111t9] {
+      padding-left: 110px;
+      padding-right: 410px;
+      padding-top: 80px;
+    }
+
+    [data-rnwrdesktop-1jkjb] {
+      margin-left: 8px;
+    }
+
+    [data-rnwrdesktop-1kb76zh] {
+      margin-right: 8px;
+    }
+
+    [data-rnwrdesktop-1ph75f1] {
+      height: 80px;
+    }
+
+    [data-rnwrdesktop-1uwte3a] {
+      padding-bottom: 40px;
+    }
+
+    [data-rnwrdesktop-fnigne] {
+      border-right-width: 0px;
+    }
+
+    [data-rnwrdesktop-gg6oyi-adyw6z-135wba7-b88u0q] {
+      font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+    }
+
+    [data-rnwrdesktop-gg6oyi-ubezar-135wba7-1kfrs79] {
+      font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+
+    [data-rnwrdesktop-gg6oyi-xb2eav-1dn12g7-b88u0q] {
+      font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 48px;
+    }
+
+    [data-rnwrdesktop-h3s6tt] {
+      height: 48px;
+    }
+
+    [data-rnwrdesktop-hidden] {
+      display: none;
+    }
+
+    [data-rnwrdesktop-iyfy8q-1qhn6m8-11g3r6m-1h0z5md] {
+      justify-content: flex-start;
+      padding-left: 16px;
+      padding-right: 24px;
+      width: auto;
+    }
+
+    [data-rnwrdesktop-visible] {
+      display: flex;
+    }
+
+    [stylesheet-group="11"] {}
+
+    @media (max-width: 1024px) and (max-width: 9999999.494850524510111312253100114px) {
+      [data-rnwr1024-eqz5dr] {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 1024px) and (max-width: 9999999.494850524511810511510598108101px) {
+      [data-rnwr1024-visible] {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 1024px) and (max-width: 9999999.49485052454910510212011610048px) {
+      [data-rnwr1024-1ifxtd0] {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (max-width: 1280px) and (max-width: 9999999.4950564845104105100100101110px) {
+      [data-rnwr1280-hidden] {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1280px) and (max-width: 9999999.49505648454955555510299105px) {
+      [data-rnwr1280-1777fci] {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 1430px) and (max-width: 9999999.495251484511810511510598108101px) {
+      [data-rnwr1430-visible] {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 1490px) and (max-width: 9999999.495257484511810511510598108101px) {
+      [data-rnwr1490-visible] {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 1490px) and (max-width: 9999999.49525748454955555510299105px) {
+      [data-rnwr1490-1777fci] {
+        justify-content: center;
+      }
+    }
+
+    [stylesheet-group="12"] {}
+
+    @media (max-width: 700px) and (max-width: 9999999.5548484510111312253100114px) {
+      [data-rnwr700-eqz5dr] {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.55484845103103541111211054511798101122971144549515311998975545491071021141155557px) {
+      [data-rnwr700-gg6oyi-ubezar-135wba7-1kfrs79] {
+        font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.55484845103103541111211054511798101122971144549515311998975545495410098975249px) {
+      [data-rnwr700-gg6oyi-ubezar-135wba7-16dba41] {
+        font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.55484845103103541111211054549117105531011015645110119120971221084598565611748113px) {
+      [data-rnwr700-gg6oyi-1ui5ee8-nwxazl-b88u0q] {
+        font-family: gitbook-content-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 40px;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.55484845104105100100101110px) {
+      [data-rnwr700-hidden] {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.5548484510512110212156113451011175110797px) {
+      [data-rnwr700-iyfy8q-eu3ka] {
+        height: 40px;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.554848451051211021215611345103121521109751451054850511181044549119981045397504549104481225310910045px) {
+      [data-rnwr700-iyfy8q-gy4na3-i023vh-1wbh5a2-1h0z5md-] {
+        flex-shrink: 1;
+        justify-content: flex-start;
+        padding-left: 0px;
+        padding-right: 16px;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.554848451151039751122107px) {
+      [data-rnwr700-sga3zk] {
+        height: 64px;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.5548484511810511510598108101px) {
+      [data-rnwr700-visible] {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.55484845491195410154114106454955555510299105px) {
+      [data-rnwr700-1w6e6rj-1777fci] {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.5548484549511085011652103px) {
+      [data-rnwr700-13l2t4g] {
+        border-right-width: 1px;
+      }
+    }
+
+    @media (max-width: 700px) and (max-width: 9999999.5548484557531061221021014549113104110541095645105485051118104px) {
+      [data-rnwr700-95jzfe-1qhn6m8-i023vh] {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 16px;
+      }
+    }
+
+    @media (max-width: 970px) and (max-width: 9999999.5755484510111312253100114px) {
+      [data-rnwr970-eqz5dr] {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 970px) and (max-width: 9999999.5755484549491191141051201194510711011848105104px) {
+      [data-rnwr970-11wrixw-knv0ih] {
+        margin-left: 0px;
+        margin-top: 8px;
+      }
+    }
+
+    @media (max-width: 970px) and (max-width: 9999999.5755484554491224954116455311111710848117px) {
+      [data-rnwr970-61z16t-5oul0u] {
+        margin-bottom: 8px;
+        margin-right: 0px;
+      }
+    }
+
+    [stylesheet-group="13"] {}
+
+    @media (max-width: 700px) and (max-width: 9999999.554848454955555510299105px) {
+      [data-rnwr700-1777fci] {
+        justify-content: center;
+      }
+    }
+
+    [stylesheet-group="20"] {}
+
+    [data-rnwi-1rasi3h-] {
+      color: rgba(136, 153, 168, 1.00);
+    }
+
+    [data-rnwi-handle="codeblock-toolbar"] [data-rnwicodeblock-toolbar-hidden-] {
+      display: none;
+    }
+
+    [data-rnwi-handle="link"] [data-rnwilink--oax9xa-] {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    [data-rnwi-handle="nearest"] [data-rnwinearest-1nf4jbm-] {
+      color: rgba(59, 69, 78, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi--1ghhsy9-hover-focus]:hover,
+    body:not(.dragging) [data-rnwi--1ghhsy9-hover-focus]:focus {
+      color: rgba(52, 109, 219, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi--1xc5h7i-hover-focus]:hover,
+    body:not(.dragging) [data-rnwi--1xc5h7i-hover-focus]:focus {
+      color: rgba(62, 87, 70, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi--4k9ki3--focus]:focus {
+      border-bottom-color: rgba(92, 188, 124, 1.00);
+      border-left-color: rgba(92, 188, 124, 1.00);
+      border-right-color: rgba(92, 188, 124, 1.00);
+      border-top-color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi--oax9xa-hover-focus]:hover,
+    body:not(.dragging) [data-rnwi--oax9xa-hover-focus]:focus {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-190qawg-hover-focus]:hover,
+    body:not(.dragging) [data-rnwi-190qawg-hover-focus]:focus {
+      border-bottom-color: rgba(227, 232, 237, 1.00);
+      border-left-color: rgba(227, 232, 237, 1.00);
+      border-right-color: rgba(227, 232, 237, 1.00);
+      border-top-color: rgba(227, 232, 237, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-1b00too-hover]:hover {
+      background-color: rgba(236, 239, 241, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-1vckr1u-29dh1f-1jsra8-hover-focus]:hover,
+    body:not(.dragging) [data-rnwi-1vckr1u-29dh1f-1jsra8-hover-focus]:focus {
+      background-color: rgba(245, 247, 249, 1.00);
+      background-image: linear-gradient(90deg, #eceff1, #e3e8ed);
+      box-shadow: inset 0px 0px 0px 1px #e3e8ed;
+    }
+
+    body:not(.dragging) [data-rnwi-1vckr1u-hover-focus]:hover,
+    body:not(.dragging) [data-rnwi-1vckr1u-hover-focus]:focus {
+      background-color: rgba(245, 247, 249, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-5xr8s6-dse9kg-2fw26j-15n4387-focus-visible]:focus-visible {
+      outline-color: #2662d7;
+      outline-offset: 0px;
+      outline-style: auto;
+      outline-width: 2px;
+    }
+
+    body:not(.dragging) [data-rnwi-5xr8s6-dse9kg-2fw26j-1pmet0j-focus-visible]:focus-visible {
+      outline-color: #597c65;
+      outline-offset: 0px;
+      outline-style: auto;
+      outline-width: 2px;
+    }
+
+    body:not(.dragging) [data-rnwi-handle="BaseCard"]:hover [data-rnwibasecard--oax9xa-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="BaseCard"]:focus [data-rnwibasecard--oax9xa-hover-focus] {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="BaseCard"]:hover [data-rnwibasecard--oax9xa-hover] {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="button"]:hover [data-rnwibutton--oax9xa-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="button"]:focus [data-rnwibutton--oax9xa-hover-focus] {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="button"]:hover [data-rnwibutton-10pyoum-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="button"]:focus [data-rnwibutton-10pyoum-hover-focus] {
+      color: rgba(5, 5, 5, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="button"]:hover [data-rnwibutton-1bnj018-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="button"]:focus [data-rnwibutton-1bnj018-hover-focus] {
+      color: rgba(92, 105, 117, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="codeblock-toolbar"]:hover [data-rnwicodeblock-toolbar-visible-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="codeblock-toolbar"]:focus [data-rnwicodeblock-toolbar-visible-hover-focus] {
+      display: flex;
+    }
+
+    body:not(.dragging) [data-rnwi-handle="link"]:hover [data-rnwilink--1xc5h7i-1ddef8g-hover] {
+      -webkit-text-decoration-line: underline;
+      color: rgba(62, 87, 70, 1.00);
+      text-decoration-line: underline;
+    }
+
+    body:not(.dragging) [data-rnwi-handle="nearest"]:hover [data-rnwinearest--1ghhsy9-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="nearest"]:focus [data-rnwinearest--1ghhsy9-hover-focus] {
+      color: rgba(52, 109, 219, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="nearest"]:hover [data-rnwinearest--oax9xa-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="nearest"]:focus [data-rnwinearest--oax9xa-hover-focus] {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="nearest"]:hover [data-rnwinearest--oax9xa-hover] {
+      color: rgba(92, 188, 124, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-handle="nearest"]:hover [data-rnwinearest-1nf4jbm-hover-focus],
+    body:not(.dragging) [data-rnwi-handle="nearest"]:focus [data-rnwinearest-1nf4jbm-hover-focus] {
+      color: rgba(59, 69, 78, 1.00);
+    }
+
+    body:not(.dragging) [data-rnwi-u529wo-aq1qub-c1zw6o-1khlhp8-1cut0bx-na6qhi--hover]:hover {
+      box-shadow: 0px 12px 13px rgba(0, 0, 0, 0.02);
+      transform: translateY(-2px);
+    }
+  </style>
+  <style>
+    html,
+    body {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizelegibility;
+      width: 100%;
+      min-height: 100vh;
+      user-select: none;
+      outline: none;
+      position: relative;
+    }
+
+    /* Avoid Chrome to see Safari hack */
+    @supports (-webkit-touch-callout: none) {
+
+      html,
+      body,
+      .gitbook-root {
+        /* The hack for Safari */
+        min-height: -webkit-fill-available;
+      }
+    }
+
+    .gitbook-root {
+      display: flex;
+      min-height: 100vh;
+    }
+  </style>
+
+  <script type="text/javascript" defer="" src="https://cdn.iframe.ly/embed.js" async=""></script>
+  <script type="text/javascript" defer="" src="https://cdn.polyfill.io/v2/polyfill.js?features=Intl.~locale.en"
+    crossorigin="anonymous"></script>
+
+  <style id="iframely-styles" type="text/css">
+    .iframely-responsive {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      box-sizing: border-box;
+    }
+
+    .iframely-responsive>* {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border: 0;
+      box-sizing: border-box;
+    }
+  </style>
+  <meta http-equiv="origin-trial"
+    content="AymqwRC7u88Y4JPvfIF2F37QKylC04248hLCdJAsh8xgOfe/dVJPV3XS3wLFca1ZMVOtnBfVjaCMTVudWM//5g4AAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9">
+</head>
+
+<body>
+  <hr />
+  <p>description: &gt;-
+    Loading performance is key to streamlining your operations. Here are a few</p>
+  <h2 id="stepswerecommendtakingtoensureyourforestisoptimized"> steps we recommend taking to ensure your Forest is
+    optimized.</h2>
+  <h1 id="performance">Performance</h1>
+  <p>Please find here all the hands-on best practices to keep your admin panel performant. Depending on your user's
+    needs,
+    you might either hide or optimize some fields to limit the number of components, avoid a large datasets display or
+    rework complex logic.</p>
+  <p>You can display bellow performances improvement tricks in <a
+      href="https://www.youtube.com/watch?v=UC5nH8q5YUI">this
+      video</a>. For any further help to improve admin panel performances, get in touch with <a
+      href="https://community.forestadmin.com">the community</a>.</p>
+  <h3 id="layoutoptimization">Layout optimization</h3>
+  <p>1. Show only <a
+      href="https://docs.forestadmin.com/documentation/reference-guide/fields/create-and-manage-smart-fields">Smart
+      fields</a> you absolutely need.</p>
+  <p>{% hint style="danger" %}
+    As you can see in the <a href="performance.md#loading-time-benchmark">Loading time benchmark</a> below, Smart fields
+    can be quite <strong>costly</strong> in terms of loading performance. Limiting them to those you need is key.
+    {% endhint %}</p>
+  <p>2. Reduce the number of records per page</p>
+  <p><img src="../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.06.png" alt="" /></p>
+  <p>3. Reduce the number of fields displayed</p>
+  <p><img src="../.gitbook/assets/Capture d’écran 2019-07-01 à 17.47.55 (1).png" alt="" /></p>
+  <p>{% hint style="info" %}
+    You can hide some fields in your table view; this will not prevent you from seeing them in the record details view.
+    {% endhint %}</p>
+  <p>Relationship fields are links to other collection records within your table view:</p>
+  <p><img src="../.gitbook/assets/Capture d’écran 2019-07-01 à 17.49.03.png" alt="" /></p>
+  <p>Having Relationship fields can decrease your performance, especially if your tables have a lot of records.
+    Therefore
+    you should display only those you need and use!</p>
+  <h3 id="optimizesmartfieldsperformance">Optimize smart fields performance</h3>
+  <p>To optimize your smart field performances, please check out <a href="smart-fields/#createadvancedsmartfield">this
+      section</a>.</p>
+  <h3 id="restrictsearchonspecificfields">Restrict search on specific fields</h3>
+  <p>Sometimes, searching in all fields is not relevant and may even result in big performance issues. You can restrict
+    your search to specific fields only using the <code>searchFields</code> option.</p>
+  <p>{% tabs %}
+    {% tab title="SQL" %}
+    In this example, we configure Forest Admin to only search on the fields <code>name</code> and <code>industry</code>
+    of
+    our collection <code>companies</code>.</p>
+  <p>{% code title="/forest/companies.js" %}</p>
+  <pre><code class="javascript language-javascript">const { collection } = require('forest-express-sequelize');
+​
+collection('companies', {
+  searchFields: ['name', 'industry'],   
+});
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Mongodb" %}
+    In this example, we configure Forest to only search on the fields <code>name</code> and <code>industry</code> of our
+    collection <code>companies</code>.</p>
+  <p>{% code title="/forest/companies.js" %}</p>
+  <pre><code class="javascript language-javascript">const { collection } = require('forest-express-mongoose');
+​
+collection('companies', {
+  searchFields: ['name', 'industry'],   
+});
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Rails" %}
+    In this example, we configure Forest to only search on the fields <code>name</code> and <code>industry</code> of our
+    collection <code>Company</code>.</p>
+  <p>{% code title="/lib/forest_liana/collections/company.rb" %}</p>
+  <pre><code class="ruby language-ruby">class Forest::Company
+  include ForestLiana::Collection
+
+  collection :Company
+
+  search_fields ['name', 'industry']
+
+  action 'Mark as Live'
+
+# ...
+end
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}
+    {% endtabs %}</p>
+  <h3 id="disablepaginationcount">Disable pagination count</h3>
+  <p>{% hint style="info" %}
+    This feature is only available if you're using the <code>forest-express-sequelize</code> (v8.5.3+)<code>,</code>
+    <code>forest-express-mongoose</code> (v8.6.5+), <code>forest-rails</code> (v7.5.0+) or
+    <code>django-forestadmin</code>
+    (v1.2.0+) agent.
+    {% endhint %}
+  </p>
+  <p>To paginate tables properly, Forest Admin triggers a separate request to fetch the number of records.</p>
+  <p>In certain conditions, usually, when your database reaches a point where it has a lot of records, this request can
+    decrease your loading performance. In this case, you can choose to disable it…</p>
+  <p>{% tabs %}
+    {% tab title="SQL" %}</p>
+  <ul>
+    <li>adding the <code>deactivateCountMiddleware</code> like so:</li>
+  </ul>
+  <p>{% code title="/routes/books.js" %}</p>
+  <pre><code class="javascript language-javascript">const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('forest-express-sequelize');
+
+...
+
+// Get a number of Books
+router.get('/books/count', deactivateCountMiddleware);
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Mongodb" %}</p>
+  <ul>
+    <li>adding the <code>deactivateCountMiddleware</code> like so:</li>
+  </ul>
+  <p>{% code title="/routes/books.js" %}</p>
+  <pre><code class="javascript language-javascript">const { PermissionMiddlewareCreator, deactivateCountMiddleware } = require('forest-express-sequelize');
+
+...
+
+// Get a number of Books
+router.get('/books/count', deactivateCountMiddleware);
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Rails" %}</p>
+  <ul>
+    <li>creating a controller in the repository <code>lib/forest_liana/controllers</code> for override the count action
+    </li>
+  </ul>
+  <pre><code class="ruby language-ruby">class Forest::BooksController &lt; ForestLiana::ResourcesController
+  def count
+    deactivate_count_response
+  end
+end
+</code></pre>
+  <ul>
+    <li>adding a route in <code>app/config/routes.rb</code> before
+      <code>mount ForestLiana::Engine =&gt; '/forest'</code>
+    </li>
+  </ul>
+  <pre><code class="ruby language-ruby">namespace :forest do
+    get '/Book/count' , to: 'books#count'
+end
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Django" %}
+    ..adding the following middleware in settings.py and set the collection(s) to deactivate.</p>
+  <p>{% code title="myproject/settings.py" %}</p>
+  <pre><code class="python language-python">MIDDLEWARE = [
+   'django_forest.middleware.DeactivateCountMiddleware',
+   # ...
+]
+
+# To deactivate the count on /apps_books/count
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books', # apps_model
+   ],
+   # ...
+}
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Laravel" %}
+    {% code title="app/Http/Controllers/BooksController.php" %}</p>
+  <pre><code class="php language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+
+class BooksController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        return JsonApi::deactivateCountResponse();
+    }
+}
+</code></pre>
+  <p>{% endcode %}</p>
+  <p>adding a route in <code>app/routes/web.php</code></p>
+  <p>{% code title="routes/web.php" %}</p>
+  <pre><code class="php language-php">&lt;?php
+
+use App\Http\Controllers\BooksController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('forest/book/count', [BooksController::class, 'count']);
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}
+    {% endtabs %}</p>
+  <p>To disable the count request in the table of a relationship (Related data section):</p>
+  <p>{% tabs %}
+    {% tab title="SQL" %}
+    {% code title="/routes/books.js" %}</p>
+  <pre><code class="javascript language-javascript">router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Mongodb" %}
+    {% code title="/routes/books.js" %}</p>
+  <pre><code class="javascript language-javascript">router.get('/books/:recordId/relationships/companies/count', deactivateCountMiddleware);
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Rails" %}</p>
+  <pre><code class="ruby language-ruby">class Forest::BookCompaniesController &lt; ForestLiana::AssociationsController
+  def count
+      if (params[:search])
+        params[:collection] = 'Book'
+        params[:association_name] = 'company'
+        super
+      else
+        deactivate_count_response
+    end
+  end
+end
+</code></pre>
+  <pre><code class="ruby language-ruby">namespace :forest do
+    get '/Book/:id/relationships/companies/count' , to: 'book_companies#count'
+end
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Django" %}
+    {% code title="myproject/settings.py" %}</p>
+  <pre><code class="python language-python">MIDDLEWARE = [
+   'django_forest.middleware.DeactivateCountMiddleware',
+   # ...
+]
+
+# To deactivate the count on /apps_books/&lt;pk&gt;/company/count
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books:company', # apps_model:related_field
+   ],
+   # ...
+}
+</code></pre>
+  <p>{% endcode %}</p>
+  <p>Furthermore, if you want to disable on all relationships at once:</p>
+  <pre><code class="python language-python"># To deactivate the count on all the related data of the apps_book model
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books:*', # apps_model:*
+   ],
+   # ...
+}
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Laravel" %}
+    {% code title="app/Http/Controllers/BookCompaniesController.php" %}</p>
+  <pre><code class="php language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\RelationshipsController;
+use Illuminate\Http\JsonResponse;
+
+class BookCompaniesController extends RelationshipsController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        $parameters['association_name'] = 'companies';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        if (request()-&gt;has('search')) {
+            return JsonApi::deactivateCountResponse();
+        } else {
+            return parent::count();
+        }
+    }
+}
+</code></pre>
+  <p>{% endcode %}</p>
+  <p>{% code title="routes/web.php" %}</p>
+  <pre><code class="php language-php">&lt;?php
+
+use App\Http\Controllers\BookCompaniesController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('forest/book/{id}/relationships/companies/count', [BookCompaniesController::class, 'count']);
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}
+    {% endtabs %}</p>
+  <p>You can also disable the count request in a collection only in certain conditions. For instance, you can disable
+    the
+    count if you're using a filter:</p>
+  <p>{% tabs %}
+    {% tab title="SQL" %}
+    {% code title="/routes/books.js" %}</p>
+  <pre><code class="javascript language-javascript">// Get a number of Books when you have a filtering
+router.get('/books/count', (request, response, next) =&gt; {
+  if (request.query.filters) {
+    next(); // count will be done
+  } else {
+    deactivateCountMiddleware(request, response);
+  }
+});
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Mongodb" %}
+    {% code title="/routes/books.js" %}</p>
+  <pre><code class="javascript language-javascript">// Get a number of Books when you have a filter
+router.get('/books/count', (request, response, next) =&gt; {
+  if (request.query.filters) {
+    next(); // count will be done
+  } else {
+    deactivateCountMiddleware(request, response);
+  }
+});
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Rails" %}</p>
+  <pre><code class="ruby language-ruby">class Forest::BooksController &lt; ForestLiana::ResourcesController
+  def count
+    if (params[:filters])
+      params[:collection] = 'Book'
+      super
+    else
+      deactivate_count_response
+    end
+  end
+end
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Django" %}
+    {% code title="myproject/myapp/middlewares.py" %}</p>
+  <pre><code class="python language-python">class CustomDeactivateCountMiddleware(DeactivateCountMiddleware):
+
+    def is_deactivated(self, request, view_func, *args, **kwargs):
+        is_deactivated = super().is_deactivated(request, view_func, *args, **kwargs)
+        return is_deactivated and 'search' not in request.GET
+</code></pre>
+  <p>{% endcode %}</p>
+  <p>{% code title="myproject/settings.py" %}</p>
+  <pre><code class="python language-python">MIDDLEWARE = [
+   'myproject.myapp.middlewares.CustomDeactivateCountMiddleware',
+   # ...
+]
+
+# To deactivate the count on /apps_books/count if there is no search argument
+FOREST = {
+   # ...,
+   DEACTIVATED_COUNT = [
+      'apps_books', # apps_model
+   ],
+   # ...
+}
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}</p>
+  <p>{% tab title="Laravel" %}
+    {% code title="app/Http/Controllers/BooksController.php" %}</p>
+  <pre><code class="php language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+
+class BooksController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        if (request()-&gt;has('filters')) {
+            return parent::count();
+        } else {
+            return JsonApi::deactivateCountResponse();
+        }
+    }
+}
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}
+    {% endtabs %}</p>
+  <p>One more example: you may want to deactivate the pagination count request for a specific team:</p>
+  <p>{% tabs %}
+    {% tab title="SQL" %}</p>
+  <pre><code class="javascript language-javascript">router.get('/books/count', (request, response, next) =&gt; {
+  // Count is deactivated for the Operations team
+  if (request.user.team === 'Operations') {
+    deactivateCountMiddleware(request, response);
+  // Count is made for all other teams
+  } else {
+    next();
+  }
+});
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Mongodb" %}</p>
+  <pre><code class="javascript language-javascript">router.get('/books/count', (request, response, next) =&gt; {
+  // Count is deactivated for the Operations team
+  if (request.user.team === 'Operations') {
+    deactivateCountMiddleware(request, response);
+  // Count is made for all other teams
+  } else {
+    next();
+  }
+});
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Rails" %}</p>
+  <pre><code class="ruby language-ruby">class Forest::BooksController &lt; ForestLiana::ResourcesController
+  def count
+    if forest_user['team'] == 'Operations'
+      deactivate_count_response
+    else
+      params[:collection] = 'Book'
+      super
+    end
+  end
+end
+</code></pre>
+  <p>{% endtab %}</p>
+  <p>{% tab title="Laravel" %}
+    {% code title="app/Http/Controllers/BooksController.php" %}</p>
+  <pre><code class="php language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use ForestAdmin\LaravelForestAdmin\Facades\JsonApi;
+use ForestAdmin\LaravelForestAdmin\Http\Controllers\ResourcesController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+
+class BooksController extends ResourcesController
+{
+    public function callAction($method, $parameters)
+    {
+        $parameters['collection'] = 'Book';
+        return parent::callAction($method, $parameters);
+    }
+
+    public function count(): JsonResponse
+    {
+        if (Auth::guard('forest')-&gt;user()-&gt;getAttribute('team') === 'Operations') {
+            return JsonApi::deactivateCountResponse();
+        } else {
+            return parent::count();
+        }
+    }
+}
+</code></pre>
+  <p>{% endcode %}
+    {% endtab %}
+    {% endtabs %}</p>
+  <h3 id="databaseindexing">Database Indexing</h3>
+  <p><strong>Indexes</strong> are a powerful tool used in the background of a database to speed up querying. It power
+    queries by providing a method to quickly lookup the requested data. As Forest Admin generates SQL queries to fetch
+    your data, creating indexes can improve the query response time.</p>
+  <p>5. Index the Primary and Unique Key Columns</p>
+  <p>\
+    The syntax for creating an index will vary depending on the database. However, the syntax typically includes a
+    <code>CREATE</code> keyword followed by the <code>INDEX</code> keyword and the name we’d like to use for the index.
+    Next should come the <code>ON</code> keyword followed by the name of the table that has the data we’d like to
+    quickly
+    access. Finally, the last part of the statement should be the name(s) of the columns to be indexed.
+  </p>
+  <pre><code>CREATE INDEX &lt;index_name&gt;ON &lt;table_name&gt; (column1, column2, ...)
+</code></pre>
+  <p>For example, if we would like to index phone numbers from a <code>customers</code> table, we could use the
+    following
+    statement:</p>
+  <pre><code>CREATE INDEX customers_by_phoneON customers (phone_number)
+</code></pre>
+  <p>The users cannot see the indexes, they are just used to speed up searches/queries.</p>
+  <p>6. Index the Foreign Key Columns</p>
+  <p>Foreign key columns should be indexed if they are used intensively in Smart fields. In the table below, you can see
+    how drastically it reduces the loading time of the page.</p>
+  <p>{% hint style="warning" %}
+    Updating a table with indexes takes more time than updating a table without (because the indexes also need an
+    update).
+    So, only create indexes on columns that will be frequently searched against.
+    {% endhint %}</p>
+  <h3 id="loadingtimebenchmark">Loading time benchmark</h3>
+  <p>Below is the outcome of a performance test on page load time of the Table view. It highlights the
+    <em>importance</em>
+    of <strong>using indexes</strong> and <strong>limiting the number of columns and lines</strong>.</p>
+  <p><img src="../.gitbook/assets/image (210).png" alt="" /></p>
+</body>
+
+</html>
