@@ -2022,3 +2022,163 @@ class Customer extends Model
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+
+### Use components to layout your form
+
+{% hint style="info" %}
+This feature is only available from **version 9.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 7.0.0** (`forest-rails`) .
+{% endhint %}
+
+This feature is usefull when dealing with long/complex forms, with many fields. It will let your organize them and add useful information to guide the end user.
+The layout must contain the fields as they should be rendered on the form.
+
+#### List of supported layout components :
+
+{% tabs %}
+{% tab title="SQL" %}
+{% code title="forest/customers.js" %}
+
+```javascript
+// Page
+{
+  type: 'Layout',
+  component: 'Page',
+  elements: [...] // An array of fields or other layout elements (except other pages)
+},
+
+// Row
+{
+  type: 'Layout',
+  component: 'Row',
+  fields: [...] // An array of one or two fields
+}
+
+// Separator
+{
+  type: 'Layout',
+  component: 'Separator',
+}
+
+// Html bloc
+{
+  type: 'Layout',
+  component: 'HtmlBlock',
+  content: '...' // A text content, which supports html tags
+}
+
+```
+
+#### Example
+
+Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
+
+{% tabs %}
+{% tab title="SQL" %}
+{% code title="forest/customers.js" %}
+
+```javascript
+const applyLayout = (fields) => {
+  const findFieldByName = (name) => fields.find((field) => field.field === name);
+  return [
+    {
+      type: 'Layout',
+      component: 'Page',
+      elements: [
+        {
+          type: 'Layout',
+          component: 'HtmlBlock',
+          content: '<h3>Please fill in the customer details <b>first</b>, following this <a href="https://how-to-invoice.doc.example">guide</a></h3>'
+        },
+        {
+          type: 'Layout',
+          component: 'Row',
+          fields: [findFieldByName('firstname'), findFieldByName('lastname')]
+        },
+        { type: 'Layout', component: 'Separator' },
+        findFieldByName('username'),
+        findFieldByName('email'),
+      ]
+    },
+    {
+      type: 'Layout',
+      component: 'Page',
+      elements: [
+        {
+          type: 'Layout',
+          component: 'HtmlBlock',
+          content: 'You may now enter his address details'
+        },
+        {
+          type: 'Layout',
+          component: 'Row',
+          fields: [findFieldByName('city'), findFieldByName('zip code')]
+        },
+        findFieldByName('country'),
+      ]
+    }
+  ]
+}
+
+collection('customers', {
+  actions: [
+    {
+      name: 'Send invoice',
+      type: 'single',
+      fields: [
+        {
+          field: 'firstname',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'lastname',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'username',
+          type: 'String',
+        },
+        {
+          field: 'email',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'country',
+          type: 'Enum',
+          enums: [],
+        },
+        {
+          field: 'city',
+          type: 'String',
+          hook: 'onCityChange',
+        },
+        {
+          field: 'zip code',
+          type: 'String',
+          hook: 'onZipCodeChange',
+        },
+      ],
+      hooks: {
+        load: async ({ fields }) => {
+          return applyLayout(fields);
+        },
+        change: {
+          onCityChange: async ({ fields }) => {
+            return applyLayout(fields);
+          },
+          onZipCodeChange: async ({ fields }) => {
+            return applyLayout(fields);
+          },
+        },
+      },
+    },
+  ],
+  fields: [],
+  segments: [],
+});
+```
+
+{% endcode %}
+{% endtab %}
