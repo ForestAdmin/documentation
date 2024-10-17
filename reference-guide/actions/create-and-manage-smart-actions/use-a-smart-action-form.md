@@ -581,7 +581,7 @@ Here is the list of available options to customize your input form.
 ## Use components to better layout your form
 
 {% hint style="info" %}
-This feature is only available from **version 9.0.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 9.4.0** (`forest-rails`) .
+This feature is only available from **version 9.4.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 9.4.0** (`forest-rails`) .
 {% endhint %}
 
 {% hint style="warning" %}
@@ -625,6 +625,7 @@ The layout must contain the fields as they should be rendered on the form.
 }
 
 ```
+
 {% endtab %}
 
 {% tab title="Ruby on Rails" %}
@@ -658,9 +659,9 @@ The layout must contain the fields as they should be rendered on the form.
 }
 
 ```
+
 {% endtab %}
 {% endtabs %}
-
 
 ### Example
 
@@ -785,10 +786,10 @@ class Forest::Customers
   include ForestLiana::Collection
 
   collection :Customers
-  
+
 	def self.apply_layout(fields)
 	  find_field_by_name = proc { |field_name| fields.find { |field| field[:field] == field_name } }
-	
+
 	  [
 		{
 		  type: 'Layout',
@@ -828,7 +829,7 @@ class Forest::Customers
 		}
 	  ]
 	end
-	
+
 	action 'Send invoice',
 	  type: 'single',
 	  fields: [
@@ -880,7 +881,6 @@ end
 {% endcode %}
 {% endtab %}
 {% endtabs %}
-
 
 The resulting action form will be:
 
