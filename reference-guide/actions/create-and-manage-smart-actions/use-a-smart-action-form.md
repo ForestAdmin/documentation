@@ -583,6 +583,314 @@ If you want to use a custom widget via a Smart Action Hook, you'll need to use t
 {% endhint %}
 
 
+## Use components to better layout your form
+
+{% hint style="info" %}
+This feature is only available from **version 9.4.0** (`forest-express-sequelize` and `forest-express-mongoose`) / **version 9.4.0** (`forest-rails`) .
+{% endhint %}
+
+{% hint style="warning" %}
+you must define your layout in a `load` hook at minima, and repeat it in each `change` hook.
+{% endhint %}
+
+This feature is useful when dealing with long/complex forms, with many fields. It will let you organize them and add useful information to guide the end user.
+The layout must contain the fields as they should be rendered on the form.
+
+### List of supported layout components
+
+{% tabs %}
+{% tab title="Node.js" %}
+
+```javascript
+// Page
+{
+  type: 'Layout',
+  component: 'Page',
+  elements: [] // An array of fields or other layout elements (except other pages)
+},
+
+// Row
+{
+  type: 'Layout',
+  component: 'Row',
+  fields: [] // An array of one or two fields
+}
+
+// Separator
+{
+  type: 'Layout',
+  component: 'Separator',
+}
+
+// Html bloc
+{
+  type: 'Layout',
+  component: 'HtmlBlock',
+  content: '...' // A text content, which supports html tags
+}
+
+```
+
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+
+```ruby
+# Page
+{
+  type: 'Layout',
+  component: 'Page',
+  elements: [] # An array of fields or other layout elements (except other pages)
+},
+
+# Row
+{
+  type: 'Layout',
+  component: 'Row',
+  fields: [] # An array of one or two fields
+}
+
+# Separator
+{
+  type: 'Layout',
+  component: 'Separator',
+}
+
+# Html bloc
+{
+  type: 'Layout',
+  component: 'HtmlBlock',
+  content: '...' # A text content, which supports html tags
+}
+
+```
+
+{% endtab %}
+{% endtabs %}
+
+### Example
+
+Here's an example of an action form with many fields, that we want to improve with some layout components, to make it easier for the end user to fill in.
+
+{% tabs %}
+{% tab title="Node.js" %}
+{% code title="forest/customers.js" %}
+
+```javascript
+const applyLayout = (fields) => {
+  const fieldByName = (name) => fields.find((field) => field.field === name);
+  return [
+    {
+      type: 'Layout',
+      component: 'Page',
+      elements: [
+        {
+          type: 'Layout',
+          component: 'HtmlBlock',
+          content: '<h3>Please fill in the customer details <b>first</b>, following this <a href="https://how-to-invoice.doc.example">guide</a></h3>'
+        },
+        {
+          type: 'Layout',
+          component: 'Row',
+          fields: [fieldByName('firstname'), fieldByName('lastname')]
+        },
+        { type: 'Layout', component: 'Separator' },
+        fieldByName('username'),
+        fieldByName('email'),
+      ]
+    },
+    {
+      type: 'Layout',
+      component: 'Page',
+      elements: [
+        {
+          type: 'Layout',
+          component: 'HtmlBlock',
+          content: 'You may now enter his address details'
+        },
+        {
+          type: 'Layout',
+          component: 'Row',
+          fields: [fieldByName('city'), fieldByName('zip code')]
+        },
+        fieldByName('country'),
+      ]
+    }
+  ]
+}
+
+collection('customers', {
+  actions: [
+    {
+      name: 'Send invoice',
+      type: 'single',
+      fields: [
+        {
+          field: 'firstname',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'lastname',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'username',
+          type: 'String',
+        },
+        {
+          field: 'email',
+          type: 'String',
+          isRequired: true,
+        },
+        {
+          field: 'country',
+          type: 'Enum',
+          enums: [],
+        },
+        {
+          field: 'city',
+          type: 'String',
+          hook: 'onCityChange',
+        },
+        {
+          field: 'zip code',
+          type: 'String',
+          hook: 'onZipCodeChange',
+        },
+      ],
+      hooks: {
+        load: async ({ fields }) => {
+          return applyLayout(fields);
+        },
+        change: {
+          onCityChange: async ({ fields }) => {
+            return applyLayout(fields);
+          },
+          onZipCodeChange: async ({ fields }) => {
+            return applyLayout(fields);
+          },
+        },
+      },
+    },
+  ],
+  fields: [],
+  segments: [],
+});
+```
+
+{% endcode %}
+{% endtab %}
+
+{% tab title="Ruby on Rails" %}
+{% code title="lib/forest_liana/customers.rb" %}
+
+```ruby
+class Forest::Customers
+  include ForestLiana::Collection
+
+  collection :Customers
+
+	def self.apply_layout(fields)
+	  find_field_by_name = proc { |field_name| fields.find { |field| field[:field] == field_name } }
+
+	  [
+		{
+		  type: 'Layout',
+		  component: 'Page',
+		  elements: [
+			{
+			  type: 'Layout',
+			  component: 'HtmlBlock',
+			  content: '<h3>Please fill in the customer details <b>first</b>, following this <a href="https://how-to-invoice.doc.example">guide</a></h3>'
+			},
+			{
+			  type: 'Layout',
+			  component: 'Row',
+			  fields: [find_field_by_name.call('firstname'), find_field_by_name.call('lastname')]
+			},
+			{ type: 'Layout', component: 'Separator' },
+			find_field_by_name.call('username'),
+			find_field_by_name.call('email'),
+		  ]
+		},
+		{
+		  type: 'Layout',
+		  component: 'Page',
+		  elements: [
+			{
+			  type: 'Layout',
+			  component: 'HtmlBlock',
+			  content: 'You may now enter his address details'
+			},
+			{
+			  type: 'Layout',
+			  component: 'Row',
+			  fields: [find_field_by_name.call('city'), find_field_by_name.call('zip code')]
+			},
+			find_field_by_name.call('country'),
+		  ]
+		}
+	  ]
+	end
+
+	action 'Send invoice',
+	  type: 'single',
+	  fields: [
+		{
+		  field: 'firstname',
+		  type: 'String',
+		  is_required: true,
+		},
+		{
+		  field: 'lastname',
+		  type: 'String',
+		  is_required: true,
+		},
+		{
+		  field: 'username',
+		  type: 'String',
+		},
+		{
+		  field: 'email',
+		  type: 'String',
+		  is_required: true,
+		},
+		{
+		  field: 'country',
+		  type: 'Enum',
+		  enums: [],
+		},
+		{
+		  field: 'city',
+		  type: 'String',
+		  hook: 'on_city_change',
+		},
+		{
+		  field: 'zip code',
+		  type: 'String',
+		  hook: 'on_zip_code_change',
+		},
+	  ],
+	  hooks: {
+		load: proc { |context| apply_layout(context[:fields]) },
+		change: {
+		  'on_city_change' => proc { |context| apply_layout(context[:fields]) },
+		  'on_zip_code_change' => proc { |context| apply_layout(context[:fields]) },
+		}
+	  }
+end
+```
+
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+The resulting action form will be:
+
+![](../../../.gitbook/assets/action-form-pages.png)
+
 ## Making a form dynamic with hooks
 
 Business logic often requires your forms to adapt to its context. Forest Admin makes this possible through a powerful way to extend your form's logic.
