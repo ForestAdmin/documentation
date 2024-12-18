@@ -50,7 +50,7 @@ If you still have access to your project today, you are using the new role syste
 {% endhint %}
 
 {% hint style="danger" %}
-The old role system has been deprecated the 1st of June 2023, has reached its end of life the 1st of December 2023, and support has been dropped entirely the 4th of December 2024. Please do note that the new Role permissions system requires that you use **version 6.6+** of your agent (version **5.4+** for Rails) on **all** your environments. If you are running proper versions and urgently need to migrate to the new Roles system please contact our [support](mailto:support@forestadmin.com).
+The old role system has been deprecated the 1st of June 2023, has reached its end of life the 1st of December 2023, and support has been dropped entirely the 4th of December 2024. Please do note that the new Role permissions system requires that you use **version 6.6+** of your agent (**version 5.4+** for Rails) on **all** your environments. If you are running proper versions and urgently need to migrate to the new Roles system please contact our [support](mailto:support@forestadmin.com).
 {% endhint %}
 
 The new role system allows you to control all the permissions of your roles from a single details page, which will look like this:‌
