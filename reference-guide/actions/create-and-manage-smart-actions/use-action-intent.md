@@ -44,9 +44,9 @@ Please check your agent type and version and read on or switch to the right docu
 {% endtab %}
 {% endtabs %}
 
-# Action Intents
+# Smart Action Intents
 
-### What are action intents ?
+### What are smart action intents ?
 
 Action intents allows you to redirect your operators from the outside worlds directly to a specific action, by using an url.
 
@@ -54,7 +54,7 @@ This means that your actions can now be accessed directly using a link (saving m
 
 All of our action types are supported (Global, Bulk and Single)
 
-### Building an action intent
+### Building a smart action intent
 
 Get to the index of the collection you want to share an action from, and retrieve its URl.
 

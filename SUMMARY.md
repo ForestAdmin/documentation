@@ -36,6 +36,7 @@
 * [Actions](reference-guide/actions/README.md)
   * [Create and manage Smart Actions](reference-guide/actions/create-and-manage-smart-actions/README.md)
     * [Use a Smart Action Form](reference-guide/actions/create-and-manage-smart-actions/use-a-smart-action-form.md)
+    * [Use a Smart Action Intent](reference-guide/actions/create-and-manage-smart-actions/use-action-intent.md)
   * [Smart Action Examples](reference-guide/actions/smart-action-examples/README.md)
     * [Calculate the distance between two string addresses](reference-guide/actions/smart-action-examples/calculate-the-distance-between-two-string-addresses.md)
     * [Impersonate a user](reference-guide/actions/smart-action-examples/impersonate-a-user.md)
