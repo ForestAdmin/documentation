@@ -67,13 +67,15 @@ Base on that url, you can configure the action intent with 3 parameters:
 * `actionIntentIds` of type array of string, being the IDs of the records you want to execute the action for.
 * `actionIntentParams` of type JSON object, being the params you want to send along your action intent
 
-{% hint style="warning" %} Please do not that `actionIntentIds` and `actionIntentParams` should be a valid JSON structure {% endhint %}
+{% hint style="warning" %} Please do note that `actionIntentIds` and `actionIntentParams` should be a valid JSON structure {% endhint %}
 
 Here is an example of all of these parameters combined:
 
-`https://app.forestadmin.com/aProject/anEnvironment/aTeam/data/aCollection/index?actionIntent=anActionName@actionIntentIds=[1,2]&actionIntentParams={"firstParam":"firstValue","secondParam":"secondValue"}`
+`https://app.forestadmin.com/aProject/anEnvironment/aTeam/data/aCollection/index?actionIntent=anActionName&actionIntentIds=[1,2]&actionIntentParams={"firstParam":"firstValue","secondParam":"secondValue"}`
 
 ### How to use actionIntentParams
+
+{% hint style="warning" %} `actionIntentParams` should be a valid JSON object {% endhint %}
 
 Your parameters provided to the action intent will be passed to your agent over change and load hooks, allowing you to compute any value for your fields based on the provided parameters. You can access those parameters like such:
 
@@ -203,3 +205,9 @@ end
 {% endcode %}
 {% endtab %}
 {% endtabs %}
+
+### How to use actionIntentIds
+
+{% hint style="warning" %} `actionIntentIds` should be a valid JSON array, or a single id. It is also worth noting that for global action, any provided ids will be skipped. Also, action of type single should be having a single id provided, and bulk action should be passed having many provided{% endhint %}
+
+Ids configured in the action intent will be provided as usual within your context. Please refer to this [documentation](../../../reference-guide/actions/create-and-manage-smart-actions/README.md#creating-a-smart-action) for more details.
