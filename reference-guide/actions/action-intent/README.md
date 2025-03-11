@@ -163,7 +163,7 @@ collection('aCollection', {
 {% endtab %}
 
 {% tab title="Rails" %}
-{% code title="lib/forest_liana/customers.rb" %}
+{% code title="lib/forest_liana/a_collection.rb" %}
 
 ```ruby
 class Forest::ACollection
@@ -171,21 +171,25 @@ class Forest::ACollection
 
   collection :ACollection
 
-  action 'anAction',
+  action 'an_action',
     type: 'single',
     fields: [{
-      field: 'aField',
+      field: 'a_field',
       type: 'String',
-      hook: 'onValueChange',
+      hook: 'on_value_change',
     }],
     :hooks => {
       :change => {
-        onValueChange => -> (context, request) {
-          actionIntentParams = request.params
-        }  
+        'on_value_change' => -> (context) {
+          action_intent_params = context[:params][:data][:attributes][:action_intent_params];
+          
+          ...
+          
+          return context[:fields];
+        }
       }
       :load => -> (context, request) {
-        actionIntentParams = request.params
+        action_intent_params = context[:params][:data][:attributes][:action_intent_params];
         
         ...
 
@@ -194,133 +198,6 @@ class Forest::ACollection
     }
     ...
 end
-```
-
-{% endcode %}
-{% endtab %}
-
-{% tab title="Django" %}
-{% code title="app/forest/customer.py" %}
-
-```python
-import json
-
-from django_forest.utils.collection import Collection
-from app.models import Company
-
-class CompanyForest(Collection):
-    def load(self):
-        self.actions = [{
-            'name': 'Charge credit card',
-            'fields': [
-                {
-                    'field': 'amount',
-                    'description': 'The amount (USD) to charge the credit card. Example: 42.50',
-                    'isRequired': True,
-                    'type': 'Number'
-                },
-                {
-                    'field': 'description',
-                    'description': 'Explain the reason why you want to charge manually the customer here',
-                    'isRequired': True,
-                    'type': 'String'
-                },
-                # we added a field to show the full potential of prefilled values in this example
-                {
-                    'field': 'stripe_id',
-                    'isRequired': True,
-                    'type': 'String'
-                },
-            ],
-            'hooks': {
-                'load': self.charge_credit_card_load,
-            },
-        }]
-
-    def charge_credit_card_load(fields, request, *args, **kwargs):
-
-        amount = next((x for x in fields if x['field'] == 'amount'), None)
-        stripeId = next((x for x in fields if x['field'] == 'stripe_id'), None)
-
-        amount['value'] = 4520;
-
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        id = body['data']['attributes']['ids'][0]
-        customer = Customers.objects.get(pk=id)
-
-        stripeId['value'] = customer['stripe_id']
-
-        return fields
-
-Collection.register(CompanyForest, Company)
-```
-
-{% endcode %}
-{% endtab %}
-
-{% tab title="Laravel" %}
-{% code title="app/Models/Customer.php" %}
-
-```php
-<?php
-
-namespace App\Models;
-
-use ForestAdmin\LaravelForestAdmin\Services\Concerns\ForestCollection;
-use ForestAdmin\LaravelForestAdmin\Services\SmartFeatures\SmartAction;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-/**
- * Class Customer
- */
-class Customer extends Model
-{
-    use HasFactory, ForestCollection;
-
-    /**
-     * @return SmartAction
-     */
-    public function chargeCreditCard(): SmartAction
-    {
-        return $this->smartAction('single', 'Charge credit card')
-            ->addField(
-                [
-                    'field' => 'amount',
-                    'type' => 'Number',
-                    'is_required' => true,
-                    'description' => 'The amount (USD) to charge the credit card. Example: 42.50'
-                ]
-            )
-            ->addField(
-                [
-                    'field' => 'description',
-                    'type' => 'String',
-                    'is_required' => true,
-                    'description' => 'Explain the reason why you want to charge manually the customer here'
-                ]
-            )
-            ->addField(
-                [
-                    'field' => 'stripe_id',
-                    'type' => 'String',
-                    'is_required' => true,
-                ]
-            )
-            ->load(
-                function () {
-                    $customer = Customer::find(request()->input('data.attributes.ids')[0]);
-                    $fields = $this->getFields();
-                    $fields['amount']['value'] = 4250;
-                    $fields['stripe_id']['value'] = $customer->stripe_id;
-
-                    return $fields;
-                }
-            );
-    }
-}
 ```
 
 {% endcode %}
