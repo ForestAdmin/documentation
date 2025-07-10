@@ -80,10 +80,6 @@ multipleDocumentPath: {
 multipleDocumentPath: [String];
 ```
 
-Video example available below:
-
-{% embed url="https://recordit.co/jRFzFCfAp3" %}
-
 {% hint style="info" %}
 💡 In order to be able to load several files that may be heavy, you will need to edit your app.js file as explained [here](https://community.forestadmin.com/t/maximum-file-size-in-a-smart-action-field-file/173/4?u=philippeg).
 {% endhint %}

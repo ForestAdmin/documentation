@@ -46,8 +46,6 @@ Please check your agent type and version and read on or switch to the right docu
 
 # Display field with complex info in html format (rich text editor)
 
-{% embed url="https://recordit.co/nPSUe2ogXu" %}
-
 ## First step: Display through html
 
 Create a smart field that will return a string containing the html formatted data (here the features name and if they are enabled or not).
