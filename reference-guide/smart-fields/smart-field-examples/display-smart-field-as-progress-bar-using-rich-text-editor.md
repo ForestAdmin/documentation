@@ -46,8 +46,6 @@ Please check your agent type and version and read on or switch to the right docu
 
 # Display smart field as progress bar using rich text editor
 
-{% embed url="https://recordit.co/C86PbaN8Uy" %}
-
 ```javascript
 const Liana = require('forest-express-sequelize');
 const models = require('../models/');
