@@ -67,7 +67,7 @@ Please follow the dedicated [migration guide](https://docs.forestadmin.com/devel
 {% tab title="Ruby on Rails" %}
 
 | Version | Initial Release | Alive | Active Support | End-of-Support | End-of-Life | Lifetime   |
-| ------- | --------------- | ----- | -------------- |----------------| ----------- | ---------- |
+| ------- | --------------- | ----- | -------------- | -------------- | ----------- | ---------- |
 | v9      | 2024-01-25      | 🟢    | 🟢             | -              | -           | -          |
 | v8      | 2023-03-14      | 🟢    | 🟠             | 2025-09-19     | -           | -          |
 | v7      | 2021-07-20      | 🔴    | 🔴             | 2023-12-31     | 2024-06-30  | ~3 years   |
